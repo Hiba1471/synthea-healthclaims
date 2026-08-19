@@ -1,0 +1,10 @@
+# Secrets -- .env holds Snowflake credentials, API keys and a Slack webhook
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Local Claude Code settings
+.claude/settings.local.json

@@ -1,0 +1,546 @@
+DESCRIPTION,NUM_PROCEDURES,MIN_BASE_COST,MAX_BASE_COST,AVG_BASE_COST
+Renal dialysis (procedure),15219802,379.98,1870.01,762.36675581
+Depression screening (procedure),9400251,408.20,615.85,487.78291033
+Assessment of health and social care needs (procedure),9359928,408.20,615.85,479.64369147
+Assessment of substance use (procedure),5608509,408.20,615.85,482.67902382
+Depression screening using Patient Health Questionnaire Two-Item score (procedure),5595833,408.20,600.50,466.41377088
+Patient referral for dental care (procedure),5259957,408.20,615.85,479.76621221
+Dental consultation and report (procedure),4998714,408.20,615.85,480.13151671
+Medication Reconciliation (procedure),4893966,204.10,1201.00,452.94412183
+Assessment of anxiety (procedure),4857057,408.20,615.85,479.72992806
+Oral health education (procedure),4841283,408.20,615.85,480.14810455
+Examination of gingivae (procedure),4809796,408.20,615.85,480.15124631
+Removal of supragingival plaque and calculus from all teeth using dental instrument (procedure),4809796,408.20,615.85,480.15124631
+Removal of subgingival plaque and calculus from all teeth using dental instrument (procedure),4809796,408.20,615.85,480.15124631
+Dental care (regime/therapy),4809796,408.20,615.85,480.15124631
+Hospice care (regime/therapy),3690292,408.20,615.85,478.43279548
+Screening for domestic abuse (procedure),2801909,408.20,615.85,479.58012697
+Screening for drug abuse (procedure),2618947,408.20,615.85,482.84825992
+Assessment using Alcohol Use Disorders Identification Test - Consumption (procedure),2617490,408.20,615.85,482.75922992
+Combined chemotherapy and radiation therapy (procedure),2463595,4845.69,29242.71,11073.94991202
+Dental fluoride treatment (procedure),2406129,408.20,615.85,480.17564544
+Assessment using Morse Fall Scale (procedure),2281320,408.20,615.85,476.97863306
+Nursing care/supplementary surveillance (regime/therapy),2155826,408.20,615.85,481.92668691
+Dental X-ray bitewing (procedure),1955955,408.20,600.50,467.13818160
+Rehabilitation therapy (regime/therapy),1645137,408.20,615.85,463.55638447
+Medication reconciliation (procedure),1456345,215.70,1231.70,508.70200358
+Hearing examination (procedure),1435135,408.20,615.85,480.33747857
+Evaluation of uterine fundal height,1265859,2140.06,12592.90,4838.68194640
+Auscultation of the fetal heart,1265859,2140.06,12592.90,4839.16640773
+Dental surgical procedure (procedure),905580,408.20,615.85,480.04815882
+Postoperative care for dental procedure (regime/therapy),905580,408.20,615.85,480.04815882
+Dental application of desensitizing medicament (procedure),874112,408.20,615.85,480.06157764
+Depression screening using Patient Health Questionnaire Nine Item score (procedure),861986,24.49,49.26,32.35020164
+Gingivectomy or gingivoplasty  per tooth (procedure),694634,408.20,615.85,480.09847497
+Oxygen administration by mask (procedure),665232,408.20,615.85,480.00363790
+Intramuscular injection,664820,1048.67,6170.79,2358.50115630
+Subcutaneous immunotherapy,659334,4845.69,28513.84,10846.11389030
+Sleep apnea assessment (procedure),643744,408.20,615.85,478.51457993
+Placing subject in prone position (procedure),640671,408.20,615.85,480.02756936
+Dental plain X-ray bitewing (procedure),589858,431.40,615.85,523.20100724
+Professional / ancillary services care (regime/therapy),515563,408.20,615.85,482.07453898
+Auscultation of the fetal heart (procedure),511243,2261.69,12914.80,5247.59314643
+Evaluation of uterine fundal height (procedure),511243,2261.69,12914.80,5256.02320775
+Physical examination procedure (procedure),508870,408.20,615.85,486.77763018
+Application of composite dental filling material to dentin of tooth following fracture of tooth (procedure),481921,408.20,615.85,480.13349738
+Restoration of tooth with coverage of all cusps using dental filling material (procedure),481635,408.20,615.85,480.14270379
+Transplantation of kidney regime (regime/therapy),442308,408.20,615.85,477.79063555
+Spirometry (procedure),411276,3172.24,19143.79,7197.69660607
+Assessment using Car  Relax  Alone  Forget  Friends  Trouble Screening Test (procedure),371935,408.20,615.85,480.92860282
+Initial patient assessment (procedure),299658,408.20,615.85,479.63477361
+Development of individualized plan of care (procedure),299658,408.20,615.85,479.63477361
+Anticipatory guidance (procedure),293133,408.20,615.85,480.83315652
+High resolution computed tomography of chest without contrast (procedure),286291,408.20,615.85,480.23142663
+Hemogram  automated  with RBC  WBC  Hgb  Hct  Indices  Platelet count  and manual WBC differential,284332,816.40,4804.00,1847.15546073
+Colonoscopy,283692,4781.16,28134.14,10610.07735238
+Physical therapy procedure (regime/therapy),276565,204.10,1231.70,467.67038674
+Pulmonary rehabilitation (regime/therapy),253591,1554.42,3118.66,2030.24857866
+Intramuscular injection (procedure),239658,1108.27,6328.53,2589.02422260
+Blood group typing (procedure),235993,816.40,4926.80,1888.53681313
+Occupational therapy (regime/therapy),223022,408.20,615.85,481.82340729
+Renal disorder medication review (procedure),218379,408.20,615.85,477.81037957
+Depression screening,217717,408.20,600.50,475.04224383
+Ultrasound scan for fetal viability,217624,3831.92,22548.43,8642.73498539
+Standard pregnancy test,217624,2140.06,12592.90,4832.90710459
+Subcutaneous immunotherapy (procedure),216708,5121.09,29242.71,11893.59932388
+Gonorrhea infection titer test (procedure),203608,816.40,4926.80,1888.54291575
+Skin test for tuberculosis  Tine test (procedure),203608,816.40,4926.80,1887.62651605
+Urine protein test,203608,816.40,4926.80,1891.16608306
+Syphilis infectious titer test (procedure),203608,816.40,4926.80,1889.87394366
+Detection of chromosomal aneuploidy in prenatal amniotic fluid specimen using fluorescence in situ hybridization screening technique (procedure),203453,816.40,4926.80,1891.72406821
+Plain chest X-ray (procedure),198687,3106.63,18280.61,6896.14100042
+Throat culture (procedure),196722,816.40,4926.80,1884.35455160
+Notifications (procedure),181831,408.20,615.85,478.31758924
+Certification procedure (procedure),181831,408.20,615.85,478.31758924
+Measurement of respiratory function (procedure),179248,32.65,985.36,346.78486951
+Echocardiography (procedure),166016,326.56,2463.40,897.07914924
+Childbirth,158860,408.20,615.85,486.96277200
+Electrocardiographic procedure (procedure),157613,408.20,3510.34,1310.79563044
+Simple extraction of tooth (procedure),156216,408.20,615.85,479.91505371
+Rubella screening,145078,816.40,4804.00,1846.32683357
+Urine culture,145078,816.40,4804.00,1852.15229042
+Hepatitis C antibody  confirmatory test,145078,816.40,4804.00,1844.38752788
+Human immunodeficiency virus antigen test,145078,816.40,4804.00,1844.95152284
+Measurement of Varicella-zoster virus antibody,145078,816.40,4804.00,1845.31467431
+Cytopathology procedure  preparation of smear  genital source,145078,816.40,4804.00,1841.57721233
+Urine screening test for diabetes,145078,816.40,4804.00,1845.97583658
+Hepatitis B Surface Antigen Measurement,145078,816.40,4804.00,1840.51767794
+Chlamydia antigen test,145078,816.40,4804.00,1847.01231427
+Movement therapy (regime/therapy),142192,408.20,615.85,482.14537548
+Take oral or dental impression (procedure),140899,408.20,615.85,479.54250967
+Fitting of denture (procedure),140718,408.20,615.85,479.51851810
+AFP test - antenatal,139306,816.40,4804.00,1844.10251210
+Fetal anatomy study,139306,408.20,600.50,475.03037235
+Administration of diphtheria  pertussis  and tetanus vaccine,139254,1048.67,6170.79,2371.76115566
+Urine screening for glucose,139254,816.40,4804.00,1852.61172045
+Physical examination  complete (procedure),136417,408.20,615.85,478.22114575
+Streptococcus pneumoniae group B antigen assay,129854,816.40,4804.00,1849.80066806
+Face mask (physical object),121134,0.31,7.08,2.19564202
+Urinalysis with reflex to microscopy and culture (procedure),118336,408.20,615.85,482.71236538
+Hemogram  automated  with red blood cells  white blood cells  hemoglobin  hematocrit  indices  platelet count  and manual white blood cell differential (procedure),114765,862.80,4926.80,2007.12205350
+Cognitive and behavioral therapy (regime/therapy),113140,4190.41,25288.26,9624.64350071
+History AND physical examination (procedure),110307,408.20,615.85,481.78049951
+Speech and language therapy regime (regime/therapy),110167,408.20,615.85,481.99407736
+Standard pregnancy test (procedure),109183,2140.06,12914.80,5195.57729326
+Cytopathology procedure  preparation of smear  genital source (procedure),108560,816.40,4926.80,1939.61802063
+Patient discharge (procedure),106303,408.20,615.85,479.29954554
+Pre-discharge assessment (procedure),105018,408.20,615.85,481.86476195
+History and physical examination  limited (procedure),104014,408.20,615.85,483.73940768
+Referral to cardiology service (procedure),98879,408.20,615.85,478.98737942
+History taking (procedure),98264,408.20,615.85,483.57050028
+Discussion about signs and symptoms (procedure),98210,408.20,615.85,483.57106914
+Antibiotic therapy (procedure),97163,408.20,615.85,483.55629972
+Urine specimen collection (procedure),89339,408.20,615.85,482.86964293
+Mammography (procedure),88323,65.31,261.12,115.95155316
+Ultrasound scan for fetal viability (procedure),87706,4049.70,23124.82,9413.02133229
+Angiography of coronary artery (procedure),82625,408.20,615.85,478.82868660
+Postoperative care (regime/therapy),81789,408.20,615.85,482.02020003
+Bone density scan (procedure),80294,3875.43,23387.42,8806.70672117
+Discharge from skilled nursing facility (procedure),80023,408.20,600.50,469.44831049
+Review of systems (procedure),79807,57.14,98.53,71.48099966
+Brief general examination (procedure),79807,40.82,273.43,135.51342627
+Health risks education (procedure),78802,408.20,615.85,481.28365041
+Colonoscopy (procedure),78667,5052.90,28853.31,11946.37290389
+Suture open wound,77883,3779.88,22242.25,8461.73839695
+External beam radiation therapy procedure (procedure),77746,404.11,1819.22,963.36443251
+Passive immunization (procedure),74777,1048.67,6328.53,2428.52687284
+Consultation for treatment (procedure),70772,61.23,92.37,71.83495153
+Sputum examination (procedure),70681,2488.80,15019.38,5722.42185948
+Electrocardiographic procedure,69465,408.20,3422.85,1257.61601411
+Evaluation procedure (procedure),69210,408.20,615.85,484.13548418
+Insertion of intrauterine contraceptive device,68573,3700.04,21772.46,8348.43445656
+Insertion of subcutaneous contraceptive,66274,3700.04,21772.46,8341.74753976
+Transfusion of packed red blood cells (procedure),65464,408.20,615.85,479.79214943
+Post anesthesia care management (procedure),63763,408.20,615.85,479.04102285
+Plain X-ray of chest (procedure),59441,3283.20,18747.90,7764.40446695
+Bone immobilization,59036,408.20,600.50,468.73168660
+Urine culture (procedure),58530,862.80,4926.80,2003.72479019
+Hepatitis B surface antigen measurement (procedure),58530,862.80,4926.80,2008.98952281
+Hepatitis C antibody  confirmatory test (procedure),58530,862.80,4926.80,1999.46007295
+Human immunodeficiency virus antigen test (procedure),58530,862.80,4926.80,2012.25463848
+Urine screening test for diabetes (procedure),58530,862.80,4926.80,1997.15584862
+Measurement of Varicella-zoster virus antibody (procedure),58530,862.80,4926.80,1999.94154314
+Rubella screening test (procedure),58530,431.40,615.85,515.55048385
+Chlamydia antigen test (procedure),58530,862.80,4926.80,2001.62372134
+Peripheral blood smear interpretation,58459,408.20,600.50,473.32520656
+Alpha-fetoprotein test - antenatal (procedure),56331,862.80,4926.80,2005.39875450
+Fetal anatomy study (procedure),56331,431.40,615.85,515.77064565
+Administration of vaccine product containing only Bordetella pertussis and Clostridium tetani and Corynebacterium diphtheriae antigens (procedure),56235,1108.27,6328.53,2568.75140464
+Urine screening for glucose (procedure),56235,862.80,4926.80,2007.15846412
+Discharge from hospital (procedure),55403,408.20,615.85,498.57158692
+Streptococcus pneumoniae group B antigen assay (procedure),52385,862.80,4926.80,2010.03581101
+Digital examination of rectum,50793,116.74,2947.25,730.68507491
+Manual pelvic examination (procedure),50030,81.64,307.92,141.80026884
+Percutaneous coronary intervention (procedure),49105,8757.84,52851.75,19976.05330598
+Rectal polypectomy,46942,4133.01,24320.20,9198.36124430
+Screening for occult blood in feces (procedure),45746,2488.80,15019.38,5670.88655052
+Removal of subcutaneous contraceptive,45044,3700.04,21772.46,8333.66856984
+Pretransplant evaluation of kidney recipient (procedure),44747,408.20,615.85,477.76833531
+Transplant of kidney (procedure),44668,408.20,615.85,477.74240866
+Heart failure education (procedure),43590,408.20,615.85,478.71593209
+Extraction of wisdom tooth,43265,4884.36,28741.41,10351.26543765
+Information gathering (procedure),41918,57.14,98.53,69.81579202
+Pregnancy termination care,41563,414.73,1201.00,658.27628035
+Counseling for termination of pregnancy,41562,408.20,600.50,476.67086521
+Induced termination of pregnancy,41562,3716.79,21870.97,8420.17164020
+Transthoracic echocardiography (procedure),40926,408.20,615.85,480.81132801
+Chemotherapy (procedure),40348,408.20,615.85,479.69053485
+Human immunodeficiency virus viral load (procedure),37910,408.20,615.85,485.41182432
+Removal of intrauterine device,37157,3700.04,21772.46,8338.24317814
+Episiotomy,36256,2221.75,13073.60,5045.39465551
+Absolute CD4 count procedure (procedure),35852,408.20,615.85,485.08543596
+Allergy screening test,35672,408.20,600.50,470.20729844
+Complete blood count with white cell differential  automated (procedure),35028,408.20,615.85,485.07197385
+Assessment using New York Heart Association Classification (procedure),33411,408.20,615.85,478.90176648
+Radiation therapy care (regime/therapy),32749,408.20,615.85,476.89368622
+Referral to cardiac surgery service (procedure),32718,408.20,615.85,479.24240877
+Discussion about pregnancy (procedure),32426,408.20,615.85,484.35805095
+Pre-surgery testing (procedure),32404,408.20,615.85,479.19931706
+Notification of treatment plan (procedure),32385,408.20,615.85,479.20001019
+Scheduling (procedure),31942,408.20,615.85,479.28016718
+Referral to transplant surgeon (procedure),31820,408.20,615.85,479.50008611
+Tooth socket procedure (procedure),31487,408.20,615.85,479.66818560
+Administration of anesthesia for procedure (procedure),30805,408.20,615.85,479.38432008
+Hematologic disorder medication review (procedure),30173,408.20,615.85,480.07539356
+Replacement of contraceptive intrauterine device,29340,3700.04,21772.46,8218.65364315
+Insertion of catheter into artery (procedure),29215,408.20,615.85,479.24865240
+Taking patient vital signs (procedure),28998,408.20,615.85,482.22827747
+History and physical examination with evaluation and management of patient (procedure),28998,408.20,615.85,482.22827747
+Electroencephalogram (procedure),28249,4031.75,24330.79,9254.44917024
+Epidural anesthesia,28183,816.40,4804.00,1843.83113402
+Pulmonary catheterization with Swan-Ganz catheter (procedure),27715,408.20,615.85,479.21818618
+Preparation of patient for procedure (regime/therapy),27715,408.20,615.85,479.21818618
+Documentation procedure (procedure),27714,408.20,615.85,479.21921159
+Postoperative procedure education (procedure),27390,408.20,615.85,479.48394049
+Median sternotomy (procedure),27359,408.20,615.85,479.15680763
+Stair-climbing test (procedure),27218,408.20,615.85,479.53411676
+Walking exercise test (procedure),27218,408.20,615.85,479.53411676
+Discharge to ward (procedure),27207,408.20,615.85,479.53662477
+Removal of endotracheal tube (procedure),26353,112.66,294.37,176.64006147
+Suture open wound (procedure),25475,3994.71,22810.81,9354.24884436
+Insertion of intrauterine contraceptive device (procedure),25469,3910.33,22329.00,9132.27959441
+Resuscitation using intravenous fluid (procedure),25275,408.20,615.85,481.93096973
+Medical induction of labor,24002,1489.58,8765.29,3373.15559745
+Intubation,23984,204.91,1037.66,364.87899975
+Insertion of subcutaneous contraceptive (procedure),23740,3910.33,22329.00,9173.00643387
+Admission to orthopedic department,22227,408.20,600.50,468.23004679
+Kitchen practice,22109,408.20,600.50,468.54332625
+Exercise class,22109,408.20,600.50,468.54332625
+Triage emergency center (procedure),21837,408.20,600.50,470.08233732
+Peripheral blood smear interpretation (procedure),21588,431.40,615.85,517.31963406
+Controlled ventilation procedure and therapy  initiation and management (procedure),20870,408.20,600.50,465.84737901
+Antenatal RhD antibody screening,20678,816.40,4804.00,1847.20442935
+Care regimes assessment (procedure),20496,408.20,615.85,482.17023370
+Laboratory test (procedure),20207,408.20,615.85,478.49111348
+Referral for echocardiography (procedure),19986,408.20,615.85,483.24905834
+Upper arm X-ray,19885,408.20,600.50,468.20524516
+Assessment of cardiac status using monitoring device (procedure),18626,408.20,615.85,478.06570063
+Diagnostic assessment (procedure),18609,408.20,615.85,478.08665646
+Coordination of care plan (procedure),18151,408.20,615.85,480.30687621
+Bone immobilization (procedure),18003,431.40,615.85,521.77785980
+Induced termination of pregnancy (procedure),17939,3928.03,22430.04,9170.85478845
+Counseling for termination of pregnancy (procedure),17939,431.40,615.85,515.02315179
+Pregnancy termination care (regime/therapy),17932,438.30,1231.70,710.35247044
+Cardiopulmonary bypass operation (procedure),17832,408.20,615.85,479.45590119
+Vascular cannula removal (procedure),17832,408.20,615.85,479.47126122
+Removal of aortic cross clamp (procedure),17832,408.20,615.85,479.47126122
+Cannulation (procedure),17832,408.20,615.85,479.45590119
+Placement of aortic cross clamp (procedure),17832,408.20,615.85,479.45590119
+Induced cardioplegia (procedure),17832,408.20,615.85,479.45590119
+Cesarean section,17791,3421.40,20132.79,7712.67866787
+Clavicle X-ray,16435,408.20,600.50,468.73519014
+Coronary artery bypass grafting (procedure),16344,17116.47,103294.25,39273.53220631
+Sterilization education (procedure),16107,408.20,615.85,486.89726020
+Home health aide service (regime/therapy),15808,408.20,615.85,479.43285868
+Removal of subcutaneous contraceptive (procedure),15760,3910.33,22329.00,9080.78819353
+Injection of tetanus antitoxin,15484,1048.67,6170.79,2344.73896538
+Referral to sleep apnea clinic (procedure),15326,408.20,615.85,483.92492105
+Telemedicine consultation with patient (procedure),15259,64.49,97.30,77.39879153
+Ankle X-ray,15084,408.20,600.50,469.15230708
+Risk assessment (procedure),15062,408.20,615.85,478.47756208
+Transfer to stepdown unit (procedure),14927,408.20,615.85,482.42391974
+Admission to intensive care unit (procedure),14856,1455.64,486830.43,46997.85232835
+Radiography of wrist (procedure),14787,408.20,600.50,468.41495909
+Episiotomy (procedure),14312,2348.02,13407.79,5440.13493222
+Monitoring of patient (regime/therapy),14257,408.20,615.85,483.80943396
+Digital examination of rectum (procedure),13654,123.38,3022.59,826.16105390
+Removal of intrauterine contraceptive device (procedure),13624,431.40,615.85,518.71381679
+Referral to home health care service (procedure),12882,408.20,615.85,480.22330849
+Comprehensive interview and evaluation (procedure),12835,408.20,615.85,480.21383015
+Excision of maxillary torus palatinus (procedure),12827,408.20,615.85,480.35597412
+Grafting of periodontal bone defect (procedure),12713,408.20,615.85,480.08498702
+Rectal polypectomy (procedure),12678,4367.91,24941.87,10309.17395330
+Augmentation of labor,12639,1661.25,9775.40,3733.02123823
+Hemodialysis (procedure),12517,12576.20,44357.40,22443.10645282
+Allergy screening test (procedure),12168,431.40,615.85,517.54967949
+Knee X-ray,11807,408.20,600.50,470.88807064
+Bilateral tubal ligation,11456,3065.81,18040.38,6912.52663670
+Epidural anesthesia (procedure),11254,862.80,4926.80,1998.96838013
+Referral for further care (procedure),10889,408.20,615.85,486.47446597
+Biopsy of prostate,10808,1451.55,6665.55,2428.79500740
+Partial resection of colon,10573,9694.22,57044.41,21488.90840348
+Instrumental delivery,10354,2635.49,15508.24,6000.04144582
+Extraction of wisdom tooth (procedure),10214,5161.96,29476.10,12221.26619640
+Off-pump coronary artery bypass (procedure),10161,408.20,615.85,478.91125873
+Magnetic resonance imaging for measurement of brain volume (procedure),10112,4166.64,25144.81,9577.42471025
+Medical induction of labor (procedure),9966,1574.24,8989.35,3644.49787477
+Referral to service (procedure),9924,408.20,615.85,478.08179061
+Replacement of contraceptive intrauterine device (procedure),9660,3910.33,22329.00,9085.19916667
+Cardiovascular stress testing (procedure),9657,408.20,615.85,478.75311277
+Surgical manipulation of joint of knee,9307,6898.31,40592.21,15361.06388417
+Injection of epinephrine (procedure),9147,1048.67,6328.53,2401.66592653
+Antenatal RhD antibody screening (procedure),8527,862.80,4926.80,2001.21016067
+Premature birth of newborn,8344,408.20,600.50,474.73038710
+Radiation oncology AND/OR radiotherapy (procedure),8159,14995.63,479266.25,100436.03265841
+Computed tomography of chest and abdomen,7926,3771.44,22192.57,8411.27359324
+Chest X-ray,7918,3106.63,18280.61,6962.51972847
+Kitchen practice (regime/therapy),7272,431.40,615.85,522.79521177
+Exercise class (regime/therapy),7271,431.40,615.85,522.80778160
+Cesarean section (procedure),7186,3615.85,20647.43,8442.64930699
+Triage: emergency center (procedure),7161,431.40,615.85,519.26652562
+Human epidermal growth factor receptor 2 gene detection by fluorescence in situ hybridization (procedure),6872,1246.64,4023.96,1828.35741414
+Discussion about options (procedure),6870,408.20,615.85,478.34807424
+Human epidermal growth factor receptor 2 gene detection by immunohistochemistry (procedure),6868,163.28,369.51,226.85468695
+Biopsy of breast (procedure),6867,2088.35,9841.28,3553.02315130
+Admission to orthopedic department (procedure),6844,431.40,615.85,523.56044565
+Intubation (procedure),6820,216.56,1064.18,415.96395161
+Complete blood count (procedure),6306,408.20,615.85,481.22424041
+Sleep apnea monitoring with alarm (regime/therapy),6168,408.20,615.85,484.07134403
+Assist control ventilation (regime/therapy),6030,431.40,615.85,531.09674793
+Plain X-ray of humerus (procedure),5917,431.40,615.85,523.49709988
+Intravenous blood transfusion of packed cells (procedure),5890,1469.52,3695.10,2181.25471307
+Pelvis X-ray,5792,408.20,600.50,466.79668508
+Continuous subcutaneous infusion of insulin (procedure),5764,408.20,615.85,477.82338133
+Prostatectomy,5392,3326.83,14179.00,6597.42059533
+Percutaneous mechanical thrombectomy of portal vein using fluoroscopic guidance with contrast (procedure),5324,8480.70,51179.25,19431.12475019
+Ultrasonography of bilateral breasts (procedure),5213,130.62,2771.32,391.91315941
+Plain X-ray of clavicle (procedure),5201,431.40,615.85,523.33406653
+Radiography of mandible (procedure),5147,408.20,615.85,485.31509617
+Oral examination (procedure),5140,408.20,615.85,485.27845720
+Range of motion testing (procedure),5140,408.20,615.85,485.27845720
+Nasal sinus endoscopy (procedure),5096,2326.65,14040.87,5297.45450353
+Augmentation of labor (procedure),5005,1755.66,10025.28,4104.85123077
+Injection of tetanus antitoxin (procedure),4935,1108.27,6328.53,2596.52141236
+Appendectomy,4783,5049.29,29711.89,11441.49640811
+Asthma screening,4781,408.20,600.50,468.82460782
+Ligation of bilateral fallopian tubes (procedure),4656,3240.06,18501.53,7471.30595576
+Plain X-ray of ankle region (procedure),4551,431.40,615.85,521.67237530
+Plain X-ray of wrist region (procedure),4521,431.40,615.85,520.07527096
+Psychosocial care (regime/therapy),4476,408.20,615.85,484.12194370
+Serum metabolic panel (procedure),4366,408.20,615.85,481.81602611
+Sputum Culture,4329,408.20,600.50,470.94062139
+Take blood sample,4328,408.20,600.50,470.95511784
+Pulmonary Function Test,4328,32.65,960.80,337.52806839
+Biopsy of colon,4285,4781.16,28134.14,10707.22962427
+Transfusion of fresh frozen plasma (procedure),4251,408.20,615.85,478.53689250
+Instrumental delivery (procedure),4178,2785.28,15904.67,6529.62742221
+Plain X-ray of knee region (procedure),3900,431.40,615.85,519.98869231
+Lumpectomy of breast (procedure),3848,23880.43,46527.34,31021.52267931
+Screening mammography (procedure),3806,65.31,261.12,114.59989753
+Liaising with referral source (procedure),3718,408.20,615.85,479.38414739
+Medical records review (procedure),3718,408.20,615.85,479.38414739
+Operative procedure planned (situation),3717,408.20,615.85,479.34337100
+Multidisciplinary assessment (procedure),3709,408.20,615.85,479.53123753
+Computed tomography of chest  abdomen and pelvis (procedure),3616,408.20,615.85,479.77728429
+Referral to hypertension clinic,3558,408.20,600.50,473.08501967
+Heparin therapy (procedure),3361,81.64,184.75,113.81833978
+Premature birth of newborn (finding),3331,431.40,615.85,514.48690183
+Insertion of endotracheal tube (procedure),3318,204.91,433.55,281.17553044
+Intraoperative care (regime/therapy),3248,408.20,615.85,480.64971675
+Patient transfer  in-hospital (procedure),3247,408.20,615.85,480.58066831
+Incision (procedure),3247,408.20,615.85,480.61280567
+Application of dressing  sterile (procedure),3247,408.20,615.85,480.58066831
+Artificial respiration (procedure),3217,408.20,600.50,468.98652471
+Weaning from mechanically assisted ventilation (procedure),3217,408.20,600.50,468.98652471
+Surgical manipulation of joint of knee (procedure),3087,7290.37,41629.83,17146.70426952
+Assessment using Canadian Study of Health and Aging Clinical Frailty Scale (procedure),3074,408.20,615.85,479.99840273
+Assessment using health assessment questionnaire (procedure),3074,408.20,615.85,479.99840273
+Referral to dentist (procedure),3074,408.20,615.85,479.99840273
+Simple walk test (procedure),3074,408.20,615.85,479.99840273
+Mammogram - symptomatic (procedure),3065,65.31,261.12,115.98238825
+Direct current cardioversion (procedure),3032,10635.40,64182.39,24365.13965369
+Continuous positive airway pressure titration (procedure),3018,408.20,615.85,482.46328694
+Lung volume reduction surgery (procedure),3008,12827.19,77409.37,29820.16827128
+Review of imaging finding (procedure),2899,408.20,600.50,465.63625388
+Biopsy of prostate (procedure),2874,1534.05,6835.93,2727.65549756
+Partial resection of colon (procedure),2856,10245.19,58502.58,24059.96456232
+Radiotherapy (procedure),2672,431.40,615.85,533.66002994
+Excision of breast tissue (procedure),2596,2088.35,9841.28,3600.50297381
+Closed reduction of dislocation of temporomandibular joint (procedure),2585,408.20,615.85,485.38606576
+Closed reduction of mandibular fracture (procedure),2562,408.20,615.85,485.24348946
+Thoracentesis (procedure),2551,6330.06,38200.57,14589.45971776
+Posttreatment stabilization  orthodontic device (procedure),2545,408.20,615.85,486.04139882
+Fiberoptic bronchoscopy (procedure),2528,3465.84,20915.63,7988.18788370
+Fine needle aspiration biopsy of lung (procedure),2511,6330.06,38200.57,14308.06812425
+Sputum microscopy (procedure),2483,2488.80,15019.38,5665.15546114
+Platelet transfusion (procedure),2466,408.20,615.85,480.86604217
+Transplant of lung (procedure),2349,63363.96,382388.00,145039.85869732
+Close observation (regime/therapy),2348,408.20,615.85,478.21458688
+12 lead electrocardiogram (procedure),2305,408.20,615.85,481.20893275
+Vasectomy,2203,5362.13,31552.84,12231.31763958
+Excision of lingual frenum (procedure),2098,408.20,615.85,480.04651573
+Computed tomography of chest and abdomen (procedure),2095,3985.79,22759.85,9472.26833890
+Patient referral (procedure),2072,408.20,615.85,481.31041023
+Intravenous injection (procedure),2068,408.20,615.85,475.83577853
+Comprehensive metabolic panel (procedure),1940,408.20,615.85,479.89241753
+Pre-operative chemotherapy (procedure),1880,408.20,615.85,481.92222872
+Treatment failure risk education (procedure),1880,408.20,615.85,481.92222872
+Treatment side effects education (procedure),1880,408.20,615.85,481.92222872
+Sentinel lymph node biopsy (procedure),1789,8242.37,18750.16,11393.25119620
+Excision of sentinel lymph node (procedure),1789,8242.37,18750.16,11424.27234209
+Administration of anesthesia AND/OR sedation (procedure),1758,408.20,615.85,481.23153015
+Excision of axillary lymph node (procedure),1753,816.40,2143.15,1216.32159726
+Methotrexate injection into tubal pregnancy,1742,1048.67,6170.79,2328.88206085
+Excision of fallopian tube and surgical removal of ectopic pregnancy,1728,3229.55,19003.90,7258.49377894
+Asthma screening (procedure),1683,431.40,615.85,520.97092692
+Magnetic resonance imaging of breast (procedure),1654,408.20,3695.10,1311.87997582
+Plain X-ray of pelvis (procedure),1643,431.40,615.85,524.27706026
+Human immunodeficiency virus counseling (procedure),1629,408.20,615.85,483.45607121
+Human immunodeficiency virus screening (procedure),1629,408.20,615.85,483.45607121
+Excision of appendix (procedure),1621,5336.27,30471.39,12463.72206663
+Hepatitis B screening (procedure),1598,408.20,615.85,483.20108886
+Tuberculosis screening (procedure),1598,408.20,615.85,483.20108886
+Assessment of readiness for disclosure of health status (procedure),1598,408.20,615.85,483.20108886
+Education  guidance and counseling (procedure),1598,408.20,615.85,483.20108886
+Viral hepatitis screening test (procedure),1598,408.20,615.85,483.20108886
+Assessment of readiness for self-management (procedure),1598,408.20,615.85,483.20108886
+Assessment of social support (procedure),1598,408.20,615.85,483.20108886
+Venereal disease screening (procedure),1598,408.20,615.85,483.20108886
+Hepatitis C screening (procedure),1598,408.20,615.85,483.20108886
+Serologic test for Toxoplasma gondii (procedure),1598,408.20,615.85,483.20108886
+Care planning and problem solving actions (procedure),1598,408.20,615.85,483.20108886
+Referral for laboratory tests (procedure),1507,408.20,615.85,488.69655607
+Discussion about treatment (procedure),1506,57.14,98.53,71.89227756
+Lab findings education  guidance  and counseling (procedure),1506,408.20,615.85,488.69160691
+Patient informed - test result (situation),1506,408.20,615.85,488.69160691
+Transesophageal echocardiography (procedure),1491,408.20,615.85,479.97411133
+Replacement of aortic valve (procedure),1450,408.20,615.85,479.58510345
+Suicide risk assessment (procedure),1424,8.12,12.25,9.58580056
+Collection of blood specimen for laboratory (procedure),1398,431.40,615.85,523.15065808
+Microbial culture of sputum (procedure),1398,431.40,615.85,523.15065808
+Prostatectomy (procedure),1386,3515.91,14541.45,7356.66233766
+Transcatheter aortic valve replacement (procedure),1351,408.20,600.50,465.52350111
+Admission to ward (procedure,1343,408.20,600.50,465.23209233
+Ultrasonography of abdomen  right upper quadrant and epigastrium,1265,408.20,600.50,470.45379447
+Referral to hypertension clinic (procedure),1253,431.40,615.85,518.20170790
+Biopsy of colon (procedure),1244,5052.90,28853.31,12005.97644695
+Hepatitis A antibody test (procedure),1226,408.20,600.50,469.36419250
+Emergency coronary artery bypass graft (procedure),1213,408.20,615.85,479.17262984
+Laparoscopic Removal of Gall Bladder,1162,1589.53,24351.47,4712.85500000
+Excision of lingual torus (procedure),1151,408.20,615.85,481.17697654
+Autologous bone marrow transplant (procedure),1138,408.20,615.85,480.70985062
+Admission to trauma surgery department,1028,408.20,600.50,470.59533074
+Weaning from mechanically assisted ventilation (regime/therapy),897,431.40,615.85,523.64161650
+Artificial ventilation (regime/therapy),897,431.40,615.85,523.64161650
+Social case work (regime/therapy),884,408.20,615.85,477.50015837
+Prescription of drug (procedure),822,408.20,615.85,484.13057178
+Imaging finding (finding),818,431.40,615.85,527.92152812
+Admission to long stay hospital,814,408.20,600.50,471.12671990
+Admission to burn unit,808,408.20,600.50,471.28019802
+Surgical manipulation of shoulder joint,797,6898.31,40592.21,15369.08651192
+Cardioassist by aortic balloon pump (procedure),794,408.20,615.85,485.96743073
+Microbial culture (procedure),768,408.20,615.85,484.93936198
+Mental health screening (procedure),722,24.49,49.26,32.45972299
+Determination of susceptibility of Human immunodeficiency virus 1 to panel of antiretroviral drugs using genotypic technique (procedure),712,408.20,615.85,482.75862360
+Multidisciplinary care conference (procedure),708,408.20,615.85,479.30765537
+Catheter ablation of tissue of heart (procedure),705,3827.85,23100.28,8787.71102128
+Evaluating response to treatment (procedure),684,408.20,615.85,494.17285088
+Methotrexate injection into tubal pregnancy (procedure),676,1108.27,6328.53,2557.33247041
+Vasectomy (procedure),663,5666.89,32359.39,13019.75641026
+Excision of fallopian tube and surgical removal of ectopic pregnancy (procedure),636,3413.10,19489.68,8043.44729560
+Oral Glucose Tolerance Test,631,143.68,283.43,189.06649762
+Hemopoietic stem cell transplant (procedure),541,408.20,615.85,483.50942699
+Computed tomography of head (procedure),486,408.20,615.85,476.69049383
+Reexploration procedure (procedure),474,408.20,615.85,483.94698312
+Urine pregnancy test (procedure),444,408.20,615.85,482.01083333
+Transfusion of red blood cells (procedure),429,408.20,615.85,477.41650350
+Doppler ultrasonography of artery (procedure),417,408.20,615.85,477.18309353
+Transcatheter aortic valve implantation (procedure),406,431.40,615.85,533.20758621
+Admission to ward (procedure),400,431.40,615.85,533.42245000
+Hepatitis antibody test (procedure),372,431.40,615.85,528.80333333
+Brachytherapy of breast (procedure),369,14298.42,26326.35,17678.98680217
+Reasons for treatment delay (finding),361,408.20,615.85,481.03578947
+Ultrasonography of abdomen  right upper quadrant and epigastrium (procedure),334,431.40,615.85,524.44446108
+Spontaneous breech delivery,322,2635.49,15508.24,6226.67928571
+Admission to trauma surgery department (procedure),318,431.40,615.85,523.12323899
+Opening of chest (procedure),316,408.20,615.85,484.40357595
+Laparoscopic cholecystectomy (procedure),315,1679.87,24605.38,5331.31749206
+Construction of diverting colostomy,311,12960.13,78211.68,27078.94553055
+Admission to long stay hospital (procedure),284,431.40,615.85,517.46306338
+Amputation care (regime/therapy),283,408.20,615.85,480.98406360
+Admission to burn unit (procedure),282,431.40,615.85,516.76528369
+Open Removal of Gall Bladder,258,12472.95,38967.64,18368.75104651
+Referral to palliative care service (procedure),247,408.20,615.85,469.59109312
+Surgical manipulation of shoulder joint (procedure),245,7290.37,41629.83,17261.46571429
+positive screening for depression on phq9,240,408.20,600.50,475.46208333
+Glucose tolerance test (procedure),213,151.85,290.68,213.17032864
+Incision of trachea (procedure),207,191.85,2081.57,834.94898551
+positive screening for PHQ-9,201,408.20,600.50,476.62412935
+Allogeneic bone marrow transplantation (procedure),196,408.20,615.85,484.69178571
+negative screening for depression on phq9,190,408.20,600.50,474.39789474
+Intracavitary brachytherapy (procedure),188,14298.42,26326.35,17567.67515957
+Interstitial brachytherapy (procedure),181,14298.42,26326.35,17795.30950276
+Transfusion of plasma (procedure),178,1469.52,3695.10,2177.83584270
+Positive screening for depression on Patient Health Questionnaire 9 (finding),177,431.40,615.85,519.15418079
+Transplantation of heart (procedure),168,408.20,615.85,471.19488095
+Oxygen Therapy,161,408.20,600.50,478.07546584
+Implantation of left ventricular assist device (procedure),156,408.20,600.50,466.43814103
+Total knee replacement,155,7835.67,46108.03,17681.43638710
+Transfer to stepdown,144,408.20,600.50,466.79340278
+Spontaneous breech delivery (procedure),143,2785.28,15904.67,6245.54000000
+Implantation of ventricular assist device (procedure),138,408.20,600.50,459.14456522
+Posture training (procedure),116,408.20,615.85,476.87646552
+Mouth care (regime/therapy),116,408.20,615.85,476.87646552
+Cardiac pacemaker procedure (procedure),116,408.20,615.85,491.93163793
+Injection of botulinum toxin (procedure),115,408.20,615.85,469.39513043
+Total replacement of hip,109,7897.98,46474.64,16388.97201835
+Admission to neurosurgical department,101,408.20,600.50,471.10643564
+Treatment changed (situation),95,408.20,615.85,496.84126316
+Musculoskeletal system physical examination (procedure),94,408.20,615.85,478.35297872
+Neurological examination (procedure),94,408.20,615.85,478.35297872
+Negative screening for depression on Patient Health Questionnaire 9 (finding),93,431.40,615.85,512.97817204
+Intravenous infusion (procedure),87,408.20,615.85,483.88931034
+Review of medication (procedure),84,408.20,615.85,489.03178571
+Manual testing of muscle function (procedure),69,408.20,615.85,473.71347826
+Magnetic resonance imaging of spine (procedure),69,408.20,615.85,473.71347826
+Repair of myelomeningocele (procedure),69,408.20,615.85,472.77217391
+Death in hospital (event),69,408.20,615.85,480.96217391
+Doppler ultrasonography of renal vein (procedure),69,408.20,615.85,473.71347826
+Cholecystectomy (procedure),67,13181.85,39963.73,21653.13402985
+Intravenous antibiotic therapy,62,408.20,600.50,465.16612903
+Psychiatric follow-up,60,81.64,360.30,165.68483333
+Hospital admission  short-term  24 hours,60,1028.66,3988.38,1976.67133333
+Evaluation of psychiatric state of patient,60,81.64,360.30,137.79283333
+Amputation of right leg,56,8711.98,43888.60,19207.52357143
+Amputation of right foot,56,8711.98,51264.55,21772.94214286
+Ventriculoperitoneal shunt (procedure),53,408.20,615.85,481.17981132
+Urodynamic studies (procedure,51,408.20,600.50,462.12254902
+Amputation of left foot,50,8711.98,51264.55,22123.30620000
+Amputation of left leg,50,8711.98,42356.21,17763.40260000
+Acute respiratory failure (disorder),47,431.40,615.85,532.22404255
+Ligation of salivary duct (procedure),46,408.20,615.85,487.52043478
+Blood culture (procedure),45,408.20,615.85,477.94888889
+20 Gene mutation test,44,408.20,600.50,471.79318182
+Sweat Test,44,163.28,441.77,265.12840909
+Prosthetic total arthroplasty of knee joint (procedure),43,8281.01,47286.65,20213.00116279
+Excision of submandibular gland (procedure),41,408.20,615.85,486.95000000
+Surgical procedure on chest wall (procedure),40,408.20,615.85,480.23500000
+Repair of aortic valve (procedure),40,408.20,600.50,493.67125000
+Implantation of left cardiac ventricular assist device (procedure),38,431.40,615.85,534.20500000
+Admission to neurosurgical department (procedure),36,431.40,615.85,518.18055556
+Amputation of the foot (procedure),35,9263.68,52574.97,22016.11514286
+Implantation of cardiac ventricular assist device (procedure),34,431.40,615.85,517.72029412
+Review of Medication (procedure),33,408.20,600.50,449.68181818
+Neonatal Screening,31,408.20,600.50,472.68064516
+Total replacement of hip (procedure),30,8346.86,45255.69,18374.74033333
+Amputation above-knee (procedure),26,9207.12,52574.97,24416.74884615
+Intravenous antibiotic therapy (procedure),25,431.40,615.85,530.32280000
+Oromotor Exercises,24,408.20,600.50,478.09166667
+Hospital admission  short-term  24 hours (procedure),23,1087.12,4777.76,2378.29913043
+Behavioral therapy (regime/therapy),23,408.20,615.85,486.46521739
+Evaluation of psychiatric state of patient (procedure),23,86.28,369.51,207.84304348
+Psychiatric follow-up (procedure),23,86.28,369.51,211.78000000
+Insertion of oral appliance for the handicapped (procedure),22,408.20,615.85,484.04727273
+Lung Transplant,20,408200.00,960800.00,590664.21000000
+Urodynamic studies (procedure),18,431.40,615.85,506.55444444
+negative screening for PHQ9,18,408.20,600.50,498.23888889
+Transposition of submandibular duct (procedure),13,408.20,615.85,498.24538462
+Cystic fibrosis sweat test (procedure),11,172.56,492.68,315.22818182
+Screen for 20 common genetic mutations of cystic fibrosis using amplification refractory mutation system polymerase chain reaction assay technique (procedure),11,431.40,615.85,525.48545455
+Enema,8,161.64,345.88,232.87875000
+Cauterization of choroid plexus (procedure),8,408.20,600.50,456.86250000
+Videofluoroscopy swallow (procedure),7,408.20,600.50,486.02142857
+Single lung transplant (procedure),7,431400.00,694480.00,573018.57142857
+Oral motor exercises (regime/therapy),6,434.05,615.85,558.39833333
+Neonatal screening (procedure),6,431.40,615.85,547.59000000
+Endoscopic third ventriculostomy (procedure),6,408.20,600.50,464.90833333
+Radionuclide Imaging,4,408.20,496.15,430.18750000
+Amputation of right arm,3,9992.53,16336.99,13886.72000000
+Endoscopic exteriorization of third ventricle (procedure),2,431.40,434.05,432.72500000
+Giving patient an enema (procedure),2,584.75,584.75,584.75000000
+Fiberoptic Endoscopic Evaluation of Swallowing,2,408.20,485.85,447.02500000
+Fiberoptic endoscopic evaluation of swallowing (procedure),1,584.75,584.75,584.75000000
+Amputation of hand (procedure),1,52574.97,52574.97,52574.97000000
+Amputation of right hand,1,32570.37,32570.37,32570.37000000
+Amputation of left arm,1,14812.47,14812.47,14812.47000000
+Aortic valve and adjacent structure operations (procedure),1,408.20,408.20,408.20000000

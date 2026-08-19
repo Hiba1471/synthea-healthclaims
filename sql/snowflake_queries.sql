@@ -1,0 +1,624 @@
+-- Snowflake exploration queries
+-- Database: SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS, Schema: SILVER
+-- (Note: ENERGY_PIPELINE.PUBLIC currently has no tables loaded yet)
+
+-- =====================================================================
+-- Null-value audit
+-- Pattern used to count nulls per column in one pass over each table.
+-- Run against: PAYERS, PROVIDERS, PATIENTS, CONDITIONS, ENCOUNTERS,
+-- CLAIMS, CLAIMS_TX
+-- =====================================================================
+
+SELECT
+  COUNT(*) AS TOTAL_ROWS,
+  SUM(IFF("<COLUMN_1>" IS NULL, 1, 0)) AS "<COLUMN_1>",
+  SUM(IFF("<COLUMN_2>" IS NULL, 1, 0)) AS "<COLUMN_2>"
+  -- ...repeat SUM(IFF(col IS NULL, 1, 0)) for each column
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.<TABLE_NAME>;
+
+-- Findings: negligible / expected sparsity across the board except:
+--   PAYERS: ADDRESS, CITY, STATE_HEADQUARTERED, ZIP, PHONE all 100% null
+--   CLAIMS: OUTSTANDING1/2/P, REFERRING_PROVIDER_ID 100% null
+--   CLAIMS_TX: MODIFIER1, MODIFIER2, LINENOTE 100% null
+
+
+-- =====================================================================
+-- Top 3 procedure codes filed in 2020, with descriptions
+-- CLAIMS_TX has the most filed claims (887M rows) of any table.
+-- FROMDATE = when the line-item charge was filed.
+-- PROCEDURES.CODE / PROCEDURES.DESCRIPTION is the code -> description lookup.
+-- =====================================================================
+
+WITH top_codes AS (
+  SELECT
+    PROCEDURECODE,
+    COUNT(*) AS claim_count
+  FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+  WHERE FROMDATE >= '2020-01-01' AND FROMDATE < '2021-01-01'
+  GROUP BY PROCEDURECODE
+  ORDER BY claim_count DESC
+  LIMIT 3
+)
+SELECT
+  tc.PROCEDURECODE,
+  tc.claim_count,
+  p.DESCRIPTION
+FROM top_codes tc
+LEFT JOIN (
+  SELECT DISTINCT CODE, DESCRIPTION
+  FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PROCEDURES
+) p
+  ON tc.PROCEDURECODE = p.CODE
+ORDER BY tc.claim_count DESC;
+
+-- 2 of the 3 top codes (185347001, 185349003) are SNOMED *encounter* codes,
+-- not in PROCEDURES.CODE -- CLAIMS_TX.PROCEDURECODE apparently carries both
+-- procedure and encounter-type codes. Fall back to ENCOUNTERS.CODE for those.
+
+WITH top_codes AS (
+  SELECT
+    PROCEDURECODE,
+    COUNT(*) AS claim_count
+  FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+  WHERE FROMDATE >= '2020-01-01' AND FROMDATE < '2021-01-01'
+  GROUP BY PROCEDURECODE
+  ORDER BY claim_count DESC
+  LIMIT 3
+),
+descriptions AS (
+  SELECT CODE, DESCRIPTION FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PROCEDURES
+  UNION ALL
+  SELECT CODE, DESCRIPTION FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+)
+SELECT
+  tc.PROCEDURECODE,
+  tc.claim_count,
+  MODE(d.DESCRIPTION) AS DESCRIPTION  -- most common spelling/casing variant
+FROM top_codes tc
+LEFT JOIN descriptions d
+  ON tc.PROCEDURECODE = d.CODE
+GROUP BY tc.PROCEDURECODE, tc.claim_count
+ORDER BY tc.claim_count DESC;
+
+
+-- =====================================================================
+-- Summary stats (min / max / avg) for numeric fields
+-- =====================================================================
+
+-- ENCOUNTERS: total claim cost, payer coverage, base encounter cost -- by ENCOUNTERCLASS
+-- Results: sql/results/encounter_cost_summary.csv
+SELECT
+  ENCOUNTERCLASS,
+  COUNT(*) AS num_encounters,
+  MIN(TOTAL_CLAIM_COST) AS min_total_claim_cost,
+  MAX(TOTAL_CLAIM_COST) AS max_total_claim_cost,
+  AVG(TOTAL_CLAIM_COST) AS avg_total_claim_cost,
+  MIN(PAYER_COVERAGE) AS min_payer_coverage,
+  MAX(PAYER_COVERAGE) AS max_payer_coverage,
+  AVG(PAYER_COVERAGE) AS avg_payer_coverage,
+  MIN(BASE_ENCOUNTER_COST) AS min_base_encounter_cost,
+  MAX(BASE_ENCOUNTER_COST) AS max_base_encounter_cost,
+  AVG(BASE_ENCOUNTER_COST) AS avg_base_encounter_cost
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+GROUP BY ENCOUNTERCLASS
+ORDER BY num_encounters DESC;
+
+-- PROCEDURES: base cost -- by DESCRIPTION (545 distinct descriptions)
+-- Results: sql/results/procedure_base_cost_summary.csv
+SELECT
+  DESCRIPTION,
+  COUNT(*) AS num_procedures,
+  MIN(BASE_COST) AS min_base_cost,
+  MAX(BASE_COST) AS max_base_cost,
+  AVG(BASE_COST) AS avg_base_cost
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PROCEDURES
+GROUP BY DESCRIPTION
+ORDER BY num_procedures DESC;
+
+-- CLAIMS_TX: transfers and payments -- overall (887M rows, no grouping requested)
+SELECT
+  MIN(TRANSFERS) AS min_transfers,
+  MAX(TRANSFERS) AS max_transfers,
+  AVG(TRANSFERS) AS avg_transfers,
+  MIN(PAYMENTS) AS min_payments,
+  MAX(PAYMENTS) AS max_payments,
+  AVG(PAYMENTS) AS avg_payments
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX;
+
+
+-- =====================================================================
+-- Full-column profile per table (nulls, distinct, min/max/avg, lengths)
+-- Pattern generated by scratchpad/gen_profile.py.  For the huge tables
+-- (CONDITIONS, ENCOUNTERS, CLAIMS, CLAIMS_TX) SAMPLE (1) is used to keep
+-- the scan cheap -- null rates and distribution stats are estimates,
+-- total row counts are from SHOW TABLES.
+-- Per-column results: sql/results/profile_<table>.csv
+-- =====================================================================
+
+-- Example pattern (repeated per table, one aggregate per column):
+SELECT
+  COUNT(*) AS __ROWS__,
+  SUM(IFF("<COL>" IS NULL, 1, 0)) AS "<COL>__nulls",
+  APPROX_COUNT_DISTINCT("<COL>") AS "<COL>__ndv",
+  -- numeric:
+  MIN("<NUM_COL>") AS "<NUM_COL>__min",
+  MAX("<NUM_COL>") AS "<NUM_COL>__max",
+  AVG("<NUM_COL>") AS "<NUM_COL>__avg",
+  -- date/timestamp:
+  MIN("<DATE_COL>") AS "<DATE_COL>__min",
+  MAX("<DATE_COL>") AS "<DATE_COL>__max",
+  -- text:
+  MIN(LENGTH("<TEXT_COL>")) AS "<TEXT_COL>__minlen",
+  MAX(LENGTH("<TEXT_COL>")) AS "<TEXT_COL>__maxlen",
+  AVG(LENGTH("<TEXT_COL>")) AS "<TEXT_COL>__avglen"
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.<TABLE>
+  -- append: SAMPLE (1) for CLAIMS_TX / CLAIMS / ENCOUNTERS / CONDITIONS
+;
+
+
+-- =====================================================================
+-- Full-scan verification: is CLAIMS_TX.OUTSTANDING actually populated?
+-- (CLAIMS.OUTSTANDING1/2/P are confirmed 100% null on a full scan; the
+-- 1% sample suggested CLAIMS_TX.OUTSTANDING is not. Confirming on the
+-- full 887M rows since it determines whether Q2's "uncollected billed
+-- revenue" framing in the write-up is answerable from this data.)
+-- =====================================================================
+
+SELECT
+  COUNT(*) AS total_rows,
+  SUM(IFF(OUTSTANDING IS NULL, 1, 0)) AS null_count,
+  MIN(OUTSTANDING) AS min_outstanding,
+  MAX(OUTSTANDING) AS max_outstanding,
+  AVG(OUTSTANDING) AS avg_outstanding
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX;
+
+-- Result (full scan, 886,973,449 rows): null_count = 9 (~0%),
+-- min $0.00, max $292,684.60, avg $74.58.
+-- Verdict at the time: OUTSTANDING is populated -> Q2 answerable.
+--
+-- SUPERSEDED (see the revenue-cycle section at the end of this file):
+-- the column being populated is NOT the same as it measuring uncollected
+-- money. OUTSTANDING is a mid-flow running balance; each claim's FINAL
+-- balance is ~0. Q2's "uncollected revenue" half has no answer in this data.
+
+
+-- =====================================================================
+-- STANDING FILTER (as of 2026-08-17): all CLAIMS_TX analyses below are
+-- scoped to FROMDATE >= '2020-01-01' AND FROMDATE < '2025-01-01'.
+-- Unfiltered the table spans 1914-01-25 to 2024-11-09, so cumulative
+-- totals are not meaningful business figures. The window is anchored to
+-- the end of the data (Nov 2024), not to the current calendar date.
+--
+-- 2019 is deliberately EXCLUDED: monthly volume steps up ~8x at Nov 2019
+-- (~$200M/month -> ~$1.7B/month), so calendar-2019 blends two population
+-- regimes and is not comparable to 2020+. See the monthly check at the
+-- bottom of this file.
+-- =====================================================================
+
+
+-- =====================================================================
+-- Q: Which procedures cost more than the reimbursement received, and
+--    does that vary by payer type?
+-- Grain: one row per procedure x payer. Results:
+--   sql/results/procedure_payer_reimbursement_gap_2020_2024.csv
+-- =====================================================================
+
+WITH tx AS (
+    -- Only the 4 columns needed off the 887M-row fact table.
+    -- AMOUNT is only meaningful on CHARGE rows; PAYMENTS is already 0 elsewhere.
+    SELECT
+        ENCOUNTER_ID,
+        CLAIM_ID,
+        PROCEDURECODE,
+        IFF(TYPE = 'CHARGE', AMOUNT, 0) AS billed_amt,
+        PAYMENTS                        AS paid_amt
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE PROCEDURECODE <> 185347001          -- administrative noise
+      AND PROCEDURECODE IS NOT NULL
+      AND FROMDATE >= '2020-01-01'             -- standing 5-year window
+      AND FROMDATE <  '2025-01-01'
+),
+enc AS (
+    -- Encounter -> payer bridge, 2 columns only.
+    SELECT ENCOUNTER_ID, PAYER_ID
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+),
+payer AS (
+    -- PAYERS holds 10 real payers split across 12 city rows each; collapse to name.
+    SELECT
+        PAYER_ID,
+        NAME AS payer_name,
+        CASE
+            WHEN NAME IN ('Medicare', 'Medicaid', 'Dual Eligible') THEN 'Government'
+            WHEN NAME = 'NO_INSURANCE'                             THEN 'Self-Pay / Uninsured'
+            ELSE 'Commercial'
+        END AS payer_type
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PAYERS
+),
+code_desc AS (
+    -- PROCEDURECODE mixes procedure codes and SNOMED encounter codes, so the
+    -- dictionary is the union of both; MODE() picks the dominant spelling.
+    SELECT CODE, MODE(DESCRIPTION) AS procedure_name
+    FROM (
+        SELECT CODE, DESCRIPTION
+        FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PROCEDURES
+        UNION ALL
+        SELECT CODE, DESCRIPTION
+        FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+    )
+    GROUP BY CODE
+),
+agg AS (
+    -- One row per procedure x payer, not per transaction.
+    SELECT
+        tx.PROCEDURECODE            AS procedure_code,
+        p.payer_name,
+        p.payer_type,
+        SUM(tx.billed_amt)          AS total_billed,
+        SUM(tx.paid_amt)            AS total_paid,
+        COUNT(DISTINCT tx.CLAIM_ID) AS num_claims
+    FROM tx
+    JOIN enc   ON tx.ENCOUNTER_ID = enc.ENCOUNTER_ID
+    JOIN payer p ON enc.PAYER_ID  = p.PAYER_ID
+    GROUP BY tx.PROCEDURECODE, p.payer_name, p.payer_type
+    HAVING SUM(tx.billed_amt) > 0
+)
+SELECT
+    a.procedure_code                                                        AS "Procedure Code",
+    COALESCE(d.procedure_name, '(no description on file)')                  AS "Procedure Name",
+    a.payer_name                                                            AS "Payer Name",
+    a.payer_type                                                            AS "Payer Type",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_billed), '999,999,999,999'))       AS "Total Billed",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_paid), '999,999,999,999'))         AS "Total Paid",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_billed - a.total_paid),
+                           '999,999,999,999'))                             AS "Gap: Billed Minus Paid",
+    TRIM(TO_VARCHAR(ROUND(100 * (a.total_billed - a.total_paid)
+                          / a.total_billed, 1), '9990.0')) || '%'           AS "Gap as % of Billed",
+    TRIM(TO_VARCHAR(a.num_claims, '999,999,999'))                           AS "Number of Claims"
+FROM agg a
+LEFT JOIN code_desc d ON a.procedure_code = d.CODE
+ORDER BY (a.total_billed - a.total_paid) DESC;
+
+-- RESULT: 9,054 procedure x payer combinations. $159,264,717,266 billed vs
+-- $159,264,718,516 paid -- net gap of -$1,249. Only 15 combos have any
+-- nonzero gap and the largest is $408 (rounding noise).
+-- => There is NO reimbursement gap in this dataset; every charge is
+--    eventually collected in full. See the money-flow diagnostic below.
+
+
+-- =====================================================================
+-- Why the gap is zero: CLAIMS_TX money-flow model
+-- =====================================================================
+
+SELECT
+  TYPE,
+  TRANSFERTYPE,
+  METHOD,
+  COUNT(*)                            AS num_rows,
+  SUM(IFF(AMOUNT IS NULL, 0, 1))      AS rows_with_amount,
+  SUM(AMOUNT)                         AS sum_amount,
+  SUM(PAYMENTS)                       AS sum_payments,
+  SUM(TRANSFERS)                      AS sum_transfers
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+GROUP BY TYPE, TRANSFERTYPE, METHOD
+ORDER BY num_rows DESC;
+
+-- Findings:
+--   AMOUNT is populated on CHARGE and TRANSFERIN rows (not just CHARGE).
+--   TRANSFERTYPE on a CHARGE/TRANSFERIN row = whose responsibility it is:
+--     '1' = primary payer, '2' = secondary payer, 'p' = patient.
+--   METHOD on PAYMENT rows = who actually paid:
+--     ECHECK = payer ($129.48B); CASH/CHECK/CC/COPAY = patient ($31.38B).
+--   Total charges $160.86B ~= total payments $160.86B -> 100% collection.
+
+
+-- =====================================================================
+-- The thing that DOES vary by payer: share of cost borne by the patient
+-- (ECHECK = payer-paid vs all other METHODs = patient-paid)
+-- =====================================================================
+
+WITH tx AS (
+    SELECT
+        ENCOUNTER_ID,
+        CLAIM_ID,
+        IFF(TYPE = 'CHARGE', AMOUNT, 0)                              AS billed_amt,
+        IFF(TYPE = 'PAYMENT' AND METHOD =  'ECHECK', PAYMENTS, 0)    AS payer_paid,
+        IFF(TYPE = 'PAYMENT' AND METHOD <> 'ECHECK', PAYMENTS, 0)    AS patient_paid
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE PROCEDURECODE <> 185347001
+      AND PROCEDURECODE IS NOT NULL
+      AND FROMDATE >= '2020-01-01'             -- standing 5-year window
+      AND FROMDATE <  '2025-01-01'
+),
+enc AS (
+    SELECT ENCOUNTER_ID, PAYER_ID
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+),
+payer AS (
+    SELECT
+        PAYER_ID,
+        NAME AS payer_name,
+        CASE
+            WHEN NAME IN ('Medicare','Medicaid','Dual Eligible') THEN 'Government'
+            WHEN NAME = 'NO_INSURANCE'                           THEN 'Self-Pay / Uninsured'
+            ELSE 'Commercial'
+        END AS payer_type
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PAYERS
+)
+SELECT
+    p.payer_name,
+    p.payer_type,
+    SUM(tx.billed_amt)   AS total_billed,
+    SUM(tx.payer_paid)   AS paid_by_payer,
+    SUM(tx.patient_paid) AS paid_by_patient,
+    ROUND(100 * SUM(tx.patient_paid)
+          / NULLIF(SUM(tx.payer_paid) + SUM(tx.patient_paid), 0), 1) AS pct_borne_by_patient
+FROM tx
+JOIN enc     ON tx.ENCOUNTER_ID = enc.ENCOUNTER_ID
+JOIN payer p ON enc.PAYER_ID    = p.PAYER_ID
+GROUP BY p.payer_name, p.payer_type
+ORDER BY pct_borne_by_patient DESC;
+
+
+-- =====================================================================
+-- Patient share of collections by YEAR x payer type / payer name
+-- Results: sql/results/patient_share_by_year_payer.csv
+-- (that CSV still carries 2019 rows from the original run, kept for the
+--  record; 2019 is excluded from the standing window -- ignore that row)
+-- NOTE: buckets each row by its own FROMDATE, so this reads as
+-- "of money collected in year X, what share came from patients".
+-- Caveats: volume steps up ~8x at Nov 2019 (see monthly check below),
+-- so calendar-2019 is not comparable to 2020+; 2024 ends 2024-11-09.
+-- =====================================================================
+
+WITH tx AS (
+    SELECT
+        ENCOUNTER_ID,
+        YEAR(FROMDATE)                                            AS svc_year,
+        IFF(TYPE = 'CHARGE', AMOUNT, 0)                           AS billed_amt,
+        IFF(TYPE = 'PAYMENT' AND METHOD =  'ECHECK', PAYMENTS, 0) AS payer_paid,
+        IFF(TYPE = 'PAYMENT' AND METHOD <> 'ECHECK', PAYMENTS, 0) AS patient_paid
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE PROCEDURECODE <> 185347001
+      AND PROCEDURECODE IS NOT NULL
+      AND FROMDATE >= '2020-01-01'             -- standing 5-year window
+      AND FROMDATE <  '2025-01-01'
+),
+enc AS (
+    SELECT ENCOUNTER_ID, PAYER_ID
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+),
+payer AS (
+    SELECT
+        PAYER_ID,
+        NAME AS payer_name,
+        CASE
+            WHEN NAME IN ('Medicare','Medicaid','Dual Eligible') THEN 'Government'
+            WHEN NAME = 'NO_INSURANCE'                           THEN 'Self-Pay / Uninsured'
+            ELSE 'Commercial'
+        END AS payer_type
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PAYERS
+)
+SELECT
+    tx.svc_year,
+    p.payer_type,
+    p.payer_name,
+    SUM(tx.billed_amt)   AS total_billed,
+    SUM(tx.payer_paid)   AS paid_by_payer,
+    SUM(tx.patient_paid) AS paid_by_patient,
+    ROUND(100 * SUM(tx.patient_paid)
+          / NULLIF(SUM(tx.payer_paid) + SUM(tx.patient_paid), 0), 1) AS pct_borne_by_patient
+FROM tx
+JOIN enc     ON tx.ENCOUNTER_ID = enc.ENCOUNTER_ID
+JOIN payer p ON enc.PAYER_ID    = p.PAYER_ID
+GROUP BY tx.svc_year, p.payer_type, p.payer_name
+ORDER BY tx.svc_year, p.payer_type, p.payer_name;
+
+
+-- Monthly volume check that surfaced the Nov 2019 step-change.
+-- Results: sql/results/monthly_volume_2018_2020.csv
+SELECT
+  TO_CHAR(FROMDATE, 'YYYY-MM')                  AS svc_month,
+  COUNT(*)                                      AS num_rows,
+  SUM(IFF(TYPE = 'CHARGE', AMOUNT, 0))          AS billed
+FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+WHERE PROCEDURECODE <> 185347001
+  AND PROCEDURECODE IS NOT NULL
+  AND FROMDATE >= '2018-01-01'
+  AND FROMDATE <  '2021-01-01'
+GROUP BY svc_month
+ORDER BY svc_month;
+-- Revenue cycle: time from charge to final payment, and terminal balances.
+-- NOTE: no PROCEDURECODE filter here -- that filter is for procedure-level
+-- analysis; a claim's cycle needs all of its lines.
+WITH claim_level AS (
+    SELECT
+        CLAIM_ID,
+        MIN(ENCOUNTER_ID)                                  AS encounter_id,
+        MIN(IFF(TYPE = 'CHARGE',  FROMDATE, NULL))         AS first_charge,
+        MAX(IFF(TYPE = 'PAYMENT', FROMDATE, NULL))         AS last_payment,
+        SUM(IFF(TYPE = 'CHARGE',  AMOUNT, 0))              AS billed,
+        SUM(PAYMENTS)                                      AS paid
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE FROMDATE >= '2020-01-01'
+      AND FROMDATE <  '2025-01-01'
+    GROUP BY CLAIM_ID
+    HAVING SUM(IFF(TYPE = 'CHARGE', 1, 0)) > 0        -- claim actually starts in window
+),
+enc AS (
+    SELECT ENCOUNTER_ID, PAYER_ID
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+),
+payer AS (
+    SELECT
+        PAYER_ID,
+        CASE
+            WHEN NAME IN ('Medicare','Medicaid','Dual Eligible') THEN 'Government'
+            WHEN NAME = 'NO_INSURANCE'                           THEN 'Self-Pay / Uninsured'
+            ELSE 'Commercial'
+        END AS payer_type
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PAYERS
+),
+j AS (
+    SELECT
+        p.payer_type,
+        c.billed,
+        c.paid,
+        c.billed - c.paid                                        AS unpaid,
+        DATEDIFF(day, c.first_charge, c.last_payment)            AS days_to_pay,
+        IFF(c.last_payment IS NULL, 1, 0)                        AS never_paid
+    FROM claim_level c
+    JOIN enc   e ON c.encounter_id = e.ENCOUNTER_ID
+    JOIN payer p ON e.PAYER_ID     = p.PAYER_ID
+)
+SELECT
+    payer_type,
+    COUNT(*)                                        AS claims,
+    SUM(never_paid)                                 AS claims_never_paid,
+    ROUND(AVG(days_to_pay), 1)                      AS avg_days,
+    APPROX_PERCENTILE(days_to_pay, 0.50)            AS p50_days,
+    APPROX_PERCENTILE(days_to_pay, 0.90)            AS p90_days,
+    APPROX_PERCENTILE(days_to_pay, 0.99)            AS p99_days,
+    MAX(days_to_pay)                                AS max_days,
+    SUM(IFF(days_to_pay =  0, 1, 0))                AS d_same_day,
+    SUM(IFF(days_to_pay BETWEEN 1  AND 30,  1, 0))  AS d_1_30,
+    SUM(IFF(days_to_pay BETWEEN 31 AND 60,  1, 0))  AS d_31_60,
+    SUM(IFF(days_to_pay BETWEEN 61 AND 90,  1, 0))  AS d_61_90,
+    SUM(IFF(days_to_pay > 90, 1, 0))                AS d_90plus,
+    SUM(billed)                                     AS total_billed,
+    SUM(paid)                                       AS total_paid,
+    SUM(unpaid)                                     AS total_unpaid,
+    SUM(IFF(unpaid > 0.005, 1, 0))                  AS claims_with_balance
+FROM j
+GROUP BY payer_type
+ORDER BY claims DESC;
+
+-- RESULT (2020-2024, 68,646,319 claims): 98.66% of claims are paid the SAME DAY
+-- as the charge. median 0 days, p99 = 1 day, max 237 days. Only 1,197 claims
+-- (0.0017%) never receive a payment. Billed $99,825,020,746 vs paid
+-- $99,825,021,610 -> net -$864, and just 3 claims carry any residual balance.
+-- => Days-in-A/R and uncollected revenue are NOT modeled in this data.
+
+-- Is OUTSTANDING a terminal balance or a mid-flow running balance?
+-- Compare the naive SUM over every row against the sum of only each
+-- claim's LAST transaction.
+WITH ranked AS (
+    SELECT
+        CLAIM_ID,
+        OUTSTANDING,
+        ROW_NUMBER() OVER (
+            PARTITION BY CLAIM_ID
+            ORDER BY FROMDATE DESC, CLAIMS_TX_ID DESC
+        ) AS rn
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE FROMDATE >= '2020-01-01'
+      AND FROMDATE <  '2025-01-01'
+)
+SELECT
+    SUM(IFF(rn = 1, 1, 0))                              AS claims,
+    SUM(OUTSTANDING)                                    AS naive_sum_all_rows,
+    SUM(IFF(rn = 1, OUTSTANDING, 0))                    AS terminal_outstanding,
+    SUM(IFF(rn = 1 AND OUTSTANDING > 0.005, 1, 0))      AS claims_with_terminal_balance,
+    MAX(IFF(rn = 1, OUTSTANDING, 0))                    AS max_terminal_balance
+FROM ranked;
+
+-- RESULT: naive SUM(OUTSTANDING) over all rows = $45,314,446,541, but the sum
+-- of each claim's LAST transaction = $83,363.50 across 479 claims (max $5,080.75).
+-- OUTSTANDING is a MID-FLOW running balance, not a terminal A/R balance.
+-- Never report SUM(OUTSTANDING) as "uncollected revenue" -- it overstates by
+-- ~543,000x.
+-- Which conditions are most expensive to treat, and is spend concentrated
+-- with particular payers?
+--
+-- Attribution: CLAIMS.DIAGNOSIS1 (primary diagnosis, 1 per claim, 0% null).
+-- Joining CONDITIONS on ENCOUNTER_ID would fan out -- an encounter carries
+-- several conditions -- and multiply the spend.
+-- Efficiency: CLAIMS_TX is pre-aggregated to claim grain FIRST (525M rows ->
+-- ~68M), so the joins to CLAIMS / ENCOUNTERS run against the small side.
+WITH tx AS (
+    SELECT
+        CLAIM_ID,
+        MIN(ENCOUNTER_ID)                                          AS encounter_id,
+        SUM(IFF(TYPE = 'CHARGE', AMOUNT, 0))                       AS billed,
+        SUM(PAYMENTS)                                              AS paid,
+        SUM(IFF(TYPE = 'PAYMENT' AND METHOD <> 'ECHECK', PAYMENTS, 0)) AS patient_paid
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX
+    WHERE PROCEDURECODE <> 185347001          -- administrative noise
+      AND PROCEDURECODE IS NOT NULL
+      AND FROMDATE >= '2020-01-01'            -- standing 5-year window
+      AND FROMDATE <  '2025-01-01'
+    GROUP BY CLAIM_ID
+),
+cl AS (
+    SELECT CLAIM_ID, DIAGNOSIS1
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS
+),
+enc AS (
+    SELECT ENCOUNTER_ID, PAYER_ID
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.ENCOUNTERS
+),
+payer AS (
+    SELECT
+        PAYER_ID,
+        NAME AS payer_name,
+        CASE
+            WHEN NAME IN ('Medicare','Medicaid','Dual Eligible') THEN 'Government'
+            WHEN NAME = 'NO_INSURANCE'                           THEN 'Self-Pay / Uninsured'
+            ELSE 'Commercial'
+        END AS payer_type
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.PAYERS
+),
+cond_desc AS (
+    SELECT CODE, MODE(DESCRIPTION) AS condition_name
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CONDITIONS
+    GROUP BY CODE
+),
+agg AS (
+    SELECT
+        cl.DIAGNOSIS1            AS condition_code,
+        p.payer_name,
+        p.payer_type,
+        SUM(tx.billed)           AS total_billed,
+        SUM(tx.paid)             AS total_paid,
+        SUM(tx.patient_paid)     AS patient_paid,
+        COUNT(*)                 AS num_claims
+    FROM tx
+    JOIN cl      ON tx.CLAIM_ID     = cl.CLAIM_ID
+    JOIN enc  e  ON tx.encounter_id = e.ENCOUNTER_ID
+    JOIN payer p ON e.PAYER_ID      = p.PAYER_ID
+    GROUP BY cl.DIAGNOSIS1, p.payer_name, p.payer_type
+    HAVING SUM(tx.billed) > 0
+)
+SELECT
+    a.condition_code                                                   AS "Condition Code",
+    COALESCE(d.condition_name, '(no description on file)')             AS "Condition Name",
+    a.payer_name                                                       AS "Payer Name",
+    a.payer_type                                                       AS "Payer Type",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_billed), '999,999,999,999'))  AS "Total Billed",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_paid),   '999,999,999,999'))  AS "Total Paid",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_billed - a.total_paid),
+                           '999,999,999,999'))                         AS "Gap: Billed Minus Paid",
+    TRIM(TO_VARCHAR(ROUND(100 * (a.total_billed - a.total_paid)
+                          / a.total_billed, 1), '9990.0')) || '%'      AS "Gap as % of Billed",
+    '$' || TRIM(TO_VARCHAR(ROUND(a.total_billed / a.num_claims),
+                           '999,999,999'))                             AS "Avg Cost per Claim",
+    TRIM(TO_VARCHAR(ROUND(100 * a.patient_paid
+                          / NULLIF(a.total_paid, 0), 1), '9990.0')) || '%'
+                                                                       AS "% Borne by Patient",
+    TRIM(TO_VARCHAR(a.num_claims, '999,999,999'))                      AS "Number of Claims"
+FROM agg a
+LEFT JOIN cond_desc d ON a.condition_code = d.CODE
+ORDER BY a.total_billed DESC;
+
+-- RESULT: 2,189 condition x payer rows, 232 distinct DIAGNOSIS1 codes,
+-- $99,111,300,721 billed -- ties to the procedure-level total, confirming
+-- DIAGNOSIS1 attributes 100% of spend with no fan-out.
+-- Gap column is $-1,272 net (structurally zero, as established earlier).
+--
+-- CAVEAT: DIAGNOSIS1 mixes code systems. 29 of the 232 codes are absent from
+-- CONDITIONS.CODE and resolve only via ENCOUNTERS.CODE / ENCOUNTERS.REASONCODE
+-- / PROCEDURES -- 29.9% of spend. Of the full 232, 24 codes (23.7% of spend)
+-- are visit types, admissions or admin actions rather than clinical
+-- conditions ("Medication review due", "Full-time employment",
+-- "Patient referral for dental care"). Filter these out before presenting
+-- anything as a clinical cost ranking.

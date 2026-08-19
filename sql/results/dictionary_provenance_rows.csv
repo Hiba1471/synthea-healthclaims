@@ -1,0 +1,285 @@
+CODE,DESCRIPTION,SOURCE_TABLES,CODE_CATEGORY,OCCURRENCE_COUNT,REASON_ONLY
+72892002,Normal pregnancy,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,12138000,False
+140,Influenza  seasonal  injectable  preservative free,IMMUNIZATIONS,Medication or vaccine,5999322,False
+15777000,Prediabetes,"CARE_PLANS.REASON, CONDITIONS, MEDICATIONS.REASON",Condition,3473252,False
+185345009,Encounter for symptom,ENCOUNTERS,Encounter type,2749545,False
+233678006,Childhood asthma,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,1974873,False
+55822004,Hyperlipidemia,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,1932473,False
+424619006,Prenatal visit,ENCOUNTERS,Encounter type,1932246,False
+274804006,Evaluation of uterine fundal height,PROCEDURES,Procedure,1777102,False
+225158009,Auscultation of the fetal heart,PROCEDURES,Procedure,1777102,False
+308335008,Patient encounter procedure,ENCOUNTERS,Encounter type,1274362,False
+448337001,Telemedicine consultation with patient,"ENCOUNTERS, PROCEDURES",Procedure,931000,False
+208,COVID-19  mRNA  LNP-S  PF  30 mcg/0.3 mL dose,IMMUNIZATIONS,Medication or vaccine,916279,False
+698314001,Consultation for treatment,"ENCOUNTERS, PROCEDURES",Procedure,912587,False
+76601001,Intramuscular injection,PROCEDURES,Procedure,904478,False
+371883000,Outpatient procedure,ENCOUNTERS,Encounter type,878175,False
+180256009,Subcutaneous immunotherapy,PROCEDURES,Procedure,876042,False
+207,COVID-19  mRNA  LNP-S  PF  100 mcg/0.5mL dose or 50 mcg/0.25mL dose,IMMUNIZATIONS,Medication or vaccine,722910,False
+113,Td (adult)  5 Lf tetanus toxoid  preservative free  adsorbed,IMMUNIZATIONS,Medication or vaccine,546583,False
+443402002,Lifestyle education regarding hypertension,CARE_PLANS,Encounter type,534519,False
+55680006,Drug overdose,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,459480,False
+698360004,Diabetes self management plan,CARE_PLANS,Encounter type,429970,False
+104091002,Hemogram  automated  with RBC  WBC  Hgb  Hct  Indices  Platelet count  and manual WBC differential,PROCEDURES,Procedure,399097,False
+53950000,Respiratory therapy,CARE_PLANS,Encounter type,387296,False
+20,DTaP,IMMUNIZATIONS,Medication or vaccine,369956,False
+840544004,Suspected COVID-19,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,363468,False
+73761001,Colonoscopy,PROCEDURES,Procedure,362359,False
+133,Pneumococcal conjugate PCV 13,IMMUNIZATIONS,Medication or vaccine,358838,False
+424441002,Prenatal initial visit,ENCOUNTERS,Encounter type,346570,False
+252160004,Standard pregnancy test,PROCEDURES,Procedure,326807,False
+10,IPV,IMMUNIZATIONS,Medication or vaccine,311501,False
+169230002,Ultrasound scan for fetal viability,PROCEDURES,Procedure,305330,False
+196416002,Impacted molars,"CONDITIONS, ENCOUNTERS.REASON",Condition,281109,False
+124171000119105,Chronic intractable migraine without aura,"CONDITIONS, ENCOUNTERS.REASON",Condition,280942,False
+90226004,Cytopathology procedure  preparation of smear  genital source,PROCEDURES,Procedure,253638,False
+114,meningococcal MCV4P,IMMUNIZATIONS,Medication or vaccine,252320,False
+239873007,Osteoarthritis of knee,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,247439,False
+65363002,Otitis media,"CONDITIONS, ENCOUNTERS.REASON",Condition,237502,False
+134435003,Routine antenatal care,CARE_PLANS,Encounter type,235781,False
+68496003,Polyp of colon,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,233645,False
+195967001,Asthma,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,230367,False
+8,Hep B  adolescent or pediatric,IMMUNIZATIONS,Medication or vaccine,228338,False
+62,HPV  quadrivalent,IMMUNIZATIONS,Medication or vaccine,224271,False
+363406005,Malignant tumor of colon,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,213298,False
+192127007,Child attention deficit disorder,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,204262,False
+310861008,Chlamydia antigen test,PROCEDURES,Procedure,203608,False
+117010004,Urine culture,PROCEDURES,Procedure,203608,False
+167271000,Urine protein test,PROCEDURES,Procedure,203608,False
+104326007,Measurement of Varicella-zoster virus antibody,PROCEDURES,Procedure,203608,False
+395123002,Urine screening test for diabetes,PROCEDURES,Procedure,203608,False
+31676001,Human immunodeficiency virus antigen test,PROCEDURES,Procedure,203608,False
+47758006,Hepatitis B Surface Antigen Measurement,PROCEDURES,Procedure,203608,False
+104375008,Hepatitis C antibody  confirmatory test,PROCEDURES,Procedure,203608,False
+169762003,Postnatal visit,ENCOUNTERS,Encounter type,196905,False
+183460006,Obstetric emergency hospital admission,ENCOUNTERS,Encounter type,196086,False
+275833003,AFP test - antenatal,PROCEDURES,Procedure,195637,False
+271442007,Fetal anatomy study,PROCEDURES,Procedure,195637,False
+399014008,Administration of diphtheria  pertussis  and tetanus vaccine,PROCEDURES,Procedure,195489,False
+268556000,Urine screening for glucose,PROCEDURES,Procedure,195489,False
+121,zoster vaccine  live,IMMUNIZATIONS,Medication or vaccine,194740,False
+308646001,Death Certification,ENCOUNTERS,Encounter type,191552,False
+118001005,Streptococcus pneumoniae group B antigen assay,PROCEDURES,Procedure,182239,False
+43,Hep B  adult,IMMUNIZATIONS,Medication or vaccine,179180,False
+128613002,Seizure disorder,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,175227,False
+56876005,Drug rehabilitation and detoxification,ENCOUNTERS,Encounter type,172337,False
+394701000,Asthma follow-up,ENCOUNTERS,Encounter type,172194,False
+52,Hep A  adult,IMMUNIZATIONS,Medication or vaccine,171210,False
+840539006,COVID-19,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,161729,False
+66348005,Childbirth,PROCEDURES,Procedure,158860,False
+408869004,Musculoskeletal care,CARE_PLANS,Encounter type,153658,False
+305408004,Admission to surgical department,ENCOUNTERS,Encounter type,152826,False
+3,MMR,IMMUNIZATIONS,Medication or vaccine,151231,False
+21,varicella,IMMUNIZATIONS,Medication or vaccine,148927,False
+83,Hep A  ped/adol  2 dose,IMMUNIZATIONS,Medication or vaccine,148384,False
+119,rotavirus  monovalent,IMMUNIZATIONS,Medication or vaccine,146948,False
+44465007,Sprain of ankle,"CARE_PLANS.REASON, CONDITIONS",Condition,146860,False
+169690007,Rubella screening,PROCEDURES,Procedure,145078,False
+736285004,Hyperlipidemia clinical management plan,CARE_PLANS,Encounter type,139029,False
+62106007,Concussion with no loss of consciousness,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON",Condition,124240,False
+65966004,Fracture of forearm,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,113736,False
+385691007,Fracture care,CARE_PLANS,Encounter type,110257,False
+225358003,Wound care,CARE_PLANS,Encounter type,106167,False
+126906006,Neoplasm of prostate,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,105116,False
+109838007,Overlapping malignant neoplasm of colon,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,104185,False
+288086009,Suture open wound,PROCEDURES,Procedure,103358,False
+201834006,Localized  primary osteoarthritis of the hand,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,103177,False
+58150001,Fracture of clavicle,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,96510,False
+65200003,Insertion of intrauterine contraceptive device,PROCEDURES,Procedure,94042,False
+24079001,Atopic dermatitis,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,91717,False
+169553002,Insertion of subcutaneous contraceptive,PROCEDURES,Procedure,90014,False
+35999006,Blighted ovum,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,89521,False
+239872002,Osteoarthritis of hip,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,89126,False
+16114001,Fracture of ankle,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,87463,False
+263102004,Fracture subluxation of wrist,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,86162,False
+74400008,Appendicitis,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,82124,False
+14768001,Peripheral blood smear interpretation,PROCEDURES,Procedure,80047,False
+274474001,Bone immobilization,PROCEDURES,Procedure,77039,False
+115,Tdap,IMMUNIZATIONS,Medication or vaccine,75638,False
+33,pneumococcal polysaccharide vaccine  23 valent,IMMUNIZATIONS,Medication or vaccine,71460,False
+699728000,Asthma self management,CARE_PLANS,Encounter type,69959,False
+47505003,Posttraumatic stress disorder,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,67878,False
+283371005,Laceration of forearm,"CARE_PLANS.REASON, CONDITIONS, PROCEDURES.REASON",Condition,67165,False
+284551006,Laceration of foot,"CARE_PLANS.REASON, CONDITIONS, PROCEDURES.REASON",Condition,66750,False
+370247008,Facial laceration,"CARE_PLANS.REASON, CONDITIONS, PROCEDURES.REASON",Condition,66734,False
+40275004,Contact dermatitis,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,66419,False
+284549007,Laceration of hand,"CARE_PLANS.REASON, CONDITIONS, PROCEDURES.REASON",Condition,66134,False
+283385000,Laceration of thigh,"CARE_PLANS.REASON, CONDITIONS, PROCEDURES.REASON",Condition,66056,False
+410006001,Digital examination of rectum,PROCEDURES,Procedure,64447,False
+428251008,History of appendectomy,CONDITIONS,Condition,62912,False
+70704007,Sprain of wrist,"CARE_PLANS.REASON, CONDITIONS",Condition,62116,False
+94260004,Secondary malignant neoplasm of colon,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,61390,False
+301807007,Removal of subcutaneous contraceptive,PROCEDURES,Procedure,60804,False
+316744009,Office Visit,ENCOUNTERS,Encounter type,60378,False
+274031008,Rectal polypectomy,PROCEDURES,Procedure,59620,False
+270427003,Patient-initiated encounter,ENCOUNTERS,Encounter type,59569,False
+718361005,Weight management program,CARE_PLANS,Encounter type,59507,False
+10383002,Counseling for termination of pregnancy,PROCEDURES,Procedure,59501,False
+714812005,Induced termination of pregnancy,PROCEDURES,Procedure,59501,False
+386394001,Pregnancy termination care,PROCEDURES,Procedure,59495,False
+232353008,Perennial allergic rhinitis with seasonal variation,"CONDITIONS, ENCOUNTERS.REASON",Condition,55832,False
+446096008,Perennial allergic rhinitis,"CONDITIONS, ENCOUNTERS.REASON",Condition,55354,False
+47387005,Head injury rehabilitation,CARE_PLANS,Encounter type,55297,False
+65546002,Extraction of wisdom tooth,PROCEDURES,Procedure,53479,False
+212,COVID-19 vaccine  vector-nr  rS-Ad26  PF  0.5 mL,IMMUNIZATIONS,Medication or vaccine,51435,False
+85548006,Episiotomy,PROCEDURES,Procedure,50568,False
+1191,Aspirin,ALLERGIES,Other,48266,False
+395142003,Allergy screening test,PROCEDURES,Procedure,47840,False
+79586000,Tubal pregnancy,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,45601,False
+267253006,Fetus with chromosomal abnormality,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,44428,False
+33737001,Fracture of rib,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,43504,False
+19169002,Miscarriage in first trimester,CONDITIONS,Condition,42612,False
+210098006,Domiciliary or rest home patient evaluation and management,ENCOUNTERS,Encounter type,42065,False
+18946005,Epidural anesthesia,PROCEDURES,Procedure,39437,False
+46706006,Replacement of contraceptive intrauterine device,PROCEDURES,Procedure,39000,False
+713197008,Recurrent rectal polyp,"CONDITIONS, PROCEDURES.REASON",Condition,38955,False
+386257007,Dementia management,CARE_PLANS,Encounter type,38733,False
+68254000,Removal of intrauterine device,PROCEDURES,Procedure,37157,False
+307731004,Injury of tendon of the rotator cuff of shoulder,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,34848,False
+735984001,Heart failure self management plan,CARE_PLANS,Encounter type,34052,False
+31208007,Medical induction of labor,PROCEDURES,Procedure,33968,False
+39848009,Whiplash injury to neck,CONDITIONS,Condition,33640,False
+62564004,Concussion with loss of consciousness,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON",Condition,32861,False
+412776001,Chronic obstructive pulmonary disease clinical management plan,CARE_PLANS,Encounter type,32536,False
+183478001,Emergency hospital admission for asthma,ENCOUNTERS,Encounter type,32483,False
+359817006,Closed fracture of hip,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,32218,False
+403191005,Second degree burn,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON",Condition,32125,False
+190905008,Cystic Fibrosis,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,32097,False
+170837001,Allergic disorder initial assessment,ENCOUNTERS,Encounter type,31900,False
+52765003,Intubation,PROCEDURES,Procedure,30804,False
+90560007,Gout,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,30184,False
+290045001,Kitchen practice,PROCEDURES,Procedure,29381,False
+229095001,Exercise class,PROCEDURES,Procedure,29380,False
+169673001,Antenatal RhD antibody screening,PROCEDURES,Procedure,29205,False
+305428000,Admission to orthopedic department,PROCEDURES,Procedure,29071,False
+84757009,Epilepsy,CONDITIONS,Condition,28667,False
+711282006,Skin condition care,CARE_PLANS,Encounter type,28481,False
+133901003,Burn care,CARE_PLANS,Encounter type,28074,False
+367498001,Seasonal allergic rhinitis,"CONDITIONS, ENCOUNTERS.REASON",Condition,27748,False
+29046,Lisinopril,ALLERGIES,Other,27553,False
+170836005,Allergic disorder monitoring,CARE_PLANS,Encounter type,27049,False
+36923009,Major depression  single episode,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON, PROCEDURES.REASON",Condition,26617,False
+444448004,Injury of medial collateral ligament of knee,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,26463,False
+256355007,Soy bean,"ALLERGIES, ENCOUNTERS.REASON",Condition,25681,True
+11466000,Cesarean section,PROCEDURES,Procedure,24977,False
+736252007,Cancer care plan,CARE_PLANS,Encounter type,24653,False
+7984,Penicillin V,ALLERGIES,Other,24223,False
+95417003,Primary fibromyalgia syndrome,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,23410,False
+370143000,Major depression disorder,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON",Condition,21872,False
+168594001,Clavicle X-ray,PROCEDURES,Procedure,21636,False
+30832001,Rupture of patellar tendon,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,21336,False
+384700001,Injection of tetanus antitoxin,PROCEDURES,Procedure,20419,False
+230690007,Stroke,"CONDITIONS, ENCOUNTERS.REASON",Condition,20355,False
+1225002,Upper arm X-ray,PROCEDURES,Procedure,19885,False
+83664006,Idiopathic atrophic hypothyroidism,"CONDITIONS, ENCOUNTERS.REASON",Condition,19164,False
+444470001,Injury of anterior cruciate ligament,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,19005,False
+37849005,Congenital uterine anomaly,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,18381,False
+241929008,Acute allergic reaction,"CONDITIONS, ENCOUNTERS.REASON",Condition,18294,False
+183495009,Non-urgent orthopedic admission,ENCOUNTERS,Encounter type,18210,False
+237001001,Augmentation of labor,PROCEDURES,Procedure,17644,False
+287664005,Bilateral tubal ligation,PROCEDURES,Procedure,16112,False
+198992004,Antepartum eclampsia,CONDITIONS,Condition,15977,False
+95281009,Sudden Cardiac Death,ENCOUNTERS.REASON,Condition,15945,True
+398254007,Preeclampsia,CONDITIONS,Condition,15933,False
+170838006,Allergic disorder follow-up assessment,ENCOUNTERS,Encounter type,15593,False
+262574004,Bullet wound,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,15344,False
+19490002,Ankle X-ray,PROCEDURES,Procedure,15084,False
+395082007,Cancer care plan,CARE_PLANS,Encounter type,15007,False
+236974004,Instrumental delivery,PROCEDURES,Procedure,14532,False
+65575008,Biopsy of prostate,PROCEDURES,Procedure,13682,False
+93761005,Primary malignant neoplasm of colon,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,13545,False
+386522008,Overactivity/inattention behavior management,CARE_PLANS,Encounter type,13539,False
+43075005,Partial resection of colon,PROCEDURES,Procedure,13429,False
+6072007,Bleeding from anus,"CONDITIONS, ENCOUNTERS.REASON",Condition,13414,False
+182964004,Terminal care,CARE_PLANS,Encounter type,12487,False
+699253003,Surgical manipulation of joint of knee,PROCEDURES,Procedure,12394,False
+449868002,Smokes tobacco daily,CONDITIONS,Condition,12309,False
+10831,Sulfamethoxazole / Trimethoprim,ALLERGIES,Other,12152,False
+74016001,Knee X-ray,PROCEDURES,Procedure,11807,False
+609496007,Complication occuring during pregnancy,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,11279,False
+69896004,Rheumatoid arthritis,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,10537,False
+418891003,Computed tomography of chest and abdomen,PROCEDURES,Procedure,10021,False
+736254008,Psychiatry care plan,CARE_PLANS,Encounter type,9972,False
+79094001,Initial Psychiatric Interview with mental status evaluation,ENCOUNTERS,Encounter type,9705,False
+7200002,Alcoholism,CONDITIONS,Condition,9001,False
+65588006,Premature birth of newborn,PROCEDURES,Procedure,8344,False
+45816000,Pyelonephritis,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,8125,False
+85116003,Miscarriage in second trimester,CONDITIONS,Condition,7932,False
+718347000,Mental health care plan,CARE_PLANS,Encounter type,7612,False
+90470006,Prostatectomy,PROCEDURES,Procedure,6778,False
+171231001,Asthma screening,PROCEDURES,Procedure,6464,False
+80146002,Appendectomy,PROCEDURES,Procedure,6404,False
+239720000,Tear of meniscus of knee,"CARE_PLANS.REASON, CONDITIONS",Condition,6382,False
+275272006,Brain damage - traumatic,CONDITIONS,Condition,6301,False
+268425006,Pelvis X-ray,PROCEDURES,Procedure,5792,False
+104173009,Sputum Culture,PROCEDURES,Procedure,5727,False
+82078001,Take blood sample,PROCEDURES,Procedure,5726,False
+403192003,Third degree burn,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,5546,False
+76164006,Biopsy of colon,PROCEDURES,Procedure,5529,False
+305411003,Admission to thoracic surgery department,ENCOUNTERS,Encounter type,5416,False
+25037,cefdinir,ALLERGIES,Other,4866,False
+236077008,Protracted diarrhea,CONDITIONS,Condition,4856,False
+183856001,Referral to hypertension clinic,PROCEDURES,Procedure,4811,False
+5640,Ibuprofen,ALLERGIES,Other,3816,False
+15724005,Fracture of vertebral column without spinal cord injury,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON",Condition,3350,False
+65275009,Acute Cholecystitis,"CONDITIONS, ENCOUNTERS.REASON",Condition,3320,False
+737434004,Major depressive disorder clinical management plan,CARE_PLANS,Encounter type,3140,False
+1734006,Fracture of the vertebral column with spinal cord injury,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,2874,False
+22523008,Vasectomy,PROCEDURES,Procedure,2866,False
+45595009,Laparoscopic Removal of Gall Bladder,"ENCOUNTERS.REASON, PROCEDURES",Procedure,2745,True
+236931002,Methotrexate injection into tubal pregnancy,PROCEDURES,Procedure,2418,False
+445912000,Excision of fallopian tube and surgical removal of ectopic pregnancy,PROCEDURES,Procedure,2364,False
+609588000,Total knee replacement,"ENCOUNTERS.REASON, PROCEDURES",Procedure,2074,True
+47693006,Rupture of appendix,CONDITIONS,Condition,1942,False
+235919008,Cholelithiasis,CONDITIONS,Condition,1599,False
+426701000119108,Ultrasonography of abdomen  right upper quadrant and epigastrium,PROCEDURES,Procedure,1599,False
+305433001,Admission to trauma surgery department,PROCEDURES,Procedure,1346,False
+200936003,Lupus erythematosus,"CONDITIONS, ENCOUNTERS.REASON, MEDICATIONS.REASON",Condition,1211,False
+698754002,Chronic paralysis due to lesion of spinal cord,CONDITIONS,Condition,1146,False
+52734007,Total replacement of hip,"ENCOUNTERS.REASON, PROCEDURES",Procedure,1132,True
+305340004,Admission to long stay hospital,PROCEDURES,Procedure,1098,False
+183450002,Admission to burn unit,PROCEDURES,Procedure,1090,False
+387685009,Surgical manipulation of shoulder joint,PROCEDURES,Procedure,1042,False
+75162002,Spinal cord injury rehabilitation,CARE_PLANS,Encounter type,949,False
+113076002,Oral Glucose Tolerance Test,PROCEDURES,Procedure,844,False
+86849004,Suicidal deliberate poisoning,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,837,False
+187,zoster vaccine recombinant,IMMUNIZATIONS,Medication or vaccine,700,False
+38102005,Open Removal of Gall Bladder,"ENCOUNTERS.REASON, PROCEDURES",Procedure,642,True
+112001000119100,positive screening for depression on phq9,PROCEDURES,Procedure,618,False
+11218009,Infection caused by Pseudomonas aeruginosa,"CONDITIONS, MEDICATIONS.REASON",Condition,472,False
+177157003,Spontaneous breech delivery,PROCEDURES,Procedure,465,False
+183401008,Anti-suicide psychotherapy,CARE_PLANS,Encounter type,453,False
+67799006,Diagnosis of cystic fibrosis using sweat test and gene test,ENCOUNTERS,Encounter type,327,False
+387607004,Construction of diverting colostomy,PROCEDURES,Procedure,311,False
+112011000119102,negative screening for depression on phq9,PROCEDURES,Procedure,301,False
+287185009,Attempted suicide - cut/stab,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,280,False
+427089005,Diabetes from Cystic Fibrosis,CONDITIONS,Condition,246,False
+703040004,Agreeing on diabetes care plan,CARE_PLANS,Encounter type,238,False
+287182007,Attempted suicide - suffocation,"CARE_PLANS.REASON, CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,224,False
+47200007,Non-low risk pregnancy,CONDITIONS,Condition,186,False
+707577004,Female Infertility,CONDITIONS,Condition,172,False
+406602003,Infection caused by Staphylococcus aureus,"CONDITIONS, MEDICATIONS.REASON",Condition,151,False
+180030006,Amputation of right foot,PROCEDURES,Procedure,141,False
+305425002,Admission to neurosurgical department,PROCEDURES,Procedure,137,False
+79733001,Amputation of right leg,PROCEDURES,Procedure,132,False
+281790008,Intravenous antibiotic therapy,PROCEDURES,Procedure,87,False
+90407005,Evaluation of psychiatric state of patient,PROCEDURES,Procedure,83,False
+88848003,Psychiatric follow-up,PROCEDURES,Procedure,83,False
+74857009,Hospital admission  short-term  24 hours,PROCEDURES,Procedure,83,False
+448417001,Sepsis caused by Staphylococcus aureus,"CONDITIONS, ENCOUNTERS.REASON, PROCEDURES.REASON",Condition,82,False
+252895004,Urodynamic studies (procedure,PROCEDURES,Procedure,69,False
+183801001,Inpatient stay 3 days,ENCOUNTERS,Encounter type,65,False
+86964003,Sweat Test,PROCEDURES,Procedure,55,False
+444260001,20 Gene mutation test,PROCEDURES,Procedure,55,False
+60151004,Neonatal Screening,PROCEDURES,Procedure,37,False
+311707005,Oromotor Exercises,PROCEDURES,Procedure,30,False
+232657004,Lung Transplant,PROCEDURES,Procedure,27,False
+206523001,Meconium Ileus,"CONDITIONS, PROCEDURES.REASON",Condition,20,False
+385486001,Postoperative complication,ENCOUNTERS.REASON,Condition,13,True
+287191006,Suicide - suffocation,ENCOUNTERS.REASON,Condition,9,True
+385186005,Enema,PROCEDURES,Procedure,8,False
+287193009,Suicide - firearms,ENCOUNTERS.REASON,Condition,7,True
+312421008,Radionuclide Imaging,PROCEDURES,Procedure,4,False
+13995008,Amputation of right arm,PROCEDURES,Procedure,4,False
+311834001,Fiberoptic Endoscopic Evaluation of Swallowing,PROCEDURES,Procedure,3,False
+44301001,Suicide,ENCOUNTERS.REASON,Condition,2,True
