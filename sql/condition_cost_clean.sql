@@ -4,9 +4,9 @@
 --
 -- Rewritten against the two curated artifacts, which is why this is ~30
 -- lines instead of ~90:
---   ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN  -- correct money columns,
+--   SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN  -- correct money columns,
 --       payer already collapsed, date window already applied
---   ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY    -- every code resolves to a
+--   SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY    -- every code resolves to a
 --       name, with IS_CONDITION separating real diagnoses from visit types,
 --       paperwork and social determinants
 --
@@ -23,7 +23,7 @@ WITH claim_money AS (
         SUM(BILLED_AMOUNT)   AS billed,
         SUM(PAID_AMOUNT)     AS paid,
         SUM(PAID_BY_PATIENT) AS patient_paid
-    FROM ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN
+    FROM SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN
     WHERE NOT IS_ADMIN_NOISE_CODE
       AND PROCEDURECODE IS NOT NULL
     GROUP BY CLAIM_ID, PAYER_NAME, PAYER_TYPE
@@ -47,7 +47,7 @@ SELECT
 FROM claim_money m
 JOIN SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS c
     ON m.CLAIM_ID = c.CLAIM_ID
-JOIN ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY d
+JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d
     ON c.DIAGNOSIS1 = d.CODE
 WHERE d.IS_CONDITION            -- excludes visit types, paperwork, employment status
 GROUP BY d.CODE, d.DESCRIPTION, d.CODE_CATEGORY, m.PAYER_NAME, m.PAYER_TYPE

@@ -1,5 +1,5 @@
 -- =====================================================================
--- ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN
+-- SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN
 --
 -- Curated line-grain view over the read-only share
 -- SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS_TX.
@@ -44,7 +44,7 @@
 -- and re-run. That is the single place the standing scope is defined.
 -- =====================================================================
 
-CREATE OR REPLACE VIEW ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN AS
+CREATE OR REPLACE VIEW SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN AS
 SELECT
     -- ---- keys -------------------------------------------------------
     tx.CLAIMS_TX_ID,

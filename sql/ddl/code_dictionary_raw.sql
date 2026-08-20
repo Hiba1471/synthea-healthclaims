@@ -1,5 +1,5 @@
 -- =====================================================================
--- ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY  (pass 1 of 2 -- raw build)
+-- SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY  (pass 1 of 2 -- raw build)
 --
 -- One row per clinical code seen anywhere in the share, with a single
 -- canonical description. Solves:
@@ -35,7 +35,7 @@
 -- data, which is what pass 2 uses instead of keyword guesswork.
 -- =====================================================================
 
-CREATE OR REPLACE TABLE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY AS
+CREATE OR REPLACE TABLE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY AS
 WITH raw AS (
     SELECT CODE AS code, DESCRIPTION AS descr, 'CONDITIONS' AS src
       FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CONDITIONS

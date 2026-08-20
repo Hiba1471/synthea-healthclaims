@@ -1,5 +1,5 @@
 -- =====================================================================
--- ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY  (pass 2 of 2 -- classification)
+-- SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY  (pass 2 of 2 -- classification)
 --
 -- Adds the flags that let DIAGNOSIS1 be ranked as clinical conditions
 -- without visit types, paperwork or employment status in the results.
@@ -23,7 +23,7 @@
 -- scan of ~356M rows.
 -- =====================================================================
 
-ALTER TABLE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY
+ALTER TABLE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY
     ADD COLUMN CODE_CATEGORY VARCHAR(32),
                IS_CLINICAL   BOOLEAN,
                IS_CONDITION  BOOLEAN,
@@ -33,7 +33,7 @@ ALTER TABLE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY
 -- ---------------------------------------------------------------------
 -- Step 1: record HOW each row will be decided (independent of the outcome)
 -- ---------------------------------------------------------------------
-UPDATE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY
+UPDATE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY
 SET CLASSIFIED_BY =
     CASE
         WHEN DESCRIPTION IN (
@@ -99,7 +99,7 @@ SET CLASSIFIED_BY =
 -- ---------------------------------------------------------------------
 -- Step 2: assign the category, honouring that precedence
 -- ---------------------------------------------------------------------
-UPDATE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY
+UPDATE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY
 SET CODE_CATEGORY =
     CASE
         -- (a) hand-reviewed exceptions -----------------------------------
@@ -190,7 +190,7 @@ SET CODE_CATEGORY =
 -- ---------------------------------------------------------------------
 -- Step 3: derive the two boolean flags from the category
 -- ---------------------------------------------------------------------
-UPDATE ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY
+UPDATE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY
 SET IS_CONDITION = (CODE_CATEGORY = 'Condition'),
     -- 'Mortality event' is clinical but never a treatable condition
     IS_CLINICAL  = (CODE_CATEGORY IN ('Condition', 'Procedure',

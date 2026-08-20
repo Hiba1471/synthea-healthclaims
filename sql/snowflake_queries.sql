@@ -1,6 +1,6 @@
 -- Snowflake exploration queries
 -- Database: SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS, Schema: SILVER
--- (Note: ENERGY_PIPELINE.PUBLIC currently has no tables loaded yet)
+-- Curated layer: SYNTHEA_HEALTHCLAIMS.PUBLIC (V_CLAIMS_TX_CLEAN, CODE_DICTIONARY)
 
 -- =====================================================================
 -- Null-value audit

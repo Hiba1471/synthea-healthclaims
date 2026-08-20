@@ -5,8 +5,8 @@ Analysis of the Snowflake share
 data: 887M claim transactions, 124M claims, 1.4M patients).
 
 > **Directory name is misleading.** This folder is called
-> `energy-reporting-pipeline` and `.env` points at an `ENERGY_PIPELINE`
-> database, but no energy data exists — `ENERGY_PIPELINE.PUBLIC` was empty and
+> `energy-reporting-pipeline` and `.env` points at an `SYNTHEA_HEALTHCLAIMS`
+> database, but no energy data exists — `SYNTHEA_HEALTHCLAIMS.PUBLIC` was empty and
 > is now used purely to host the curated objects below. All analysis is
 > healthcare claims.
 
@@ -19,13 +19,13 @@ those, not the source tables — the source has traps that produce confidently
 wrong answers (see [Gotchas](#gotchas)).
 
 ```bash
-snow sql -q "SELECT PAYER_TYPE, SUM(PAID_BY_PAYER), SUM(PAID_BY_PATIENT) FROM ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN GROUP BY 1"
+snow sql -q "SELECT PAYER_TYPE, SUM(PAID_BY_PAYER), SUM(PAID_BY_PATIENT) FROM SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN GROUP BY 1"
 ```
 
 | Object | Kind | Purpose |
 |---|---|---|
-| `ENERGY_PIPELINE.PUBLIC.V_CLAIMS_TX_CLEAN` | view | Claim transactions with correct money columns, payer collapsed, date window applied |
-| `ENERGY_PIPELINE.PUBLIC.CODE_DICTIONARY` | table (1,453 rows) | Every clinical code → one canonical name + category. 100% resolution on all 9 code fields |
+| `SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN` | view | Claim transactions with correct money columns, payer collapsed, date window applied |
+| `SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY` | table (1,453 rows) | Every clinical code → one canonical name + category. 100% resolution on all 9 code fields |
 
 The share is **read-only** (an imported Snowflake share), so nothing can be
 fixed at source. These objects are the correction layer.
