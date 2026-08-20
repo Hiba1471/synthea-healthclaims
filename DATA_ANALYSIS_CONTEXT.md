@@ -1,0 +1,797 @@
+# Data Analysis Context & Constraints
+
+## Purpose
+
+This file defines the working rules, quality standards, and constraints for all data analysis performed in this project.
+
+**Sections 1–23 are general rules** that apply to any dataset.
+**Sections 24–27 are specific to this project** — the dataset, its curated
+layer, its known traps, and the questions answered so far. Read 24–26 before
+writing a query against this data; several of the traps produce confident,
+plausible, wrong answers rather than errors.
+
+The goal is to produce analysis that is:
+
+- Accurate
+- Reproducible
+- Traceable
+- Easy to review
+- Conservative about assumptions
+- Clear about uncertainty
+- Useful for decision-making
+
+---
+
+## 1. General Analysis Rules
+
+1. Never invent, estimate, or fabricate data unless explicitly asked to create synthetic data.
+2. Use the provided dataset as the primary source of truth.
+3. Do not silently modify source data.
+4. Preserve the original dataset whenever possible and perform transformations on a copy.
+5. Clearly distinguish:
+   - Raw values
+   - Cleaned values
+   - Derived values
+   - Assumptions
+   - Estimates
+6. If required information is missing, state what is missing instead of guessing.
+7. If a conclusion cannot be supported by the available data, explicitly say so.
+8. Prefer correctness and transparency over producing a confident-looking result.
+
+---
+
+## 2. Data Validation
+
+Before performing substantive analysis:
+
+- Inspect dataset shape and dimensions.
+- Review column names and data types.
+- Identify duplicate records.
+- Identify missing/null values.
+- Identify unexpected values or categories.
+- Check numerical ranges for implausible values.
+- Check dates for invalid or inconsistent formats.
+- Check identifier fields for uniqueness where uniqueness is expected.
+- Look for inconsistent capitalization, spelling, whitespace, and formatting.
+- Check for units and confirm that comparable fields use compatible units.
+
+Do not automatically remove suspicious records.
+
+Instead:
+
+1. Identify the issue.
+2. Explain why the record may be problematic.
+3. Apply a cleaning rule only when justified.
+4. Record the rule used.
+
+---
+
+## 3. Missing Data
+
+Never automatically convert missing values to zero.
+
+Treat these as potentially different concepts:
+
+- `0`
+- blank string
+- `NULL`
+- `NaN`
+- unavailable
+- unknown
+- not applicable
+
+Before imputing missing values:
+
+- Explain the proposed method.
+- Explain why the method is appropriate.
+- Report how many observations are affected.
+
+If imputation is not necessary, prefer retaining missing values.
+
+---
+
+## 4. Duplicate Data
+
+Do not remove duplicates solely because two rows look similar.
+
+Confirm whether duplication means:
+
+- True duplicate record
+- Multiple valid transactions
+- Multiple events for the same entity
+- Repeated measurement
+- Version/history records
+
+When duplicates are removed, report:
+
+- Number of rows removed
+- Columns or rules used to identify duplicates
+- Reason the removal was justified
+
+---
+
+## 5. Calculations
+
+All reported calculations should be reproducible.
+
+For important metrics:
+
+- Use explicit formulas.
+- Verify calculations programmatically where possible.
+- Avoid manual arithmetic for large or important calculations.
+- Keep full numerical precision during calculations.
+- Round only for presentation unless the methodology requires otherwise.
+
+For percentages, clearly identify the denominator.
+
+For percentage change, use:
+
+`(new_value - old_value) / old_value * 100`
+
+Do not confuse:
+
+- Percentage change
+- Percentage-point change
+- Share of total
+- Growth rate
+
+---
+
+## 6. Aggregations
+
+Before aggregating:
+
+- Confirm the intended grain of the dataset.
+- Identify the grouping fields.
+- Check whether one entity can appear multiple times.
+- Avoid double counting caused by joins or one-to-many relationships.
+
+For totals, counts, averages, or ratios, state what is being aggregated.
+
+Prefer meaningful metrics over unnecessary aggregation.
+
+Examples:
+
+- Use median when distributions are strongly skewed.
+- Report counts alongside percentages when useful.
+- Use weighted averages when observations have different weights.
+
+---
+
+## 7. Joins and Merges
+
+Before joining datasets:
+
+- Identify expected join cardinality:
+  - one-to-one
+  - one-to-many
+  - many-to-one
+  - many-to-many
+- Check key uniqueness.
+- Check unmatched records.
+- Check whether row counts unexpectedly increase after the join.
+
+Never allow a many-to-many merge to inflate results without explicitly identifying and justifying it.
+
+After important joins, validate:
+
+- Row count before and after
+- Number of matched records
+- Number of unmatched records
+- Duplicate key behavior
+
+---
+
+## 8. Date and Time Analysis
+
+Always verify:
+
+- Date parsing
+- Time zone
+- Date range
+- Frequency/granularity
+- Missing dates
+- Duplicate timestamps
+
+Do not treat partial periods as complete periods without clearly labeling them.
+
+For month-over-month or year-over-year comparisons:
+
+- Compare equivalent periods.
+- Mention incomplete periods.
+- Avoid comparing partial current periods with full historical periods unless specifically required.
+
+---
+
+## 9. Statistical Analysis
+
+Do not imply causation from correlation alone.
+
+When using statistical tests:
+
+- State the hypothesis.
+- State the test used.
+- Explain why it is appropriate.
+- Report relevant statistics and sample size.
+- Report uncertainty where appropriate.
+- Note important assumptions.
+
+For model evaluation:
+
+- Keep training and test data separate.
+- Avoid data leakage.
+- Use appropriate baselines.
+- Prefer cross-validation when appropriate.
+- Report metrics relevant to the business problem.
+
+Do not select a metric solely because it makes the model appear better.
+
+---
+
+## 10. Outliers
+
+Do not automatically delete outliers.
+
+First determine whether an outlier is:
+
+- A data-entry error
+- A measurement error
+- A legitimate rare observation
+- A meaningful business event
+
+If outliers are excluded or winsorized:
+
+- State the rule.
+- Report how many records were affected.
+- Compare results with and without the treatment when material.
+
+---
+
+## 11. Visualization Constraints
+
+Every chart should communicate a specific point.
+
+Charts should:
+
+- Have a descriptive title.
+- Label axes clearly.
+- Include units.
+- Use readable scales.
+- Avoid misleading axis truncation.
+- Avoid unnecessary visual effects.
+- Avoid 3D charts unless explicitly requested.
+- Use consistent category ordering where applicable.
+- Use chronological ordering for time-series data.
+
+Prefer:
+
+- Bar charts for category comparisons
+- Line charts for trends over time
+- Scatter plots for relationships
+- Histograms for distributions
+- Box plots for distribution comparisons
+
+Do not use pie charts when many categories make comparison difficult.
+
+The visualization must agree exactly with the underlying calculated values.
+
+---
+
+## 12. Reporting Results
+
+Structure findings so that a reviewer can distinguish:
+
+### Observation
+What the data directly shows.
+
+### Interpretation
+What the observation may mean.
+
+### Recommendation
+What action could reasonably follow.
+
+Do not present interpretations as facts.
+
+Highlight:
+
+- Key findings
+- Material exceptions
+- Important trends
+- Risks
+- Data limitations
+- Uncertainty
+- Recommended next steps
+
+Avoid overstating small or statistically insignificant differences.
+
+---
+
+## 13. Business Metrics
+
+Before calculating a business KPI, define it explicitly.
+
+Examples:
+
+### Conversion Rate
+
+`converted_entities / eligible_entities`
+
+### Retention Rate
+
+Define:
+
+- Cohort
+- Start period
+- Retention period
+- What counts as retained
+
+### Revenue Growth
+
+Specify whether the comparison is:
+
+- Month-over-month
+- Quarter-over-quarter
+- Year-over-year
+
+### Average
+
+Clarify whether it means:
+
+- Mean
+- Median
+- Weighted mean
+
+Never assume that a business term has only one definition.
+
+---
+
+## 14. Data Leakage and Future Information
+
+For predictive analysis, never use information that would not have been available at prediction time.
+
+Examples of leakage include:
+
+- Future outcomes
+- Post-event status fields
+- Finalized labels
+- Future transactions
+- Aggregations containing future periods
+
+Use time-aware train/test splits where chronological ordering matters.
+
+---
+
+## 15. Privacy and Sensitive Data
+
+Minimize exposure of personally identifiable or sensitive information.
+
+Do not include unnecessary:
+
+- Names
+- Emails
+- Phone numbers
+- Addresses
+- Account identifiers
+- Personal identifiers
+
+Use aggregated or anonymized values whenever the identity of individual records is not necessary.
+
+---
+
+## 16. Reproducibility
+
+Analysis should be reproducible from the original input.
+
+Where applicable:
+
+- Use deterministic transformations.
+- Set random seeds for randomized processes.
+- Keep transformations in logical sequence.
+- Do not manually alter intermediate results.
+- Document important assumptions.
+- Keep calculated fields traceable to source columns.
+
+Prefer code-based transformations over undocumented spreadsheet edits.
+
+---
+
+## 17. Python Analysis Preferences
+
+When Python is used:
+
+- Prefer `pandas` for tabular analysis.
+- Prefer `numpy` for numerical operations.
+- Prefer `matplotlib` for charts unless another library is specifically required.
+- Use descriptive variable names.
+- Avoid unnecessary loops when vectorized operations are clearer.
+- Do not suppress warnings without understanding them.
+- Validate intermediate outputs for important transformations.
+
+For large datasets:
+
+- Avoid unnecessary full copies.
+- Read only required columns when practical.
+- Use appropriate data types.
+- Consider chunked processing when memory is constrained.
+
+---
+
+## 18. SQL Analysis Constraints
+
+When SQL is used:
+
+- Never assume row uniqueness.
+- Validate join cardinality.
+- Avoid `SELECT *` in final analytical queries when specific columns are known.
+- Use explicit aliases.
+- Make filtering conditions visible.
+- Be careful with `NULL` behavior.
+- Avoid accidental integer division.
+- Verify date boundaries.
+- Validate aggregates against base-record counts.
+
+Use CTEs when they materially improve readability.
+
+---
+
+## 19. Excel / Spreadsheet Analysis Constraints
+
+When working with spreadsheets:
+
+- Preserve original input sheets when possible.
+- Clearly separate raw data, calculations, and outputs.
+- Avoid hard-coded values inside formulas when a reference cell is more appropriate.
+- Use formulas for derived values rather than manually entering calculated numbers.
+- Ensure formula ranges cover the full intended dataset.
+- Avoid merged cells inside analytical data tables.
+- Use consistent date and number formats.
+- Make assumptions visible in dedicated cells or notes.
+
+---
+
+## 20. Quality Checks Before Finalizing
+
+Before reporting final results, verify:
+
+- [ ] Source data was not unintentionally modified
+- [ ] Dataset dimensions were inspected
+- [ ] Missing values were reviewed
+- [ ] Duplicates were reviewed
+- [ ] Data types were checked
+- [ ] Important formulas were validated
+- [ ] Aggregations do not double count
+- [ ] Joins did not unexpectedly multiply records
+- [ ] Percentages use the correct denominator
+- [ ] Dates and periods are comparable
+- [ ] Outlier treatment is documented
+- [ ] Charts match calculated values
+- [ ] Conclusions are supported by evidence
+- [ ] Assumptions are explicitly stated
+- [ ] Limitations are reported
+- [ ] Final figures have been independently sanity-checked
+
+---
+
+## 21. Communication Style
+
+Present analysis in clear, straightforward language.
+
+Prefer this structure:
+
+1. Executive summary
+2. Key metrics
+3. Important findings
+4. Supporting analysis
+5. Limitations
+6. Recommendations
+
+Use tables when they improve comparison.
+
+Avoid unnecessary technical terminology in business-facing summaries.
+
+When technical terminology is necessary, explain it briefly.
+
+---
+
+## 22. Uncertainty Rule
+
+When uncertain, do not hide the uncertainty.
+
+Use language such as:
+
+- "The available data suggests..."
+- "This cannot be determined from the current dataset."
+- "This result depends on the assumption that..."
+- "The dataset does not contain enough information to verify..."
+- "This appears to be..., but should be validated against..."
+
+Never manufacture certainty to complete an analysis.
+
+---
+
+## 23. Final Principle
+
+A correct analysis with clearly stated limitations is preferable to a polished analysis built on unsupported assumptions.
+
+Every important result should be traceable back to:
+
+**Source Data → Transformation → Calculation → Result → Interpretation**
+
+---
+
+# PROJECT-SPECIFIC CONTEXT
+
+Everything below applies to the Synthea healthcare claims project only.
+
+---
+
+## 24. Dataset and Environment
+
+### Source
+
+**`SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER`** — a Snowflake
+share of Synthea-generated synthetic healthcare data. 18 tables, ~2.3B rows.
+
+The share is **read-only**. It cannot be altered, so all corrections live in a
+curated layer rather than being fixed at source. This satisfies §1 rule 3–4
+(do not modify source data) by construction.
+
+### Curated layer — query these, not the raw tables
+
+**`SYNTHEA_HEALTHCLAIMS.PUBLIC`**
+
+| Object | Type | Purpose |
+|---|---|---|
+| `V_CLAIMS_TX_CLEAN` | view | Claim transactions with corrected money columns, payer collapsed, date window applied |
+| `CODE_DICTIONARY` | table, 1,453 rows | Every clinical code → one canonical name + category. 100% resolution on all 9 code fields |
+
+DDL: `sql/ddl/`. Run order: `v_claims_tx_clean.sql` →
+`code_dictionary_raw.sql` → `code_dictionary_classify.sql`.
+
+### Standing analysis window
+
+**`FROMDATE >= '2020-01-01' AND FROMDATE < '2025-01-01'`**, baked into the view.
+
+- Unfiltered, the data spans **1914–2024** (~110 years). Cumulative totals are
+  not business figures.
+- Volume steps up **~8×** at Nov 2019 (~$200M → ~$1.7B/month), so calendar-2019
+  blends two population regimes and is excluded deliberately.
+- Data ends **2024-11-09**, so 2024 totals run ~10–15% light. Per §8, label
+  partial periods; never plot raw Q4 2024 as a decline.
+
+### Reference totals — every analysis must reconcile to one of these
+
+| Figure | Value |
+|---|---|
+| All spend, 2020–2024 | **$99,825,019,809** |
+| Excluding admin noise code 185347001 | **$99,111,300,187** |
+| Attributable to a clinical condition | **$72,685,492,693** |
+| Patients with spend | **1,259,375** |
+| Claims | **68,645,121** |
+
+A new number that does not tie to one of these is a bug until proven otherwise.
+
+---
+
+## 25. Data Dictionary
+
+### Tables used
+
+| Table | Rows | Grain | Key columns used |
+|---|---|---|---|
+| `CLAIMS_TX` | 886,973,449 | one billing **line item** | `CLAIMS_TX_ID`, `CLAIM_ID`, `ENCOUNTER_ID`, `PATIENT_ID`, `TYPE`, `AMOUNT`, `PAYMENTS`, `METHOD`, `TRANSFERTYPE`, `PROCEDURECODE`, `FROMDATE`, `OUTSTANDING` |
+| `CLAIMS` | 124,140,497 | one **claim** | `CLAIM_ID`, `PATIENT_ID`, `ENCOUNTER_ID`, `DIAGNOSIS1`–`DIAGNOSIS8`, `SERVICEDATE` |
+| `ENCOUNTERS` | 64,535,917 | one **visit** | `ENCOUNTER_ID`, `PATIENT_ID`, `ORGANIZATION_ID`, `PAYER_ID`, `ENCOUNTERCLASS`, `CODE`, `REASONCODE`, `TOTAL_CLAIM_COST` |
+| `PATIENTS` | 1,421,656 | one **person** | `PATIENT_ID`, `BIRTHDATE`, `DEATHDATE`, `RACE`, `GENDER`, `INCOME` |
+| `PAYERS` | 120 | one insurer **× city** (10 × 12) | `PAYER_ID`, `NAME`, `SYNTHEA_CITY` |
+| `ORGANIZATIONS` | 4,034 | one **care site** | `ORGANIZATION_ID`, `NAME`, `CITY`, `STATE` |
+| `PROVIDERS` | 4,034 | one **clinician** | `PROVIDER_ID`, `ORGANIZATION_ID` |
+| `CONDITIONS` | 38,493,229 | one patient **diagnosis** | `CODE`, `DESCRIPTION`, `PATIENT_ID`, `ENCOUNTER_ID` |
+| `PROCEDURES` | 148,523,805 | one **procedure** | `CODE`, `DESCRIPTION`, `BASE_COST`, `REASONCODE` |
+| `MEDICATIONS` | 59,604,585 | one **prescription** | `CODE` (RxNorm), `DESCRIPTION`, `REASONCODE` |
+| `IMMUNIZATIONS` | 11,499,779 | one **vaccination** | `CODE`, `DESCRIPTION` |
+| `ALLERGIES` | 1,308,603 | one **allergy** | `CODE`, `DESCRIPTION` |
+| `DEVICES` | 5,694,041 | one **device** | `CODE`, `DESCRIPTION` |
+| `SUPPLIES` | 25,169,946 | one **supply** | `CODE`, `DESCRIPTION` |
+| `CARE_PLANS` | 3,961,944 | one **care plan** | `CODE`, `DESCRIPTION`, `REASONCODE` |
+
+**Not used:** `OBSERVATIONS` (763M rows, LOINC codes stored as TEXT — cannot
+join to the numeric code fields), `IMAGING_STUDIES` (DICOM), `PAYER_TRANSITIONS`.
+
+### `V_CLAIMS_TX_CLEAN` — column reference
+
+Grain unchanged: **one row per `CLAIMS_TX` line item**, filtered to 2020–2024.
+
+| Column | Notes |
+|---|---|
+| `CLAIMS_TX_ID`, `CLAIM_ID`, `ENCOUNTER_ID`, `PATIENT_ID` | keys |
+| `FROMDATE`, `TODATE`, `SERVICE_YEAR` | dates |
+| `TYPE` | `CHARGE` / `PAYMENT` / `TRANSFERIN` / `TRANSFEROUT` |
+| `TRANSFERTYPE` | whose responsibility: `1` primary payer, `2` secondary, `p` patient |
+| `METHOD` | payment channel: `ECHECK` = insurer; `CASH`/`CHECK`/`CC`/`COPAY` = patient |
+| `PROCEDURECODE`, `IS_ADMIN_NOISE_CODE` | flag is TRUE for code 185347001 |
+| **`BILLED_AMOUNT`** | **derived** — `AMOUNT` on CHARGE rows only, 0 elsewhere |
+| `PAID_AMOUNT` | `PAYMENTS`, already 0 off PAYMENT rows |
+| **`PAID_BY_PAYER`** | **derived** — PAYMENT rows where `METHOD = 'ECHECK'` |
+| **`PAID_BY_PATIENT`** | **derived** — PAYMENT rows where `METHOD <> 'ECHECK'` |
+| `TRANSFER_AMOUNT` | `TRANSFERS` |
+| `OUTSTANDING_RUNNING_BALANCE` | **renamed deliberately** — see §26.1 |
+| `PAYER_ID`, `PAYER_NAME`, `PAYER_CITY`, `PAYER_TYPE` | `PAYER_NAME` = the insurer; `PAYER_ID` keys insurer × city |
+| `ENCOUNTERCLASS` | care setting |
+
+Per §1 rule 5, the three **derived** columns are marked as such — they do not
+exist in the source.
+
+### `CODE_DICTIONARY` — column reference
+
+| Column | Notes |
+|---|---|
+| `CODE`, `DESCRIPTION` | canonical name; `MODE()` resolves casing variants |
+| `SEMANTIC_TAG` | SNOMED qualifier (`disorder`, `procedure`, `finding`…). Present on 71.6% of codes |
+| `SOURCE_TABLES` | provenance — which tables the code appears in |
+| `CODE_CATEGORY` | Condition / Procedure / Encounter type / Medication or vaccine / Device or supply / Substance / Social determinant / Administrative / Mortality event / Imaging |
+| **`IS_CONDITION`** | the flag for ranking conditions by cost |
+| `IS_CLINICAL` | broader — excludes admin, social, devices, venues |
+| `CLASSIFIED_BY` | `semantic_tag` (690) / `provenance` (284) / `manual_override` (25) |
+
+`CLASSIFIED_BY` exists so any classification is traceable and correctable with
+a one-line `UPDATE` — satisfying §16 (traceability to source columns).
+
+---
+
+## 26. Dataset-Specific Traps
+
+Each of these produces a **plausible wrong answer, not an error**. The curated
+layer neutralises all of them; these notes matter when querying raw tables.
+
+### 26.1 `OUTSTANDING` is a running balance, not A/R
+
+`SUM(OUTSTANDING)` returns **$45,314,446,541**. Genuinely uncollected revenue
+is **$83,363.50** — a **543,000×** overstatement. The column is stamped on
+every row as money moves through the transfer chain, so summing counts the same
+balance at each stage.
+
+Correct measure: the balance on each claim's **last** transaction.
+
+### 26.2 `AMOUNT` appears on transfer rows
+
+Populated on `TRANSFERIN` as well as `CHARGE`. Summing it inflates spend by
+**$23.4B (~17%)**. Use `BILLED_AMOUNT`.
+
+### 26.3 `PAYER_ID` is who was billed, not who paid
+
+Responsibility can shift to the patient mid-claim. Using `PAYER_ID` alone
+misattributes **$20.3B** of patient payments to insurers. Use `METHOD` on
+PAYMENT rows.
+
+### 26.4 `DIAGNOSIS1` is mostly not a diagnosis
+
+On a 1% sample, **50.6%** is copied from `ENCOUNTERS.REASONCODE` and **13.9%**
+from `ENCOUNTERS.CODE`. Only **46.7%** of claims carry a real condition in
+position 1; **18.4%** of its uses are procedure codes.
+
+The convention is **inverted** — `DIAGNOSIS2`–`8` contain zero procedure codes
+and get progressively cleaner (59.8% → 98%).
+
+Use `CODE_DICTIONARY.IS_CONDITION`, and consider the **DIAGNOSIS2 fallback**
+(use position 1 when it is a condition, else position 2), which recovers
+5,939,894 claims. Both versions are kept; the fallback attributes full claim
+cost to a nominally secondary diagnosis, which is a trade-off, not a strict
+improvement.
+
+### 26.5 `PROCEDURECODE` mixes three code systems
+
+Procedure, SNOMED encounter, and RxNorm drug codes all appear. Resolve through
+`CODE_DICTIONARY`, not a single source table.
+
+### 26.6 `PAYER_ID` keys an insurer **× city** pair
+
+120 rows for 10 insurers. Group by `PAYER_NAME` for the insurer; by
+`PAYER_ID`/`PAYER_CITY` to keep the regional split. This is a grain trap
+(§6), not corrupt data — each row carries genuine per-city figures.
+
+### 26.7 Claim counts are not additive across procedure rows
+
+Summing gives 249.0M against 124.1M actual claims — exactly **2.0×**, because
+the average claim carries two procedures. Correct within a row; never summed
+across rows.
+
+### What this dataset cannot answer
+
+Per §22 (do not manufacture certainty), these return zero **by construction**:
+
+- **Denials, write-offs, bad debt.** Collection is 100%; `ADJUSTMENTS` is 0 on
+  all 887M rows. Verified: net gap of **−$1,392** across 9,054 procedure ×
+  payer combinations.
+- **Days in A/R.** 98.66% of claims are paid the same day. The 1.3% tail tracks
+  encounter duration, not payment lag.
+- **Equity conclusions from demographics.** Synthea generates demographics from
+  census distributions; any finding would be a generator artifact.
+- **Absolute price realism.** Allergy immunotherapy bills $11,122/injection
+  against a real-world $50–200. Rankings hold; magnitudes do not.
+- **Hospital rankings by total spend.** These track simulated city size (9 of
+  the top 10 are Cleveland). Use **cost per patient** instead.
+
+---
+
+## 27. Questions Answered
+
+Following §12, each is stated as observation → interpretation → recommendation.
+
+### Q1 — Where does the money go?
+
+**Observation.** The top 20 conditions account for **90.8%** of
+condition-attributable spend ($72.7B) and **66.6%** of all spend ($99.1B).
+Normal pregnancy alone is **39.8%**. Ranking by cost *per patient* reorders the
+list sharply: gingivitis spreads **$10,661** across 800,465 patients, while
+non-small-cell lung carcinoma concentrates **$1,416,145** into 2,384.
+
+**Interpretation.** Two structurally different cost problems sit in the same
+top five. Gingivitis is a volume problem; lung carcinoma is an intensity
+problem. A single "reduce high-cost conditions" programme would address
+neither well.
+
+**Recommendation.** Segment cost programmes by shape, not by rank. Volume
+conditions respond to prevention and access; intensity conditions respond to
+care-pathway and site-of-care management. Report total spend and cost per
+patient side by side — either alone misleads.
+
+*Query:* `sql/analysis/q1_cost_drivers.sql` · *Results:*
+`q1_cost_drivers_2020_2024.csv`
+
+### Q2 — Who actually pays?
+
+**Observation.** Patients bear **20.4%** of all spend — **$20.3B**, or
+**$16,084** per patient over five years. The burden is **inverted against
+cost**: patients pay **41.6%** of wellness visits but **8.6%** of inpatient
+stays. By coverage, a government-covered patient pays **$2,118** over five
+years, a commercially-insured one **$19,178**, and an uninsured one
+**$61,742** — despite government patients being billed *more* care overall.
+Every ratio is flat across 2020–2024.
+
+**Interpretation.** Flat-dollar copays and deductibles consume most of a cheap
+visit and almost none of an expensive admission, so cost-sharing falls hardest
+on exactly the preventive care that health policy tries to make frictionless.
+Stability across five years indicates this is benefit design, not drift.
+
+**Recommendation.** Where the goal is preventive uptake, flat copays are
+counterproductive — the mechanism, not the rate, is the lever. For providers,
+payer mix determines collection risk: **$20.3B must be collected from
+individuals rather than institutions**, and ambulatory care alone carries
+$12.7B (63%) of it.
+
+*Query:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`
+
+### Q3 — How concentrated is spend?
+
+**Observation.** **2 conditions** and **86 hospitals** each cover half of all
+spending, while **134,198 patients (10.7%)** are needed to reach the same mark.
+Among 731 hospitals with ≥1,000 patients, cost per patient ranges **$4,401 to
+$144,422 — a 32.8× spread**. The expensive end is dominated by VA and
+veterans' facilities whose cost *per visit* is below average.
+
+**Interpretation.** Spend is driven far more by a few expensive conditions and
+a few high-volume sites than by a few catastrophically sick patients. The
+hospital spread is a **frequency** effect, not a pricing one — expensive sites
+see the same patients repeatedly.
+
+**Recommendation.** Target the 86 sites and 9 conditions that cover 80% of
+spend; both are small enough to address individually. Because the driver is
+visit frequency, intervention belongs in chronic-care management rather than
+price negotiation.
+
+*Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql` ·
+*Chart:* `dashboard/concentration.html`
+
+### Cross-cutting limitations
+
+Per §12 and §22, these travel with any presentation of the above:
+
+1. Patient concentration (top 1% = 11.8%) is **flatter than real US claims
+   data** (20–25%), because Synthea generates patients independently.
+2. The DIAGNOSIS2 fallback attributes full claim cost to a **secondary**
+   diagnosis; the conservative position-1-only cut is retained for comparison.
+3. `Stress` is classified as a social determinant rather than a condition — a
+   judgment call, reversible with a one-line `UPDATE`.
+4. Nothing meaningfully trends over 2020–2024. **Stability is the finding**;
+   the interesting variation is cross-sectional.
