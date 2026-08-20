@@ -1,0 +1,81 @@
+Dimension,Rank,Condition,Segment,Claims,Cost per Claim
+Hospital,1,Normal pregnancy,across 936 hospitals,1986786,11498.66
+Hospital,2,Allergy to substance (finding),across 420 hospitals,842739,10584.16
+Hospital,3,Gingivitis (disorder),across 2362 hospitals,5527308,607.67
+Hospital,4,Chronic kidney disease stage 4 (disorder),across 913 hospitals,9561368,436.56
+Hospital,5,Non-small cell carcinoma of lung  TNM stage 1 (disorder),across 352 hospitals,609772,5760.23
+Hospital,6,Polyp of colon,across 327 hospitals,63722,20653.51
+Hospital,7,Malignant neoplasm of breast (disorder),across 444 hospitals,348206,1792.44
+Hospital,8,End-stage renal disease (disorder),across 568 hospitals,2182480,444.96
+Hospital,9,Gingival disease (disorder),across 424 hospitals,253589,3835.69
+Hospital,10,COVID-19,across 478 hospitals,855496,1080.10
+Hospital,11,Laceration - injury (disorder),across 520 hospitals,171954,4887.88
+Hospital,12,Abnormal findings diagnostic imaging heart+coronary circulat (finding),across 12 hospitals,207916,3921.44
+Hospital,13,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),across 194 hospitals,135543,5818.70
+Hospital,14,Primary dental caries (disorder),across 430 hospitals,280602,2775.85
+Hospital,15,Child attention deficit disorder,across 312 hospitals,80045,9586.07
+Hospital,16,Ischemic heart disease (disorder),across 1320 hospitals,372842,443.07
+Hospital,17,Dependent drug abuse (disorder),across 475 hospitals,1423912,465.56
+Hospital,18,Acute bronchitis (disorder),across 453 hospitals,637437,948.59
+Hospital,19,Stroke,across 12 hospitals,7039,80646.64
+Hospital,20,Acute infective cystitis (disorder),across 769 hospitals,185700,2395.74
+Payer type,1,Normal pregnancy,Commercial,983788,15239.58
+Payer type,1,Normal pregnancy,Government,823182,13783.50
+Payer type,1,Normal pregnancy,Self-Pay / Uninsured,181589,14289.31
+Payer type,2,Allergy to substance (finding),Commercial,346906,10377.76
+Payer type,2,Allergy to substance (finding),Government,438303,10151.50
+Payer type,2,Allergy to substance (finding),Self-Pay / Uninsured,57741,10162.91
+Payer type,3,Gingivitis (disorder),Commercial,1884055,1698.66
+Payer type,3,Gingivitis (disorder),Government,3320528,1447.72
+Payer type,3,Gingivitis (disorder),Self-Pay / Uninsured,329120,1598.15
+Payer type,4,Chronic kidney disease stage 4 (disorder),Commercial,2837617,458.64
+Payer type,4,Chronic kidney disease stage 4 (disorder),Government,5907993,461.66
+Payer type,4,Chronic kidney disease stage 4 (disorder),Self-Pay / Uninsured,827877,438.11
+Payer type,5,Non-small cell carcinoma of lung  TNM stage 1 (disorder),Commercial,38963,5810.64
+Payer type,5,Non-small cell carcinoma of lung  TNM stage 1 (disorder),Government,541053,5517.71
+Payer type,5,Non-small cell carcinoma of lung  TNM stage 1 (disorder),Self-Pay / Uninsured,29864,5502.20
+Payer type,6,Polyp of colon,Commercial,19360,20802.87
+Payer type,6,Polyp of colon,Government,43182,19680.50
+Payer type,6,Polyp of colon,Self-Pay / Uninsured,2940,20619.14
+Payer type,7,Malignant neoplasm of breast (disorder),Commercial,39375,4749.02
+Payer type,7,Malignant neoplasm of breast (disorder),Government,299621,2846.80
+Payer type,7,Malignant neoplasm of breast (disorder),Self-Pay / Uninsured,10992,4981.54
+Payer type,8,End-stage renal disease (disorder),Commercial,657076,459.75
+Payer type,8,End-stage renal disease (disorder),Government,1338018,461.16
+Payer type,8,End-stage renal disease (disorder),Self-Pay / Uninsured,194934,437.34
+Payer type,9,Gingival disease (disorder),Commercial,96101,3805.33
+Payer type,9,Gingival disease (disorder),Government,142206,3627.70
+Payer type,9,Gingival disease (disorder),Self-Pay / Uninsured,16095,3762.57
+Payer type,10,COVID-19,Commercial,330224,1020.87
+Payer type,10,COVID-19,Government,478803,1152.92
+Payer type,10,COVID-19,Self-Pay / Uninsured,49433,995.10
+Payer type,11,Laceration - injury (disorder),Commercial,80264,4878.18
+Payer type,11,Laceration - injury (disorder),Government,81436,4699.09
+Payer type,11,Laceration - injury (disorder),Self-Pay / Uninsured,11884,4804.99
+Payer type,12,Abnormal findings diagnostic imaging heart+coronary circulat (finding),Commercial,64785,3943.51
+Payer type,12,Abnormal findings diagnostic imaging heart+coronary circulat (finding),Government,132295,3753.97
+Payer type,12,Abnormal findings diagnostic imaging heart+coronary circulat (finding),Self-Pay / Uninsured,10836,3837.59
+Payer type,13,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),Commercial,10639,5836.81
+Payer type,13,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),Government,116977,5657.04
+Payer type,13,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),Self-Pay / Uninsured,8035,5621.20
+Payer type,14,Primary dental caries (disorder),Commercial,111057,2760.67
+Payer type,14,Primary dental caries (disorder),Government,152259,2636.01
+Payer type,14,Primary dental caries (disorder),Self-Pay / Uninsured,18024,2728.78
+Payer type,15,Child attention deficit disorder,Commercial,38642,9468.42
+Payer type,15,Child attention deficit disorder,Government,36377,9064.96
+Payer type,15,Child attention deficit disorder,Self-Pay / Uninsured,6077,9431.27
+Payer type,16,Ischemic heart disease (disorder),Commercial,117656,1948.38
+Payer type,16,Ischemic heart disease (disorder),Government,248330,1861.01
+Payer type,16,Ischemic heart disease (disorder),Self-Pay / Uninsured,17466,2018.74
+Payer type,17,Dependent drug abuse (disorder),Commercial,378090,454.27
+Payer type,17,Dependent drug abuse (disorder),Government,959846,428.56
+Payer type,17,Dependent drug abuse (disorder),Self-Pay / Uninsured,86148,454.69
+Payer type,18,Acute bronchitis (disorder),Commercial,289784,956.59
+Payer type,18,Acute bronchitis (disorder),Government,304270,883.79
+Payer type,18,Acute bronchitis (disorder),Self-Pay / Uninsured,43902,937.42
+Payer type,19,Stroke,Commercial,2013,70830.62
+Payer type,19,Stroke,Government,5051,70998.95
+Payer type,19,Stroke,Self-Pay / Uninsured,423,66773.02
+Payer type,20,Acute infective cystitis (disorder),Commercial,89362,2316.70
+Payer type,20,Acute infective cystitis (disorder),Government,93995,2246.98
+Payer type,20,Acute infective cystitis (disorder),Self-Pay / Uninsured,14022,2397.12
