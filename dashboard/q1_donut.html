@@ -1,0 +1,30 @@
+<title>Three Conditions</title>
+<style>
+:root{--surface-1:#fcfcfb;--surface-2:#f4f3f0;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--text-muted:#78766f;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--rest:#d2d0ca;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--surface-2:#232322;
+--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--rest:#4a4945;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--surface-2:#232322;--text-primary:#fff;--text-secondary:#c3c2b7;
+--text-muted:#9a988f;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--rest:#4a4945;}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:30px 20px;
+font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+.wrap{max-width:800px;margin:0 auto;}
+h1{font-size:20px;margin:0 0 5px;letter-spacing:-.01em;}
+.sub{color:var(--text-secondary);font-size:13.5px;margin:0 0 10px;}
+.figure{overflow-x:auto;}
+svg{display:block;width:100%;height:auto;min-width:680px;}
+path{stroke:var(--surface-1);stroke-width:2;}
+.lead{fill:none;stroke:var(--text-muted);stroke-width:1.2;}
+.lbl{fill:var(--text-primary);font-size:13.5px;font-weight:600;}
+.lsub{fill:var(--text-muted);font-size:12px;}
+.ctr{fill:var(--text-primary);font-size:44px;font-weight:700;text-anchor:middle;letter-spacing:-.02em;}
+.ctrsub{fill:var(--text-secondary);font-size:13px;text-anchor:middle;}
+.note{color:var(--text-muted);font-size:12.5px;margin:6px 0 0;}
+</style>
+<div class="wrap">
+<h1>Three conditions, two-thirds of the money</h1>
+<p class="sub">Share of $72.7&nbsp;billion in condition-attributable spend, 2020&ndash;2024.</p>
+<div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Donut chart: three conditions account for 63 percent of condition-attributable spend"><path d="M301.14,95.00 A190.00,190.00 0 0 1 414.45,436.66 L367.47,374.40 A112.00,112.00 0 0 0 300.67,173.00 Z" fill="var(--s1)"><title>Normal pregnancy: $28,933,632,566 (39.8%)</title></path><path d="M412.62,438.02 A190.00,190.00 0 0 1 281.02,474.05 L288.81,396.44 A112.00,112.00 0 0 0 366.39,375.20 Z" fill="var(--s2)"><title>Allergy to substance: $8,636,357,451 (11.9%)</title></path><path d="M278.75,473.81 A190.00,190.00 0 0 1 158.80,412.14 L216.77,359.94 A112.00,112.00 0 0 0 287.47,396.30 Z" fill="var(--s3)"><title>Gingivitis: $8,533,540,681 (11.7%)</title></path><path d="M157.29,410.43 A190.00,190.00 0 0 1 298.86,95.00 L299.33,173.00 A112.00,112.00 0 0 0 215.87,358.94 Z" fill="var(--rest)"><title>All other 182 conditions: $26,581,961,974 (36.6%)</title></path><polyline points="495.5,220.2 518.3,212.6 530.3,212.6" class="lead"/><text x="535.3" y="209.6" class="lbl" text-anchor="start">Normal pregnancy</text><text x="535.3" y="227.6" class="lsub" text-anchor="start">$28.9B &#183; 39.8%</text><polyline points="354.4,483.7 360.7,506.8 372.7,506.8" class="lead"/><text x="377.7" y="503.8" class="lbl" text-anchor="start">Allergy to substance</text><text x="377.7" y="521.8" class="lsub" text-anchor="start">$8.6B &#183; 11.9%</text><polyline points="205.8,468.2 194.8,489.5 182.8,489.5" class="lead"/><text x="177.8" y="486.5" class="lbl" text-anchor="end">Gingivitis</text><text x="177.8" y="504.5" class="lsub" text-anchor="end">$8.5B &#183; 11.7%</text><text x="300" y="279" class="ctr">63%</text><text x="300" y="303" class="ctrsub">from just three</text><text x="300" y="319" class="ctrsub">conditions</text></svg></div>
+<p class="note">Grey covers the remaining 182 conditions combined.</p>
+</div>
