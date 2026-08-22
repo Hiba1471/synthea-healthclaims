@@ -726,18 +726,105 @@ Normal pregnancy alone is **39.8%**. Ranking by cost *per patient* reorders the
 list sharply: gingivitis spreads **$10,661** across 800,465 patients, while
 non-small-cell lung carcinoma concentrates **$1,416,145** into 2,384.
 
-**Interpretation.** Two structurally different cost problems sit in the same
-top five. Gingivitis is a volume problem; lung carcinoma is an intensity
-problem. A single "reduce high-cost conditions" programme would address
-neither well.
+**Why — spend decomposed.** Spend is the product of three drivers:
 
-**Recommendation.** Segment cost programmes by shape, not by rank. Volume
-conditions respond to prevention and access; intensity conditions respond to
-care-pathway and site-of-care management. Report total spend and cost per
-patient side by side — either alone misleads.
+```
+spend = patients  x  claims per patient  x  cost per claim
+```
 
-*Query:* `sql/analysis/q1_cost_drivers.sql` · *Results:*
-`q1_cost_drivers_2020_2024.csv`
+Against the median condition (4,167 patients, 2.1 claims each, $731/claim), the
+top 20 are not extreme on any one driver — they are *moderately* extreme on all
+three at once, and the multiplication does the rest:
+
+| | Top 20 | Other 165 | Ratio |
+|---|---|---|---|
+| Median patients | 41,489 | 3,456 | 12x |
+| Median claims per patient | 10.8 | 2.0 | 5.4x |
+| Median cost per claim | $3,416 | $607 | 5.6x |
+| **Average billed per condition** | **$3.30B** | **$40.6M** | **81x** |
+
+Across all 185 conditions this yields four archetypes — **61 reach-driven,
+58 balanced, 44 price-driven, 22 frequency-driven**:
+
+- **Reach** — gingivitis at 192x the median patient count
+- **Frequency** — small cell lung cancer at 317.7 claims per patient, chronic
+  kidney disease at 258.5 (dialysis three times weekly)
+- **Price** — stroke at $70,715 per claim, 97x the median
+
+**Interpretation.** The 90% concentration is not one phenomenon but three
+failure modes stacked in one list. Gingivitis is a volume problem, CKD a
+frequency problem, stroke a price problem. A single "reduce high-cost
+conditions" programme would address none of them well.
+
+**Recommendation.** Segment cost programmes by *shape*, not by rank. Volume
+conditions respond to prevention and access; frequency conditions to
+care-pathway management; price conditions to acuity and site-of-care
+management. Always report cost per claim beside claims per patient — their
+product is cost per patient, and showing the product alone hides which lever
+applies.
+
+#### Pregnancy at 39.8% is arithmetically correct but NOT realistic
+
+Tested because it is the single largest fact in Q1. The utilisation is
+plausible; the pricing is not.
+
+| | This data | Real US | Verdict |
+|---|---|---|---|
+| Cost per pregnancy | **$161,988** | ~$18,865 (KFF 2022) | **8.6x too high** |
+| Claims per pregnancy | 11.1 | 10–15 visits | plausible |
+| Cost per claim | **$14,550** | $100–300 per prenatal visit | implausible |
+
+Cause: Synthea bills each routine prenatal check as a separate ~$5,000
+procedure. Two of them carry **68.3%** of all pregnancy spend:
+
+| Line item | Billed | Per line | Reality |
+|---|---|---|---|
+| Evaluation of uterine fundal height | $7.97B | $4,968 | a tape measure, bundled into the visit |
+| Auscultation of the fetal heart | $7.97B | $4,967 | a Doppler held to the abdomen, bundled |
+| Ultrasound for fetal viability | $2.44B | $8,879 | ~$200–500 |
+| Standard pregnancy test | $1.37B | $4,966 | ~$10–20 |
+
+Price those four at zero (i.e. bundled, as they are in reality) and pregnancy
+falls from **$28.9B to $9.2B — 39.8% to 17.3%** of condition-attributable
+spend. Still first, no longer dominant.
+
+**This is systemic, not pregnancy-specific.** Allergy immunotherapy bills
+$11,122 per injection against a real $50–200; a hemogram bills $1,897 against
+a real $10–30. Treat every absolute dollar figure in this project as
+unrealistic in magnitude. **Rankings and ratios hold; totals do not**, and
+conditions whose pathway repeats many cheap procedures are inflated hardest.
+
+#### Does cost vary by payer or hospital?
+
+- **By payer type: no.** Median spread across Government, Commercial and
+  Self-Pay is **1.06x**. This follows from `ADJUSTMENTS` being 0 on all 887M
+  rows — there are no negotiated rates, so the same service is billed
+  identically whoever pays. Payers differ in what share they *cover* (Q2), not
+  in what they are charged.
+- **By hospital: for a few conditions.** Of the ten highest-spend conditions,
+  only breast cancer (0.97) and normal pregnancy (0.96) show real spread
+  between *typical* hospitals; the other eight sit at 0.17–0.45.
+
+The metric is **(P75 − P25) / median** of cost per claim across hospitals — the
+price gap between the cheapest and dearest quarter of hospitals, as a share of
+the typical price. It is reported instead of max/min because the two disagree
+sharply and max/min misleads: ESRD reads **163x** on max/min but only **0.17**
+on this measure, meaning typical hospitals bill near-identically and one or two
+outlier sites create the range. Ordering a chart by max/min highlights exactly
+the conditions whose variation is illusory.
+
+Volume floors are mandatory here: >=30 claims per hospital-condition pair and
+>=20 hospitals per condition. Without them, conditions with 7 to 21 claims
+top the ranking.
+
+*Queries:* `sql/analysis/q1_cost_drivers.sql`, `q1_cost_variation.sql`,
+`q1_hospital_variability.sql`
+*Results:* `q1_cost_drivers_2020_2024.csv`,
+`q1_spend_decomposition_2020_2024.csv`,
+`q1_hospital_cost_spread_2020_2024.csv`,
+`q1_hospital_variability_2020_2024.csv`
+*Charts:* `dashboard/where_the_money_goes.html` (three charts),
+`dashboard/q1_donut.html`
 
 ### Q2 — Who actually pays?
 

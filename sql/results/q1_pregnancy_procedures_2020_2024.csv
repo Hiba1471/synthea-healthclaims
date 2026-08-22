@@ -1,0 +1,87 @@
+PROCEDURE_NAME,CATEGORY,LINES,BILLED,AVG_LINE
+Evaluation of uterine fundal height,Procedure,1604421,7970598180,4968
+Auscultation of the fetal heart,Procedure,1604421,7969614049,4967
+Ultrasound scan for fetal viability,Procedure,275202,2443562027,8879
+Standard pregnancy test,Procedure,275202,1366718941,4966
+Hemogram  automated  with RBC  WBC  Hgb  Hct  Indices  Platelet count  and manual WBC differential,Procedure,360403,683660006,1897
+Induced termination of pregnancy,Procedure,54393,471050304,8660
+Administration of diphtheria  pertussis  and tetanus vaccine,Procedure,176431,429320846,2433
+Urine culture,Procedure,183972,349457152,1900
+Human immunodeficiency virus antigen test,Procedure,183972,348988946,1897
+Blood group typing (procedure),Procedure,183972,348715320,1895
+Detection of chromosomal aneuploidy in prenatal amniotic fluid specimen using fluorescence in situ hybridization screening technique (procedure),Procedure,183851,348668914,1896
+Syphilis infectious titer test (procedure),Procedure,183972,348647427,1895
+Chlamydia antigen test,Procedure,183972,348624346,1895
+Urine protein test,Procedure,183972,348553944,1895
+Hepatitis C antibody  confirmatory test,Procedure,183972,348352388,1894
+Measurement of Varicella-zoster virus antibody,Procedure,183972,348295561,1893
+Urine screening test for diabetes,Procedure,183972,348264107,1893
+Cytopathology procedure  preparation of smear  genital source,Procedure,183972,348205521,1893
+Hepatitis B Surface Antigen Measurement,Procedure,183972,348061875,1892
+Gonorrhea infection titer test (procedure),Procedure,183972,347925725,1891
+Skin test for tuberculosis  Tine test (procedure),Procedure,183972,347779929,1890
+Urine screening for glucose,Procedure,176431,335296770,1900
+AFP test - antenatal,Procedure,176734,334772771,1894
+Streptococcus pneumoniae group B antigen assay,Procedure,164387,312422656,1901
+Rubella screening,Procedure,130059,240925573,1852
+Episiotomy,Procedure,45619,235751477,5168
+Cesarean section,Procedure,22558,179184195,7943
+Prenatal visit,Encounter type,1481964,176611783,119
+Physical examination procedure (procedure),Procedure,238361,116310770,488
+Medical induction of labor,Procedure,30602,105913157,3461
+Fetal anatomy study,Procedure,176734,86195153,488
+Passive immunization (procedure),Procedure,34438,83988389,2439
+Instrumental delivery,Procedure,13077,80504955,6156
+Childbirth,Procedure,143282,69912443,488
+Epidural anesthesia,Procedure,35572,67220796,1890
+Augmentation of labor,Procedure,15880,61053539,3845
+Antenatal RhD antibody screening,Procedure,26331,49930222,1896
+Pregnancy termination care,Procedure,54389,36738565,675
+Prenatal initial visit,Encounter type,275202,32791949,119
+Rubella screening test (procedure),Procedure,53913,27770898,515
+Counseling for termination of pregnancy,Procedure,54393,26594006,489
+Depression screening (procedure),Procedure,54389,26593265,489
+Obstetric emergency hospital admission,Encounter type,176336,22331549,127
+Patient-initiated encounter,Encounter type,54393,3893087,72
+Premature birth of newborn,Procedure,7447,3545705,476
+Spontaneous breech delivery,Procedure,420,2616365,6229
+Premature birth of newborn (finding),Condition,3049,1566156,514
+Clopidogrel 75 MG Oral Tablet,Medication or vaccine,34,29289,861
+insulin isophane  human 70 UNT/ML / insulin  regular  human 30 UNT/ML Injectable Suspension [Humulin],Medication or vaccine,38,17795,468
+24 HR metoprolol succinate 100 MG Extended Release Oral Tablet,Medication or vaccine,34,8816,259
+Simvastatin 20 MG Oral Tablet,Medication or vaccine,34,8655,255
+Acetaminophen 325 MG Oral Tablet [Tylenol],Medication or vaccine,26,6472,249
+Ibuprofen 400 MG Oral Tablet [Ibu],Medication or vaccine,24,6314,263
+60 ACTUAT Fluticasone propionate 0.25 MG/ACTUAT / salmeterol 0.05 MG/ACTUAT Dry Powder Inhaler,Medication or vaccine,8,5897,737
+72 HR Fentanyl 0.025 MG/HR Transdermal System,Medication or vaccine,20,5257,263
+albuterol 0.83 MG/ML Inhalation Solution,Medication or vaccine,18,4605,256
+12 HR Hydrocodone Bitartrate 10 MG Extended Release Oral Capsule,Medication or vaccine,18,4566,254
+Nitroglycerin 0.4 MG/ACTUAT Mucosal Spray,Medication or vaccine,34,4545,134
+Acetaminophen 325 MG / Oxycodone Hydrochloride 10 MG Oral Tablet [Percocet],Medication or vaccine,16,4457,279
+Abuse-Deterrent 12 HR Oxycodone Hydrochloride 10 MG Extended Release Oral Tablet [Oxycontin],Medication or vaccine,18,4417,245
+tramadol hydrochloride 50 MG Oral Tablet,Medication or vaccine,14,3551,254
+120 ACTUAT fluticasone propionate 0.044 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,12,2795,233
+NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin],Medication or vaccine,7,1918,274
+budesonide 0.25 MG/ML Inhalation Suspension,Medication or vaccine,7,1841,263
+120 ACTUAT fluticasone propionate 0.11 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,4,1307,327
+Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet,Medication or vaccine,5,1265,253
+Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet,Medication or vaccine,26,1004,39
+budesonide 0.125 MG/ML Inhalation Suspension [Pulmicort],Medication or vaccine,4,983,246
+albuterol 0.21 MG/ML Inhalation Solution,Medication or vaccine,3,701,234
+budesonide 0.125 MG/ML Inhalation Suspension,Medication or vaccine,2,674,337
+albuterol 5 MG/ML Inhalation Solution,Medication or vaccine,8,638,80
+buprenorphine 2 MG / naloxone 0.5 MG Sublingual Tablet,Medication or vaccine,2,485,242
+NDA021457 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [ProAir],Medication or vaccine,1,366,366
+carvedilol 25 MG Oral Tablet,Medication or vaccine,1,283,283
+sacubitril 97 MG / valsartan 103 MG Oral Tablet,Medication or vaccine,1,283,283
+lisinopril 20 MG Oral Tablet,Medication or vaccine,1,283,283
+losartan potassium 50 MG Oral Tablet,Medication or vaccine,1,283,283
+NDA020503 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Proventil],Medication or vaccine,1,220,220
+Breath-Actuated 120 ACTUAT beclomethasone dipropionate 0.04 MG/ACTUAT Metered Dose Inhaler [Qvar],Medication or vaccine,1,209,209
+bictegravir 50 MG / emtricitabine 200 MG / tenofovir alafenamide 25 MG Oral Tablet,Medication or vaccine,1,209,209
+amLODIPine 2.5 MG Oral Tablet,Medication or vaccine,74,150,2
+lisinopril 10 MG Oral Tablet,Medication or vaccine,67,119,2
+Hydrochlorothiazide 25 MG Oral Tablet,Medication or vaccine,84,92,1
+24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet,Medication or vaccine,8,87,11
+losartan potassium 25 MG Oral Tablet,Medication or vaccine,6,32,5
+Furosemide 40 MG Oral Tablet,Medication or vaccine,1,3,3

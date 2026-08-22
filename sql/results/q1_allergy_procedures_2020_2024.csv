@@ -1,0 +1,19 @@
+PROCEDURE_NAME,CATEGORY,LINES,BILLED,AVG_LINE
+Subcutaneous immunotherapy,Procedure,765286,8511570626,11122
+Outpatient procedure,Encounter type,765286,90664196,118
+Allergy screening test,Procedure,42561,20546492,483
+NDA020800 0.3 ML Epinephrine 1 MG/ML Auto-Injector,Medication or vaccine,16668,3487820,209
+Fexofenadine hydrochloride 30 MG Oral Tablet,Medication or vaccine,3998,2359430,590
+cetirizine hydrochloride 5 MG Oral Tablet,Medication or vaccine,4082,2233103,547
+Allergic disorder initial assessment,Encounter type,16687,1973317,118
+Allergic disorder follow-up assessment,Encounter type,13437,1593197,119
+Encounter for problem (procedure),Procedure,16672,1182040,71
+Loratadine 5 MG Chewable Tablet,Medication or vaccine,4100,958909,234
+Fexofenadine hydrochloride 60 MG Oral Tablet,Medication or vaccine,685,414443,605
+cetirizine hydrochloride 10 MG Oral Tablet,Medication or vaccine,644,355448,552
+Loratadine 10 MG Oral Tablet,Medication or vaccine,686,166890,243
+COVID-19  mRNA  LNP-S  PF  30 mcg/0.3 mL dose,Medication or vaccine,118,16048,136
+COVID-19  mRNA  LNP-S  PF  100 mcg/0.5mL dose or 50 mcg/0.25mL dose,Medication or vaccine,95,12920,136
+carbamazepine 20 MG/ML Oral Suspension [Tegretol],Medication or vaccine,2,3233,1616
+COVID-19 vaccine  vector-nr  rS-Ad26  PF  0.5 mL,Medication or vaccine,10,1360,136
+Diazepam 5 MG Oral Tablet,Medication or vaccine,3,19,6
