@@ -794,6 +794,41 @@ a real $10–30. Treat every absolute dollar figure in this project as
 unrealistic in magnitude. **Rankings and ratios hold; totals do not**, and
 conditions whose pathway repeats many cheap procedures are inflated hardest.
 
+#### Why the prices are wrong: clinical fidelity vs financial fidelity
+
+Not simply "because it is synthetic" — different parts of this dataset have
+very different reliability, and knowing which is which is what makes it usable.
+
+**Synthea models clinical realism, not financial realism.** The care pathways
+are the part it was designed and validated for, and they hold up:
+
+| Pattern | This data | Real world |
+|---|---|---|
+| Prenatal visits per pregnancy | 11.1 | 10–15 |
+| Immunotherapy sessions per patient | 17.9 | multi-year course of repeated shots |
+| Dialysis claims per CKD-4 patient/yr | 258.5 | three times weekly |
+
+Costs were layered on afterwards and far more crudely — procedures appear to
+draw on coarse default prices rather than a real fee schedule. The tell is that
+**23 different prenatal labs are all priced within $10 of each other at
+~$1,895**, and a tape-measure check is priced like a lab panel. Nothing
+distinguishes them because the price never came from what the procedure is.
+
+So one dataset carries **high-fidelity clinical patterns under low-fidelity
+pricing.**
+
+**Do not blame synthetic data for all of it.** Real claims data is also strange
+about price: hospital *billed* amounts are chargemaster figures that can run
+5–10x what anyone actually pays, so inflated billed amounts are not unique to
+simulation. What real data would additionally show is negotiated rates,
+contractual adjustments and payer-specific pricing. Their **absence** is the
+clearer synthetic tell here — `ADJUSTMENTS` is 0 on all 887M rows and payer
+type moves price by only 1.06x.
+
+**Practical rule.** Trust the clinical structure — who receives what care, how
+often, in which setting. Treat the dollars as **relative weights, not amounts**.
+Rankings, shares and ratios are usable; absolute totals are not.
+
 #### Does cost vary by payer or hospital?
 
 - **By payer type: no.** Median spread across Government, Commercial and
