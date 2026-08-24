@@ -474,6 +474,23 @@ Before reporting final results, verify:
 
 ## 21. Communication Style
 
+**Column names must make sense to a non-specialist.** Tables, chart axes,
+legends and CSV headers are read by people without healthcare, insurance or
+finance background. Name the column so it needs no explanation:
+
+| Instead of | Write |
+|---|---|
+| OOP | Patient Out of Pocket |
+| Payer coverage | Insurer Covers |
+| Cost-sharing ratio | % of Bill Patient Pays |
+| Severity-filtered (>=90% inpatient) | Counted only for hospitalised patients |
+| CV / IQR ratio | Variation (gap between cheapest and dearest quarter of hospitals) |
+
+Fix the *name*; do not append a definition to every column, which bloats the
+output. Gloss a genuinely unavoidable term once, in the subtitle or a
+footnote.
+
+
 Present analysis in clear, straightforward language.
 
 Prefer this structure:
@@ -883,6 +900,54 @@ individuals rather than institutions**, and ambulatory care alone carries
 $12.7B (63%) of it.
 
 *Query:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`
+
+#### Which conditions cost patients the most, and why
+
+Patient out-of-pocket by condition is **total billed x patient share**, so it
+is largely a restatement of Q1 — the two rankings correlate at
+**Spearman rho = 0.971**. A condition tops the out-of-pocket list mainly
+because it is expensive overall.
+
+But patient share is not constant (**0% to 78.8%, median 27.3%**), and that
+spread reshuffles the list systematically:
+
+| Condition | Rank by spend | Rank by patient cost | Patient share |
+|---|---|---|---|
+| Viral sinusitis | 44 | **25** | 51.7% |
+| Acute viral pharyngitis | 27 | **16** | 43.5% |
+| Acute bronchitis | 18 | **9** | 33.3% |
+| Primary dental caries | 14 | **8** | 30.3% |
+| Malignant neoplasm of breast | 7 | **20** | 8.0% |
+| Small cell lung cancer | 13 | **28** | 6.4% |
+| Chronic congestive heart failure | 23 | **39** | 8.5% |
+| Malignant tumor of colon | 25 | **44** | 7.3% |
+
+This is the same inversion found by care setting, now at condition level:
+**the cheaper and more routine the illness, the larger the share the patient
+carries.** Sinusitis patients pay 51.7% of the bill; colon cancer patients pay
+7.3%.
+
+**Report these as two separate questions, because they have different
+answers:**
+
+1. *Which conditions cost patients the most in total* — driven almost entirely
+   by overall spend. Pregnancy ($4.93B) and gingivitis ($2.43B) are 57.6% of
+   all patient out-of-pocket.
+2. *Which conditions expose patients to the greatest share of the bill* — a
+   genuinely different list, topped by sinusitis, pharyngitis and bronchitis,
+   none of which appear in the top ten by spend.
+
+The first tells you where aggregate dollars land; the second tells you what a
+person feels when they get ill. Clinically they are near-opposites — the first
+list is pregnancy and cancer, the second sore throats and sinus infections.
+
+Total patient out-of-pocket attributable to a condition is **$12.77B**; the
+top 20 conditions carry **88.1%** of it. Dental (gingivitis, gingival disease,
+caries, tooth infection) is **$3.0B — 23.4%** of the total, at patient shares
+of 26–30%.
+
+*Query:* `sql/analysis/q2_oop_by_condition.sql` ·
+*Results:* `q2_oop_by_condition_2020_2024.csv`
 
 ### Q3 — How concentrated is spend?
 
