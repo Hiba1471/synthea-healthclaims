@@ -1,0 +1,184 @@
+Condition,Patient Out of Pocket,% of All Patient Out of Pocket,% of Bill Patient Pays,Patients,Out of Pocket per Patient,Total Billed
+Normal pregnancy,4927384330,38.58,17.0,178616,27586,28933632566
+Gingivitis (disorder),2430217212,19.03,28.5,800475,3036,8533540681
+Allergy to substance (finding),854556599,6.69,9.9,42809,19962,8636357451
+Chronic kidney disease stage 4 (disorder),542707211,4.25,12.4,37037,14653,4391639551
+Gingival disease (disorder),246617013,1.93,26.2,147350,1674,942134264
+Laceration - injury (disorder),232770648,1.82,28.0,85027,2738,831319863
+Polyp of colon,231656992,1.81,17.6,40169,5767,1313207268
+Primary dental caries (disorder),229076379,1.79,30.3,166232,1378,757131664
+Acute bronchitis (disorder),195555660,1.53,33.3,271285,721,587268604
+Non-small cell carcinoma of lung  TNM stage 1 (disorder),181100807,1.42,5.4,2384,75965,3376088860
+Dependent drug abuse (disorder),153999072,1.21,24.7,97898,1573,622280745
+Acute infective cystitis (disorder),134830215,1.06,29.8,63850,2112,451842221
+Ischemic heart disease (disorder),133852646,1.05,18.4,46534,2876,726643399
+End-stage renal disease (disorder),128919031,1.01,12.8,14528,8874,1004387437
+COVID-19,127335038,1.00,13.6,23027,5530,938324734
+Acute viral pharyngitis (disorder),118403552,0.93,43.5,313989,377,272078918
+Child attention deficit disorder,100441756,0.79,13.3,7232,13889,752948402
+Abnormal findings diagnostic imaging heart+coronary circulat (finding),98306932,0.77,12.4,19908,4938,793695625
+Infection of tooth (disorder),93123657,0.73,26.4,58182,1601,352660516
+Malignant neoplasm of breast (disorder),87522653,0.69,8.0,17582,4978,1094711018
+Fracture of bone (disorder),75368992,0.59,18.5,82213,917,407234912
+Stroke,70586260,0.55,13.3,2597,27180,529442722
+Chronic pain (finding),63000430,0.49,22.9,31047,2029,275377466
+Impacted molars,60511678,0.47,19.0,6984,8664,318073629
+Viral sinusitis (disorder),54392429,0.43,51.7,494629,110,105288113
+Sepsis (disorder),52895523,0.41,25.9,5130,10311,203887177
+Loss of teeth (disorder),49731583,0.39,23.7,106191,468,209508980
+Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),48852548,0.38,6.4,427,114409,769007334
+Suspected COVID-19,48037247,0.38,39.0,121188,396,123197609
+Essential hypertension (disorder),47375933,0.37,51.8,62669,756,91383065
+Anemia (disorder),47232822,0.37,38.9,67419,701,121478486
+Body mass index 30+ - obesity (finding),42816767,0.34,56.0,59466,720,76393125
+Streptococcal sore throat (disorder),41169932,0.32,39.4,83554,493,104575267
+Dental filling lost (finding),40111519,0.31,27.3,34912,1149,146903117
+Fractured dental filling (finding),39646966,0.31,27.2,34683,1143,145815254
+Leaking dental filling (finding),39627979,0.31,27.1,34799,1139,146498025
+Loose dental filling (finding),39368378,0.31,26.9,34846,1130,146545614
+Otitis media,28790743,0.23,61.5,79046,364,46826486
+Chronic congestive heart failure (disorder),28706285,0.22,8.5,9829,2921,338872250
+Hyperlipidemia,24895891,0.19,37.5,111663,223,66444075
+Prediabetes,23647227,0.19,51.6,36093,655,45844294
+Myocardial infarction (disorder),22957228,0.18,15.5,12567,1827,147703092
+Unhealthy alcohol drinking behavior (finding),22711238,0.18,38.1,39960,568,59549814
+Malignant tumor of colon,21045928,0.16,7.3,4784,4399,288070634
+Appendicitis,19585299,0.15,30.0,5515,3551,65360251
+Osteoporosis (disorder),19222779,0.15,15.2,12486,1540,126370796
+Human immunodeficiency virus infection (disorder),18393277,0.14,33.4,2514,7316,55032804
+Chronic kidney disease stage 1 (disorder),18329844,0.14,33.6,31824,576,54504254
+Severe anxiety (panic) (finding),18241786,0.14,30.1,40629,449,60576965
+Injury of medial collateral ligament of knee,16885351,0.13,24.7,4121,4097,68226232
+Sprain (morphologic abnormality),16013621,0.13,55.4,85452,187,28910321
+Metabolic syndrome X (disorder),14943721,0.12,40.3,25417,588,37067922
+Chronic kidney disease stage 2 (disorder),14783474,0.12,30.6,30219,489,48255449
+Rupture of patellar tendon,13687417,0.11,24.3,3358,4076,56240424
+Pulmonary emphysema (disorder),12624994,0.10,9.3,5904,2138,136317695
+Overlapping malignant neoplasm of colon,12521369,0.10,7.4,5209,2404,169195033
+Acute non-ST segment elevation myocardial infarction (disorder),12129060,0.09,9.3,6922,1752,130676973
+Injury of anterior cruciate ligament,11794137,0.09,24.1,3006,3924,48959098
+Prediabetes (finding),11476697,0.09,62.2,13859,828,18460497
+Misuses drugs (finding),11386194,0.09,43.8,18264,623,25972158
+Seizure disorder,10676213,0.08,19.8,3868,2760,53915127
+Acute ST segment elevation myocardial infarction (disorder),10488281,0.08,9.6,8227,1275,109734749
+Alveolitis of jaw (disorder),10350578,0.08,17.2,23293,444,60030421
+Chronic obstructive bronchitis (disorder),9849781,0.08,9.2,4815,2046,107625431
+Chronic kidney disease stage 3 (disorder),9445976,0.07,24.8,24836,380,38117051
+Asthma,8936356,0.07,57.5,40633,220,15536331
+Sinusitis (disorder),8797410,0.07,39.8,35702,246,22130305
+Drug overdose,8185970,0.06,50.1,74549,110,16337161
+Atrial fibrillation (disorder),7721456,0.06,12.2,2642,2923,63363449
+Alzheimer's disease (disorder),7711183,0.06,4.7,19275,400,163900031
+Diabetes mellitus type 2 (disorder),7421639,0.06,39.4,10947,678,18852314
+Acute bacterial sinusitis (disorder),7387057,0.06,39.2,35307,209,18827800
+Acute allergic reaction,7086799,0.06,33.2,8089,876,21341896
+Sleep disorder (disorder),6691876,0.05,30.3,7676,872,22082501
+Childhood asthma,6688374,0.05,53.0,21822,306,12609303
+Fracture of mandible (disorder),6412518,0.05,31.0,2210,2902,20682828
+Aortic valve stenosis (disorder),5969477,0.05,11.2,3763,1586,53214478
+Aortic valve regurgitation (disorder),5847732,0.05,18.3,3046,1920,31884307
+Burn injury (morphologic abnormality),5726843,0.04,50.7,23049,248,11296078
+Complete miscarriage (disorder),5533860,0.04,17.3,20828,266,31900370
+Injury of neck (disorder),4959520,0.04,54.2,27424,181,9148052
+Traumatic dislocation of temporomandibular joint (disorder),4937880,0.04,34.8,2248,2197,14184060
+Injury of knee (disorder),4923330,0.04,45.5,13210,373,10815323
+Hypertriglyceridemia (disorder),4825154,0.04,40.1,8397,575,12020683
+Tubal pregnancy,4609074,0.04,15.8,4167,1106,29230396
+Hyperglycemia (disorder),4139851,0.03,36.7,5969,694,11291331
+Injury of tendon of the rotator cuff of shoulder,3653670,0.03,24.5,8596,425,14896255
+Concussion injury of brain (disorder),3646429,0.03,61.8,45319,80,5904521
+Pyelonephritis,3565820,0.03,29.6,1768,2017,12037111
+Torus palatinus (disorder),3549150,0.03,17.0,9560,371,20832131
+Acute Cholecystitis,2880042,0.02,20.6,1252,2300,14009934
+Secondary malignant neoplasm of colon,2748825,0.02,8.1,598,4597,34001317
+Blighted ovum,2671957,0.02,17.6,10165,263,15143408
+Neuropathy due to type 2 diabetes mellitus (disorder),2460705,0.02,22.1,3989,617,11144686
+Resorption of alveolar process due to dental trauma (disorder),2299461,0.02,17.3,6532,352,13288872
+Non-small cell lung cancer (disorder),2290421,0.02,8.6,2340,979,26749896
+Neoplasm of prostate,2137962,0.02,7.7,2867,746,27681488
+Bleeding from anus,2067682,0.02,24.7,752,2750,8354290
+Chronic intractable migraine without aura,1976130,0.02,53.9,6944,285,3669109
+Concussion with no loss of consciousness,1684289,0.01,67.6,34102,49,2489932
+Familial Alzheimer's disease of early onset (disorder),1576604,0.01,8.7,3284,480,18098657
+Retinopathy due to type 2 diabetes mellitus (disorder),1571541,0.01,32.7,3131,502,4803188
+Recurrent urinary tract infection (disorder),1237558,0.01,28.7,1766,701,4319555
+Preinfarction syndrome (disorder),1235579,0.01,10.4,609,2029,11841306
+Primary malignant neoplasm of colon,1143073,0.01,5.3,2147,532,21652998
+Osteoarthritis of knee,1113772,0.01,51.8,9285,120,2150161
+Cerebral palsy (disorder),1058622,0.01,15.4,1749,605,6874878
+Fetus with chromosomal abnormality,992819,0.01,16.1,4197,237,6173015
+Nonproliferative diabetic retinopathy due to type 2 diabetes mellitus (disorder),846590,0.01,28.1,1932,438,3014196
+Fracture of forearm,763051,0.01,50.6,20720,37,1508496
+Fracture of clavicle,698542,0.01,54.3,17837,39,1286089
+Gout,655622,0.01,41.8,2885,227,1566703
+Fracture of ankle,628277,0.00,53.4,16125,39,1175573
+Fracture subluxation of wrist,624380,0.00,54.3,15769,40,1149409
+Opioid abuse (disorder),618030,0.00,32.3,948,652,1911971
+Body mass index 40+ - severely obese (finding),547497,0.00,59.3,631,868,923325
+Perennial allergic rhinitis with seasonal variation,544462,0.00,71.2,4270,128,764414
+Gunshot wound (disorder),514908,0.00,49.5,1834,281,1040724
+Perennial allergic rhinitis,503339,0.00,70.0,4096,123,718899
+Small cell carcinoma of lung (disorder),480513,0.00,9.5,424,1133,5039500
+Localized  primary osteoarthritis of the hand,468327,0.00,52.6,3850,122,890888
+Concussion with loss of consciousness,443599,0.00,67.9,9027,49,653037
+Cystic Fibrosis,421370,0.00,6.1,91,4630,6927062
+Congenital uterine anomaly,411437,0.00,16.0,1774,232,2569367
+Pneumonia (disorder),410902,0.00,5.5,2028,203,7455752
+Epidermal burn of skin (disorder),410012,0.00,42.7,13306,31,959494
+Osteoarthritis of hip,406390,0.00,51.6,3403,119,787098
+Atopic dermatitis,348460,0.00,25.8,5219,67,1351579
+Kidney transplant failure and rejection (disorder),310683,0.00,12.8,1558,199,2435429
+Primary fibromyalgia syndrome,300407,0.00,26.7,3456,87,1126346
+Second degree burn,270988,0.00,41.9,8789,31,646754
+Fracture of rib,265959,0.00,46.2,7964,33,576170
+Seasonal allergic rhinitis,263028,0.00,68.4,2037,129,384364
+Tongue tie (disorder),260327,0.00,17.0,763,341,1529864
+Contact dermatitis,254898,0.00,62.1,2205,116,410648
+Complication occuring during pregnancy,250667,0.00,15.6,1079,232,1608983
+Posttraumatic stress disorder,242552,0.00,35.0,356,681,693574
+Smokes tobacco daily,241858,0.00,37.4,444,545,646753
+Macular edema and retinopathy due to type 2 diabetes mellitus (disorder),226046,0.00,21.3,673,336,1059720
+Acquired immune deficiency syndrome (disorder),222038,0.00,18.4,59,3763,1206890
+Acute myeloid leukemia  disease (disorder),194389,0.00,44.2,181,1074,439525
+Closed fracture of hip,193110,0.00,45.1,5832,33,428175
+Alcoholism,191452,0.00,40.2,364,526,476379
+Proliferative diabetic retinopathy due to type II diabetes mellitus (disorder),179679,0.00,21.6,539,333,832338
+Major depression  single episode,157710,0.00,78.8,286,551,200123
+Torus mandibularis (disorder),143978,0.00,18.9,383,376,759904
+Major depression disorder,141486,0.00,47.7,255,555,296512
+Mitral valve regurgitation (disorder),136580,0.00,23.0,1035,132,594418
+Rheumatoid arthritis,100376,0.00,50.0,708,142,200663
+Meningomyelocele (disorder),92741,0.00,49.5,121,766,187511
+Traumatic injury of spinal cord and/or vertebral column (disorder),91790,0.00,56.0,868,106,164018
+Infectious mediastinitis (disorder),81415,0.00,8.5,1053,77,958964
+Bullet wound,75610,0.00,46.5,1834,41,162540
+Acute renal failure on dialysis (disorder),37580,0.00,13.6,3,12527,276403
+Fracture of vertebral column without spinal cord injury,35243,0.00,50.7,672,52,69530
+Renal dysplasia (disorder),28520,0.00,69.3,83,344,41182
+Suicidal deliberate poisoning,28113,0.00,34.2,31,907,82304
+Third degree burn,26799,0.00,40.4,925,29,66330
+Postoperative renal failure (disorder),22935,0.00,4.1,7,3276,561153
+Tricuspid valve regurgitation (disorder),22811,0.00,18.8,165,138,121101
+Leukemia  disease (disorder),19761,0.00,19.6,812,24,100706
+Lupus erythematosus,13865,0.00,36.5,115,121,38016
+Fracture of the vertebral column with spinal cord injury,13259,0.00,53.0,220,60,25017
+Pulmonic valve regurgitation (disorder),12205,0.00,46.1,55,222,26457
+Attempted suicide - cut/stab,12194,0.00,40.0,11,1109,30512
+Excessive salivation (disorder),11595,0.00,8.5,140,83,136422
+Traumatic brain injury (disorder),9950,0.00,44.0,18,553,22606
+Multiple myeloma (disorder),9200,0.00,17.7,419,22,51885
+Attempted suicide - suffocation,4751,0.00,17.8,11,432,26719
+Cardiac arrest (disorder),4168,0.00,35.5,92,45,11737
+Acute respiratory failure (disorder),3036,0.00,9.6,17,179,31461
+Blindness due to type 2 diabetes mellitus (disorder),2721,0.00,6.1,20,136,44326
+Spina bifida occulta (disorder),1429,0.00,52.6,23,62,2716
+Postoperative myocardial infarction (disorder),1216,0.00,0.3,6,203,384629
+Meningocele (disorder),594,0.00,57.2,9,66,1039
+Idiopathic atrophic hypothyroidism,335,0.00,62.4,1825,0,537
+Acute respiratory insufficiency (disorder),290,0.00,0.3,3,97,110501
+At risk for suicide (finding),283,0.00,56.1,3,94,504
+Proteinuria due to type 2 diabetes mellitus (disorder),258,0.00,7.1,4,64,3633
+Sepsis caused by Staphylococcus aureus,233,0.00,21.0,1,233,1111
+Non-small cell carcinoma of lung  TNM stage 2 (disorder),233,0.00,0.0,1,233,1004610
+Anticoagulant-induced bleeding (disorder),197,0.00,0.1,13,15,360070
+Sepsis caused by Pseudomonas (disorder),70,0.00,0.8,7,10,8776
