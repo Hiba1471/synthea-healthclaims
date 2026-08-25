@@ -1,87 +1,87 @@
-PROCEDURE_NAME,CATEGORY,LINES,BILLED,AVG_LINE
-Evaluation of uterine fundal height,Procedure,1604421,7970598180,4968
-Auscultation of the fetal heart,Procedure,1604421,7969614049,4967
-Ultrasound scan for fetal viability,Procedure,275202,2443562027,8879
-Standard pregnancy test,Procedure,275202,1366718941,4966
-Hemogram  automated  with RBC  WBC  Hgb  Hct  Indices  Platelet count  and manual WBC differential,Procedure,360403,683660006,1897
-Induced termination of pregnancy,Procedure,54393,471050304,8660
-Administration of diphtheria  pertussis  and tetanus vaccine,Procedure,176431,429320846,2433
-Urine culture,Procedure,183972,349457152,1900
-Human immunodeficiency virus antigen test,Procedure,183972,348988946,1897
-Blood group typing (procedure),Procedure,183972,348715320,1895
-Detection of chromosomal aneuploidy in prenatal amniotic fluid specimen using fluorescence in situ hybridization screening technique (procedure),Procedure,183851,348668914,1896
-Syphilis infectious titer test (procedure),Procedure,183972,348647427,1895
-Chlamydia antigen test,Procedure,183972,348624346,1895
-Urine protein test,Procedure,183972,348553944,1895
-Hepatitis C antibody  confirmatory test,Procedure,183972,348352388,1894
-Measurement of Varicella-zoster virus antibody,Procedure,183972,348295561,1893
-Urine screening test for diabetes,Procedure,183972,348264107,1893
-Cytopathology procedure  preparation of smear  genital source,Procedure,183972,348205521,1893
-Hepatitis B Surface Antigen Measurement,Procedure,183972,348061875,1892
-Gonorrhea infection titer test (procedure),Procedure,183972,347925725,1891
-Skin test for tuberculosis  Tine test (procedure),Procedure,183972,347779929,1890
-Urine screening for glucose,Procedure,176431,335296770,1900
-AFP test - antenatal,Procedure,176734,334772771,1894
-Streptococcus pneumoniae group B antigen assay,Procedure,164387,312422656,1901
-Rubella screening,Procedure,130059,240925573,1852
-Episiotomy,Procedure,45619,235751477,5168
-Cesarean section,Procedure,22558,179184195,7943
-Prenatal visit,Encounter type,1481964,176611783,119
-Physical examination procedure (procedure),Procedure,238361,116310770,488
-Medical induction of labor,Procedure,30602,105913157,3461
-Fetal anatomy study,Procedure,176734,86195153,488
-Passive immunization (procedure),Procedure,34438,83988389,2439
-Instrumental delivery,Procedure,13077,80504955,6156
-Childbirth,Procedure,143282,69912443,488
-Epidural anesthesia,Procedure,35572,67220796,1890
-Augmentation of labor,Procedure,15880,61053539,3845
-Antenatal RhD antibody screening,Procedure,26331,49930222,1896
-Pregnancy termination care,Procedure,54389,36738565,675
-Prenatal initial visit,Encounter type,275202,32791949,119
-Rubella screening test (procedure),Procedure,53913,27770898,515
-Counseling for termination of pregnancy,Procedure,54393,26594006,489
-Depression screening (procedure),Procedure,54389,26593265,489
-Obstetric emergency hospital admission,Encounter type,176336,22331549,127
-Patient-initiated encounter,Encounter type,54393,3893087,72
-Premature birth of newborn,Procedure,7447,3545705,476
-Spontaneous breech delivery,Procedure,420,2616365,6229
-Premature birth of newborn (finding),Condition,3049,1566156,514
-Clopidogrel 75 MG Oral Tablet,Medication or vaccine,34,29289,861
-insulin isophane  human 70 UNT/ML / insulin  regular  human 30 UNT/ML Injectable Suspension [Humulin],Medication or vaccine,38,17795,468
-24 HR metoprolol succinate 100 MG Extended Release Oral Tablet,Medication or vaccine,34,8816,259
-Simvastatin 20 MG Oral Tablet,Medication or vaccine,34,8655,255
-Acetaminophen 325 MG Oral Tablet [Tylenol],Medication or vaccine,26,6472,249
-Ibuprofen 400 MG Oral Tablet [Ibu],Medication or vaccine,24,6314,263
-60 ACTUAT Fluticasone propionate 0.25 MG/ACTUAT / salmeterol 0.05 MG/ACTUAT Dry Powder Inhaler,Medication or vaccine,8,5897,737
-72 HR Fentanyl 0.025 MG/HR Transdermal System,Medication or vaccine,20,5257,263
-albuterol 0.83 MG/ML Inhalation Solution,Medication or vaccine,18,4605,256
-12 HR Hydrocodone Bitartrate 10 MG Extended Release Oral Capsule,Medication or vaccine,18,4566,254
-Nitroglycerin 0.4 MG/ACTUAT Mucosal Spray,Medication or vaccine,34,4545,134
-Acetaminophen 325 MG / Oxycodone Hydrochloride 10 MG Oral Tablet [Percocet],Medication or vaccine,16,4457,279
-Abuse-Deterrent 12 HR Oxycodone Hydrochloride 10 MG Extended Release Oral Tablet [Oxycontin],Medication or vaccine,18,4417,245
-tramadol hydrochloride 50 MG Oral Tablet,Medication or vaccine,14,3551,254
-120 ACTUAT fluticasone propionate 0.044 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,12,2795,233
-NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin],Medication or vaccine,7,1918,274
-budesonide 0.25 MG/ML Inhalation Suspension,Medication or vaccine,7,1841,263
-120 ACTUAT fluticasone propionate 0.11 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,4,1307,327
-Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet,Medication or vaccine,5,1265,253
-Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet,Medication or vaccine,26,1004,39
-budesonide 0.125 MG/ML Inhalation Suspension [Pulmicort],Medication or vaccine,4,983,246
-albuterol 0.21 MG/ML Inhalation Solution,Medication or vaccine,3,701,234
-budesonide 0.125 MG/ML Inhalation Suspension,Medication or vaccine,2,674,337
-albuterol 5 MG/ML Inhalation Solution,Medication or vaccine,8,638,80
-buprenorphine 2 MG / naloxone 0.5 MG Sublingual Tablet,Medication or vaccine,2,485,242
-NDA021457 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [ProAir],Medication or vaccine,1,366,366
-carvedilol 25 MG Oral Tablet,Medication or vaccine,1,283,283
-sacubitril 97 MG / valsartan 103 MG Oral Tablet,Medication or vaccine,1,283,283
-lisinopril 20 MG Oral Tablet,Medication or vaccine,1,283,283
-losartan potassium 50 MG Oral Tablet,Medication or vaccine,1,283,283
-NDA020503 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Proventil],Medication or vaccine,1,220,220
-Breath-Actuated 120 ACTUAT beclomethasone dipropionate 0.04 MG/ACTUAT Metered Dose Inhaler [Qvar],Medication or vaccine,1,209,209
-bictegravir 50 MG / emtricitabine 200 MG / tenofovir alafenamide 25 MG Oral Tablet,Medication or vaccine,1,209,209
-amLODIPine 2.5 MG Oral Tablet,Medication or vaccine,74,150,2
-lisinopril 10 MG Oral Tablet,Medication or vaccine,67,119,2
-Hydrochlorothiazide 25 MG Oral Tablet,Medication or vaccine,84,92,1
-24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet,Medication or vaccine,8,87,11
-losartan potassium 25 MG Oral Tablet,Medication or vaccine,6,32,5
-Furosemide 40 MG Oral Tablet,Medication or vaccine,1,3,3
+Condition,What was billed,Kind of item,Times billed,Total billed,% of this condition's cost,Average price each time
+Normal pregnancy,Evaluation of uterine fundal height,Procedure,1604421,7970598180,27.55,4967.90
+Normal pregnancy,Auscultation of the fetal heart,Procedure,1604421,7969614049,27.54,4967.28
+Normal pregnancy,Ultrasound scan for fetal viability,Procedure,275202,2443562027,8.45,8879.16
+Normal pregnancy,Standard pregnancy test,Procedure,275202,1366718941,4.72,4966.24
+Normal pregnancy,Hemogram  automated  with RBC  WBC  Hgb  Hct  Indices  Platelet count  and manual WBC differential,Procedure,360403,683660006,2.36,1896.93
+Normal pregnancy,Induced termination of pregnancy,Procedure,54393,471050304,1.63,8660.13
+Normal pregnancy,Administration of diphtheria  pertussis  and tetanus vaccine,Procedure,176431,429320846,1.48,2433.36
+Normal pregnancy,Urine culture,Procedure,183972,349457152,1.21,1899.51
+Normal pregnancy,Human immunodeficiency virus antigen test,Procedure,183972,348988946,1.21,1896.97
+Normal pregnancy,Blood group typing (procedure),Procedure,183972,348715320,1.21,1895.48
+Normal pregnancy,Detection of chromosomal aneuploidy in prenatal amniotic fluid specimen using fluorescence in situ hybridization screening technique (procedure),Procedure,183851,348668914,1.21,1896.48
+Normal pregnancy,Syphilis infectious titer test (procedure),Procedure,183972,348647427,1.20,1895.11
+Normal pregnancy,Chlamydia antigen test,Procedure,183972,348624346,1.20,1894.99
+Normal pregnancy,Urine protein test,Procedure,183972,348553944,1.20,1894.60
+Normal pregnancy,Hepatitis C antibody  confirmatory test,Procedure,183972,348352388,1.20,1893.51
+Normal pregnancy,Measurement of Varicella-zoster virus antibody,Procedure,183972,348295561,1.20,1893.20
+Normal pregnancy,Urine screening test for diabetes,Procedure,183972,348264107,1.20,1893.03
+Normal pregnancy,Cytopathology procedure  preparation of smear  genital source,Procedure,183972,348205521,1.20,1892.71
+Normal pregnancy,Hepatitis B Surface Antigen Measurement,Procedure,183972,348061875,1.20,1891.93
+Normal pregnancy,Gonorrhea infection titer test (procedure),Procedure,183972,347925725,1.20,1891.19
+Normal pregnancy,Skin test for tuberculosis  Tine test (procedure),Procedure,183972,347779929,1.20,1890.40
+Normal pregnancy,Urine screening for glucose,Procedure,176431,335296770,1.16,1900.44
+Normal pregnancy,AFP test - antenatal,Procedure,176734,334772771,1.16,1894.22
+Normal pregnancy,Streptococcus pneumoniae group B antigen assay,Procedure,164387,312422656,1.08,1900.53
+Normal pregnancy,Rubella screening,Procedure,130059,240925573,0.83,1852.43
+Normal pregnancy,Episiotomy,Procedure,45619,235751477,0.81,5167.84
+Normal pregnancy,Cesarean section,Procedure,22558,179184195,0.62,7943.27
+Normal pregnancy,Prenatal visit,Encounter type,1481964,176611783,0.61,119.17
+Normal pregnancy,Physical examination procedure (procedure),Procedure,238361,116310770,0.40,487.96
+Normal pregnancy,Medical induction of labor,Procedure,30602,105913157,0.37,3460.99
+Normal pregnancy,Fetal anatomy study,Procedure,176734,86195153,0.30,487.71
+Normal pregnancy,Passive immunization (procedure),Procedure,34438,83988389,0.29,2438.83
+Normal pregnancy,Instrumental delivery,Procedure,13077,80504955,0.28,6156.23
+Normal pregnancy,Childbirth,Procedure,143282,69912443,0.24,487.94
+Normal pregnancy,Epidural anesthesia,Procedure,35572,67220796,0.23,1889.71
+Normal pregnancy,Augmentation of labor,Procedure,15880,61053539,0.21,3844.68
+Normal pregnancy,Antenatal RhD antibody screening,Procedure,26331,49930222,0.17,1896.25
+Normal pregnancy,Pregnancy termination care,Procedure,54389,36738565,0.13,675.48
+Normal pregnancy,Prenatal initial visit,Encounter type,275202,32791949,0.11,119.16
+Normal pregnancy,Rubella screening test (procedure),Procedure,53913,27770898,0.10,515.11
+Normal pregnancy,Counseling for termination of pregnancy,Procedure,54393,26594006,0.09,488.92
+Normal pregnancy,Depression screening (procedure),Procedure,54389,26593265,0.09,488.95
+Normal pregnancy,Obstetric emergency hospital admission,Encounter type,176336,22331549,0.08,126.64
+Normal pregnancy,Patient-initiated encounter,Encounter type,54393,3893087,0.01,71.57
+Normal pregnancy,Premature birth of newborn,Procedure,7447,3545705,0.01,476.13
+Normal pregnancy,Spontaneous breech delivery,Procedure,420,2616365,0.01,6229.44
+Normal pregnancy,Premature birth of newborn (finding),Condition,3049,1566156,0.01,513.66
+Normal pregnancy,Clopidogrel 75 MG Oral Tablet,Medication or vaccine,34,29289,0.00,861.43
+Normal pregnancy,insulin isophane  human 70 UNT/ML / insulin  regular  human 30 UNT/ML Injectable Suspension [Humulin],Medication or vaccine,38,17795,0.00,468.28
+Normal pregnancy,24 HR metoprolol succinate 100 MG Extended Release Oral Tablet,Medication or vaccine,34,8816,0.00,259.29
+Normal pregnancy,Simvastatin 20 MG Oral Tablet,Medication or vaccine,34,8655,0.00,254.56
+Normal pregnancy,Acetaminophen 325 MG Oral Tablet [Tylenol],Medication or vaccine,26,6472,0.00,248.91
+Normal pregnancy,Ibuprofen 400 MG Oral Tablet [Ibu],Medication or vaccine,24,6314,0.00,263.09
+Normal pregnancy,60 ACTUAT Fluticasone propionate 0.25 MG/ACTUAT / salmeterol 0.05 MG/ACTUAT Dry Powder Inhaler,Medication or vaccine,8,5897,0.00,737.11
+Normal pregnancy,72 HR Fentanyl 0.025 MG/HR Transdermal System,Medication or vaccine,20,5257,0.00,262.86
+Normal pregnancy,albuterol 0.83 MG/ML Inhalation Solution,Medication or vaccine,18,4605,0.00,255.83
+Normal pregnancy,12 HR Hydrocodone Bitartrate 10 MG Extended Release Oral Capsule,Medication or vaccine,18,4566,0.00,253.68
+Normal pregnancy,Nitroglycerin 0.4 MG/ACTUAT Mucosal Spray,Medication or vaccine,34,4545,0.00,133.68
+Normal pregnancy,Acetaminophen 325 MG / Oxycodone Hydrochloride 10 MG Oral Tablet [Percocet],Medication or vaccine,16,4457,0.00,278.57
+Normal pregnancy,Abuse-Deterrent 12 HR Oxycodone Hydrochloride 10 MG Extended Release Oral Tablet [Oxycontin],Medication or vaccine,18,4417,0.00,245.39
+Normal pregnancy,tramadol hydrochloride 50 MG Oral Tablet,Medication or vaccine,14,3551,0.00,253.67
+Normal pregnancy,120 ACTUAT fluticasone propionate 0.044 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,12,2795,0.00,232.95
+Normal pregnancy,NDA020983 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Ventolin],Medication or vaccine,7,1918,0.00,274.00
+Normal pregnancy,budesonide 0.25 MG/ML Inhalation Suspension,Medication or vaccine,7,1841,0.00,263.02
+Normal pregnancy,120 ACTUAT fluticasone propionate 0.11 MG/ACTUAT Metered Dose Inhaler [Flovent],Medication or vaccine,4,1307,0.00,326.67
+Normal pregnancy,Acetaminophen 300 MG / Codeine Phosphate 15 MG Oral Tablet,Medication or vaccine,5,1265,0.00,252.96
+Normal pregnancy,Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet,Medication or vaccine,26,1004,0.00,38.63
+Normal pregnancy,budesonide 0.125 MG/ML Inhalation Suspension [Pulmicort],Medication or vaccine,4,983,0.00,245.77
+Normal pregnancy,albuterol 0.21 MG/ML Inhalation Solution,Medication or vaccine,3,701,0.00,233.51
+Normal pregnancy,budesonide 0.125 MG/ML Inhalation Suspension,Medication or vaccine,2,674,0.00,337.08
+Normal pregnancy,albuterol 5 MG/ML Inhalation Solution,Medication or vaccine,8,638,0.00,79.80
+Normal pregnancy,buprenorphine 2 MG / naloxone 0.5 MG Sublingual Tablet,Medication or vaccine,2,485,0.00,242.28
+Normal pregnancy,NDA021457 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [ProAir],Medication or vaccine,1,366,0.00,365.89
+Normal pregnancy,losartan potassium 50 MG Oral Tablet,Medication or vaccine,1,283,0.00,282.54
+Normal pregnancy,carvedilol 25 MG Oral Tablet,Medication or vaccine,1,283,0.00,282.54
+Normal pregnancy,lisinopril 20 MG Oral Tablet,Medication or vaccine,1,283,0.00,282.54
+Normal pregnancy,sacubitril 97 MG / valsartan 103 MG Oral Tablet,Medication or vaccine,1,283,0.00,282.54
+Normal pregnancy,NDA020503 200 ACTUAT albuterol 0.09 MG/ACTUAT Metered Dose Inhaler [Proventil],Medication or vaccine,1,220,0.00,220.16
+Normal pregnancy,bictegravir 50 MG / emtricitabine 200 MG / tenofovir alafenamide 25 MG Oral Tablet,Medication or vaccine,1,209,0.00,208.99
+Normal pregnancy,Breath-Actuated 120 ACTUAT beclomethasone dipropionate 0.04 MG/ACTUAT Metered Dose Inhaler [Qvar],Medication or vaccine,1,209,0.00,208.99
+Normal pregnancy,amLODIPine 2.5 MG Oral Tablet,Medication or vaccine,74,150,0.00,2.02
+Normal pregnancy,lisinopril 10 MG Oral Tablet,Medication or vaccine,67,119,0.00,1.78
+Normal pregnancy,Hydrochlorothiazide 25 MG Oral Tablet,Medication or vaccine,84,92,0.00,1.09
+Normal pregnancy,24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet,Medication or vaccine,8,87,0.00,10.87
+Normal pregnancy,losartan potassium 25 MG Oral Tablet,Medication or vaccine,6,32,0.00,5.33
+Normal pregnancy,Furosemide 40 MG Oral Tablet,Medication or vaccine,1,3,0.00,2.65

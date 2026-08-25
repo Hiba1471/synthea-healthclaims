@@ -1,19 +1,19 @@
-PROCEDURE_NAME,CATEGORY,LINES,BILLED,AVG_LINE
-Subcutaneous immunotherapy,Procedure,765286,8511570626,11122
-Outpatient procedure,Encounter type,765286,90664196,118
-Allergy screening test,Procedure,42561,20546492,483
-NDA020800 0.3 ML Epinephrine 1 MG/ML Auto-Injector,Medication or vaccine,16668,3487820,209
-Fexofenadine hydrochloride 30 MG Oral Tablet,Medication or vaccine,3998,2359430,590
-cetirizine hydrochloride 5 MG Oral Tablet,Medication or vaccine,4082,2233103,547
-Allergic disorder initial assessment,Encounter type,16687,1973317,118
-Allergic disorder follow-up assessment,Encounter type,13437,1593197,119
-Encounter for problem (procedure),Procedure,16672,1182040,71
-Loratadine 5 MG Chewable Tablet,Medication or vaccine,4100,958909,234
-Fexofenadine hydrochloride 60 MG Oral Tablet,Medication or vaccine,685,414443,605
-cetirizine hydrochloride 10 MG Oral Tablet,Medication or vaccine,644,355448,552
-Loratadine 10 MG Oral Tablet,Medication or vaccine,686,166890,243
-COVID-19  mRNA  LNP-S  PF  30 mcg/0.3 mL dose,Medication or vaccine,118,16048,136
-COVID-19  mRNA  LNP-S  PF  100 mcg/0.5mL dose or 50 mcg/0.25mL dose,Medication or vaccine,95,12920,136
-carbamazepine 20 MG/ML Oral Suspension [Tegretol],Medication or vaccine,2,3233,1616
-COVID-19 vaccine  vector-nr  rS-Ad26  PF  0.5 mL,Medication or vaccine,10,1360,136
-Diazepam 5 MG Oral Tablet,Medication or vaccine,3,19,6
+Condition,What was billed,Kind of item,Times billed,Total billed,% of this condition's cost,Average price each time
+Allergy to substance (finding),Subcutaneous immunotherapy,Procedure,765286,8511570626,98.54,11122.08
+Allergy to substance (finding),Outpatient procedure,Encounter type,765286,90664196,1.05,118.47
+Allergy to substance (finding),Allergy screening test,Procedure,42561,20546492,0.24,482.75
+Allergy to substance (finding),NDA020800 0.3 ML Epinephrine 1 MG/ML Auto-Injector,Medication or vaccine,16668,3487820,0.04,209.25
+Allergy to substance (finding),Fexofenadine hydrochloride 30 MG Oral Tablet,Medication or vaccine,3998,2359430,0.03,590.15
+Allergy to substance (finding),cetirizine hydrochloride 5 MG Oral Tablet,Medication or vaccine,4082,2233103,0.03,547.06
+Allergy to substance (finding),Allergic disorder initial assessment,Encounter type,16687,1973317,0.02,118.25
+Allergy to substance (finding),Allergic disorder follow-up assessment,Encounter type,13437,1593197,0.02,118.57
+Allergy to substance (finding),Encounter for problem (procedure),Procedure,16672,1182040,0.01,70.90
+Allergy to substance (finding),Loratadine 5 MG Chewable Tablet,Medication or vaccine,4100,958909,0.01,233.88
+Allergy to substance (finding),Fexofenadine hydrochloride 60 MG Oral Tablet,Medication or vaccine,685,414443,0.00,605.03
+Allergy to substance (finding),cetirizine hydrochloride 10 MG Oral Tablet,Medication or vaccine,644,355448,0.00,551.94
+Allergy to substance (finding),Loratadine 10 MG Oral Tablet,Medication or vaccine,686,166890,0.00,243.28
+Allergy to substance (finding),COVID-19  mRNA  LNP-S  PF  30 mcg/0.3 mL dose,Medication or vaccine,118,16048,0.00,136.00
+Allergy to substance (finding),COVID-19  mRNA  LNP-S  PF  100 mcg/0.5mL dose or 50 mcg/0.25mL dose,Medication or vaccine,95,12920,0.00,136.00
+Allergy to substance (finding),carbamazepine 20 MG/ML Oral Suspension [Tegretol],Medication or vaccine,2,3233,0.00,1616.25
+Allergy to substance (finding),COVID-19 vaccine  vector-nr  rS-Ad26  PF  0.5 mL,Medication or vaccine,10,1360,0.00,136.00
+Allergy to substance (finding),Diazepam 5 MG Oral Tablet,Medication or vaccine,3,19,0.00,6.34
