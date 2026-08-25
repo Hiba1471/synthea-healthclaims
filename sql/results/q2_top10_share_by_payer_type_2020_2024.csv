@@ -1,0 +1,11 @@
+Rank,Condition,% patients pay (everyone),% patients pay - Commercial,% patients pay - Government,% patients pay - Uninsured,Commercial worse by (points),Insurer paid - Commercial,Insurer paid - Government,Paid by patients over 5 years,People affected
+1,Concussion with loss of consciousness,67.9,72.4,58.2,100.0,14.2,85846,123593,443599,9027
+2,Concussion with no loss of consciousness,67.6,71.4,58.5,100.0,12.9,340403,465240,1684289,34102
+3,Prediabetes (finding),62.2,84.9,8.1,100.0,76.8,1716470,5267330,11476697,13859
+4,Concussion injury of brain (disorder),61.8,71.6,45.0,100.0,26.6,808293,1449799,3646429,45319
+5,Otitis media,61.5,80.5,33.0,100.0,47.5,4445449,13590294,28790743,79046
+6,Asthma,57.5,66.0,42.6,99.9,23.4,2494606,4104638,8936356,40633
+7,Body mass index 30+ - obesity (finding),56.0,86.7,8.5,100.0,78.2,5376245,28200114,42816767,59466
+8,Sprain (morphologic abnormality),55.4,71.1,31.6,100.0,39.5,4005912,8890787,16013621,85452
+9,Fracture subluxation of wrist,54.3,63.6,44.0,100.0,19.6,149450,375579,624380,15769
+10,Fracture of clavicle,54.3,62.0,44.4,100.0,17.6,176444,411102,698542,17837

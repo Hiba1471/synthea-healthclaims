@@ -949,6 +949,75 @@ of 26–30%.
 *Query:* `sql/analysis/q2_oop_by_condition.sql` ·
 *Results:* `q2_oop_by_condition_2020_2024.csv`
 
+#### The blended patient share hides a large gap between insurance types
+
+The headline "patients bear 20.4%" and every per-condition share is a
+**blend across insurance types**, and for many conditions nobody actually
+experiences the blended number.
+
+Taking the ten conditions where patients carry the largest share of the bill
+(minimum 5,000 people affected, so a handful of patients cannot top the list):
+
+| Condition | Everyone | Commercial | Government | Commercial worse by |
+|---|---|---|---|---|
+| Concussion with loss of consciousness | 67.9% | 72.4% | 58.2% | +14.2 pts |
+| Concussion, no loss of consciousness | 67.6% | 71.4% | 58.5% | +12.9 pts |
+| **Prediabetes** | 62.2% | **84.9%** | **8.1%** | **+76.8 pts** |
+| Concussion injury of brain | 61.8% | 71.6% | 45.0% | +26.6 pts |
+| Otitis media | 61.5% | 80.5% | 33.0% | +47.5 pts |
+| Asthma | 57.5% | 66.0% | 42.6% | +23.4 pts |
+| **Obesity (BMI 30+)** | 56.0% | **86.7%** | **8.5%** | **+78.2 pts** |
+| Sprain | 55.4% | 71.1% | 31.6% | +39.5 pts |
+| Fracture subluxation of wrist | 54.3% | 63.6% | 44.0% | +19.6 pts |
+| Fracture of clavicle | 54.3% | 62.0% | 44.4% | +17.6 pts |
+
+**Commercial patients pay more than government patients on every one**, never
+by fewer than 12.9 points. Prediabetes and obesity are the extremes:
+government covers ~92% of the bill, commercial ~14%, so a commercially
+insured patient pays roughly **ten times the share** for the same condition.
+Both are chronic-risk conditions managed through routine screening and
+counselling — precisely the cheap-visit territory where a flat copay absorbs
+most of the bill.
+
+**Patients out-pay both insurers combined on 9 of these 10.** Obesity:
+patients $42.8M against $33.6M from all insurers together. Otitis media:
+patients $28.8M against $18.0M.
+
+**Rule for reporting:** never quote a blended patient share for a condition
+without splitting it by insurance type. Prediabetes reads 62.2% overall and
+nobody pays 62.2% — commercial patients face 84.9%, government patients 8.1%.
+The blend is an artifact of who happens to be insured how.
+
+#### Two different questions about patient cost
+
+These have almost disjoint answers and must not be conflated:
+
+| | Ranked by money patients paid | Ranked by share of the bill |
+|---|---|---|
+| #1 | Normal pregnancy — $4.93B | Concussion — 67.9% |
+| Share of the bill | 17.0% | 67.9% |
+| Money involved | $4,927,384,330 | $443,599 |
+
+None of the top ten by money ranks better than **#76 of 183** on share
+(acute bronchitis); pregnancy sits at #133, lung cancer at #175. Conversely
+the best "rank by money" among the top ten by share is otitis media at #35.
+
+Concussion is the clearest illustration. Across all three concussion codes:
+**91,963 claims, 46,783 people, $9.0M total bill, $98 per claim.** Patients
+pay 63.8% of it — which is **$123 per person over five years**. The share is
+extreme; the money is trivial. Losing consciousness does not change the
+economics (67.9% with, 67.6% without), because a $98 bill is small enough
+that a copay swallows most of it regardless of severity.
+
+So: **money tells you where the spending is; share tells you where the system
+leans hardest on the individual.** The first list is pregnancy and cancer, the
+second is concussions, ear infections and sprains.
+
+*Queries:* `sql/analysis/q2_top10_patient_paid.sql`,
+`q2_top10_by_share_of_bill.sql`, `q2_top10_share_by_payer_type.sql`,
+`q2_concussion_detail.sql`, `q2_burden_by_setting_and_payer.sql`,
+`q2_spend_vs_patient_cost_rank.sql`
+
 ### Q3 — How concentrated is spend?
 
 **Observation.** **2 conditions** and **86 hospitals** each cover half of all

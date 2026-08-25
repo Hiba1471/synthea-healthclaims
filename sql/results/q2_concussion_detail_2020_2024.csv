@@ -1,0 +1,12 @@
+Breakdown,Group,Claims,People affected,Total bill,Paid by patients,% of the bill patients pay,Cost per claim,Paid per person
+ALL CONCUSSIONS,combined,91963,46783,9047491,5774317,63.8,98,123
+By concussion type,Concussion injury of brain (disorder),48312,45319,5904521,3646429,61.8,122,80
+By concussion type,Concussion with no loss of consciousness,34575,34102,2489932,1684289,67.6,72,49
+By concussion type,Concussion with loss of consciousness,9076,9027,653037,443599,67.9,72,49
+By kind of insurance,Commercial,44147,22591,4350039,3115498,71.6,99,138
+By kind of insurance,Government,41222,21153,4053057,2014425,49.7,98,95
+By kind of insurance,Self-Pay / Uninsured,6594,3489,644394,644394,100.0,98,185
+By type of visit,emergency,45974,45244,5721642,3532708,61.7,124,78
+By type of visit,ambulatory,39290,38706,2808996,1902466,67.7,71,49
+By type of visit,virtual,6462,6434,486685,326159,67.0,75,51
+By type of visit,wellness,237,237,30168,12983,43.0,127,55
