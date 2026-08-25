@@ -22,8 +22,8 @@ The curated objects they read from are defined in `../ddl/`.
 |---|---|---|
 | `condition_cost_with_fallback_2020_2024.csv` | 1,721 | **The current answer to "which conditions cost most, and is that concentrated by payer".** One row per condition × payer. $72.69B across 33.6M claims, 185 conditions. Uses the DIAGNOSIS2 fallback (below). |
 | `condition_cost_by_payer_2020_2024.csv` | 1,621 | Same question, **conservative version** — reads `DIAGNOSIS1` only, no fallback. $68.17B / 31.1M claims. Use this if you need a defensible floor. |
-| `payer_patient_burden_split_2020_2024.csv` | 10 | Who actually pays, per payer: insurer-paid vs patient-paid, and the patient's share. Government absorbs 97–98%, commercial 62–81%, uninsured 0%. |
-| `patient_share_by_encounterclass_2020_2024.csv` | 30 | Patient share by encounter class × payer type. Shows burden is *inverted* against cost — 41.6% on wellness visits, 8.6% on inpatient stays. |
+| `q2_who_pays_2020_2024.csv` | 28 | Who actually pays — the insurer/patient split cut five ways (overall, payer type, payer, type of visit, year). Government absorbs 97–98%, commercial 70%, uninsured 0%. Replaces the earlier `payer_patient_burden_split` file. |
+| `q2_burden_by_setting_and_payer_2020_2024.csv` | 30 | Patient share by type of visit × kind of insurance. Shows burden is *inverted* against cost — 41.6% on wellness visits, 8.6% on inpatient stays. Replaces the earlier `patient_share_by_encounterclass` file. |
 | `patient_share_by_year_payer.csv` | 60 | Patient share by year × payer. **Contains 2019 rows on purpose** — they are the evidence for excluding 2019. Ignore that row when charting a trend. |
 
 ### Two analytical choices baked into the headline file

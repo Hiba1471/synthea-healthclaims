@@ -1,0 +1,186 @@
+Condition,Rank by total spending,Rank by what patients pay,Places moved (+ = patients pay more than its size suggests),% of the bill patients pay,Total billed,Paid by patients,% of everything patients pay,People affected,Paid per person over 5 years,Pattern
+Normal pregnancy,1,1,0,17.0,28933632566,4927384330,38.58,178616,27586,About what its size would suggest
+Gingivitis (disorder),3,2,1,28.5,8533540681,2430217212,19.03,800475,3036,About what its size would suggest
+Allergy to substance (finding),2,3,-1,9.9,8636357451,854556599,6.69,42809,19962,About what its size would suggest
+Chronic kidney disease stage 4 (disorder),4,4,0,12.4,4391639551,542707211,4.25,37037,14653,About what its size would suggest
+Gingival disease (disorder),9,5,4,26.2,942134264,246617013,1.93,147350,1674,About what its size would suggest
+Laceration - injury (disorder),11,6,5,28.0,831319863,232770648,1.82,85027,2738,Patients carry an unusually large share
+Polyp of colon,6,7,-1,17.6,1313207268,231656992,1.81,40169,5767,About what its size would suggest
+Primary dental caries (disorder),14,8,6,30.3,757131664,229076379,1.79,166232,1378,Patients carry an unusually large share
+Acute bronchitis (disorder),18,9,9,33.3,587268604,195555660,1.53,271285,721,Patients carry an unusually large share
+Non-small cell carcinoma of lung  TNM stage 1 (disorder),5,10,-5,5.4,3376088860,181100807,1.42,2384,75965,Insurers absorb an unusually large share
+Dependent drug abuse (disorder),17,11,6,24.7,622280745,153999072,1.21,97898,1573,Patients carry an unusually large share
+Acute infective cystitis (disorder),20,12,8,29.8,451842221,134830215,1.06,63850,2112,Patients carry an unusually large share
+Ischemic heart disease (disorder),16,13,3,18.4,726643399,133852646,1.05,46534,2876,About what its size would suggest
+End-stage renal disease (disorder),8,14,-6,12.8,1004387437,128919031,1.01,14528,8874,Insurers absorb an unusually large share
+COVID-19,10,15,-5,13.6,938324734,127335038,1.00,23027,5530,Insurers absorb an unusually large share
+Acute viral pharyngitis (disorder),27,16,11,43.5,272078918,118403552,0.93,313989,377,Patients carry an unusually large share
+Child attention deficit disorder,15,17,-2,13.3,752948402,100441756,0.79,7232,13889,About what its size would suggest
+Abnormal findings diagnostic imaging heart+coronary circulat (finding),12,18,-6,12.4,793695625,98306932,0.77,19908,4938,Insurers absorb an unusually large share
+Infection of tooth (disorder),22,19,3,26.4,352660516,93123657,0.73,58182,1601,About what its size would suggest
+Malignant neoplasm of breast (disorder),7,20,-13,8.0,1094711018,87522653,0.69,17582,4978,Insurers absorb an unusually large share
+Fracture of bone (disorder),21,21,0,18.5,407234912,75368992,0.59,82213,917,About what its size would suggest
+Stroke,19,22,-3,13.3,529442722,70586260,0.55,2597,27180,About what its size would suggest
+Chronic pain (finding),26,23,3,22.9,275377466,63000430,0.49,31047,2029,About what its size would suggest
+Impacted molars,24,24,0,19.0,318073629,60511678,0.47,6984,8664,About what its size would suggest
+Viral sinusitis (disorder),44,25,19,51.7,105288113,54392429,0.43,494629,110,Patients carry an unusually large share
+Sepsis (disorder),29,26,3,25.9,203887177,52895523,0.41,5130,10311,About what its size would suggest
+Loss of teeth (disorder),28,27,1,23.7,209508980,49731583,0.39,106191,468,About what its size would suggest
+Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),13,28,-15,6.4,769007334,48852548,0.38,427,114409,Insurers absorb an unusually large share
+Suspected COVID-19,40,29,11,39.0,123197609,48037247,0.38,121188,396,Patients carry an unusually large share
+Essential hypertension (disorder),46,30,16,51.8,91383065,47375933,0.37,62669,756,Patients carry an unusually large share
+Anemia (disorder),41,31,10,38.9,121478486,47232822,0.37,67419,701,Patients carry an unusually large share
+Body mass index 30+ - obesity (finding),47,32,15,56.0,76393125,42816767,0.34,59466,720,Patients carry an unusually large share
+Streptococcal sore throat (disorder),45,33,12,39.4,104575267,41169932,0.32,83554,493,Patients carry an unusually large share
+Dental filling lost (finding),33,34,-1,27.3,146903117,40111519,0.31,34912,1149,About what its size would suggest
+Fractured dental filling (finding),36,35,1,27.2,145815254,39646966,0.31,34683,1143,About what its size would suggest
+Leaking dental filling (finding),35,36,-1,27.1,146498025,39627979,0.31,34799,1139,About what its size would suggest
+Loose dental filling (finding),34,37,-3,26.9,146545614,39368378,0.31,34846,1130,About what its size would suggest
+Otitis media,62,38,24,61.5,46826486,28790743,0.23,79046,364,Patients carry an unusually large share
+Chronic congestive heart failure (disorder),23,39,-16,8.5,338872250,28706285,0.22,9829,2921,Insurers absorb an unusually large share
+Hyperlipidemia,49,40,9,37.5,66444075,24895891,0.19,111663,223,Patients carry an unusually large share
+Prediabetes,63,41,22,51.6,45844294,23647227,0.19,36093,655,Patients carry an unusually large share
+Myocardial infarction (disorder),32,42,-10,15.5,147703092,22957228,0.18,12567,1827,Insurers absorb an unusually large share
+Unhealthy alcohol drinking behavior (finding),54,43,11,38.1,59549814,22711238,0.18,39960,568,Patients carry an unusually large share
+Malignant tumor of colon,25,44,-19,7.3,288070634,21045928,0.16,4784,4399,Insurers absorb an unusually large share
+Appendicitis,50,45,5,30.0,65360251,19585299,0.15,5515,3551,Patients carry an unusually large share
+Osteoporosis (disorder),39,46,-7,15.2,126370796,19222779,0.15,12486,1540,Insurers absorb an unusually large share
+Human immunodeficiency virus infection (disorder),56,47,9,33.4,55032804,18393277,0.14,2514,7316,Patients carry an unusually large share
+Chronic kidney disease stage 1 (disorder),57,48,9,33.6,54504254,18329844,0.14,31824,576,Patients carry an unusually large share
+Severe anxiety (panic) (finding),52,49,3,30.1,60576965,18241786,0.14,40629,449,About what its size would suggest
+Injury of medial collateral ligament of knee,48,50,-2,24.7,68226232,16885351,0.13,4121,4097,About what its size would suggest
+Sprain (morphologic abnormality),70,51,19,55.4,28910321,16013621,0.13,85452,187,Patients carry an unusually large share
+Metabolic syndrome X (disorder),65,52,13,40.3,37067922,14943721,0.12,25417,588,Patients carry an unusually large share
+Chronic kidney disease stage 2 (disorder),61,53,8,30.6,48255449,14783474,0.12,30219,489,Patients carry an unusually large share
+Rupture of patellar tendon,55,54,1,24.3,56240424,13687417,0.11,3358,4076,About what its size would suggest
+Pulmonary emphysema (disorder),37,55,-18,9.3,136317695,12624994,0.10,5904,2138,Insurers absorb an unusually large share
+Overlapping malignant neoplasm of colon,30,56,-26,7.4,169195033,12521369,0.10,5209,2404,Insurers absorb an unusually large share
+Acute non-ST segment elevation myocardial infarction (disorder),38,57,-19,9.3,130676973,12129060,0.09,6922,1752,Insurers absorb an unusually large share
+Injury of anterior cruciate ligament,60,58,2,24.1,48959098,11794137,0.09,3006,3924,About what its size would suggest
+Prediabetes (finding),82,59,23,62.2,18460497,11476697,0.09,13859,828,Patients carry an unusually large share
+Misuses drugs (finding),73,60,13,43.8,25972158,11386194,0.09,18264,623,Patients carry an unusually large share
+Seizure disorder,58,61,-3,19.8,53915127,10676213,0.08,3868,2760,About what its size would suggest
+Acute ST segment elevation myocardial infarction (disorder),42,62,-20,9.6,109734749,10488281,0.08,8227,1275,Insurers absorb an unusually large share
+Alveolitis of jaw (disorder),53,63,-10,17.2,60030421,10350578,0.08,23293,444,Insurers absorb an unusually large share
+Chronic obstructive bronchitis (disorder),43,64,-21,9.2,107625431,9849781,0.08,4815,2046,Insurers absorb an unusually large share
+Chronic kidney disease stage 3 (disorder),64,65,-1,24.8,38117051,9445976,0.07,24836,380,About what its size would suggest
+Asthma,85,66,19,57.5,15536331,8936356,0.07,40633,220,Patients carry an unusually large share
+Sinusitis (disorder),74,67,7,39.8,22130305,8797410,0.07,35702,246,Patients carry an unusually large share
+Drug overdose,84,68,16,50.1,16337161,8185970,0.06,74549,110,Patients carry an unusually large share
+Atrial fibrillation (disorder),51,69,-18,12.2,63363449,7721456,0.06,2642,2923,Insurers absorb an unusually large share
+Alzheimer's disease (disorder),31,70,-39,4.7,163900031,7711183,0.06,19275,400,Insurers absorb an unusually large share
+Diabetes mellitus type 2 (disorder),80,71,9,39.4,18852314,7421639,0.06,10947,678,Patients carry an unusually large share
+Acute bacterial sinusitis (disorder),81,72,9,39.2,18827800,7387057,0.06,35307,209,Patients carry an unusually large share
+Acute allergic reaction,77,73,4,33.2,21341896,7086799,0.06,8089,876,About what its size would suggest
+Sleep disorder (disorder),75,74,1,30.3,22082501,6691876,0.05,7676,872,About what its size would suggest
+Childhood asthma,91,75,16,53.0,12609303,6688374,0.05,21822,306,Patients carry an unusually large share
+Fracture of mandible (disorder),79,76,3,31.0,20682828,6412518,0.05,2210,2902,About what its size would suggest
+Aortic valve stenosis (disorder),59,77,-18,11.2,53214478,5969477,0.05,3763,1586,Insurers absorb an unusually large share
+Aortic valve regurgitation (disorder),68,78,-10,18.3,31884307,5847732,0.05,3046,1920,Insurers absorb an unusually large share
+Burn injury (morphologic abnormality),95,79,16,50.7,11296078,5726843,0.04,23049,248,Patients carry an unusually large share
+Complete miscarriage (disorder),67,80,-13,17.3,31900370,5533860,0.04,20828,266,Insurers absorb an unusually large share
+Injury of neck (disorder),99,81,18,54.2,9148052,4959520,0.04,27424,181,Patients carry an unusually large share
+Traumatic dislocation of temporomandibular joint (disorder),88,82,6,34.8,14184060,4937880,0.04,2248,2197,Patients carry an unusually large share
+Injury of knee (disorder),98,83,15,45.5,10815323,4923330,0.04,13210,373,Patients carry an unusually large share
+Hypertriglyceridemia (disorder),93,84,9,40.1,12020683,4825154,0.04,8397,575,Patients carry an unusually large share
+Tubal pregnancy,69,85,-16,15.8,29230396,4609074,0.04,4167,1106,Insurers absorb an unusually large share
+Hyperglycemia (disorder),96,86,10,36.7,11291331,4139851,0.03,5969,694,Patients carry an unusually large share
+Injury of tendon of the rotator cuff of shoulder,87,87,0,24.5,14896255,3653670,0.03,8596,425,About what its size would suggest
+Concussion injury of brain (disorder),105,88,17,61.8,5904521,3646429,0.03,45319,80,Patients carry an unusually large share
+Pyelonephritis,92,89,3,29.6,12037111,3565820,0.03,1768,2017,About what its size would suggest
+Torus palatinus (disorder),78,90,-12,17.0,20832131,3549150,0.03,9560,371,Insurers absorb an unusually large share
+Acute Cholecystitis,89,91,-2,20.6,14009934,2880042,0.02,1252,2300,About what its size would suggest
+Secondary malignant neoplasm of colon,66,92,-26,8.1,34001317,2748825,0.02,598,4597,Insurers absorb an unusually large share
+Blighted ovum,86,93,-7,17.6,15143408,2671957,0.02,10165,263,Insurers absorb an unusually large share
+Neuropathy due to type 2 diabetes mellitus (disorder),97,94,3,22.1,11144686,2460705,0.02,3989,617,About what its size would suggest
+Resorption of alveolar process due to dental trauma (disorder),90,95,-5,17.3,13288872,2299461,0.02,6532,352,Insurers absorb an unusually large share
+Non-small cell lung cancer (disorder),72,96,-24,8.6,26749896,2290421,0.02,2340,979,Insurers absorb an unusually large share
+Neoplasm of prostate,71,97,-26,7.7,27681488,2137962,0.02,2867,746,Insurers absorb an unusually large share
+Bleeding from anus,100,98,2,24.7,8354290,2067682,0.02,752,2750,About what its size would suggest
+Chronic intractable migraine without aura,109,99,10,53.9,3669109,1976130,0.02,6944,285,Patients carry an unusually large share
+Concussion with no loss of consciousness,112,100,12,67.6,2489932,1684289,0.01,34102,49,Patients carry an unusually large share
+Familial Alzheimer's disease of early onset (disorder),83,101,-18,8.7,18098657,1576604,0.01,3284,480,Insurers absorb an unusually large share
+Retinopathy due to type 2 diabetes mellitus (disorder),107,102,5,32.7,4803188,1571541,0.01,3131,502,Patients carry an unusually large share
+Recurrent urinary tract infection (disorder),108,103,5,28.7,4319555,1237558,0.01,1766,701,Patients carry an unusually large share
+Preinfarction syndrome (disorder),94,104,-10,10.4,11841306,1235579,0.01,609,2029,Insurers absorb an unusually large share
+Primary malignant neoplasm of colon,76,105,-29,5.3,21652998,1143073,0.01,2147,532,Insurers absorb an unusually large share
+Osteoarthritis of knee,114,106,8,51.8,2150161,1113772,0.01,9285,120,Patients carry an unusually large share
+Cerebral palsy (disorder),103,107,-4,15.4,6874878,1058622,0.01,1749,605,About what its size would suggest
+Fetus with chromosomal abnormality,104,108,-4,16.1,6173015,992819,0.01,4197,237,About what its size would suggest
+Nonproliferative diabetic retinopathy due to type 2 diabetes mellitus (disorder),110,109,1,28.1,3014196,846590,0.01,1932,438,About what its size would suggest
+Fracture of forearm,119,110,9,50.6,1508496,763051,0.01,20720,37,Patients carry an unusually large share
+Fracture of clavicle,121,111,10,54.3,1286089,698542,0.01,17837,39,Patients carry an unusually large share
+Gout,117,112,5,41.8,1566703,655622,0.01,2885,227,Patients carry an unusually large share
+Fracture of ankle,123,113,10,53.4,1175573,628277,0.00,16125,39,Patients carry an unusually large share
+Fracture subluxation of wrist,124,114,10,54.3,1149409,624380,0.00,15769,40,Patients carry an unusually large share
+Opioid abuse (disorder),115,115,0,32.3,1911971,618030,0.00,948,652,About what its size would suggest
+Body mass index 40+ - severely obese (finding),131,116,15,59.3,923325,547497,0.00,631,868,Patients carry an unusually large share
+Perennial allergic rhinitis with seasonal variation,135,117,18,71.2,764414,544462,0.00,4270,128,Patients carry an unusually large share
+Gunshot wound (disorder),127,118,9,49.5,1040724,514908,0.00,1834,281,Patients carry an unusually large share
+Perennial allergic rhinitis,137,119,18,70.0,718899,503339,0.00,4096,123,Patients carry an unusually large share
+Small cell carcinoma of lung (disorder),106,120,-14,9.5,5039500,480513,0.00,424,1133,Insurers absorb an unusually large share
+Localized  primary osteoarthritis of the hand,132,121,11,52.6,890888,468327,0.00,3850,122,Patients carry an unusually large share
+Concussion with loss of consciousness,139,122,17,67.9,653037,443599,0.00,9027,49,Patients carry an unusually large share
+Cystic Fibrosis,102,123,-21,6.1,6927062,421370,0.00,91,4630,Insurers absorb an unusually large share
+Congenital uterine anomaly,111,124,-13,16.0,2569367,411437,0.00,1774,232,Insurers absorb an unusually large share
+Pneumonia (disorder),101,125,-24,5.5,7455752,410902,0.00,2028,203,Insurers absorb an unusually large share
+Epidermal burn of skin (disorder),129,126,3,42.7,959494,410012,0.00,13306,31,About what its size would suggest
+Osteoarthritis of hip,134,127,7,51.6,787098,406390,0.00,3403,119,Patients carry an unusually large share
+Atopic dermatitis,120,128,-8,25.8,1351579,348460,0.00,5219,67,Insurers absorb an unusually large share
+Kidney transplant failure and rejection (disorder),113,129,-16,12.8,2435429,310683,0.00,1558,199,Insurers absorb an unusually large share
+Primary fibromyalgia syndrome,125,130,-5,26.7,1126346,300407,0.00,3456,87,Insurers absorb an unusually large share
+Second degree burn,140,131,9,41.9,646754,270988,0.00,8789,31,Patients carry an unusually large share
+Fracture of rib,143,132,11,46.2,576170,265959,0.00,7964,33,Patients carry an unusually large share
+Seasonal allergic rhinitis,150,133,17,68.4,384364,263028,0.00,2037,129,Patients carry an unusually large share
+Tongue tie (disorder),118,134,-16,17.0,1529864,260327,0.00,763,341,Insurers absorb an unusually large share
+Contact dermatitis,148,135,13,62.1,410648,254898,0.00,2205,116,Patients carry an unusually large share
+Complication occuring during pregnancy,116,136,-20,15.6,1608983,250667,0.00,1079,232,Insurers absorb an unusually large share
+Posttraumatic stress disorder,138,137,1,35.0,693574,242552,0.00,356,681,About what its size would suggest
+Smokes tobacco daily,141,138,3,37.4,646753,241858,0.00,444,545,About what its size would suggest
+Macular edema and retinopathy due to type 2 diabetes mellitus (disorder),126,139,-13,21.3,1059720,226046,0.00,673,336,Insurers absorb an unusually large share
+Acquired immune deficiency syndrome (disorder),122,140,-18,18.4,1206890,222038,0.00,59,3763,Insurers absorb an unusually large share
+Acute myeloid leukemia  disease (disorder),146,141,5,44.2,439525,194389,0.00,181,1074,Patients carry an unusually large share
+Closed fracture of hip,147,142,5,45.1,428175,193110,0.00,5832,33,Patients carry an unusually large share
+Alcoholism,145,143,2,40.2,476379,191452,0.00,364,526,About what its size would suggest
+Proliferative diabetic retinopathy due to type II diabetes mellitus (disorder),133,144,-11,21.6,832338,179679,0.00,539,333,Insurers absorb an unusually large share
+Major depression  single episode,155,145,10,78.8,200123,157710,0.00,286,551,Patients carry an unusually large share
+Torus mandibularis (disorder),136,146,-10,18.9,759904,143978,0.00,383,376,Insurers absorb an unusually large share
+Major depression disorder,152,147,5,47.7,296512,141486,0.00,255,555,Patients carry an unusually large share
+Mitral valve regurgitation (disorder),142,148,-6,23.0,594418,136580,0.00,1035,132,Insurers absorb an unusually large share
+Rheumatoid arthritis,154,149,5,50.0,200663,100376,0.00,708,142,Patients carry an unusually large share
+Meningomyelocele (disorder),156,150,6,49.5,187511,92741,0.00,121,766,Patients carry an unusually large share
+Traumatic injury of spinal cord and/or vertebral column (disorder),157,151,6,56.0,164018,91790,0.00,868,106,Patients carry an unusually large share
+Infectious mediastinitis (disorder),130,152,-22,8.5,958964,81415,0.00,1053,77,Insurers absorb an unusually large share
+Bullet wound,158,153,5,46.5,162540,75610,0.00,1834,41,Patients carry an unusually large share
+Acute renal failure on dialysis (disorder),153,154,-1,13.6,276403,37580,0.00,3,12527,About what its size would suggest
+Fracture of vertebral column without spinal cord injury,164,155,9,50.7,69530,35243,0.00,672,52,Patients carry an unusually large share
+Renal dysplasia (disorder),168,156,12,69.3,41182,28520,0.00,83,344,Patients carry an unusually large share
+Suicidal deliberate poisoning,163,157,6,34.2,82304,28113,0.00,31,907,Patients carry an unusually large share
+Third degree burn,165,158,7,40.4,66330,26799,0.00,925,29,Patients carry an unusually large share
+Postoperative renal failure (disorder),144,159,-15,4.1,561153,22935,0.00,7,3276,Insurers absorb an unusually large share
+Tricuspid valve regurgitation (disorder),160,160,0,18.8,121101,22811,0.00,165,138,About what its size would suggest
+Leukemia  disease (disorder),162,161,1,19.6,100706,19761,0.00,812,24,About what its size would suggest
+Lupus erythematosus,169,162,7,36.5,38016,13865,0.00,115,121,Patients carry an unusually large share
+Fracture of the vertebral column with spinal cord injury,174,163,11,53.0,25017,13259,0.00,220,60,Patients carry an unusually large share
+Pulmonic valve regurgitation (disorder),173,164,9,46.1,26457,12205,0.00,55,222,Patients carry an unusually large share
+Attempted suicide - cut/stab,171,165,6,40.0,30512,12194,0.00,11,1109,Patients carry an unusually large share
+Excessive salivation (disorder),159,166,-7,8.5,136422,11595,0.00,140,83,Insurers absorb an unusually large share
+Traumatic brain injury (disorder),175,167,8,44.0,22606,9950,0.00,18,553,Patients carry an unusually large share
+Multiple myeloma (disorder),166,168,-2,17.7,51885,9200,0.00,419,22,About what its size would suggest
+Attempted suicide - suffocation,172,169,3,17.8,26719,4751,0.00,11,432,About what its size would suggest
+Cardiac arrest (disorder),176,170,6,35.5,11737,4168,0.00,92,45,Patients carry an unusually large share
+Acute respiratory failure (disorder),170,171,-1,9.6,31461,3036,0.00,17,179,About what its size would suggest
+Blindness due to type 2 diabetes mellitus (disorder),167,172,-5,6.1,44326,2721,0.00,20,136,Insurers absorb an unusually large share
+Spina bifida occulta (disorder),179,173,6,52.6,2716,1429,0.00,23,62,Patients carry an unusually large share
+Postoperative myocardial infarction (disorder),149,174,-25,0.3,384629,1216,0.00,6,203,Insurers absorb an unusually large share
+Meningocele (disorder),181,175,6,57.2,1039,594,0.00,9,66,Patients carry an unusually large share
+Idiopathic atrophic hypothyroidism,183,176,7,62.4,537,335,0.00,1825,0,Patients carry an unusually large share
+Acute respiratory insufficiency (disorder),161,177,-16,0.3,110501,290,0.00,3,97,Insurers absorb an unusually large share
+At risk for suicide (finding),184,178,6,56.1,504,283,0.00,3,94,Patients carry an unusually large share
+Proteinuria due to type 2 diabetes mellitus (disorder),178,179,-1,7.1,3633,258,0.00,4,64,About what its size would suggest
+Non-small cell carcinoma of lung  TNM stage 2 (disorder),128,180,-52,0.0,1004610,233,0.00,1,233,Insurers absorb an unusually large share
+Sepsis caused by Staphylococcus aureus,180,181,-1,21.0,1111,233,0.00,1,233,About what its size would suggest
+Anticoagulant-induced bleeding (disorder),151,182,-31,0.1,360070,197,0.00,13,15,Insurers absorb an unusually large share
+Sepsis caused by Pseudomonas (disorder),177,183,-6,0.8,8776,70,0.00,7,10,Insurers absorb an unusually large share
+Mitral valve stenosis (disorder),182,184,-2,0.0,695,0,0.00,1,0,About what its size would suggest
+Postoperative complication,185,185,0,0.0,157,0,0.00,1,0,About what its size would suggest
