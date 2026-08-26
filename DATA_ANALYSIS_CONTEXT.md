@@ -1043,7 +1043,7 @@ second is concussions, ear infections and sprains.
 
 A single condition is rarely the unit a decision gets made in. Dental care is
 one budget, one benefit design and one policy lever, but it reaches the data as
-fifteen separate conditions. Grouping the 185 conditions into **16 types of
+fifteen separate conditions. Grouping the 185 conditions into **15 types of
 care** turns the per-condition findings above into something addressable.
 
 The grouping is a keyword classification over the condition name, written out
@@ -1054,91 +1054,96 @@ Unmatched conditions fall to **Other**, which is reported rather than hidden:
 38 of the 185 land there, but they carry **0.1%** of patient dollars and
 **0.12%** of the bill, so the taxonomy covers essentially all of the money.
 
-**Observation.** Ordered by money patients paid (8 of 16 rows; the full table is
+**How the percentages are calculated.** The share is *money patients paid ÷
+total money paid* on the claims attributed to that type of care — **not a share
+of the amount billed**, though with collection at 100% here the two differ only
+by rounding. Who paid comes from `METHOD` on PAYMENT rows (`ECHECK` = insurer,
+`CASH`/`CHECK`/`CC`/`COPAY` = the patient), never from `PAYER_ID`, which records
+who was *billed* and would misattribute $20.3B of patient payments to insurers
+(§26.3). Money is totalled per `CLAIM_ID` first and then grouped, so a claim
+carrying several procedure rows is counted once (§26.7). A claim joins a care
+type through `DIAGNOSIS1` when that is a real condition and `DIAGNOSIS2`
+otherwise. The window is 2020–2024 and `IS_ADMIN_NOISE_CODE` is excluded.
+
+**Observation.** Ordered by money patients paid (8 of 15 rows; the full table is
 in the results file):
 
-| # | Type of care | Paid by patients | % of all patient spend | % of bill | People | Commercial | Government |
-|---|---|---|---|---|---|---|---|
-| 1 | Maternity | $4.94B | 38.7% | 17.0% | 178,766 | 15.1% | 0.6% |
-| 2 | **Dental — preventive** | **$2.68B** | **21.0%** | 28.2% | 843,089 | 53.9% | 3.1% |
-| 3 | Allergy & immune | $863.0M | 6.8% | 10.0% | 49,452 | 6.7% | 0.7% |
-| 4 | Kidney & urinary | $857.1M | 6.7% | 14.2% | 167,126 | 14.3% | 2.7% |
-| 5 | Respiratory & ENT | $668.4M | 5.2% | 26.8% | 937,507 | 44.5% | 5.8% |
-| 6 | **Dental — restorative** | **$615.2M** | **4.8%** | 26.4% | 371,650 | 48.9% | 2.4% |
-| 7 | Cancer & tumours | $589.2M | 4.6% | 8.3% | 67,860 | 17.3% | 1.1% |
-| 11 | Diabetes & metabolic | $159.2M | 1.2% | 36.6% | 259,513 | 74.4% | 8.1% |
+| # | Type of care | Paid by patients | % of all patient spend | % of bill | Rank by share | People | Commercial | Government |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Maternity | $4.94B | 38.7% | 17.0% | #10 | 178,766 | 15.1% | 0.6% |
+| 2 | **Dental & oral** | **$3.30B** | **25.8%** | 27.9% | **#4** | 938,009 | 52.9% | 3.0% |
+| 3 | Allergy & immune | $863.0M | 6.8% | 10.0% | #13 | 49,452 | 6.7% | 0.7% |
+| 4 | Kidney & urinary | $857.1M | 6.7% | 14.2% | #12 | 167,126 | 14.3% | 2.7% |
+| 5 | Respiratory & ENT | $668.4M | 5.2% | 26.8% | #5 | 937,507 | 44.5% | 5.8% |
+| 6 | Cancer & tumours | $589.2M | 4.6% | 8.3% | #15 | 67,860 | 17.3% | 1.1% |
+| 10 | Diabetes & metabolic | $159.2M | 1.2% | 36.6% | **#2** | 259,513 | 74.4% | 8.1% |
+| 13 | Blood disorders | $47.2M | 0.4% | 38.9% | **#1** | 67,419 | 56.2% | 2.9% |
 
-Four things fall out of the regrouping:
+Three things fall out of the regrouping:
 
-1. **Maternity and dental together carry 64.5% of everything patients pay** —
-   maternity 38.7%, the two dental groups 25.8% between them. Dental is the one
-   worth isolating: **938,009 distinct people**, against maternity's 178,766. It
-   is the largest patient-cost category that is not a single life event.
-2. **Within dental, the burden is overwhelmingly preventive.** Splitting it
-   gives **$2.68B preventive against $615.2M restorative — 4.4×** — reaching
-   **843,089 people against 371,650**, at **$3,179 per person against $1,655**.
-   Gum disease, not tooth repair, is where dental cost-sharing lands. This is
-   the Q2 inversion again at its sharpest: the cheaper and more routine the
-   care, the larger the share the patient carries.
-3. **Money and share disagree here as they do at condition level.**
-   Diabetes & metabolic ranks **11th by dollars but 2nd by share** (36.6%);
-   maternity is **1st by dollars and 11th by share** (17.0%). Dental —
-   preventive is the only group in the top three on both (2nd by dollars, 3rd
-   by share).
-4. **The insurance-type gap survives the regrouping and is never small.**
+1. **Maternity and dental carry 64.5% of everything patients pay** — 38.7% and
+   25.8%. Dental is the one worth isolating: **938,009 distinct people**,
+   against maternity's 178,766. It is the largest patient-cost category that is
+   not a single life event, and the only group in the top four on *both*
+   rankings (#2 by money, #4 by share). Every other high-share group is trivial
+   in dollars — blood disorders leads on share at 38.9% but is 13th of 15 on
+   money — and every other high-money group is low on share.
+2. **Money and share disagree here as they do at condition level.**
+   Diabetes & metabolic ranks **10th by dollars but 2nd by share** (36.6%);
+   maternity is **1st by dollars and 10th by share** (17.0%).
+3. **The insurance-type gap survives the regrouping and is never small.**
    Commercial patients carry a larger share than government patients in **all
-   16 groups**, never by fewer than 6 points. Diabetes & metabolic is the
+   15 groups**, never by fewer than 6 points. Diabetes & metabolic is the
    extreme — 74.4% against 8.1%, a **9.2×** gap on the same care — which is the
    prediabetes/obesity finding above reappearing at group level.
 
 **Interpretation.** The two largest patient-cost groups are opposite in kind.
 Maternity is few people (178,766) meeting a very large bill ($162,288 each over
-five years) at a low share. Preventive dental is nearly five times as many
-people meeting a modest bill at nearly double the share. Aggregate dollars
-alone cannot tell those apart, and they do not respond to the same
-intervention.
+five years) at a low share. Dental is five times as many people (938,009)
+meeting a modest bill ($12,610) at a high share. Aggregate dollars alone cannot
+tell those apart, and they do not respond to the same intervention.
 
-**Recommendation.** Treat preventive dental as the first candidate for benefit
-redesign. It is one coherent benefit, it is 21.0% of everything patients pay on
-its own, and its 28.2% share falls on 843,089 people — and because the care is
-routine and low-cost per visit, a flat copay absorbs most of each bill. Where
-the goal is to reduce what individuals pay rather than what the system spends,
-sort by the share column, not the dollar column.
+**Recommendation.** Treat dental as the first candidate for benefit redesign: it
+is one coherent benefit, the largest patient-cost group outside a life event,
+and its 27.9% share falls on close to a million people. Where the goal is to
+reduce what individuals pay rather than what the system spends, sort by the
+share column, not the dollar column.
 
-**Reconciliation** (per §24). Total bill across the 16 groups is
+**Dental was split and merged back.** Preventive (gum disease, torus palatinus —
+managed by cleaning and monitoring) against restorative (everything repairing or
+replacing structure) measured as **$2.68B preventive to $615.2M restorative, a
+4.4× gap**, reaching **843,089 people against 371,650**, at **$3,179 per person
+against $1,655**, at shares of 28.2% and 26.4%. So the dental burden is gum
+care, not tooth repair. The split was merged back for reporting because a single
+dental line is the unit the benefit is designed in; the figures are kept here
+because the finding is real. To reproduce it, replace the dental branch in the
+query with a `(gingiv|palatinus)` branch tested ahead of the rest. Note that
+276,730 people carry both kinds of dental condition, so the two groups overlap.
+
+**Reconciliation** (per §24). Total bill across the 15 groups is
 **$72,685,492,673** against the reference $72,685,492,693 — $20 apart from
 per-row rounding. Patient out-of-pocket totals **$12,772,723,565**, matching the
 $12.77B in the per-condition cut above, and all 185 conditions are accounted
-for. The dental split was verified to be exact: preventive plus restorative
-returns the pre-split combined row to the dollar on patient paid
-($3,295,581,951), bill ($11,827,830,056) and condition count (15).
+for. The merge was verified to restore the pre-split dental row to the dollar.
 
 **Caveats.**
 
-- **`People affected` is not additive across groups.** It sums to 3,752,982
-  against 1,259,375 patients with spend (**2.98×**) — someone with gingivitis
-  and asthma is counted under both. This now bites *within* dental too:
-  843,089 preventive plus 371,650 restorative is 1,214,739 against 938,009
-  distinct dental patients, so **276,730 people have both**. Correct within a
-  row; never summed down the column (§6).
-- **Two judgment calls sit in the dental split**, both stated in the query
-  header and reversible by moving one keyword:
-  `Primary dental caries` is counted as **restorative** (the textbook
-  preventable condition, but the billed care is a filling), and jaw/TMJ trauma
-  is counted as **dental — restorative** rather than Injury & trauma, keeping
-  the existing convention that dental is tested before injury.
-- **The taxonomy as a whole is a judgment call**, like the `Stress`
-  classification. It lives in one readable `CASE` expression, so any grouping
-  moves with a one-line edit and a re-run.
-- Inherits the **DIAGNOSIS2 fallback** and therefore its trade-off — the query
-  takes `DIAGNOSIS1` when it is a condition, else `DIAGNOSIS2`.
-- Dental magnitudes carry the project-wide pricing caveat (§27, Q1): gingivitis
-  bills $8.5B because Synthea prices routine dental visits crudely. The
-  **ranking and the preventive/restorative ratio** are the usable parts, not
-  the absolute dollars.
+- **`People affected` is not additive across groups.** It sums to 3,476,252
+  against 1,259,375 patients with spend (**2.76×**) — someone with gingivitis
+  and asthma is counted under both. Correct within a row; never summed down the
+  column (§6).
+- **The taxonomy is a judgment call**, like the `Stress` classification. It
+  lives in one readable `CASE` expression, so any grouping moves with a one-line
+  edit and a re-run.
+- Inherits the **DIAGNOSIS2 fallback** and therefore its trade-off.
+- **The shares are blends across insurance type**, and per §27 above should not
+  be quoted alone — nobody pays diabetes care's blended 36.6%.
+- Dental and maternity magnitudes carry the project-wide pricing caveat: the
+  **ranking and the ratios** are the usable parts, not the absolute dollars.
 
 *Query:* `sql/analysis/q2_patient_cost_by_care_type.sql` ·
-*Results:* `q2_patient_cost_by_care_type_2020_2024.csv`
+*Results:* `q2_patient_cost_by_care_type_2020_2024.csv` ·
+*Chart:* `dashboard/q2_who_bears_the_cost.html`
 
 ### Q3 — How concentrated is spend?
 
