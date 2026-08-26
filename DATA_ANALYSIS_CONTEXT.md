@@ -792,7 +792,8 @@ plausible; the pricing is not.
 | Cost per claim | **$14,550** | $100–300 per prenatal visit | implausible |
 
 Cause: Synthea bills each routine prenatal check as a separate ~$5,000
-procedure. Two of them carry **68.3%** of all pregnancy spend:
+procedure. **Four** of them carry **68.3%** of all pregnancy spend — the top
+two alone are 55.1%:
 
 | Line item | Billed | Per line | Reality |
 |---|---|---|---|
@@ -804,6 +805,26 @@ procedure. Two of them carry **68.3%** of all pregnancy spend:
 Price those four at zero (i.e. bundled, as they are in reality) and pregnancy
 falls from **$28.9B to $9.2B — 39.8% to 17.3%** of condition-attributable
 spend. Still first, no longer dominant.
+
+This is the query that found the pricing problem, so it is worth knowing what
+it does and does not claim. **A procedure is not owned by a condition** — the
+claim carries the diagnosis and the procedures are line items hanging off it,
+so the output is what was billed *on claims attributed to* each condition. The
+same hemogram appears under many conditions. It reads `DIAGNOSIS1` directly
+with no DIAGNOSIS2 fallback, and covers only the two largest conditions;
+adding another means adding its code to the `target` list.
+
+The allergy cut is the cleaner demonstration of the same defect, because one
+line item is essentially the whole condition: **subcutaneous immunotherapy is
+98.5% of allergy spend at $11,122 a shot** against a real-world $50–200, billed
+765,286 times. The encounter containing it is priced at $118 — correctly. That
+juxtaposition inside a single condition is the evidence that Synthea prices
+*encounters* realistically and *procedures* at a flat few thousand dollars
+regardless of what the procedure is.
+
+*Query:* `sql/analysis/q1_condition_procedures.sql` ·
+*Results:* `q1_pregnancy_procedures_2020_2024.csv` (86 rows),
+`q1_allergy_procedures_2020_2024.csv` (18 rows)
 
 **This is systemic, not pregnancy-specific.** Allergy immunotherapy bills
 $11,122 per injection against a real $50–200; a hemogram bills $1,897 against
@@ -1139,6 +1160,51 @@ price negotiation.
 
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql` ·
 *Chart:* `dashboard/concentration.html`
+
+#### What a typical claim, visit and patient actually costs
+
+Concentration says a few cases carry the total. The distribution says the same
+thing from the other end, and it is the reason **no average in this project
+should be quoted without its median**.
+
+**Observation.** Cost is heavily right-skewed at every grain, and the mean sits
+far above the median in all three:
+
+| Grain | Count | Median | Mean | Mean ÷ median | p99 | p99 ÷ median | Max |
+|---|---|---|---|---|---|---|---|
+| Per claim | 68,645,121 | $275.59 | $1,454.22 | **5.28×** | $19,765.14 | 71.7× | $822,680 |
+| Per visit | 35,272,859 | $966.81 | $2,830.08 | **2.93×** | $28,300.13 | 29.3× | $822,680 |
+| Per patient | 1,259,375 | $30,292.02 | $79,265.52 | **2.62×** | $550,836.53 | 18.2× | $6,716,961 |
+
+**Interpretation.** The skew is real but it *falls* as the grain widens — 5.28×
+per claim, 2.93× per visit, 2.62× per patient. Aggregating averages the tail
+away: a patient's year contains many ordinary claims alongside the expensive
+one, so extreme claims do not produce proportionally extreme patients. That is
+the distributional form of the Q3 finding that spend concentrates in conditions
+and sites rather than in catastrophically sick individuals (top 1% of patients
+= 11.8%, against a real-world 20–25%).
+
+**Recommendation.** Report the median as the typical figure and the mean only
+alongside it. A mean claim of $1,454 describes almost no claim in the data —
+75% of claims are under $862.63.
+
+**Caveats.**
+
+- Percentiles use `APPROX_PERCENTILE` (t-digest), so they are **approximate**;
+  counts, totals and means are exact. Fine at these magnitudes, not for a
+  figure quoted to the cent.
+- Grains are not comparable populations. Per-visit covers 35.3M visits with
+  billed spend, not the 64.5M rows in `ENCOUNTERS`.
+- The column headers in this file are the raw SQL names (`P50_MEDIAN`,
+  `MEAN_OVER_MEDIAN`), which predate the plain-language naming rule in §21 and
+  do not follow it.
+
+**Reconciliation** (per §24). All three grains total **$99,825,019,809**, the
+all-spend reference; per-claim n = 68,645,121 and per-patient n = 1,259,375
+match the claims and patients references exactly.
+
+*Query:* `sql/analysis/01_percentiles.sql` ·
+*Results:* `cost_percentiles_2020_2024.csv` (3 rows)
 
 ### Cross-cutting limitations
 

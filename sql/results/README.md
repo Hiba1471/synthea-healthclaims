@@ -61,6 +61,8 @@ itself the finding. Do not re-run them expecting a different answer.
 |---|---|---|
 | `claims_tx_money_flow.csv` | 12 | **The decoder ring for `CLAIMS_TX`.** One row per `TYPE` × `TRANSFERTYPE` × `METHOD`. Establishes that `AMOUNT` is populated on `TRANSFERIN` rows as well as `CHARGE` (so naive sums double-count $23.4B), and that `METHOD` on PAYMENT rows reveals who actually paid — `ECHECK` = insurer, `CASH`/`CHECK`/`CC`/`COPAY` = patient. **Unfiltered / all-time**, so its $160.9B will not tie to the windowed files. |
 | `monthly_volume_2018_2020.csv` | 36 | Row counts and charges per month, 2018–2020. Located the Nov 2019 step-change: ~$200M/month through Sep 2019, then ~$1.7B/month onward. The reason 2019 is excluded from the standing window. **Starts 2018 on purpose.** |
+| `q1_pregnancy_procedures_2020_2024.csv` | 86 | **The evidence that prices are not realistic.** Every line item billed on claims attributed to Normal pregnancy. Four routine checks carry 68.3% of the condition's $28.9B — a fundal-height measurement and a fetal-heart auscultation at ~$4,967 each, billed 1.6M times apiece. Price those four as bundled and pregnancy falls to $9.2B. |
+| `q1_allergy_procedures_2020_2024.csv` | 18 | Same query, Allergy to substance. The cleaner demonstration: **subcutaneous immunotherapy is 98.5% of the condition at $11,122 a shot** (real-world $50–200) while the encounter containing it is priced correctly at $118. Synthea prices encounters realistically and procedures at a flat few thousand regardless of what they are. |
 | `dictionary_provenance_rows.csv` | 284 | Audit trail for the code dictionary — every code classified by *provenance* (which source table it appears in) rather than by its SNOMED semantic tag. This is the weakest-evidence group; the `REASON_ONLY` column flags the weakest rows within it. |
 
 ---
@@ -89,10 +91,14 @@ are exact (from `SHOW TABLES`); null rates and distinct counts are estimates.
 
 | File | Rows | What it is |
 |---|---|---|
+| `cost_percentiles_2020_2024.csv` | 3 | **What a typical claim, visit and patient costs.** Full percentile spread at three grains. Cost is right-skewed everywhere — a claim's mean is 5.28x its median ($1,454 vs $276) — so **never quote a mean here without its median**. The skew falls as the grain widens (5.28x per claim, 2.93x per visit, 2.62x per patient). Percentiles are `APPROX_PERCENTILE`, so approximate; counts and totals are exact. Column headers are raw SQL names, predating the naming rule in §21. |
 | `procedure_base_cost_summary.csv` | 545 | min/max/avg `BASE_COST` per procedure description. |
 | `encounter_cost_summary.csv` | 10 | min/max/avg total claim cost, payer coverage and base cost per encounter class. Inpatient averages ~$29K/encounter vs ~$2.6K ambulatory. |
 
-Neither is date-windowed — both are all-time.
+`procedure_base_cost_summary` and `encounter_cost_summary` are **not**
+date-windowed — both are all-time. `cost_percentiles_2020_2024` is windowed
+like everything else, and reconciles to the $99,825,019,809 all-spend
+reference at all three grains.
 
 ---
 
