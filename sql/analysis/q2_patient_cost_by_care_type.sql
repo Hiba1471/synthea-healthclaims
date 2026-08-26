@@ -11,6 +11,18 @@
 -- matters -- dental is tested first so "infection of tooth" and "fracture of
 -- mandible" group as dental rather than as infection or injury.
 --
+-- Dental is split into PREVENTIVE and RESTORATIVE. Two judgment calls sit in
+-- that split and both are reversible by moving one keyword:
+--
+--   1. "Primary dental caries" is RESTORATIVE. Caries is the textbook
+--      preventable condition, but once it is diagnosed and billed the care is
+--      a filling. Moving it to preventive is a large swing -- it is the second
+--      biggest dental condition -- so the choice is stated rather than buried.
+--   2. Jaw and TMJ trauma (fracture of mandible, dislocations) is RESTORATIVE
+--      rather than Injury & trauma, which keeps the pre-existing convention
+--      that dental is tested before injury. Delete the jaw/mandible/
+--      temporomandibular keywords from the dental branch to route it back.
+--
 -- Anything unmatched falls to "Other", which is reported rather than hidden
 -- so the coverage of the taxonomy is visible.
 --
@@ -43,8 +55,15 @@ classified AS (
         m.*,
         d.DESCRIPTION AS condition_name,
         CASE
-            WHEN LOWER(d.DESCRIPTION) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*'
-                THEN 'Dental & oral'
+            -- Dental splits two ways. Preventive is tested first: gum disease and
+            -- torus palatinus are managed by cleaning, monitoring and hygiene,
+            -- with no tooth structure restored. Everything else dental falls to
+            -- restorative -- repairing or replacing structure that is already
+            -- damaged. See the header note for the two judgment calls.
+            WHEN LOWER(d.DESCRIPTION) REGEXP '.*(gingiv|palatinus).*'
+                THEN 'Dental - preventive'
+            WHEN LOWER(d.DESCRIPTION) REGEXP '.*(dental|tooth|teeth|molar|jaw|temporomandibular|mandible|alveolitis).*'
+                THEN 'Dental - restorative'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*'
                 THEN 'Maternity'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*'
