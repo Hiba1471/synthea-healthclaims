@@ -1,0 +1,157 @@
+<title>Big Bills or Big Shares</title>
+<style>
+:root{--surface-1:#fcfcfb;--surface-2:#f4f3f0;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--text-muted:#78766f;--grid:#e6e5e1;--grid-minor:#f0efec;--pt:#d6a888;--hi:#0f9d76;--axis:#c9c8c3;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--surface-2:#232322;
+--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;--grid:#33322f;--grid-minor:#2a2a28;
+--pt:#8f6a51;--hi:#19c093;--axis:#4a4a45;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--surface-2:#232322;--text-primary:#fff;--text-secondary:#c3c2b7;
+--text-muted:#9a988f;--grid:#33322f;--grid-minor:#2a2a28;--pt:#8f6a51;--hi:#19c093;--axis:#4a4a45;}
+*{box-sizing:border-box}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:32px 20px 48px;
+font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+.wrap{max-width:790px;margin:0 auto;}
+h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em;}
+.lede{color:var(--text-secondary);font-size:14px;margin:0 0 26px;}
+h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em;}
+.sub{color:var(--text-secondary);font-size:13.5px;margin:0 0 16px;}
+.figure{overflow-x:auto;background:var(--surface-2);border-radius:10px;padding:14px 10px 8px;}
+svg{display:block;width:100%;height:auto;min-width:680px;}
+.grid{stroke:var(--grid);stroke-width:1;}
+.grid.minor{stroke:var(--grid-minor);}
+.axis{stroke:var(--axis);stroke-width:1.25;}
+.tick{fill:var(--text-muted);font-size:11px;}
+.tick-x{text-anchor:middle;} .tick-y{text-anchor:end;}
+.pt{fill:var(--pt);fill-opacity:.7;stroke:var(--pt);stroke-width:1.25;}
+.pt.hi{fill:var(--hi);fill-opacity:.8;stroke:var(--hi);stroke-width:2;}
+.ticker{stroke:var(--axis);stroke-width:1;}
+.lab{fill:var(--text-secondary);font-size:11.5px;}
+.lab.hi{fill:var(--hi);font-weight:700;font-size:12.5px;}
+.lab.s{text-anchor:start;} .lab.e{text-anchor:end;} .lab.m{text-anchor:middle;}
+.lead{stroke:var(--text-muted);stroke-width:1;opacity:.5;}
+.axis-title{fill:var(--text-secondary);font-size:11.5px;text-anchor:middle;}
+.note{color:var(--text-muted);font-size:12.5px;margin:16px 0 0;}
+.lims{color:var(--text-muted);font-size:12.5px;margin:5px 0 0;padding-left:18px;}
+.lims li{margin:2px 0;}
+.take{background:var(--surface-2);border-left:3px solid var(--hi);padding:11px 15px;border-radius:0 7px 7px 0;
+margin:18px 0 0;font-size:13.5px;color:var(--text-primary);}
+</style>
+<div class="wrap">
+<h1>Only dental is both a big bill and a big share</h1>
+<p class="lede">Synthea healthcare claims, 2020&ndash;2024. Each circle is one of the 15 types of care.
+Position left to right is what patients paid in total; position up the page is how much of the bill
+they carried; circle area is how many people were affected.</p>
+
+<h2>Everything else is either a lot of money at a small share, or a big share of very little</h2>
+<p class="sub"><strong>Circle size is the number of people affected</strong>, from 13,122 for
+infections to 938,009 for dental. The horizontal axis is a log scale &mdash; patient spending runs
+from $16M to $4.9B, a 300-fold range a linear axis would flatten into one cluster.</p>
+<div class="figure"><svg viewBox="0 0 790 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Each type of care plotted by total patient out-of-pocket against the share of the bill patients pay">
+<line class="grid" x1="74" y1="356.6" x2="764" y2="356.6"/>
+<text x="65" y="360.6" class="tick tick-y">10%</text>
+<line class="grid" x1="74" y1="265.1" x2="764" y2="265.1"/>
+<text x="65" y="269.1" class="tick tick-y">20%</text>
+<line class="grid" x1="74" y1="173.7" x2="764" y2="173.7"/>
+<text x="65" y="177.7" class="tick tick-y">30%</text>
+<line class="grid" x1="74" y1="82.3" x2="764" y2="82.3"/>
+<text x="65" y="86.3" class="tick tick-y">40%</text>
+<text x="65" y="452.0" class="tick tick-y">0%</text>
+<line class="ticker" x1="126.3" y1="448" x2="126.3" y2="453"/>
+<text x="126.3" y="466" class="tick tick-x">$20M</text>
+<line class="ticker" x1="228.1" y1="448" x2="228.1" y2="453"/>
+<text x="228.1" y="466" class="tick tick-x">$50M</text>
+<line class="ticker" x1="305.2" y1="448" x2="305.2" y2="453"/>
+<text x="305.2" y="466" class="tick tick-x">$100M</text>
+<line class="ticker" x1="407.0" y1="448" x2="407.0" y2="453"/>
+<text x="407.0" y="466" class="tick tick-x">$250M</text>
+<line class="ticker" x1="484.1" y1="448" x2="484.1" y2="453"/>
+<text x="484.1" y="466" class="tick tick-x">$500M</text>
+<line class="ticker" x1="561.2" y1="448" x2="561.2" y2="453"/>
+<text x="561.2" y="466" class="tick tick-x">$1B</text>
+<line class="ticker" x1="663.0" y1="448" x2="663.0" y2="453"/>
+<text x="663.0" y="466" class="tick tick-x">$2.5B</text>
+<line class="ticker" x1="740.1" y1="448" x2="740.1" y2="453"/>
+<text x="740.1" y="466" class="tick tick-x">$5B</text>
+<circle class="pt hi" cx="693.7" cy="192.9" r="30.0"><title>Dental & oral
+$3.30B paid by patients (27.9% of a $11.83B bill)
+938,009 people affected</title></circle>
+<text x="655.7" y="196.9" class="lab e hi">Dental & oral</text>
+<circle class="pt" cx="516.4" cy="203.0" r="30.0"><title>Respiratory & ENT
+$668M paid by patients (26.8% of a $2.50B bill)
+937,507 people affected</title></circle>
+<text x="554.4" y="213.0" class="lab s">Respiratory & ENT</text>
+<circle class="pt" cx="458.2" cy="207.5" r="18.8"><title>Injury & trauma
+$396M paid by patients (26.3% of a $1.51B bill)
+342,757 people affected</title></circle>
+<line class="lead" x1="479.0" y1="207.5" x2="485.0" y2="243.5"/>
+<text x="485.0" y="247.5" class="lab s">Injury & trauma</text>
+<circle class="pt" cx="356.9" cy="113.4" r="16.6"><title>Diabetes & metabolic
+$159M paid by patients (36.6% of a $435M bill)
+259,513 people affected</title></circle>
+<text x="381.4" y="117.4" class="lab s">Diabetes & metabolic</text>
+<circle class="pt" cx="435.3" cy="259.7" r="14.8"><title>Mental health & substance use
+$322M paid by patients (20.6% of a $1.56B bill)
+200,549 people affected</title></circle>
+<text x="458.1" y="263.7" class="lab s">Mental health & substance use</text>
+<circle class="pt" cx="738.8" cy="292.6" r="14.0"><title>Maternity
+$4.94B paid by patients (17.0% of a $29.01B bill)
+178,766 people affected</title></circle>
+<text x="716.7" y="296.6" class="lab e">Maternity</text>
+<circle class="pt" cx="544.0" cy="318.2" r="13.6"><title>Kidney & urinary
+$857M paid by patients (14.2% of a $6.02B bill)
+167,126 people affected</title></circle>
+<text x="565.6" y="322.2" class="lab s">Kidney & urinary</text>
+<circle class="pt" cx="470.9" cy="313.6" r="12.6"><title>Heart & circulation
+$444M paid by patients (14.7% of a $3.02B bill)
+139,952 people affected</title></circle>
+<line class="lead" x1="485.5" y1="313.6" x2="491.5" y2="295.6"/>
+<text x="491.5" y="299.6" class="lab s">Heart & circulation</text>
+<circle class="pt" cx="502.4" cy="372.1" r="9.3"><title>Cancer & tumours
+$589M paid by patients (8.3% of a $7.10B bill)
+67,860 people affected</title></circle>
+<text x="519.6" y="376.1" class="lab s">Cancer & tumours</text>
+<circle class="pt" cx="221.8" cy="92.3" r="9.2"><title>Blood disorders
+$47M paid by patients (38.9% of a $121M bill)
+67,419 people affected</title></circle>
+<text x="239.0" y="96.3" class="lab s">Blood disorders</text>
+<circle class="pt" cx="102.9" cy="284.3" r="8.6"><title>Other
+$16M paid by patients (17.9% of a $91M bill)
+56,781 people affected</title></circle>
+<text x="119.5" y="288.3" class="lab s">Other</text>
+<circle class="pt" cx="544.8" cy="356.6" r="8.2"><title>Allergy & immune
+$863M paid by patients (10.0% of a $8.66B bill)
+49,452 people affected</title></circle>
+<text x="560.9" y="360.6" class="lab s">Allergy & immune</text>
+<circle class="pt" cx="253.8" cy="238.6" r="6.8"><title>Chronic pain
+$63M paid by patients (22.9% of a $275M bill)
+31,047 people affected</title></circle>
+<text x="268.6" y="242.6" class="lab s">Chronic pain</text>
+<circle class="pt" cx="126.1" cy="370.3" r="6.4"><title>Brain & nervous system
+$20M paid by patients (8.5% of a $236M bill)
+26,392 people affected</title></circle>
+<text x="140.5" y="374.3" class="lab s">Brain & nervous system</text>
+<circle class="pt" cx="294.5" cy="192.0" r="5.0"><title>Infections (other)
+$91M paid by patients (28.0% of a $324M bill)
+13,122 people affected</title></circle>
+<text x="307.5" y="196.0" class="lab s">Infections (other)</text>
+<line class="axis" x1="74" y1="448" x2="764" y2="448"/>
+<text x="419" y="492" class="axis-title">Total paid by patients over five years &#8212; log scale</text>
+<text class="axis-title" transform="translate(16,256) rotate(-90)">Share of the bill patients pay</text>
+</svg></div>
+<div class="take"><strong>The top-right corner is the one worth acting on, and only dental is in it.</strong>
+$3.30B paid by patients at 27.9% of the bill across 938,009 people. Maternity is larger in dollars but
+patients carry only 17.0% of it; diabetes and metabolic care has a higher share at 36.6% but patients
+pay just $159M. Dental is the only type of care that is simultaneously expensive to patients,
+expensive <em>as a proportion</em>, and widespread.</div>
+
+<p class="note"><strong>Limitations</strong></p>
+<ul class="lims">
+<li>Log x-axis &mdash; equal spacing means ten times the money, not ten times more.</li>
+<li>Circle area, not radius, is proportional to people &mdash; sizes are comparable, not readable as values.</li>
+<li>Shares are blends across insurance type; commercial patients pay far more than government ones.</li>
+<li>Dollar amounts inflated by flat procedure pricing; positions and rankings hold.</li>
+</ul>
+
+<p class="note">Source: <code>sql/analysis/q2_patient_cost_by_care_type.sql</code> &middot;
+<code>sql/results/q2_patient_cost_by_care_type_2020_2024.csv</code></p>
+</div>

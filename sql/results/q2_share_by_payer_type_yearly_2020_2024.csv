@@ -1,0 +1,41 @@
+Condition,Kind of insurance,Typical % of the bill the patient pays,Lowest year,Highest year,Years counted,All 5 years pooled - everyone,People affected
+Concussion with loss of consciousness,Commercial,72.4,70.1,74.5,5,67.9,9027
+Concussion with loss of consciousness,Everyone,67.6,65.7,69.9,5,67.9,9027
+Concussion with loss of consciousness,Government,57.8,55.4,60.3,5,67.9,9027
+Concussion with loss of consciousness,Self-Pay / Uninsured,100.0,100.0,100.0,5,67.9,9027
+Concussion with no loss of consciousness,Commercial,71.3,69.4,73.7,5,67.6,34102
+Concussion with no loss of consciousness,Everyone,67.8,66.2,68.7,5,67.6,34102
+Concussion with no loss of consciousness,Government,58.4,56.7,60.3,5,67.6,34102
+Concussion with no loss of consciousness,Self-Pay / Uninsured,100.0,100.0,100.0,5,67.6,34102
+Prediabetes (finding),Commercial,85.0,83.8,86.1,5,62.2,13859
+Prediabetes (finding),Everyone,62.7,58.9,64.3,5,62.2,13859
+Prediabetes (finding),Government,8.5,6.5,9.6,5,62.2,13859
+Prediabetes (finding),Self-Pay / Uninsured,100.0,100.0,100.0,5,62.2,13859
+Concussion injury of brain (disorder),Commercial,71.3,70.5,72.9,5,61.8,45319
+Concussion injury of brain (disorder),Everyone,62.2,60.1,62.7,5,61.8,45319
+Concussion injury of brain (disorder),Government,45.5,42.1,46.5,5,61.8,45319
+Concussion injury of brain (disorder),Self-Pay / Uninsured,100.0,100.0,100.0,5,61.8,45319
+Otitis media,Commercial,80.8,79.6,81.3,5,61.5,79046
+Otitis media,Everyone,61.3,61.2,62.1,5,61.5,79046
+Otitis media,Government,33.1,32.4,33.7,5,61.5,79046
+Otitis media,Self-Pay / Uninsured,100.0,100.0,100.0,5,61.5,79046
+Asthma,Commercial,66.1,65.1,66.6,5,57.5,40633
+Asthma,Everyone,57.9,55.4,58.7,5,57.5,40633
+Asthma,Government,43.3,38.5,44.6,5,57.5,40633
+Asthma,Self-Pay / Uninsured,100.0,99.7,100.0,5,57.5,40633
+Body mass index 30+ - obesity (finding),Commercial,86.8,86.0,87.1,5,56.0,59466
+Body mass index 30+ - obesity (finding),Everyone,56.4,54.3,56.8,5,56.0,59466
+Body mass index 30+ - obesity (finding),Government,8.7,7.5,9.0,5,56.0,59466
+Body mass index 30+ - obesity (finding),Self-Pay / Uninsured,100.0,100.0,100.0,5,56.0,59466
+Sprain (morphologic abnormality),Commercial,71.0,70.5,71.9,5,55.4,85452
+Sprain (morphologic abnormality),Everyone,55.2,54.2,56.2,5,55.4,85452
+Sprain (morphologic abnormality),Government,31.9,29.9,32.5,5,55.4,85452
+Sprain (morphologic abnormality),Self-Pay / Uninsured,100.0,100.0,100.0,5,55.4,85452
+Fracture subluxation of wrist,Commercial,63.6,62.8,64.2,5,54.3,15769
+Fracture subluxation of wrist,Everyone,54.2,53.4,55.1,5,54.3,15769
+Fracture subluxation of wrist,Government,44.1,43.3,44.6,5,54.3,15769
+Fracture subluxation of wrist,Self-Pay / Uninsured,100.0,100.0,100.0,5,54.3,15769
+Fracture of clavicle,Commercial,61.5,61.3,62.9,5,54.3,17837
+Fracture of clavicle,Everyone,54.0,52.8,56.3,5,54.3,17837
+Fracture of clavicle,Government,44.2,42.6,47.2,5,54.3,17837
+Fracture of clavicle,Self-Pay / Uninsured,100.0,100.0,100.0,5,54.3,17837

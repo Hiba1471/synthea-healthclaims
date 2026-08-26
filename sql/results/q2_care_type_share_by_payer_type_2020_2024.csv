@@ -1,0 +1,61 @@
+Type of care,Kind of insurance,Typical % of the bill the patient pays,Lowest year,Highest year,Years counted,All 5 years pooled - everyone
+Blood disorders,Commercial,56.1,55.9,56.6,5,38.9
+Blood disorders,Everyone,38.8,38.5,39.5,5,38.9
+Blood disorders,Government,2.9,2.6,3.0,5,38.9
+Blood disorders,Self-Pay / Uninsured,100.0,100.0,100.0,5,38.9
+Diabetes & metabolic,Commercial,74.5,73.0,75.5,5,36.6
+Diabetes & metabolic,Everyone,36.7,35.4,37.5,5,36.6
+Diabetes & metabolic,Government,8.3,7.1,8.5,5,36.6
+Diabetes & metabolic,Self-Pay / Uninsured,100.0,100.0,100.0,5,36.6
+Infections (other),Commercial,35.1,33.8,35.5,5,28.0
+Infections (other),Everyone,27.8,27.5,28.6,5,28.0
+Infections (other),Government,1.5,1.0,1.6,5,28.0
+Infections (other),Self-Pay / Uninsured,100.0,100.0,100.0,5,28.0
+Dental & oral,Commercial,53.0,52.3,53.1,5,27.9
+Dental & oral,Everyone,27.9,27.4,28.5,5,27.9
+Dental & oral,Government,3.0,2.9,3.1,5,27.9
+Dental & oral,Self-Pay / Uninsured,100.0,100.0,100.0,5,27.9
+Respiratory & ENT,Commercial,56.9,37.6,57.4,5,26.8
+Respiratory & ENT,Everyone,33.6,22.8,34.8,5,26.8
+Respiratory & ENT,Government,8.2,4.4,8.6,5,26.8
+Respiratory & ENT,Self-Pay / Uninsured,100.0,100.0,100.0,5,26.8
+Injury & trauma,Commercial,44.4,43.5,45.0,5,26.3
+Injury & trauma,Everyone,26.3,25.9,26.9,5,26.3
+Injury & trauma,Government,4.0,3.9,4.1,5,26.3
+Injury & trauma,Self-Pay / Uninsured,100.0,100.0,100.0,5,26.3
+Chronic pain,Commercial,25.8,24.8,26.4,5,22.9
+Chronic pain,Everyone,23.1,20.9,23.7,5,22.9
+Chronic pain,Government,5.2,5.0,5.7,5,22.9
+Chronic pain,Self-Pay / Uninsured,100.0,100.0,100.0,5,22.9
+Mental health & substance use,Commercial,31.0,30.1,31.3,5,20.6
+Mental health & substance use,Everyone,20.7,20.3,20.9,5,20.6
+Mental health & substance use,Government,3.3,3.0,3.4,5,20.6
+Mental health & substance use,Self-Pay / Uninsured,100.0,100.0,100.0,5,20.6
+Other,Commercial,27.3,26.0,28.7,5,17.9
+Other,Everyone,18.1,17.4,18.3,5,17.9
+Other,Government,6.8,6.5,7.8,5,17.9
+Other,Self-Pay / Uninsured,100.0,100.0,100.0,5,17.9
+Maternity,Commercial,15.1,15.0,15.2,5,17.0
+Maternity,Everyone,16.9,16.9,17.3,5,17.0
+Maternity,Government,0.6,0.6,0.7,5,17.0
+Maternity,Self-Pay / Uninsured,100.0,100.0,100.0,5,17.0
+Heart & circulation,Commercial,29.4,29.2,30.7,5,14.7
+Heart & circulation,Everyone,14.8,14.2,15.2,5,14.7
+Heart & circulation,Government,2.8,2.7,2.9,5,14.7
+Heart & circulation,Self-Pay / Uninsured,100.0,100.0,100.0,5,14.7
+Kidney & urinary,Commercial,14.3,14.0,14.5,5,14.2
+Kidney & urinary,Everyone,14.2,13.9,14.7,5,14.2
+Kidney & urinary,Government,2.7,2.7,2.8,5,14.2
+Kidney & urinary,Self-Pay / Uninsured,100.0,100.0,100.0,5,14.2
+Allergy & immune,Commercial,6.7,6.7,6.8,5,10.0
+Allergy & immune,Everyone,10.1,9.6,10.2,5,10.0
+Allergy & immune,Government,0.7,0.7,0.7,5,10.0
+Allergy & immune,Self-Pay / Uninsured,100.0,100.0,100.0,5,10.0
+Brain & nervous system,Commercial,39.7,39.4,41.4,5,8.5
+Brain & nervous system,Everyone,8.4,7.8,9.2,5,8.5
+Brain & nervous system,Government,4.2,3.9,4.4,5,8.5
+Brain & nervous system,Self-Pay / Uninsured,100.0,100.0,100.0,5,8.5
+Cancer & tumours,Commercial,17.1,16.3,18.5,5,8.3
+Cancer & tumours,Everyone,8.3,7.7,9.1,5,8.3
+Cancer & tumours,Government,1.1,1.0,1.1,5,8.3
+Cancer & tumours,Self-Pay / Uninsured,100.0,100.0,100.0,5,8.3

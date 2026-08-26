@@ -1,0 +1,138 @@
+<title>The Insurance Gap</title>
+<style>
+:root{--surface-1:#fcfcfb;--surface-2:#f4f3f0;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--text-muted:#78766f;--grid:#e6e5e1;--comm:#eb6834;--govt:#2a78d6;--self:#1baf7a;--band:#ecebe7;--conn:#b9b8b2;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--surface-2:#232322;
+--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;--grid:#33322f;
+--comm:#e8712f;--govt:#3987e5;--self:#19a56f;--band:#2b2b29;--conn:#57574f;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--surface-2:#232322;--text-primary:#fff;--text-secondary:#c3c2b7;
+--text-muted:#9a988f;--grid:#33322f;--comm:#e8712f;--govt:#3987e5;--self:#19a56f;--band:#2b2b29;--conn:#57574f;}
+*{box-sizing:border-box}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:32px 20px 48px;
+font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+.wrap{max-width:790px;margin:0 auto;}
+h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em;}
+.lede{color:var(--text-secondary);font-size:14px;margin:0 0 26px;}
+h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em;}
+.sub{color:var(--text-secondary);font-size:13.5px;margin:0 0 16px;}
+.figure{overflow-x:auto;background:var(--surface-2);border-radius:10px;padding:16px 12px 10px;}
+svg{display:block;width:100%;height:auto;min-width:660px;}
+.grid{stroke:var(--grid);stroke-width:1;}
+.band{fill:var(--band);}
+.tick{fill:var(--text-muted);font-size:11px;} .tick-x{text-anchor:middle;}
+.cat{fill:var(--text-primary);font-size:12px;text-anchor:end;}
+.conn{stroke:var(--conn);stroke-width:2.5;}
+.blend{stroke:var(--text-muted);stroke-width:1.6;stroke-dasharray:2 2;}
+.dot{stroke:var(--surface-2);stroke-width:1.5;}
+.dot.comm{fill:var(--comm);} .dot.govt{fill:var(--govt);} .dot.self{fill:var(--self);}
+.mk{font-size:10px;font-weight:700;text-anchor:middle;}
+.mk.e{text-anchor:end;} .mk.s{text-anchor:start;}
+.mk.comm{fill:var(--comm);} .mk.govt{fill:var(--govt);} .mk.self{fill:var(--self);}
+.mval{fill:var(--text-muted);font-size:11px;text-anchor:start;}
+.colhd{fill:var(--text-secondary);font-size:10px;letter-spacing:.05em;text-transform:uppercase;}
+.axis-title{fill:var(--text-secondary);font-size:11.5px;text-anchor:middle;}
+.note{color:var(--text-muted);font-size:12.5px;margin:16px 0 0;}
+.lims{color:var(--text-muted);font-size:12.5px;margin:5px 0 0;padding-left:18px;}
+.lims li{margin:2px 0;}
+.take{background:var(--surface-2);border-left:3px solid var(--comm);padding:11px 15px;border-radius:0 7px 7px 0;
+margin:18px 0 0;font-size:13.5px;color:var(--text-primary);}
+</style>
+<div class="wrap">
+<h1>Which insurer you have matters more than which condition you have</h1>
+<p class="lede">Synthea healthcare claims, 2020&ndash;2024. The ten conditions where patients carry the
+largest share of the bill, each split by kind of insurance. At least 5,000 people affected per
+condition.</p>
+
+<h2>Prediabetes costs a commercial patient 85.0% of the bill and a government patient 8.5% &mdash; same care</h2>
+<p class="sub">Each dot is the typical share for one kind of insurance &mdash; the median of the five
+annual figures, not the five years pooled. The line between them is the gap.</p>
+<div class="figure"><svg viewBox="0 0 760 436" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Median share of the bill paid by patients, by condition and kind of insurance">
+<text x="696" y="34" class="colhd" text-anchor="start">Gap</text>
+<line class="grid" x1="250.0" y1="62" x2="250.0" y2="398"/>
+<text x="250.0" y="56" class="tick tick-x">0%</text>
+<line class="grid" x1="355.0" y1="62" x2="355.0" y2="398"/>
+<text x="355.0" y="56" class="tick tick-x">25%</text>
+<line class="grid" x1="460.0" y1="62" x2="460.0" y2="398"/>
+<text x="460.0" y="56" class="tick tick-x">50%</text>
+<line class="grid" x1="565.0" y1="62" x2="565.0" y2="398"/>
+<text x="565.0" y="56" class="tick tick-x">75%</text>
+<line class="grid" x1="670.0" y1="62" x2="670.0" y2="398"/>
+<text x="670.0" y="56" class="tick tick-x">100%</text>
+<rect class="band" x="250" y="92.0" width="420" height="30"/>
+<line class="conn" x1="492.8" y1="107.0" x2="554.1" y2="107.0"/>
+<circle class="dot govt" cx="492.8" cy="107.0" r="5.5"><title>Government: 57.8% (range 55.4-60.3 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="554.1" cy="107.0" r="5.5"><title>Commercial: 72.4% (range 70.1-74.5 across 2020-2024)</title></circle>
+<text x="237" y="111.0" class="cat">Concussion with loss of consciousness</text>
+<text x="696" y="111.0" class="mval">+15 pts</text>
+<text x="483.8" y="96.0" class="mk govt e">Government</text>
+<text x="563.1" y="96.0" class="mk comm s">Commercial</text>
+<line class="conn" x1="495.3" y1="137.0" x2="549.5" y2="137.0"/>
+<circle class="dot govt" cx="495.3" cy="137.0" r="5.5"><title>Government: 58.4% (range 56.7-60.3 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="549.5" cy="137.0" r="5.5"><title>Commercial: 71.3% (range 69.4-73.7 across 2020-2024)</title></circle>
+<text x="237" y="141.0" class="cat">Concussion, no loss of consciousness</text>
+<text x="696" y="141.0" class="mval">+13 pts</text>
+<rect class="band" x="250" y="152.0" width="420" height="30"/>
+<line class="conn" x1="285.7" y1="167.0" x2="607.0" y2="167.0"/>
+<circle class="dot govt" cx="285.7" cy="167.0" r="5.5"><title>Government: 8.5% (range 6.5-9.6 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="607.0" cy="167.0" r="5.5"><title>Commercial: 85.0% (range 83.8-86.1 across 2020-2024)</title></circle>
+<text x="237" y="171.0" class="cat">Prediabetes</text>
+<text x="696" y="171.0" class="mval">+76 pts</text>
+<line class="conn" x1="441.1" y1="197.0" x2="549.5" y2="197.0"/>
+<circle class="dot govt" cx="441.1" cy="197.0" r="5.5"><title>Government: 45.5% (range 42.1-46.5 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="549.5" cy="197.0" r="5.5"><title>Commercial: 71.3% (range 70.5-72.9 across 2020-2024)</title></circle>
+<text x="237" y="201.0" class="cat">Concussion injury of brain</text>
+<text x="696" y="201.0" class="mval">+26 pts</text>
+<rect class="band" x="250" y="212.0" width="420" height="30"/>
+<line class="conn" x1="389.0" y1="227.0" x2="589.4" y2="227.0"/>
+<circle class="dot govt" cx="389.0" cy="227.0" r="5.5"><title>Government: 33.1% (range 32.4-33.7 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="589.4" cy="227.0" r="5.5"><title>Commercial: 80.8% (range 79.6-81.3 across 2020-2024)</title></circle>
+<text x="237" y="231.0" class="cat">Otitis media</text>
+<text x="696" y="231.0" class="mval">+48 pts</text>
+<line class="conn" x1="431.9" y1="257.0" x2="527.6" y2="257.0"/>
+<circle class="dot govt" cx="431.9" cy="257.0" r="5.5"><title>Government: 43.3% (range 38.5-44.6 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="527.6" cy="257.0" r="5.5"><title>Commercial: 66.1% (range 65.1-66.6 across 2020-2024)</title></circle>
+<text x="237" y="261.0" class="cat">Asthma</text>
+<text x="696" y="261.0" class="mval">+23 pts</text>
+<rect class="band" x="250" y="272.0" width="420" height="30"/>
+<line class="conn" x1="286.5" y1="287.0" x2="614.6" y2="287.0"/>
+<circle class="dot govt" cx="286.5" cy="287.0" r="5.5"><title>Government: 8.7% (range 7.5-9.0 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="614.6" cy="287.0" r="5.5"><title>Commercial: 86.8% (range 86.0-87.1 across 2020-2024)</title></circle>
+<text x="237" y="291.0" class="cat">Obesity (BMI 30+)</text>
+<text x="696" y="291.0" class="mval">+78 pts</text>
+<line class="conn" x1="384.0" y1="317.0" x2="548.2" y2="317.0"/>
+<circle class="dot govt" cx="384.0" cy="317.0" r="5.5"><title>Government: 31.9% (range 29.9-32.5 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="548.2" cy="317.0" r="5.5"><title>Commercial: 71.0% (range 70.5-71.9 across 2020-2024)</title></circle>
+<text x="237" y="321.0" class="cat">Sprain</text>
+<text x="696" y="321.0" class="mval">+39 pts</text>
+<rect class="band" x="250" y="332.0" width="420" height="30"/>
+<line class="conn" x1="435.2" y1="347.0" x2="517.1" y2="347.0"/>
+<circle class="dot govt" cx="435.2" cy="347.0" r="5.5"><title>Government: 44.1% (range 43.3-44.6 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="517.1" cy="347.0" r="5.5"><title>Commercial: 63.6% (range 62.8-64.2 across 2020-2024)</title></circle>
+<text x="237" y="351.0" class="cat">Fracture subluxation of wrist</text>
+<text x="696" y="351.0" class="mval">+20 pts</text>
+<line class="conn" x1="435.6" y1="377.0" x2="508.3" y2="377.0"/>
+<circle class="dot govt" cx="435.6" cy="377.0" r="5.5"><title>Government: 44.2% (range 42.6-47.2 across 2020-2024)</title></circle>
+<circle class="dot comm" cx="508.3" cy="377.0" r="5.5"><title>Commercial: 61.5% (range 61.3-62.9 across 2020-2024)</title></circle>
+<text x="237" y="381.0" class="cat">Fracture of clavicle</text>
+<text x="696" y="381.0" class="mval">+17 pts</text>
+<text x="460" y="424" class="axis-title">Typical share of the bill the patient pays &#8212; median of the five years 2020&#8211;2024</text>
+</svg></div>
+<div class="take"><strong>The blended figure is one almost nobody pays.</strong> Prediabetes reads 62.2%
+overall, but a commercially insured patient pays <strong>85.0%</strong> and a government-covered
+patient <strong>8.5%</strong> &mdash; ten times the share for the same care. Obesity is wider still,
+86.8% against 8.7%. Both are chronic-risk conditions managed through routine screening and
+counselling, which is exactly the cheap-visit territory where a flat copay absorbs most of the bill.</div>
+
+<p class="note"><strong>Limitations</strong></p>
+<ul class="lims">
+<li>Uninsured are excluded &mdash; they pay 100% of every condition, by construction.</li>
+<li>Gap is commercial minus government, in percentage points.</li>
+<li>Medians move little: no condition varies by more than 6.1 points across the five years.</li>
+<li>The gap between insurers beats the whole spread across these ten conditions &mdash; which runs just 54.3% to 67.9% &mdash; on 9 of the 10.</li>
+<li>Share, not money &mdash; concussion is 67.9% of a $98 claim, or $123 a person.</li>
+<li>Conditions ranked by the pooled blend, so row order is not the median order.</li>
+</ul>
+
+<p class="note">Source: <code>sql/analysis/q2_share_by_payer_type_yearly.sql</code> &middot;
+<code>sql/results/q2_share_by_payer_type_yearly_2020_2024.csv</code></p>
+</div>
