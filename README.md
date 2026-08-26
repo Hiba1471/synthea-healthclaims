@@ -4,11 +4,11 @@ Analysis of the Snowflake share
 `SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER` (Synthea synthetic
 data: 887M claim transactions, 124M claims, 1.4M patients).
 
-> **Directory name is misleading.** This folder is called
-> `energy-reporting-pipeline` and `.env` points at an `SYNTHEA_HEALTHCLAIMS`
-> database, but no energy data exists — `SYNTHEA_HEALTHCLAIMS.PUBLIC` was empty and
-> is now used purely to host the curated objects below. All analysis is
-> healthcare claims.
+> **`SYNTHEA_HEALTHCLAIMS` is not a data source.** `.env` points at that
+> database, but its `PUBLIC` schema was empty — it exists here purely to host
+> the curated objects below. All source data lives in the read-only share.
+> `.env` also carries Gemini and EIA (energy) API keys left over from earlier
+> work; no energy data is used in this project.
 
 ---
 
@@ -134,9 +134,11 @@ hand, so any row can be traced and overridden.
 ## Credentials
 
 `.env` holds Snowflake credentials plus Gemini / EIA API keys and a Slack
-webhook, **in plaintext**. This directory is not a git repository, so nothing
-is committed — but before it becomes one, add `.env` to `.gitignore` and
-consider rotating those keys, since a webhook URL and API key are usable by
-anyone who obtains them.
+webhook, **in plaintext**. It is listed in `.gitignore`, which was added in the
+first commit, and `git log --all -- .env` returns nothing — it has never been
+committed. Re-check that before pushing this repository anywhere.
+
+The keys are still plaintext on disk, so consider rotating them: a webhook URL
+and an API key are usable by anyone who obtains the file.
 
 The Snowflake CLI connection used here is `conn` (`snow connection list`).
