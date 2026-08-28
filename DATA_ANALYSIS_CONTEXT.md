@@ -909,10 +909,24 @@ years, a commercially-insured one **$19,178**, and an uninsured one
 **$61,742** — despite government patients being billed *more* care overall.
 Every ratio is flat across 2020–2024.
 
-**Interpretation.** Flat-dollar copays and deductibles consume most of a cheap
-visit and almost none of an expensive admission, so cost-sharing falls hardest
-on exactly the preventive care that health policy tries to make frictionless.
-Stability across five years indicates this is benefit design, not drift.
+**Interpretation.** The mechanism is measured rather than assumed, and it
+works differently for each kind of insurance. Government patients pay a flat
+$0–50 per claim whatever its size, so their share shrinks arithmetically as
+bills grow. Commercial patients pay roughly half of a small claim and very
+little of a large one — but not because of any per-claim rule. On larger
+claims a growing proportion of patients have already exhausted their **annual
+out-of-pocket maximum** and pay nothing at all. Measured in $500 bands, the
+share of commercial claims where the patient pays exactly zero climbs from
+**14% around $3,500 to 64% around $7,500**, while the aggregate patient share
+falls from **54% to 17%** over the same range. It is a taper, not a cliff —
+nothing switches off at a threshold. Either way, cost-sharing falls hardest on
+exactly the preventive care that health policy tries to make frictionless, and
+stability across five years indicates benefit design rather than drift.
+
+**This is Synthea's benefit generator, not US insurance.** Real plans carry
+deductibles, tiers, networks and negotiated rates that this data does not
+model. The mechanism above explains how the simulation assigns cost-sharing.
+It should not be read as a finding about how insurance actually works.
 
 **Recommendation.** Where the goal is preventive uptake, flat copays are
 counterproductive — the mechanism, not the rate, is the lever. For providers,
@@ -920,7 +934,8 @@ payer mix determines collection risk: **$20.3B must be collected from
 individuals rather than institutions**, and ambulatory care alone carries
 $12.7B (63%) of it.
 
-*Query:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`
+*Queries:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`,
+`q2_commercial_cap_by_care_type.sql`
 
 #### Which conditions cost patients the most, and why
 
@@ -1135,6 +1150,11 @@ for. The merge was verified to restore the pre-split dental row to the dollar.
 - **The taxonomy is a judgment call**, like the `Stress` classification. It
   lives in one readable `CASE` expression, so any grouping moves with a one-line
   edit and a re-run.
+- **The groups are broad enough that splitting them can compare unlike things.**
+  Below $5,000, `Kidney & urinary` is 91% dialysis at $459 a claim; above it,
+  100% bladder infections at $7,620. Any cut that separates small claims from
+  large ones within a care type may be separating conditions, not price bands
+  (`q2_cap_reversal_diagnosis.sql`).
 - Inherits the **DIAGNOSIS2 fallback** and therefore its trade-off.
 - **The shares are blends across insurance type**, and per §27 above should not
   be quoted alone — nobody pays diabetes care's blended 36.6%.

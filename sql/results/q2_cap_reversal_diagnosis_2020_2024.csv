@@ -1,0 +1,34 @@
+Type of care,Side of the line,Condition,Claims,Paid,% of that side's spend,Average claim,Patient share,% of claims patient pays nothing
+Cancer & tumours,"under $5,000",Malignant neoplasm of breast (disorder),35660,26981883,42.9,757,13.8,69.8
+Cancer & tumours,"under $5,000",Malignant tumor of colon,9037,12633748,20.1,1398,0.9,96.7
+Cancer & tumours,"under $5,000",Non-small cell carcinoma of lung  TNM stage 1 (disorder),35593,8361789,13.3,235,3.8,94.3
+Cancer & tumours,"under $5,000",Overlapping malignant neoplasm of colon,3102,4362415,6.9,1406,1.2,94.4
+Cancer & tumours,"under $5,000",Polyp of colon,903,3600979,5.7,3988,60.3,6.1
+Cancer & tumours,"under $5,000",Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),9740,3480926,5.5,357,3.0,94.9
+Cancer & tumours,"under $5,000",Secondary malignant neoplasm of colon,1700,2375096,3.8,1397,4.5,85.3
+Cancer & tumours,"under $5,000",Neoplasm of prostate,1458,1054112,1.7,723,28.1,35.7
+Cancer & tumours,"over $5,000",Polyp of colon,18457,399142489,42.0,21626,37.0,5.8
+Cancer & tumours,"over $5,000",Non-small cell carcinoma of lung  TNM stage 1 (disorder),3370,218038353,23.0,64700,1.4,93.1
+Cancer & tumours,"over $5,000",Malignant neoplasm of breast (disorder),3715,160010775,16.8,43072,7.3,47.4
+Cancer & tumours,"over $5,000",Malignant tumor of colon,4910,68626670,7.2,13977,3.7,90.6
+Cancer & tumours,"over $5,000",Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),899,58616887,6.2,65202,1.3,94.2
+Cancer & tumours,"over $5,000",Overlapping malignant neoplasm of colon,2166,34516702,3.6,15936,6.8,81.8
+Cancer & tumours,"over $5,000",Secondary malignant neoplasm of colon,838,10754426,1.1,12833,4.9,83.4
+Kidney & urinary,"under $5,000",Chronic kidney disease stage 4 (disorder),2837598,1301208647,73.8,459,8.5,78.6
+Kidney & urinary,"under $5,000",End-stage renal disease (disorder),657071,302060224,17.1,460,9.0,77.4
+Kidney & urinary,"under $5,000",Acute infective cystitis (disorder),76760,110995519,6.3,1446,51.8,13.8
+Kidney & urinary,"under $5,000",Chronic kidney disease stage 1 (disorder),46684,16809321,1.0,360,77.6,5.8
+Kidney & urinary,"under $5,000",Chronic kidney disease stage 2 (disorder),42987,14832719,0.8,345,68.0,10.4
+Kidney & urinary,"under $5,000",Chronic kidney disease stage 3 (disorder),32045,10576675,0.6,330,55.4,17.4
+Kidney & urinary,"under $5,000",Pyelonephritis,2065,2807969,0.2,1360,50.8,13.9
+Kidney & urinary,"under $5,000",Recurrent urinary tract infection (disorder),1361,1590173,0.1,1168,42.7,15.9
+Kidney & urinary,"under $5,000",Kidney transplant failure and rejection (disorder),1307,697786,0.0,534,8.1,82.3
+Kidney & urinary,"under $5,000",Acute Cholecystitis,5003,434604,0.0,87,52.5,11.3
+Kidney & urinary,"over $5,000",Acute infective cystitis (disorder),12602,96029511,100.0,7620,39.0,15.1
+Maternity,"under $5,000",Normal pregnancy,116741,320084030,91.6,2742,7.1,81.5
+Maternity,"under $5,000",Complete miscarriage (disorder),11295,14895579,4.3,1319,14.6,50.0
+Maternity,"under $5,000",Blighted ovum,5351,7103722,2.0,1328,14.4,49.7
+Maternity,"under $5,000",Tubal pregnancy,3412,6852516,2.0,2008,13.8,55.4
+Maternity,"under $5,000",Complication occuring during pregnancy,521,690839,0.2,1326,10.0,87.7
+Maternity,"over $5,000",Normal pregnancy,867047,14672435017,99.9,16922,15.3,74.0
+Maternity,"over $5,000",Tubal pregnancy,926,8663852,0.1,9356,12.6,53.3
