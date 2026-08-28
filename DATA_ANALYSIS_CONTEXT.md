@@ -1147,29 +1147,48 @@ for. The merge was verified to restore the pre-split dental row to the dollar.
 
 ### Q3 — How concentrated is spend?
 
-**Observation.** **2 conditions** and **86 hospitals** each cover half of all
-spending, while **134,198 patients (10.7%)** are needed to reach the same mark.
-Among 731 hospitals with ≥1,000 patients, cost per patient ranges **$4,401 to
-$144,422 — a 32.8× spread**. Across those sites the spread tracks **cost per
-visit** (Spearman +0.81) slightly more closely than **visits per patient**
-(+0.65), so both drive it. The extreme tail behaves differently: nine of the ten
-dearest sites are VA and veterans' facilities seeing each patient **47–55 times**
-against a median of **4.5**, at per-visit prices of $1,978–$2,926 that straddle
-the $2,632 mean.
+**Scope: this question rests on patients and hospitals.** Concentration is
+measured at four grains, and two of them return answers Q1 already gave:
 
-**Interpretation.** Spend is driven far more by a few expensive conditions and
-a few high-volume sites than by a few catastrophically sick patients. Among
-hospitals, price and frequency both matter, with price somewhat the stronger of
-the two — but the handful of sites at the very top are expensive almost purely
-through frequency, at ordinary per-visit prices. Those are two different
-problems wearing the same number.
+| Ranked by | How many exist | Needed for half the spend | New here? |
+|---|---|---|---|
+| Conditions | 185 | 2 | No — Q1 already has pregnancy at 39.8% |
+| Care types | 15 | 2 | No — Maternity is 99.7% Normal pregnancy |
+| Hospitals | 3,918 | **86** | **Yes** |
+| Patients | 1,259,375 | **134,198** | **Yes** |
 
-**Recommendation.** Target the 86 sites and 9 conditions that cover 80% of
-spend; both are small enough to address individually. Split the hospital
-approach by where a site sits in the distribution: price negotiation across the
-broad middle, where cost per visit is the stronger lever, and chronic-care
-management for the small tail of VA sites whose patients return roughly ten
-times more often than typical.
+The condition and care-type rows are kept in the query so the duplication is
+demonstrated rather than assumed, but they carry no conclusion of their own —
+"2 care types cover half" is pregnancy plus dental, which Q1 and Q2 both already
+report. Read Q3's answer off the bottom two rows.
+
+**Observation.** **86 hospitals** cover half of all spending, while it takes
+**134,198 patients (10.7%)** to reach the same mark — a gap of three orders of
+magnitude between the two. Among 731 hospitals with ≥1,000 patients, cost per
+patient ranges **$4,401 to $144,422 — a 32.8× spread**. Across those sites the
+spread tracks **cost per visit** (Spearman +0.81) slightly more closely than
+**visits per patient** (+0.65), so both drive it. The extreme tail behaves
+differently: nine of the ten dearest sites are VA and veterans' facilities
+seeing each patient **47–55 times** against a median of **4.5**, at per-visit
+prices of $1,978–$2,926 that straddle the $2,632 mean.
+
+**Interpretation.** Spend concentrates in *places*, not in *people*. A small
+set of sites carries the money while the patient population behind it is
+broad, which is the one thing Q3 establishes that no other question can —
+neither Q1 nor Q2 counts patients at all. Among hospitals, price and frequency
+both matter, with price somewhat the stronger of the two — but the handful of
+sites at the very top are expensive almost purely through frequency, at
+ordinary per-visit prices. Those are two different problems wearing the same
+number.
+
+**Recommendation.** Target the 86 sites that cover half of spend — small
+enough to address individually, and the actionable half of this question. Do
+not build a case-management programme around high-cost patients: at 134,198
+people for half the spend, there is no small group of patients to manage.
+Split the hospital approach by where a site sits in the distribution: price
+negotiation across the broad middle, where cost per visit is the stronger
+lever, and chronic-care management for the small tail of VA sites whose
+patients return roughly ten times more often than typical.
 
 *Correction (2026-08-27).* This subsection previously read "the hospital spread
 is a frequency effect, not a pricing one" and recommended chronic-care
