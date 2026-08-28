@@ -1150,20 +1150,36 @@ for. The merge was verified to restore the pre-split dental row to the dollar.
 **Observation.** **2 conditions** and **86 hospitals** each cover half of all
 spending, while **134,198 patients (10.7%)** are needed to reach the same mark.
 Among 731 hospitals with ≥1,000 patients, cost per patient ranges **$4,401 to
-$144,422 — a 32.8× spread**. The expensive end is dominated by VA and
-veterans' facilities whose cost *per visit* is below average.
+$144,422 — a 32.8× spread**. Across those sites the spread tracks **cost per
+visit** (Spearman +0.81) slightly more closely than **visits per patient**
+(+0.65), so both drive it. The extreme tail behaves differently: nine of the ten
+dearest sites are VA and veterans' facilities seeing each patient **47–55 times**
+against a median of **4.5**, at per-visit prices of $1,978–$2,926 that straddle
+the $2,632 mean.
 
 **Interpretation.** Spend is driven far more by a few expensive conditions and
-a few high-volume sites than by a few catastrophically sick patients. The
-hospital spread is a **frequency** effect, not a pricing one — expensive sites
-see the same patients repeatedly.
+a few high-volume sites than by a few catastrophically sick patients. Among
+hospitals, price and frequency both matter, with price somewhat the stronger of
+the two — but the handful of sites at the very top are expensive almost purely
+through frequency, at ordinary per-visit prices. Those are two different
+problems wearing the same number.
 
 **Recommendation.** Target the 86 sites and 9 conditions that cover 80% of
-spend; both are small enough to address individually. Because the driver is
-visit frequency, intervention belongs in chronic-care management rather than
-price negotiation.
+spend; both are small enough to address individually. Split the hospital
+approach by where a site sits in the distribution: price negotiation across the
+broad middle, where cost per visit is the stronger lever, and chronic-care
+management for the small tail of VA sites whose patients return roughly ten
+times more often than typical.
 
-*Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql` ·
+*Correction (2026-08-27).* This subsection previously read "the hospital spread
+is a frequency effect, not a pricing one" and recommended chronic-care
+management over price negotiation on that basis. That was the top-ten pattern
+generalised to all 731 sites; the correlations above show price is in fact the
+marginally stronger driver overall. The tail finding stands, the general claim
+did not.
+
+*Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
+`q3_hospital_cost_intensity.sql` ·
 *Chart:* `dashboard/concentration.html`
 
 #### What a typical claim, visit and patient actually costs
