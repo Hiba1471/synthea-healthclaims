@@ -2,9 +2,21 @@
 -- Q3: HOW CONCENTRATED IS SPEND?
 --
 -- North star: the top N% of PATIENTS account for X% of spend.
--- Secondary:  the same Pareto for CONDITIONS and ORGANISATIONS.
+-- Secondary:  the same Pareto for CONDITIONS, ORGANISATIONS and CARE TYPES.
 --             Is spend driven by a few very sick patients, a few expensive
---             conditions, or a few high-volume providers?
+--             conditions, a few high-volume providers, or a few kinds of care?
+--
+-- READ THE DENOMINATORS BEFORE COMPARING ROWS. Patients and organisations
+-- cover all $99.11B of non-admin spend. Conditions and care types cover only
+-- the $72.69B whose claims carry a real diagnosis, because a claim with no
+-- condition attached cannot be assigned to either. "Total spend" is emitted
+-- per row so the difference is visible rather than assumed away.
+--
+-- Also read the ENTITY COUNT next to every percentage. "% needed to reach
+-- half" is not comparable across grains with wildly different counts -- with
+-- only 15 care types any single one is a large slice by construction, which is
+-- the same objection that got payers rejected below. The COUNT of entities is
+-- the honest comparison, not the percentage.
 --
 -- Payers were considered as a fourth grain and rejected: with only 10
 -- entities that is market share, not concentration.
@@ -55,10 +67,55 @@ org_totals AS (
     GROUP BY e.ORGANIZATION_ID
 ),
 
+-- ---- grain 4: care types (the 185 conditions grouped into 15) -----------
+-- Taxonomy CASE copied verbatim from q2_patient_cost_by_care_type.sql, which
+-- stays canonical. Edit there first, then copy here.
+care_type_totals AS (
+    SELECT 'Care types' AS grain,
+            CASE
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*'
+                    THEN 'Dental & oral'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*'
+                    THEN 'Maternity'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*'
+                    THEN 'Cancer & tumours'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*'
+                    THEN 'Kidney & urinary'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*'
+                    THEN 'Heart & circulation'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(bronchitis|covid|pharyngitis|sinusitis|sore throat|emphysema|asthma|otitis|respiratory|pneumon|influenza).*'
+                    THEN 'Respiratory & ENT'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(diabet|obesity|lipid|glycemia|metabolic|triglyceride|osteoporosis|body mass).*'
+                    THEN 'Diabetes & metabolic'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(drug|alcohol|anxiety|attention deficit|sleep|suicide|overdose|depress|stress).*'
+                    THEN 'Mental health & substance use'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(injury|fracture|sprain|laceration|burn|concussion|rupture|dislocation|wound).*'
+                    THEN 'Injury & trauma'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*allerg.*'
+                    THEN 'Allergy & immune'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(seizure|alzheimer|neuropathy|epilep|dementia).*'
+                    THEN 'Brain & nervous system'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(sepsis|immunodeficiency|appendicitis|cholecystitis|infection|infective|viral|bacterial).*'
+                    THEN 'Infections (other)'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*(anemia|anaemia).*'
+                    THEN 'Blood disorders'
+                WHEN LOWER(d.DESCRIPTION) REGEXP '.*pain.*'
+                    THEN 'Chronic pain'
+                ELSE 'Other'
+            END AS entity,
+           SUM(b.BILLED_AMOUNT) AS amt
+    FROM base b
+    JOIN claim_condition cc ON b.CLAIM_ID = cc.CLAIM_ID
+    JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d ON cc.condition_code = d.CODE
+    WHERE cc.condition_code IS NOT NULL
+    GROUP BY 2
+),
+
 stacked AS (
     SELECT * FROM patient_totals
     UNION ALL SELECT * FROM condition_totals
     UNION ALL SELECT * FROM org_totals
+    UNION ALL SELECT * FROM care_type_totals
 ),
 ranked AS (
     SELECT
