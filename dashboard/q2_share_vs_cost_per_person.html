@@ -1,0 +1,177 @@
+<title>Cheaper Care, Bigger Share</title>
+<style>
+:root{--surface-1:#fcfcfb;--surface-2:#f4f3f0;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--text-muted:#78766f;--grid:#e6e5e1;--pt:#d6a888;--off:#7c5cd6;--axis:#c9c8c3;--trend:#9a988f;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--surface-2:#232322;
+--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;--grid:#33322f;
+--pt:#8f6a51;--off:#a78bfa;--axis:#4a4a45;--trend:#6f6d66;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--surface-2:#232322;--text-primary:#fff;--text-secondary:#c3c2b7;
+--text-muted:#9a988f;--grid:#33322f;--pt:#8f6a51;--off:#a78bfa;--axis:#4a4a45;--trend:#6f6d66;}
+*{box-sizing:border-box}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:32px 20px 48px;
+font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+.wrap{max-width:790px;margin:0 auto;}
+h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em;}
+.lede{color:var(--text-secondary);font-size:14px;margin:0 0 26px;}
+h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em;}
+.sub{color:var(--text-secondary);font-size:13.5px;margin:0 0 16px;}
+.figure{overflow-x:auto;background:var(--surface-2);border-radius:10px;padding:14px 10px 8px;}
+svg{display:block;width:100%;height:auto;min-width:680px;}
+.grid{stroke:var(--grid);stroke-width:1;}
+.axis{stroke:var(--axis);stroke-width:1.25;}
+.ticker{stroke:var(--axis);stroke-width:1;}
+.tick{fill:var(--text-muted);font-size:11px;}
+.tick-x{text-anchor:middle;} .tick-y{text-anchor:end;}
+.trend{stroke:var(--trend);stroke-width:1.5;stroke-dasharray:6 5;}
+.trendlab{fill:var(--text-muted);font-size:10.5px;text-anchor:middle;font-style:italic;}
+.pt{fill:var(--pt);fill-opacity:.7;stroke:var(--pt);stroke-width:1.25;}
+.pt.off{fill:var(--off);fill-opacity:.8;stroke:var(--off);stroke-width:2;}
+.lab{fill:var(--text-secondary);font-size:11.5px;}
+.lab.off{fill:var(--off);font-weight:700;font-size:12.5px;}
+.lab.s{text-anchor:start;} .lab.e{text-anchor:end;} .lab.m{text-anchor:middle;}
+.lead{stroke:var(--text-muted);stroke-width:1;opacity:.5;}
+.axis-title{fill:var(--text-secondary);font-size:11.5px;text-anchor:middle;}
+.note{color:var(--text-muted);font-size:12.5px;margin:16px 0 0;}
+.lims{color:var(--text-muted);font-size:12.5px;margin:5px 0 0;padding-left:18px;}
+.lims li{margin:2px 0;}
+.take{background:var(--surface-2);border-left:3px solid var(--off);padding:11px 15px;border-radius:0 7px 7px 0;
+margin:18px 0 0;font-size:13.5px;color:var(--text-primary);}
+</style>
+<div class="wrap">
+<h1>The cheaper the care, the more of the bill patients carry</h1>
+<p class="lede">Synthea healthcare claims, 2020&ndash;2024. Each circle is one of the 15 types of care,
+placed by what the care costs <em>per person</em> and by how much of that bill the patient pays.
+Circle size is the number of people affected.</p>
+
+<h2>Thirteen of fifteen types follow the pattern &mdash; two run against it</h2>
+<p class="sub">The dashed line is a least-squares guide: every tenfold increase in cost per person comes
+with about <strong>9 points less</strong> patient share. It accounts for 44% of the variation
+(rank correlation &minus;0.60), so the pattern is real but loose &mdash; more than half of what moves
+patient share is something other than price.</p>
+<div class="figure"><svg viewBox="0 0 790 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Patient share of the bill against cost per person, by type of care">
+<line class="grid" x1="74" y1="356.6" x2="764" y2="356.6"/>
+<text x="65" y="360.6" class="tick tick-y">10%</text>
+<line class="grid" x1="74" y1="265.1" x2="764" y2="265.1"/>
+<text x="65" y="269.1" class="tick tick-y">20%</text>
+<line class="grid" x1="74" y1="173.7" x2="764" y2="173.7"/>
+<text x="65" y="177.7" class="tick tick-y">30%</text>
+<line class="grid" x1="74" y1="82.3" x2="764" y2="82.3"/>
+<text x="65" y="86.3" class="tick tick-y">40%</text>
+<text x="65" y="452.0" class="tick tick-y">0%</text>
+<line class="ticker" x1="122.7" y1="448" x2="122.7" y2="453"/>
+<text x="122.7" y="466" class="tick tick-x">$2K</text>
+<line class="ticker" x1="247.7" y1="448" x2="247.7" y2="453"/>
+<text x="247.7" y="466" class="tick tick-x">$5K</text>
+<line class="ticker" x1="342.3" y1="448" x2="342.3" y2="453"/>
+<text x="342.3" y="466" class="tick tick-x">$10K</text>
+<line class="ticker" x1="467.3" y1="448" x2="467.3" y2="453"/>
+<text x="467.3" y="466" class="tick tick-x">$25K</text>
+<line class="ticker" x1="561.8" y1="448" x2="561.8" y2="453"/>
+<text x="561.8" y="466" class="tick tick-x">$50K</text>
+<line class="ticker" x1="656.4" y1="448" x2="656.4" y2="453"/>
+<text x="656.4" y="466" class="tick tick-x">$100K</text>
+<line class="ticker" x1="751.0" y1="448" x2="751.0" y2="453"/>
+<text x="751.0" y="466" class="tick tick-x">$200K</text>
+<line class="trend" x1="80.7" y1="176.4" x2="757.0" y2="356.3"/>
+<circle class="pt" cx="373.9" cy="192.9" r="30.0"><title>Dental & oral
+$13K per person over five years
+patients pay 27.9% of it
+938,009 people affected</title></circle>
+<line class="lead" x1="405.9" y1="192.9" x2="411.9" y2="207.9"/>
+<text x="411.9" y="211.9" class="lab s">Dental & oral</text>
+<circle class="pt" cx="161.8" cy="203.0" r="30.0"><title>Respiratory & ENT
+$2.7K per person over five years
+patients pay 26.8% of it
+937,507 people affected</title></circle>
+<line class="lead" x1="193.8" y1="203.0" x2="199.8" y2="178.0"/>
+<text x="199.8" y="182.0" class="lab s">Respiratory & ENT</text>
+<circle class="pt" cx="230.0" cy="207.5" r="18.8"><title>Injury & trauma
+$4.4K per person over five years
+patients pay 26.3% of it
+342,757 people affected</title></circle>
+<line class="lead" x1="250.8" y1="207.5" x2="256.8" y2="157.5"/>
+<text x="256.8" y="161.5" class="lab s">Injury & trauma</text>
+<circle class="pt" cx="98.5" cy="113.4" r="16.6"><title>Diabetes & metabolic
+$1.7K per person over five years
+patients pay 36.6% of it
+259,513 people affected</title></circle>
+<text x="123.0" y="117.4" class="lab s">Diabetes & metabolic</text>
+<circle class="pt" cx="308.1" cy="259.7" r="14.8"><title>Mental health & substance use
+$7.8K per person over five years
+patients pay 20.6% of it
+200,549 people affected</title></circle>
+<text x="330.9" y="263.7" class="lab s">Mental health & substance use</text>
+<circle class="pt" cx="722.5" cy="292.6" r="14.0"><title>Maternity
+$162K per person over five years
+patients pay 17.0% of it
+178,766 people affected</title></circle>
+<text x="700.5" y="296.6" class="lab e">Maternity</text>
+<circle class="pt" cx="517.2" cy="318.2" r="13.6"><title>Kidney & urinary
+$36K per person over five years
+patients pay 14.2% of it
+167,126 people affected</title></circle>
+<text x="538.8" y="322.2" class="lab s">Kidney & urinary</text>
+<circle class="pt" cx="447.1" cy="313.6" r="12.6"><title>Heart & circulation
+$22K per person over five years
+patients pay 14.7% of it
+139,952 people affected</title></circle>
+<line class="lead" x1="461.7" y1="313.6" x2="467.7" y2="293.6"/>
+<text x="467.7" y="297.6" class="lab s">Heart & circulation</text>
+<circle class="pt" cx="662.6" cy="372.1" r="9.3"><title>Cancer & tumours
+$105K per person over five years
+patients pay 8.3% of it
+67,860 people affected</title></circle>
+<text x="645.3" y="376.1" class="lab e">Cancer & tumours</text>
+<circle class="pt" cx="108.4" cy="92.3" r="9.2"><title>Blood disorders
+$1.8K per person over five years
+patients pay 38.9% of it
+67,419 people affected</title></circle>
+<text x="125.7" y="96.3" class="lab s">Blood disorders</text>
+<circle class="pt" cx="92.1" cy="284.3" r="8.6"><title>Other
+$1.6K per person over five years
+patients pay 17.9% of it
+56,781 people affected</title></circle>
+<text x="108.8" y="288.3" class="lab s">Other</text>
+<circle class="pt" cx="732.9" cy="356.6" r="8.2"><title>Allergy & immune
+$175K per person over five years
+patients pay 10.0% of it
+49,452 people affected</title></circle>
+<text x="716.7" y="355.6" class="lab e">Allergy & immune</text>
+<circle class="pt" cx="325.9" cy="238.6" r="6.8"><title>Chronic pain
+$8.9K per person over five years
+patients pay 22.9% of it
+31,047 people affected</title></circle>
+<text x="340.7" y="242.6" class="lab s">Chronic pain</text>
+<circle class="pt off" cx="327.0" cy="370.3" r="6.4"><title>Brain & nervous system
+$8.9K per person over five years
+patients pay 8.5% of it
+26,392 people affected</title></circle>
+<text x="341.4" y="374.3" class="lab s off">Brain & nervous system</text>
+<circle class="pt off" cx="465.7" cy="192.0" r="5.0"><title>Infections (other)
+$25K per person over five years
+patients pay 28.0% of it
+13,122 people affected</title></circle>
+<text x="478.7" y="191.0" class="lab s off">Infections (other)</text>
+<line class="axis" x1="74" y1="448" x2="764" y2="448"/>
+<text x="419" y="492" class="axis-title">Total cost per person over five years &#8212; log scale</text>
+<text class="axis-title" transform="translate(16,256) rotate(-90)">Share of the bill patients pay</text>
+</svg></div>
+<div class="take"><strong>The two purple circles are the counter-examples.</strong>
+<strong>Infections</strong> costs $24,713 a person and patients still carry 28.0% &mdash; expensive care
+with a routine-care share. <strong>Brain &amp; nervous system</strong> costs $8,939 and patients carry
+only 8.5% &mdash; cheap care with a catastrophic-care share. Everything else lines up: maternity and
+allergy at over $160,000 a person sit near the floor, while blood disorders and diabetes at under
+$1,900 sit at the top.</div>
+
+<p class="note"><strong>Limitations</strong></p>
+<ul class="lims">
+<li>A guide line, not a model &mdash; 15 points, and price explains under half the spread.</li>
+<li>Association only; nothing here shows that price <em>causes</em> the share.</li>
+<li>Log x-axis &mdash; equal spacing means ten times the cost, not ten more.</li>
+<li><em>Other</em> is a 38-condition catch-all, so its position averages unlike things.</li>
+<li>Shares are blends across insurance type; commercial patients pay far more than government ones.</li>
+</ul>
+
+<p class="note">Source: <code>sql/analysis/q2_patient_cost_by_care_type.sql</code> &middot;
+<code>sql/results/q2_patient_cost_by_care_type_2020_2024.csv</code></p>
+</div>
