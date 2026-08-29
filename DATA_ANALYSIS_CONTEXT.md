@@ -1270,7 +1270,10 @@ did not.
 
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
 `q3_hospital_cost_intensity.sql` ·
-*Chart:* `dashboard/concentration.html`
+*Charts:* `dashboard/places_not_people.html` (the finding, plainly — for
+stakeholders), `dashboard/two_ways_expensive.html` (the hospital split, and the
+actionable half of this question), `dashboard/concentration.html` (Lorenz
+curves — the reference version, for readers who want the whole distribution)
 
 #### What a typical claim, visit and patient actually costs
 
