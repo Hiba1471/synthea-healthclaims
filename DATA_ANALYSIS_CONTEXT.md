@@ -1226,7 +1226,22 @@ spread tracks **cost per visit** (Spearman +0.81) slightly more closely than
 **visits per patient** (+0.65), so both drive it. The extreme tail behaves
 differently: nine of the ten dearest sites are VA and veterans' facilities
 seeing each patient **47–55 times** against a median of **4.5**, at per-visit
-prices of $1,978–$2,926 that straddle the $2,632 mean.
+prices of $1,978–$2,926 that sit between the **46th and 59th percentile** of
+all 731 sites — squarely ordinary. Identifying them as VA sites relies on
+reading the facility names; six say so outright (*Vet Center*, *VA Medical
+Center*) and three are VA community clinics recognisable only if you know the
+naming (*Auburn Gresham*, *Lakeside*, *Parma Community Based Outpatient
+Clinic*). **Nothing in the data marks a facility as VA**, so this cannot be
+re-derived by query alone.
+
+**The tenth site is the instructive contrast.** Lucy Webb Hayes National
+Training School is dear the opposite way: **$4,539 per visit — the top 6% on
+price — across only 18.9 visits**. It still ranks tenth, at $85,638 per
+patient, because ordinary prices times fifty visits beat top-decile prices
+times nineteen. Note that 18.9 visits is itself four times the median, so this
+is a site that is high on both counts and merely less extreme on frequency.
+The lesson is that frequency is the stronger route to being expensive, and
+that these ten sites are two different problems, not one.
 
 **Interpretation.** Spend concentrates in *places*, not in *people*. A small
 set of sites carries the money while the patient population behind it is
