@@ -919,9 +919,26 @@ out-of-pocket maximum** and pay nothing at all. Measured in $500 bands, the
 share of commercial claims where the patient pays exactly zero climbs from
 **14% around $3,500 to 64% around $7,500**, while the aggregate patient share
 falls from **54% to 17%** over the same range. It is a taper, not a cliff —
-nothing switches off at a threshold. Either way, cost-sharing falls hardest on
-exactly the preventive care that health policy tries to make frictionless, and
-stability across five years indicates benefit design rather than drift.
+nothing switches off at a threshold.
+
+**The limit is annual, so cumulative spend matters more than claim size.**
+What determines whether a patient still owes anything is not how large one
+claim is but how much they have already spent that year. The data agrees:
+across care types, patient share tracks **cost per person** (Spearman
+**−0.72** among commercial patients) considerably better than it tracks
+**median claim size** (**−0.40**). Claim size is a proxy for the annual total,
+not the quantity the cap acts on.
+
+**The pattern is not an artefact of payer mix.** Government patients pay
+almost nothing, so a care type weighted towards them reads low-share whatever
+it costs — and across all 15 care types, patient share tracks the government
+share of spend (−0.57) nearly as strongly as it tracks cost (−0.60). Splitting
+by payer type settles it: the cost relationship **strengthens** inside each
+group (commercial **−0.72**, government **−0.88**), because blending two
+populations with very different payment levels was adding noise rather than
+creating the trend (`q2_pattern_within_payer.sql`). Cost-sharing falls hardest
+on exactly the preventive care that health policy tries to make frictionless,
+and stability across five years indicates benefit design rather than drift.
 
 **This is Synthea's benefit generator, not US insurance.** Real plans carry
 deductibles, tiers, networks and negotiated rates that this data does not
@@ -935,7 +952,8 @@ individuals rather than institutions**, and ambulatory care alone carries
 $12.7B (63%) of it.
 
 *Queries:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`,
-`q2_commercial_cap_by_care_type.sql`
+`q2_commercial_cap_by_care_type.sql`,
+`q2_pattern_within_payer.sql`, `q2_pattern_breakers.sql`
 
 #### Which conditions cost patients the most, and why
 
@@ -1141,6 +1159,17 @@ per-row rounding. Patient out-of-pocket totals **$12,772,723,565**, matching the
 $12.77B in the per-condition cut above, and all 185 conditions are accounted
 for. The merge was verified to restore the pre-split dental row to the dollar.
 
+**The two care types that appear to break the cost/share rule do not.**
+`Infections (other)` costs $24,715 per person yet patients carry 28.0%, and
+`Brain & nervous system` costs $8,939 yet they carry 8.5%. Neither is a
+counter-example. Infections only looks dear on a per-person basis: its median
+claim is **$1,542** against a mean of $5,466, so the typical claim sits well
+under the cap and a small number of very large ones lift the average. `Brain &
+nervous system` is **90.2% government-funded spend**, the highest of the 15
+groups, and government patients pay a flat $0–50 whatever the bill — the group
+reads low-share because of who pays for it, not what it costs
+(`q2_pattern_breakers.sql`).
+
 **Caveats.**
 
 - **`People affected` is not additive across groups.** It sums to 3,476,252
@@ -1157,7 +1186,14 @@ for. The merge was verified to restore the pre-split dental row to the dollar.
   (`q2_cap_reversal_diagnosis.sql`).
 - Inherits the **DIAGNOSIS2 fallback** and therefore its trade-off.
 - **The shares are blends across insurance type**, and per §27 above should not
-  be quoted alone — nobody pays diabetes care's blended 36.6%.
+  be quoted alone — nobody pays diabetes care's blended 36.6%. The blend also
+  compresses the spread: commercial patient share across these groups runs
+  **6.7% to 74.4%**, government **0.6% to 8.1%**. Commercial diabetes patients
+  carry **74.4%** of their own care (`q2_pattern_within_payer.sql`).
+- **Cost per person mixes claim size with visit frequency**, and only the first
+  interacts with the cap. A group can read as dear per person because people
+  attend often while every individual claim stays small — which is exactly what
+  `Infections (other)` does. Read median claim alongside it.
 - Dental and maternity magnitudes carry the project-wide pricing caveat: the
   **ranking and the ratios** are the usable parts, not the absolute dollars.
 

@@ -1,0 +1,31 @@
+Insurance type,Type of care,Claims,Total paid,Patient share,Paid per person,Median claim,Average claim,% of claims patient pays nothing
+Commercial,Other,42212,26253067,27.3,1268,123,622,22.6
+Commercial,Diabetes & metabolic,465857,156909910,74.4,1441,68,337,8.3
+Commercial,Blood disorders,69579,66029574,56.2,1801,913,949,19.6
+Commercial,Respiratory & ENT,1616071,987613782,44.5,2246,72,611,13.8
+Commercial,Injury & trauma,397601,610608742,44.4,4016,123,1536,9.4
+Commercial,Mental health & substance use,586416,604843805,30.9,7835,434,1031,15.9
+Commercial,Brain & nervous system,6148,19994644,40.2,8789,335,3252,12.5
+Commercial,Chronic pain,111044,137896530,25.9,9319,528,1242,13.6
+Commercial,Dental & oral,2317881,4456351146,52.9,10447,794,1923,15.5
+Commercial,Heart & circulation,455014,821474754,29.7,15044,98,1805,16.6
+Commercial,Infections (other),30343,180407146,34.9,25717,1232,5946,10.6
+Commercial,Kidney & urinary,3716364,1866998743,14.3,29112,381,502,74.4
+Commercial,Cancer & tumours,132063,1018493813,17.3,63355,540,7712,72.2
+Commercial,Maternity,1005853,15034154412,15.1,149449,10979,14947,74.4
+Commercial,Allergy & immune,359071,3609883680,6.7,172252,7265,10053,72.8
+Government,Diabetes & metabolic,943362,255758338,8.1,1763,64,271,44.2
+Government,Other,95449,59702530,7.0,1771,119,625,30.2
+Government,Blood disorders,50699,46672899,2.9,1805,859,921,61.6
+Government,Respiratory & ENT,1804940,1361022296,5.8,2995,72,754,27.8
+Government,Injury & trauma,471493,801854860,4.0,4711,121,1701,25.8
+Government,Mental health & substance use,1287567,849173992,3.3,6908,408,660,70.3
+Government,Chronic pain,112413,116374745,5.3,7989,261,1035,5.7
+Government,Brain & nervous system,81750,212738652,4.1,8719,111,2602,40.6
+Government,Dental & oral,3989283,6631162987,3.0,13770,555,1662,41.6
+Government,Infections (other),24303,117663369,1.4,22425,1633,4842,61.1
+Government,Heart & circulation,1145531,2052940563,2.8,25617,119,1792,53.5
+Government,Kidney & urinary,7573964,3664916477,2.7,37691,380,484,76.6
+Government,Cancer & tumours,1069357,5729258886,1.1,104505,410,5358,66.3
+Government,Maternity,839635,11376111352,0.6,137939,10410,13549,12.1
+Government,Allergy & immune,453792,4461270236,0.7,168815,7254,9831,25.0
