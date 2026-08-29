@@ -17,9 +17,10 @@ named to match — `q2_pattern_within_payer.sql` produces
 `../condition_cost_with_fallback.sql`. The curated objects they read from are
 defined in `../ddl/`.
 
-**One file has no query: `q3_lorenz_points_2020_2024.csv`.** It predates the
-rule that every result must have a saved query, and cannot currently be
-reproduced. Treat its numbers as unverified until it is rebuilt.
+Every result file has a saved query. `q3_lorenz_points_2020_2024.csv` was the
+last exception — written before that rule existed — and was reproduced on
+2026-08-29 by `q3_lorenz_points.sql`, whose output matches all 300 points
+exactly. The CSV was left untouched.
 
 ---
 
@@ -85,7 +86,7 @@ The five headline Q2 files are in the table at the top. These are the rest.
 | `q3_concentration_2020_2024.csv` | 4 | Pareto curves at four grains — patients, conditions, organisations, care types. **Read the denominators and entity counts before comparing rows**: patients and organisations cover all $99.11B, conditions and care types only the $72.69B carrying a diagnosis. The condition and care-type rows restate Q1; the answer rests on patients (134,198 for half the spend) versus hospitals (86). |
 | `q3_top_entities_2020_2024.csv` | 50 | The named entities behind those curves — the individual top patients, conditions and organisations. |
 | `q3_hospital_cost_intensity_2020_2024.csv` | 731 | **Why hospitals differ.** Cost per patient decomposed into visits per patient × cost per visit, for every site with ≥1,000 patients. A 32.8× spread, tracking cost per visit (+0.81) somewhat more closely than visit frequency (+0.65). The extreme tail behaves differently from the broad middle, which is why the recommendation splits by position in the distribution. |
-| `q3_lorenz_points_2020_2024.csv` | 300 | Lorenz curve coordinates for plotting. **No saved query — see the note at the top of this file.** |
+| `q3_lorenz_points_2020_2024.csv` | 300 | Lorenz curve coordinates — 100 points per grain, the data behind the three curves in `../../dashboard/concentration.html`. Each row: rank the grain most-expensive-first, walk to the Nth percentile, and this much of its spend is covered. The same computation as `q3_concentration`, keeping all 100 steps instead of six milestones. Grains do not share a denominator — patients and organisations are out of $99.11B, conditions out of $72.69B. |
 
 ## Trends
 
