@@ -10,9 +10,16 @@ excluded — monthly volume steps up ~8x in Nov 2019, so calendar-2019 blends tw
 population regimes (see `monthly_volume_2018_2020.csv`). Data ends 2024-11-09,
 so 2024 totals run ~15% light.
 
-Every query that produced these lives in `../snowflake_queries.sql`,
-`../condition_cost_clean.sql` or `../condition_cost_with_fallback.sql`.
-The curated objects they read from are defined in `../ddl/`.
+Every query that produced these lives in `../analysis/`, one file per result,
+named to match — `q2_pattern_within_payer.sql` produces
+`q2_pattern_within_payer_2020_2024.csv`. The older headline files come from
+`../snowflake_queries.sql`, `../condition_cost_clean.sql` and
+`../condition_cost_with_fallback.sql`. The curated objects they read from are
+defined in `../ddl/`.
+
+**One file has no query: `q3_lorenz_points_2020_2024.csv`.** It predates the
+rule that every result must have a saved query, and cannot currently be
+reproduced. Treat its numbers as unverified until it is rebuilt.
 
 ---
 
@@ -38,6 +45,54 @@ The curated objects they read from are defined in `../ddl/`.
    condition.
 2. **`Stress (finding)` classified as a social determinant**, not a condition
    (user's decision). Removed $1.43B net and dropped it out of the ranking.
+
+---
+
+## Q1 — Where does the money go?
+
+| File | Rows | What it is |
+|---|---|---|
+| `q1_cost_drivers_2020_2024.csv` | 185 | Total spend decomposed per condition into **people × visits each × cost per visit**, so a condition's rank can be attributed to prevalence, frequency or price. The top 20 are not extreme on any single driver — they are moderately extreme on all three at once. |
+| `q1_spend_decomposition_2020_2024.csv` | 185 | Companion to the above: the same 185 conditions with total billed, claims, patients and per-patient cost, used for the ranking itself. |
+| `q1_cost_variation_2020_2024.csv` | 80 | How widely cost per patient varies **within** a condition. Establishes that ranking by cost per patient reorders the table completely against ranking by total spend. |
+| `q1_hospital_variability_2020_2024.csv` | 118 | Cost per patient by organisation for the conditions with enough volume to compare. The first look at site-to-site spread. |
+| `q1_hospital_cost_spread_2020_2024.csv` | 20 | The condensed version — 20 rows summarising the spread that `q3_hospital_cost_intensity` later measures properly across 731 sites. |
+
+## Q2 — Who actually pays?
+
+The five headline Q2 files are in the table at the top. These are the rest.
+
+| File | Rows | What it is |
+|---|---|---|
+| `q2_who_pays_by_year_2020_2024.csv` | 120 | The who-pays split repeated per year. Every ratio is flat across 2020–2024, which is the evidence that this is benefit design rather than drift. |
+| `q2_oop_by_condition_2020_2024.csv` | 183 | Patient out-of-pocket per condition. Largely a restatement of Q1 — the two rankings correlate at 0.971, because out-of-pocket is total billed × patient share. |
+| `q2_spend_vs_patient_cost_rank_2020_2024.csv` | 185 | The two rankings side by side, which is what establishes that 0.971. |
+| `q2_top10_patient_paid_2020_2024.csv` | 10 | Top 10 conditions by total patient out-of-pocket. |
+| `q2_top10_by_share_of_bill_2020_2024.csv` | 10 | Top 10 by **share** of the bill instead of dollars — a different list, and the one that shows share is not constant (0% to 78.8%, median 27.3%). |
+| `q2_top10_share_by_payer_type_2020_2024.csv` | 10 | Those same 10 split by insurance type, showing the blended figure hides most of the story. |
+| `q2_share_by_payer_type_yearly_2020_2024.csv` | 40 | Patient share by insurance type per year. Flat throughout. |
+| `q2_care_type_share_by_payer_type_2020_2024.csv` | 60 | The 15 care types × 4 insurance types. The per-care-type companion to the file above. |
+| `q2_concussion_detail_2020_2024.csv` | 11 | Why concussion tops the share-of-bill list at 67.9% — a single-condition drill-down. |
+| `q2_commercial_cap_by_care_type_2020_2024.csv` | 15 | **Which care types sit above the point where commercial patients stop paying.** Maternity, allergy and cancer are 94–98% above it; blood disorders and kidney barely reach it (2–6%). Explains why diabetes carries such a high patient share — 80% of it never gets large enough to approach the annual cap. |
+| `q2_cap_reversal_diagnosis_2020_2024.csv` | 33 | Investigates the three care types where patients pay **more** of large claims. It is a composition effect, not a cost-sharing one: below $5,000 `Kidney & urinary` is 91% dialysis at $459 a claim, above it 100% bladder infections at $7,620. Different conditions sharing a folder. |
+| `q2_pattern_breakers_2020_2024.csv` | 15 | **Why two care types appear to break the cheap-care/high-share rule.** Neither does. `Infections` only looks dear per person (median claim $1,542 against a $5,466 mean); `Brain & nervous system` is 90.2% government-funded, and those patients pay almost nothing. Also carries the payer mix and claim-size columns for all 15 groups. |
+| `q2_pattern_within_payer_2020_2024.csv` | 30 | **The test that the cost/share pattern is not an artefact of payer mix.** Each care type twice, once per insurance type. The relationship strengthens inside each group rather than collapsing. `Brain & nervous system` goes from 8.5% blended to 40.2% commercial. Excludes the uninsured, so three care types show a blended share *above* their commercial one — that is the uninsured paying 100%, not a commercial effect. |
+
+## Q3 — How concentrated is spend?
+
+| File | Rows | What it is |
+|---|---|---|
+| `q3_concentration_2020_2024.csv` | 4 | Pareto curves at four grains — patients, conditions, organisations, care types. **Read the denominators and entity counts before comparing rows**: patients and organisations cover all $99.11B, conditions and care types only the $72.69B carrying a diagnosis. The condition and care-type rows restate Q1; the answer rests on patients (134,198 for half the spend) versus hospitals (86). |
+| `q3_top_entities_2020_2024.csv` | 50 | The named entities behind those curves — the individual top patients, conditions and organisations. |
+| `q3_hospital_cost_intensity_2020_2024.csv` | 731 | **Why hospitals differ.** Cost per patient decomposed into visits per patient × cost per visit, for every site with ≥1,000 patients. A 32.8× spread, tracking cost per visit (+0.81) somewhat more closely than visit frequency (+0.65). The extreme tail behaves differently from the broad middle, which is why the recommendation splits by position in the distribution. |
+| `q3_lorenz_points_2020_2024.csv` | 300 | Lorenz curve coordinates for plotting. **No saved query — see the note at the top of this file.** |
+
+## Trends
+
+| File | Rows | What it is |
+|---|---|---|
+| `trends_quarterly_2020_2024.csv` | 20 | Spend, claims and patients per quarter. |
+| `trends_setting_mix_2020_2024.csv` | 50 | How the mix of care settings shifts over the window. |
 
 ---
 
