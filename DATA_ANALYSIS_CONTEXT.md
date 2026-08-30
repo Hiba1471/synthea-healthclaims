@@ -1249,20 +1249,48 @@ broad, which is the one thing Q3 establishes that no other question can —
 neither Q1 nor Q2 counts patients at all. Among hospitals, price and frequency
 both matter, with price somewhat the stronger of the two — but the handful of
 sites at the very top are expensive almost purely through frequency, at
-ordinary per-visit prices. Those are two different problems wearing the same
-number.
+ordinary per-visit prices. **Only one of those is a problem.** High price is a
+lever; high frequency at these sites is dialysis three times a week, which is
+the treatment working. One number, two situations, and only the first is worth
+acting on.
 
 **Recommendation.** Target the 86 sites that cover half of spend — small
 enough to address individually, and the actionable half of this question. Do
 not build a case-management programme around high-cost patients: at 134,198
 people for half the spend, there is no small group of patients to manage.
-Split the hospital approach by where a site sits in the distribution: price
-negotiation across the broad middle, where cost per visit is the stronger
-lever, and chronic-care management for the small tail of VA sites whose
-patients return roughly ten times more often than typical.
 
-*Correction (2026-08-27).* This subsection previously read "the hospital spread
-is a frequency effect, not a pricing one" and recommended chronic-care
+**One lever, not two.** The lever is **price negotiation across the broad
+middle**, where cost per visit is the stronger driver. The most extreme sites
+are not a second opportunity — they are a dead end, and worth stating as one
+so nobody spends effort there.
+
+**Why the VA tail is a dead end.** Those sites see each patient 47–55 times
+because **two thirds of their visits are kidney failure** — chronic kidney
+disease stage 4 at 53.1% of visits and 129 visits per patient, end-stage renal
+disease at 11.7% and 71.6 visits, both around $815 a visit. That is dialysis:
+three sessions a week, indefinitely, at a modest price. It is the prescribed
+treatment working, not a chronic condition drifting unmanaged. The check that
+settles it is that kidney patients **elsewhere average 141 visits, slightly
+more than the VA's 129** — the per-patient rate is the same everywhere, and
+these sites look extreme only because kidney failure is 65% of their work
+against 31% elsewhere. A difference in case mix, not in care
+(`q3_site_group_top_conditions.sql`).
+
+*Correction (2026-08-29).* This paragraph previously recommended **chronic-
+care management for the VA tail** on the strength of its visit count alone,
+before anyone had asked what the visits were for. Dialysis cannot be case-
+managed away, and the recommendation would have sent someone to fix a site
+that is working as intended. Q3 now offers one lever rather than two, which is
+the honest count.
+
+**The hospice sites are likewise not a target**, for a different reason: they
+bill about **$567 a day**, below skilled nursing at $740 and roughly a tenth
+of an inpatient bed. Their high per-visit figures come from 22-day stays
+carrying half their billing, not from an inflated rate
+(`q3_hospice_site_encounter_mix.sql`).
+
+*Correction (2026-08-27).* This subsection previously read "the hospital
+spread is a frequency effect, not a pricing one" and recommended chronic-care
 management over price negotiation on that basis. That was the top-ten pattern
 generalised to all 731 sites; the correlations above show price is in fact the
 marginally stronger driver overall. The tail finding stands, the general claim
