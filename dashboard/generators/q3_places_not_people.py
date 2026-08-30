@@ -109,7 +109,14 @@ svg{display:block;width:100%;height:auto;min-width:600px;}
 .note{color:var(--text-muted);font-size:12.5px;margin-top:18px;line-height:1.55;}
 </style>'''
 
-NOTE = '''<p class="note">2020&ndash;2024, all $99.11&nbsp;billion of non-admin spend. Bars show each
+NOTE = '''<p class="note"><strong>This list is a scope, not a lever.</strong> The 86 sites are worth
+knowing because they are few. What to <em>do</em> with them is a separate question, and four candidate
+answers have each been tested and ruled out: case management (there is no small patient group &mdash; that
+is this chart), price negotiation (a median 7.8% of a site's cost per visit is its prices), chronic-care
+management at the busiest sites (those visits are dialysis), and utilisation review (hospitals do
+near-identical amounts of work). Acting on the list needs a way to compare like with like &mdash; severity
+adjustment, real negotiated rates, or outcomes &mdash; which this dataset does not carry.</p>
+<p class="note">2020&ndash;2024, all $99.11&nbsp;billion of non-admin spend. Bars show each
 group as a <strong>proportion of itself</strong>, which is the fair comparison: hospitals are about
 five times more concentrated than patients, not a thousand times. The raw counts make the separate
 point that 86 sites is a list you could work through and 134,198 people is not. The same finding as

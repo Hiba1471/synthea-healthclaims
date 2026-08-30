@@ -115,9 +115,10 @@ def build():
     o = ['<title>Two Ways to Be Expensive</title>', STYLE, '<div class="wrap">',
          '<h1>The dearest hospitals charge ordinary prices &mdash; their patients '
          'come back fifty times</h1>',
-         '<p class="sub">And the ones that really do charge more are mostly hospices, '
-         'where a whole stay is billed as one visit. Two different problems, one big '
-         'number.</p>',
+         '<p class="sub">The ones that really do charge more are mostly hospices, billing '
+         'a whole multi-week stay as a single visit. Neither group is inefficient &mdash; '
+         'they are doing different work, and that turns out to be true of every hospital '
+         'here.</p>',
          '<div class="figure"><svg viewBox="0 0 {} {}" role="img" '
          'aria-label="Each of 731 hospitals plotted by price per visit against visits '
          'per patient">'.format(VIEW_W, VIEW_H)]
@@ -144,8 +145,9 @@ def build():
 
     o.append('<line class="axis" x1="{:.0f}" y1="{:.0f}" x2="{:.0f}" y2="{:.0f}"/>'
              .format(PX0, PY0, PX1, PY0))
-    o.append('<text x="{:.0f}" y="{:.0f}" class="axis-title">What one visit costs '
-             '&#8212; log scale</text>'.format((PX0 + PX1) / 2, PY0 + 44))
+    o.append('<text x="{:.0f}" y="{:.0f}" class="axis-title">What an average visit costs '
+             '&#8212; mostly what they treat, not what they charge (log scale)</text>'
+             .format((PX0 + PX1) / 2, PY0 + 44))
     o.append('<text class="axis-title" transform="translate(20,{:.0f}) rotate(-90)">'
              'Visits per patient over five years</text>'.format((PY0 + PY1) / 2))
 
@@ -194,7 +196,18 @@ svg{display:block;width:100%;height:auto;min-width:620px;}
 .note{color:var(--text-muted);font-size:12.5px;margin-top:16px;line-height:1.55;}
 </style>'''
 
-NOTE = '''<p class="note"><strong>The hospices are not overcharging, and their high position is a blend of two
+NOTE = '''<p class="note"><strong>There is no cost lever on this chart.</strong> Reprice every procedure
+in the dataset to its all-hospital average and the spread barely moves &mdash; 15.8&times; down to
+15.2&times;. A median of just <strong>7.8%</strong> of a site's cost per visit reflects what it charges
+rather than what it does. Hospitals here differ in the work they perform, never in how efficiently they
+perform it, so the horizontal axis is a measure of case mix wearing a price label
+(<code>q3_price_vs_casemix_2020_2024.csv</code>).</p>
+<p class="note"><strong>The same holds for how much they do.</strong> Across 119 conditions the typical
+spread in procedures per claim between hospitals is <strong>0.027</strong> &mdash; near-identical. The one
+big exception, normal pregnancy, splits into sites that deliver babies ($4,130 a claim) and sites that run
+antenatal clinics ($17,315); nine months of appointments against one birth, not waste
+(<code>q3_utilisation_or_composition_2020_2024.csv</code>).</p>
+<p class="note"><strong>The hospices are not overcharging, and their high position is a blend of two
 things.</strong> Only <strong>18% of their visits</strong> are actual end-of-life stays &mdash; but those
 run <strong>22 days each</strong> and carry <strong>half of all their billing</strong>, which is what
 lifts their per-visit figure. Another <strong>64% of visits are ordinary same-day emergency trips</strong>

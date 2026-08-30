@@ -29,7 +29,7 @@ svg{display:block;width:100%;height:auto;min-width:620px;}
 </style>
 <div class="wrap">
 <h1>The dearest hospitals charge ordinary prices &mdash; their patients come back fifty times</h1>
-<p class="sub">And the ones that really do charge more are mostly hospices, where a whole stay is billed as one visit. Two different problems, one big number.</p>
+<p class="sub">The ones that really do charge more are mostly hospices, billing a whole multi-week stay as a single visit. Neither group is inefficient &mdash; they are doing different work, and that turns out to be true of every hospital here.</p>
 <div class="figure"><svg viewBox="0 0 700 470" role="img" aria-label="Each of 731 hospitals plotted by price per visit against visits per patient">
 <line class="grid" x1="78" y1="384.0" x2="636" y2="384.0"/>
 <text x="68" y="388.0" class="tick tick-y">0</text>
@@ -2245,7 +2245,7 @@ $120,770 per patient &#183; 1,012 patients</title></circle>
 $1,978 a visit &#183; 54.1 visits per patient
 $107,099 per patient &#183; 1,002 patients</title></circle>
 <line class="axis" x1="78" y1="384" x2="636" y2="384"/>
-<text x="357" y="428" class="axis-title">What one visit costs &#8212; log scale</text>
+<text x="357" y="428" class="axis-title">What an average visit costs &#8212; mostly what they treat, not what they charge (log scale)</text>
 <text class="axis-title" transform="translate(20,214) rotate(-90)">Visits per patient over five years</text>
 <circle class="pt va" cx="352" cy="62" r="5"/>
 <text x="364" y="66" class="leg">12 veterans’ sites &#8212; they come back constantly</text>
@@ -2254,6 +2254,17 @@ $107,099 per patient &#183; 1,002 patients</title></circle>
 <circle class="pt other" cx="352" cy="100" r="5"/>
 <text x="364" y="104" class="leg">697 everything else</text>
 </svg></div>
+<p class="note"><strong>There is no cost lever on this chart.</strong> Reprice every procedure
+in the dataset to its all-hospital average and the spread barely moves &mdash; 15.8&times; down to
+15.2&times;. A median of just <strong>7.8%</strong> of a site's cost per visit reflects what it charges
+rather than what it does. Hospitals here differ in the work they perform, never in how efficiently they
+perform it, so the horizontal axis is a measure of case mix wearing a price label
+(<code>q3_price_vs_casemix_2020_2024.csv</code>).</p>
+<p class="note"><strong>The same holds for how much they do.</strong> Across 119 conditions the typical
+spread in procedures per claim between hospitals is <strong>0.027</strong> &mdash; near-identical. The one
+big exception, normal pregnancy, splits into sites that deliver babies ($4,130 a claim) and sites that run
+antenatal clinics ($17,315); nine months of appointments against one birth, not waste
+(<code>q3_utilisation_or_composition_2020_2024.csv</code>).</p>
 <p class="note"><strong>The hospices are not overcharging, and their high position is a blend of two
 things.</strong> Only <strong>18% of their visits</strong> are actual end-of-life stays &mdash; but those
 run <strong>22 days each</strong> and carry <strong>half of all their billing</strong>, which is what
