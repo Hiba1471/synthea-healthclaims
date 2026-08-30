@@ -124,9 +124,11 @@ def collect():
     return theme, css, figs
 
 
-def figure(n, key, caption, figs):
-    return ('<figure class="fig">{}\n<figcaption><span class="fignum">Figure {}.</span> '
-            '{}</figcaption></figure>').format(figs[key], n, caption)
+def figure(n, key, title, caption, figs):
+    """A figure is a takeaway title, the chart, then its numbered caption."""
+    return ('<figure class="fig"><h4 class="figtitle">{}</h4>{}\n'
+            '<figcaption><span class="fignum">Figure {}.</span> {}</figcaption>'
+            '</figure>').format(title, figs[key], n, caption)
 
 
 def build():
@@ -145,11 +147,9 @@ def build():
     for i, f in enumerate(FINDINGS, 1):
         o.append('<section class="finding"><h3><span class="fno">Finding %d</span>%s</h3>'
                  % (i, f['title']))
-        for n, key, cap in f['figures']:
-            o.append(figure(n, key, cap, figs))
-        o.append('<div class="prose"><p><strong>What this shows.</strong> %s</p>'
-                 '<p><strong>Why it matters for Calder.</strong> %s</p></div>'
-                 % (f['shows'], f['why']))
+        for n, key, title, cap in f['figures']:
+            o.append(figure(n, key, title, cap, figs))
+        o.append('<div class="prose"><p>%s</p></div>' % f['para'])
         o.append('<div class="examined"><p class="exhd">What was examined</p><ul>%s</ul></div>'
                  % ''.join('<li>%s</li>' % b for b in f['examined']))
         o.append('</section>')
@@ -201,7 +201,9 @@ li{margin-bottom:7px;color:var(--text-secondary);}
 li strong{color:var(--text-primary);}
 .summary li{font-size:15.5px;margin-bottom:11px;}
 section.finding{margin:0 0 46px;padding:0 0 6px;}
-figure.fig{margin:0 0 8px;}
+figure.fig{margin:0 0 22px;}
+.figtitle{font-size:15.5px;line-height:1.4;font-weight:650;letter-spacing:-.005em;
+margin:0 0 11px;color:var(--text-primary);}
 figcaption{font-size:12.5px;color:var(--text-muted);margin-top:9px;line-height:1.5;}
 .fignum{color:var(--text-primary);font-weight:650;}
 .prose{margin-top:20px;}
@@ -355,132 +357,153 @@ every figure traces to a saved query in <code>sql/analysis/</code> and a result 
 edit the script, not this page.</footer>'''
 
 
-FINDINGS = [
- {'title': 'Twenty conditions carry nearly all of the bill, and one of them is pregnancy',
-  'figures': [(1, 'donut', 'Diagnosed spend by condition, 2020&ndash;2024. Pregnancy is the '
-                           'single largest slice at 39.8%.'),
-              (2, 'top20', 'The twenty largest conditions by total billed. The first bar is '
-                           'more than three times the second.')],
-  'shows': 'Of the $72.7B can be attached to a specific diagnosis, <strong>twenty conditions '
-           'account for 90.8%</strong> &mdash; and 66.6% of everything the plan spends. Normal '
-           'pregnancy alone is <strong>39.8%</strong>, more than the next three conditions '
-           'combined. Ranking by cost per member reorders the list completely: gingivitis '
-           'spreads $10,661 across 800,465 members, while lung cancer concentrates $1,416,145 '
-           'into 2,384.',
-  'why': 'It tells Calder where to look and, just as usefully, where not to. A programme aimed at '
-         'the long tail of conditions would be working on a third of spending at most. It also '
-         'warns against a single approach: gingivitis is expensive because it reaches almost '
-         'everyone, lung cancer because it is intense for very few. Those are different '
-         'problems that happen to sit on the same list.',
-  'examined': [
-    'Total billed per condition, ranked, against total billed per member &mdash; the two '
-    'rankings disagree sharply and the disagreement is the point.',
-    'Whether pregnancy at 39.8% is credible. The number of visits per pregnancy is plausible '
-    '(11.1, against a real-world 10&ndash;15); the price per visit is not.',
-    'Whether the top twenty are extreme on one driver or several. They are moderately extreme '
-    'on all three at once &mdash; members reached, visits each, cost per visit &mdash; and the '
-    'multiplication does the rest.',
-    'Whether hospitals differ in what they charge for the same condition. For eight of the ten '
-    'largest, barely at all.']},
-
+FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one of them is pregnancy',
+  'figures': [(1,
+               'donut',
+               'Pregnancy alone is two fifths of all diagnosed spending',
+               'Diagnosed spend by condition, 2020&ndash;2024. Pregnancy is the single largest '
+               'slice at 39.8%.'),
+              (2,
+               'top20',
+               'The largest condition bills more than three times the second',
+               'The twenty largest conditions by total billed. The first bar is more than '
+               'three times the second.')],
+  'para': 'The eye goes straight to the top bar, and it should: normal pregnancy runs the full '
+          'width of the chart at <strong>$28.9B</strong> while the second-placed condition '
+          'reaches barely a third of it. Twenty conditions account for <strong>90.8%</strong> '
+          'of the $72.7B that can be attached to a diagnosis and <strong>66.6%</strong> of all '
+          'spending, so everything past the twentieth bar is a third of the money at most. The '
+          'harder thing to see is that these conditions become expensive in unrelated ways '
+          '&mdash; gingivitis spreads $10,661 across 800,465 members while lung cancer '
+          'concentrates $1,416,145 into 2,384 &mdash; so a list that looks like a single '
+          'priority queue is really several different problems that happen to be ranked '
+          'together.',
+  'examined': ['Total billed per condition, ranked, against total billed per member &mdash; '
+               'the two rankings disagree sharply and the disagreement is the point.',
+               'Whether pregnancy at 39.8% is credible. The number of visits per pregnancy is '
+               'plausible (11.1, against a real-world 10&ndash;15); the price per visit is '
+               'not.',
+               'Whether the top twenty are extreme on one driver or several. They are '
+               'moderately extreme on all three at once &mdash; members reached, visits each, '
+               'cost per visit &mdash; and the multiplication does the rest.',
+               'Whether facilities differ in what they charge for the same condition. For '
+               'eight of the ten largest, barely at all.']},
  {'title': 'Members carry a fifth of the bill, and it falls hardest on the cheapest care',
-  'figures': [(3, 'whobears', 'Share of the bill paid by members rather than the plan, by type '
-                              'of care.'),
-              (4, 'cheapcare', 'Cost per member against the share they carry. The cheaper the '
-                               'care, the more of it they pay.')],
-  'shows': 'Members bear <strong>20.4% of all spend &mdash; $20.3B</strong>, or $16,084 each '
-           'across five years. The burden runs <strong>opposite to cost</strong>: they pay '
-           '<strong>41.6% of a wellness visit and 8.6% of an inpatient stay</strong>. Across '
-           'types of care the same inversion holds &mdash; blood disorders sit at 38.9% of a '
-           '$121M bill, cancer at 8.3% of a $7.1B one.',
-  'why': 'This is the mission measured directly, and it reads badly. The care a member pays most '
-         'for is the routine, inexpensive, easily-deferred kind &mdash; a check-up, a filling, a '
-         'screening. The care the plan absorbs is the catastrophic kind they cannot defer '
-         'anyway. Dental is the clearest single case: 27.9% of an $11.83B bill, falling on '
-         '938,009 people.',
-  'examined': [
-    'Member share by type of care, with total bill and number of people alongside &mdash; share '
-    'alone says nothing about size.',
-    'Whether the pattern survives inside one line of business, or was an artefact of mixing '
-    'them. It strengthens: the relationship is clearer within commercial and within government '
-    'than across both together.',
-    'The two care types that appeared to break the pattern. Neither does &mdash; one is skewed '
-    'by a handful of very large claims, the other is 90.2% government-funded.',
-    'Why the mechanism differs by line of business, which is Finding 3.']},
-
+  'figures': [(3,
+               'whobears',
+               'The smaller the bill, the more of it members pay',
+               'Share of the bill paid by members rather than the plan, by type of care.'),
+              (4,
+               'cheapcare',
+               'Every step down in cost is a step up in what members carry',
+               'Cost per member against the share they carry. The cheaper the care, the more '
+               'of it they pay.')],
+  'para': 'The bars are ordered by what members carry, and the notable thing is what sits at '
+          'the top: not cancer or intensive care but <strong>blood disorders at 38.9%</strong> '
+          'and diabetes at 36.6% &mdash; the small, ordinary, recurring bills. The scatter '
+          'makes the same point as a slope, running down and to the right without exception '
+          'across fifteen types of care. Members bear <strong>20.4% of all spending</strong>, '
+          '$20.3B or $16,084 each across five years, but the burden runs opposite to cost: '
+          '<strong>41.6% of a wellness visit against 8.6% of an inpatient stay</strong>. What '
+          'a member feels is therefore the check-up, the filling and the screening &mdash; the '
+          'care that is easiest to put off &mdash; while the catastrophic care they could '
+          'never have deferred is the part the plan absorbs. Dental is the clearest single '
+          'case, at 27.9% of an $11.83B bill falling on 938,009 people.',
+  'examined': ['Member share by type of care, with total bill and number of people alongside '
+               '&mdash; share alone says nothing about size.',
+               'Whether the pattern survives inside one line of business, or was an artefact '
+               'of mixing them. It strengthens: the relationship is clearer within commercial '
+               'and within government than across both together.',
+               'The two care types that appeared to break the pattern. Neither does &mdash; '
+               'one is skewed by a handful of very large claims, the other is 90.2% '
+               'government-funded.',
+               'Why the mechanism differs by line of business, which is Finding 3.']},
  {'title': 'Which plan a member holds matters more than what is wrong with them',
-  'figures': [(5, 'insurance', 'The ten conditions where members carry the most, split by line '
-                               'of business. The gap is the plan, not the illness.')],
-  'shows': 'For every one of the ten conditions where members carry the most, <strong>commercial '
-           'members pay a larger share than government members</strong> &mdash; never by less '
-           'than 12.9 points. Prediabetes is the extreme: <strong>85.0% for a commercial member '
-           'against 8.5% for a government one</strong>, for identical care. Over five years a '
-           'government member pays $2,118 out of pocket, a commercial member $19,178, and an '
-           'uninsured one $61,742.',
-  'why': 'This gap is the plan&rsquo;s. It is not the market, not the providers, not how sick anyone is '
-         '&mdash; it is the difference between a flat copay and a deductible with an annual '
-         'maximum. Cheap routine care never accumulates enough in a year to reach a commercial '
-         'member&rsquo;s out-of-pocket maximum, so they pay coinsurance on all of it; a '
-         'government member pays their copay and nothing more. Any figure quoted as '
-         '&ldquo;what members pay&rdquo; describes no actual member.',
-  'examined': [
-    'The ten highest-burden conditions, split three ways, using the typical year rather than '
-    'five years pooled so the range is visible.',
-    'Whether the gap is stable or a single bad year. It holds in all five.',
-    'The mechanism behind it, measured rather than assumed &mdash; a flat $0&ndash;50 per claim '
-    'on one side, a deductible and annual cap on the other.',
-    'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by care type, '
-    'government members 0.6% to 8.1%; the blend describes neither.']},
-
+  'figures': [(5,
+               'insurance',
+               'The same condition, ten times the cost, depending only on the plan',
+               'The ten conditions where members carry the most, split by line of business. '
+               'The gap is the plan, not the illness.')],
+  'para': 'Each row is one condition and the line across it is the gap between two members '
+          'receiving identical care. None of the ten lines closes: commercial members pay more '
+          'on every one, never by fewer than 12.9 points. Prediabetes stretches furthest '
+          '&mdash; <strong>85.0% for a commercial member against 8.5% for a government '
+          'one</strong> &mdash; and across five years the same divide shows as $19,178 out of '
+          'pocket against $2,118, with uninsured members at $61,742. Nothing about the illness '
+          'explains the gap; it is the difference between a flat copay and a deductible with '
+          'an annual maximum. Cheap routine care never accumulates enough within a year to '
+          'reach a commercial member&rsquo;s out-of-pocket maximum, so they pay coinsurance on '
+          'all of it, while a government member pays their copay and nothing further. The '
+          'practical consequence is that any single figure quoted as &ldquo;what members '
+          'pay&rdquo; describes nobody at all.',
+  'examined': ['The ten highest-burden conditions, split three ways, using the typical year '
+               'rather than five years pooled so the range is visible.',
+               'Whether the gap is stable or a single bad year. It holds in all five.',
+               'The mechanism behind it, measured rather than assumed &mdash; a flat '
+               '$0&ndash;50 per claim on one side, a deductible and annual cap on the other.',
+               'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by '
+               'care type, government members 0.6% to 8.1%; the blend describes neither.']},
  {'title': 'Spending concentrates in places, not in people',
-  'figures': [(6, 'places', 'How much of each group is needed to reach half of all spending.'),
-              (7, 'lorenz', 'The same finding as a curve: how quickly spend accumulates as you '
-                            'work down each ranked list.')],
-  'shows': '<strong>86 of the 3,918 facilities carry half of everything the plan spends</strong> &mdash; '
-           '2.2% of sites. Reaching the same half through members takes <strong>134,198 people, '
-           '10.7%</strong> of the membership. Measured fairly, as a share of each group, sites '
-           'are about <strong>five times more concentrated than members</strong>.',
-  'why': 'It settles where attention is worth spending. 86 sites is a list a team can '
-         'genuinely work through one at a time. 134,198 members is not a list at all &mdash; it '
-         'is a small city, and no case-management programme reaches it. This is the one thing '
-         'this analysis establishes that looking at conditions or costs alone never could, '
-         'because neither counts people.',
-  'examined': [
-    'Concentration measured four ways &mdash; by member, by site, by condition, by type of care '
-    '&mdash; to check the answer was not an artefact of one grouping.',
-    'Whether comparing 86 against 134,198 is fair. It is not, on its own: there are 321 times '
-    'more members than sites, so the fair comparison is 2.2% against 10.7%.',
-    'How the member concentration compares with real claims data. This population is flatter &mdash; the '
-    'top 1% carry 11.8% where real books run 20&ndash;25% &mdash; so if anything this '
-    'understates how few members matter.',
-    'Whether the site concentration is actionable, which is Finding 5.']},
-
+  'figures': [(6,
+               'places',
+               '86 facilities carry what it takes 134,198 members to reach',
+               'How much of each group is needed to reach half of all spending.'),
+              (7,
+               'lorenz',
+               'Facilities bow sharply away from the line; members barely do',
+               'The same finding as a curve: how quickly spend accumulates as you work down '
+               'each ranked list.')],
+  'para': 'The two coloured slivers are the comparison: a thin one for facilities, a much '
+          'wider one for members, each showing how much of that group is needed to reach half '
+          'of all spending. <strong>86 of 3,918 facilities</strong> get there, against '
+          '<strong>134,198 members</strong>. Measured fairly, as a share of each group rather '
+          'than as raw counts, facilities are about five times more concentrated &mdash; 2.2% '
+          'against 10.7% &mdash; and the curves show the same thing by how far each bows away '
+          'from the diagonal. The practical difference is one of scale: 86 sites is a list a '
+          'team can work through one at a time, while 134,198 members is a small city that no '
+          'case-management programme reaches. It is the one thing this analysis establishes '
+          'that examining conditions or costs alone never could, because neither counts '
+          'people.',
+  'examined': ['Concentration measured four ways &mdash; by member, by facility, by condition, '
+               'by type of care &mdash; to check the answer was not an artefact of one '
+               'grouping.',
+               'Whether comparing 86 against 134,198 is fair. It is not on its own: there are '
+               '321 times more members than facilities, so the fair comparison is 2.2% against '
+               '10.7%.',
+               'How the member concentration compares with real claims data. This population '
+               'is flatter &mdash; the top 1% carry 11.8% where real books run 20&ndash;25% '
+               '&mdash; so if anything this understates how few members matter.',
+               'Whether the facility concentration is actionable, which is Finding 5.']},
  {'title': 'The most expensive facilities are not charging more',
-  'figures': [(8, 'hospitals', 'Every facility by what an average visit costs and how often '
-                               'members return. Three groups, doing three different things.')],
-  'shows': 'Cost per member runs from <strong>$4,401 to $144,422</strong> across facilities &mdash; '
-           'a 33-fold spread. But reprice every procedure in the data to a single common rate and '
-           'that spread barely moves, from 15.8&times; to 15.2&times;. <strong>A median of just '
-           '7.8% of a site&rsquo;s cost per visit reflects what it charges</strong>; the rest is '
-           'what it treats. The same holds for how much gets done: for the typical condition, '
-           'facilities perform near-identical amounts of work.',
-  'why': 'The obvious reading of a 33-fold spread &mdash; that some hospitals overcharge &mdash; '
-         'is wrong, and acting on it would waste a planning cycle. The sites that look most '
-         'expensive per member are running dialysis three times a week at ordinary prices. The '
-         'ones that look most expensive per visit are hospices, where a multi-week stay is billed '
-         'as a single visit. Even pregnancy, the one condition where facilities genuinely differ, '
-         'splits into delivery units and antenatal clinics doing different halves of the same '
-         'care. There is no pricing problem here to find.',
-  'examined': [
-    'Whether the spread is price or case mix, by repricing every procedure to its all-facility '
-    'average and remeasuring. It is case mix.',
-    'Whether facilities differ in how much they do for the same condition. For the typical '
-    'condition, no &mdash; and the one big exception is pregnancy.',
-    'What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of women give '
-    'birth on site; at the most expensive, 6.8%. Delivery units against antenatal clinics.',
-    'The two groups that stand out on the chart, both identified by facility name rather than '
-    'by anything in the data itself.']},
-]
+  'figures': [(8,
+               'hospitals',
+               'The dearest facilities charge ordinary prices &mdash; their patients simply '
+               'return fifty times',
+               'Every facility by what an average visit costs and how often members return. '
+               'Three groups, doing three different things.')],
+  'para': 'Three clumps separate on this chart, and the important one sits at the top: a dozen '
+          'facilities whose members return around fifty times, at prices in the middle of the '
+          'pack. Cost per member ranges from <strong>$4,401 to $144,422</strong> across '
+          'facilities, a thirty-three-fold spread that looks like a pricing problem until the '
+          'prices are equalised &mdash; reprice every procedure in the data to a single common '
+          'rate and the spread barely moves, from 15.8&times; to 15.2&times;. <strong>A median '
+          'of just 7.8% of a facility&rsquo;s cost per visit reflects what it '
+          'charges.</strong> The same holds for volume of work: for the typical condition, '
+          'facilities perform near-identical amounts. What the three clumps actually represent '
+          'is three different jobs &mdash; dialysis at ordinary prices in the top group, '
+          'hospices billing a multi-week stay as a single visit on the right, and ordinary '
+          'care in the mass at the lower left. Even pregnancy, the one condition where '
+          'facilities genuinely differ, splits into delivery units and antenatal clinics doing '
+          'different halves of the same care.',
+  'examined': ['Whether the spread is price or case mix, by repricing every procedure to its '
+               'all-facility average and remeasuring. It is case mix.',
+               'Whether facilities differ in how much they do for the same condition. For the '
+               'typical condition, no &mdash; and the one big exception is pregnancy.',
+               'What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of '
+               'women give birth on site; at the most expensive, 6.8%. Delivery units against '
+               'antenatal clinics.',
+               'The two groups that stand out on the chart, both identified by facility name '
+               'rather than by anything in the data itself.']}]
 
 if __name__ == '__main__':
     open(OUT, 'w').write(build())
