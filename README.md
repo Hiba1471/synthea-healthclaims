@@ -12,6 +12,27 @@ data: 887M claim transactions, 124M claims, 1.4M patients).
 
 ---
 
+## The report
+
+`dashboard/analysis_report.html` is the client-facing write-up — client
+background, north-star metrics, executive summary, and five findings each with
+its figures, captions and what was examined. It is assembled from the charts in
+`dashboard/`, so rebuild those first if their data changes, then run:
+
+```bash
+python3 dashboard/generators/analysis_report.py
+```
+
+To serve it: enable GitHub Pages on this repo (Settings → Pages → deploy from
+branch, root). It will then be at
+`https://<user>.github.io/<repo>/dashboard/analysis_report.html`. Without Pages,
+clicking the file in GitHub shows its source rather than the rendered page.
+
+**The client, Calder Health, is invented** — the questions needed someone to
+have asked them. The analysis behind every figure is real and reproducible.
+
+---
+
 ## Quick start
 
 Everything reads through two curated objects rather than the raw share. Query
