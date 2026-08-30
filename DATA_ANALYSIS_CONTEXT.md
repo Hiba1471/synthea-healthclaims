@@ -728,6 +728,13 @@ Per §22 (do not manufacture certainty), these return zero **by construction**:
   against a real-world $50–200. Rankings hold; magnitudes do not.
 - **Hospital rankings by total spend.** These track simulated city size (9 of
   the top 10 are Cleveland). Use **cost per patient** instead.
+- **Hospital efficiency, in any form.** Every between-site difference Q3
+  tested resolves to composition — what a site treats, which half of a pathway
+  it covers, which patients it sees — and never to how well it does it. Prices
+  barely vary (a median 7.8% of cost per visit); amounts of work barely vary
+  (0.027 for the typical condition). Synthea models no practice variation, so
+  "is this hospital efficient" cannot be asked here at all. See the Q3
+  recommendation.
 
 ---
 
@@ -1297,11 +1304,39 @@ negotiate — consistent with §Q1, which found `ADJUSTMENTS` is 0 on all 887M
 rows and that only two of the ten highest-spend conditions vary between
 typical hospitals at all.
 
-**What remains actionable is utilisation, not rates.** The concentration
-finding is untouched — 86 sites still carry half of spend, and that is still a
-workable list. But the question to ask of them is *which procedures are being
-performed, and are they necessary*, not *what does each one cost*. Every
-driver Q3 identified turns out to be a quantity.
+**Nothing here is a cost lever, and that is the finding.** Every difference
+between hospitals Q3 has examined resolves to **composition — what a site does
+— never efficiency at doing it.** What the question delivers is one *scope*
+and four *eliminations*, and the eliminations are the more valuable half: each
+is a programme somebody could plausibly fund, and the data says none of them
+would work.
+
+**The scope stands.** 86 sites carry half of spend — 2.2% of sites, a list
+short enough to work through one by one. Nothing below weakens it.
+
+| Candidate lever | Why it fails | Evidence |
+|---|---|---|
+| Case management for high-cost patients | It takes 134,198 people to reach half the spend. No small group exists. | `q3_concentration.sql` |
+| Price negotiation | A median **7.8%** of a site's cost per visit is its prices; `ADJUSTMENTS` is 0 on all 887M rows. | `q3_price_vs_casemix.sql` |
+| Chronic-care management at the high-frequency sites | Those visits are dialysis. Kidney patients elsewhere average **more** (141 against 129). | `q3_site_group_top_conditions.sql` |
+| Utilisation review | The typical condition varies **0.027** between sites — hospitals do identical amounts. | `q3_utilisation_or_composition.sql` |
+
+**The one condition that looked like utilisation is not.** Normal pregnancy
+varies 0.962 across 856 sites and carries $28.9B — 84% of all spend in
+high-variation conditions, so it was the only place a lever could plausibly
+hide. Splitting its sites into cheapest and dearest quarter shows what
+separates them: the cheap quarter ($4,130 a claim) does **deliveries** —
+childbirth, epidurals, episiotomies, caesareans. The dear quarter ($17,315)
+runs **antenatal clinics** — prenatal visits, fetal monitoring, scans. A site
+following someone for nine months bills far more per claim than one that sees
+them once for the birth. Different halves of a pathway, not different
+intensities of the same work.
+
+**What would make the 86 sites actionable** is the one thing this dataset
+lacks: a way to compare like with like — severity or case-mix adjustment, real
+negotiated rates, or outcomes. Recommend acquiring that rather than acting on
+cost per patient, which cannot tell an expensive hospital apart from a
+hospital that does expensive things.
 
 **Why the VA tail is a dead end.** Those sites see each patient 47–55 times
 because **two thirds of their visits are kidney failure** — chronic kidney
@@ -1314,6 +1349,15 @@ more than the VA's 129** — the per-patient rate is the same everywhere, and
 these sites look extreme only because kidney failure is 65% of their work
 against 31% elsewhere. A difference in case mix, not in care
 (`q3_site_group_top_conditions.sql`).
+
+*Correction (2026-08-29, third).* The paragraph replaced above read "what
+remains actionable is utilisation, not rates" — written when the price lever
+was withdrawn, and asserted rather than tested. Testing it the same day
+eliminated it too. Recorded because the sequence matters: three plausible
+levers were each stated before being checked, and each dissolved on checking.
+The pattern is that "price is flat, so it must be quantity" quietly assumes
+quantity means overtreatment, when in this dataset it always means
+composition.
 
 *Correction (2026-08-29, second).* The surviving recommendation — price
 negotiation — was withdrawn later the same day, after a consistency check
@@ -1372,7 +1416,7 @@ and the evidence for each step is worth being able to retrace:
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
 `q3_hospital_cost_intensity.sql`, `q3_lorenz_points.sql`,
 `q3_site_group_conditions.sql`, `q3_site_group_top_conditions.sql`,
-`q3_hospice_site_encounter_mix.sql`, `q3_price_vs_casemix.sql` ·
+`q3_hospice_site_encounter_mix.sql`, `q3_price_vs_casemix.sql`, `q3_utilisation_or_composition.sql` ·
 *Charts:* `dashboard/places_not_people.html` (the finding, plainly — for
 stakeholders), `dashboard/two_ways_expensive.html` (the hospital split, and the
 actionable half of this question), `dashboard/concentration.html` (Lorenz

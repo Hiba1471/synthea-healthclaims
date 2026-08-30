@@ -1,0 +1,120 @@
+Condition,Hospitals,"Procedures per claim, typical site",P25 procedures per claim,P75 procedures per claim,Variation in amount of work,Variation in cost
+Chronic congestive heart failure (disorder),86,1.26,1.0,6.18,4.116,15.196
+Chronic obstructive bronchitis (disorder),51,2.81,2.08,6.57,1.596,1.02
+Pulmonary emphysema (disorder),76,2.62,2.12,5.75,1.388,1.687
+Normal pregnancy,856,2.85,2.8,5.54,0.962,1.821
+Pneumonia (disorder),31,5.89,1.0,6.08,0.864,1.192
+Hyperlipidemia,787,1.43,1.01,2.03,0.713,1.523
+Fracture of mandible (disorder),101,3.71,2.43,4.86,0.654,0.291
+Chronic pain (finding),596,1.00,1.0,1.65,0.648,9.053
+Aortic valve stenosis (disorder),20,3.88,3.61,6.06,0.632,0.096
+Traumatic dislocation of temporomandibular joint (disorder),90,4.45,2.14,4.86,0.612,0.769
+Chronic kidney disease stage 4 (disorder),798,1.03,1.0,1.57,0.553,0.228
+Acute ST segment elevation myocardial infarction (disorder),25,1.00,1.0,1.52,0.521,18.755
+Familial Alzheimer's disease of early onset (disorder),79,1.39,1.03,1.67,0.454,0.472
+Anemia (disorder),618,2.79,2.34,3.42,0.387,0.646
+Alzheimer's disease (disorder),480,1.45,1.09,1.63,0.378,0.951
+Severe anxiety (panic) (finding),786,1.83,1.45,2.1,0.357,0.438
+Acute infective cystitis (disorder),695,4.32,4.12,5.56,0.333,0.283
+Unhealthy alcohol drinking behavior (finding),799,1.84,1.51,2.03,0.283,0.334
+Misuses drugs (finding),435,1.93,1.57,2.09,0.271,0.352
+Essential hypertension (disorder),1182,1.78,1.38,1.85,0.262,0.628
+Metabolic syndrome X (disorder),640,1.75,1.53,1.85,0.18,0.326
+Gingivitis (disorder),2066,2.20,2.03,2.41,0.172,0.456
+Osteoporosis (disorder),434,1.79,1.61,1.85,0.136,0.324
+Body mass index 30+ - obesity (finding),815,2.43,2.24,2.57,0.136,0.252
+Prediabetes (finding),233,2.46,2.29,2.62,0.133,0.281
+Neoplasm of prostate,52,1.59,1.47,1.68,0.132,0.318
+Prediabetes,450,2.48,2.29,2.59,0.121,0.256
+Malignant neoplasm of breast (disorder),380,1.87,1.77,2.0,0.12,1.107
+Suspected COVID-19,643,2.33,2.24,2.52,0.119,0.302
+End-stage renal disease (disorder),500,1.01,1.0,1.12,0.116,0.174
+Human immunodeficiency virus infection (disorder),210,3.99,3.77,4.22,0.113,0.223
+Pyelonephritis,31,4.34,4.12,4.54,0.097,0.23
+Hypertriglyceridemia (disorder),178,1.93,1.83,2.02,0.097,0.352
+Posttraumatic stress disorder,41,1.16,1.11,1.22,0.096,0.052
+Retinopathy due to type 2 diabetes mellitus (disorder),67,1.78,1.7,1.87,0.095,0.298
+Hyperglycemia (disorder),182,1.71,1.63,1.77,0.085,0.612
+Overlapping malignant neoplasm of colon,194,1.14,1.1,1.19,0.084,0.32
+Chronic kidney disease stage 2 (disorder),671,1.56,1.5,1.63,0.083,0.306
+Diabetes mellitus type 2 (disorder),262,1.95,1.89,2.05,0.083,0.472
+Chronic kidney disease stage 1 (disorder),769,1.64,1.57,1.71,0.082,0.31
+Nonproliferative diabetic retinopathy due to type 2 diabetes mellitus (disorder),34,1.74,1.64,1.78,0.08,0.505
+Atrial fibrillation (disorder),142,1.50,1.44,1.54,0.068,0.47
+Neuropathy due to type 2 diabetes mellitus (disorder),92,1.77,1.71,1.83,0.067,0.617
+Chronic kidney disease stage 3 (disorder),498,1.50,1.45,1.54,0.066,0.279
+Injury of tendon of the rotator cuff of shoulder,108,1.16,1.13,1.19,0.054,0.43
+Ischemic heart disease (disorder),1160,1.42,1.37,1.45,0.054,0.296
+Childhood asthma,328,1.08,1.04,1.09,0.053,0.217
+Sepsis (disorder),187,1.50,1.46,1.54,0.05,0.499
+Injury of medial collateral ligament of knee,74,2.12,2.07,2.17,0.046,0.232
+Loose dental filling (finding),267,6.31,6.18,6.44,0.041,0.202
+Leaking dental filling (finding),277,6.30,6.18,6.42,0.038,0.211
+Injury of anterior cruciate ligament,48,2.12,2.08,2.16,0.038,0.231
+Acute viral pharyngitis (disorder),367,1.36,1.33,1.38,0.037,0.281
+Dental filling lost (finding),270,6.32,6.22,6.45,0.036,0.175
+Infection of tooth (disorder),304,8.52,8.39,8.67,0.034,0.196
+Streptococcal sore throat (disorder),326,1.26,1.24,1.28,0.032,0.293
+Rupture of patellar tendon,56,2.11,2.07,2.14,0.032,0.231
+Burn injury (morphologic abnormality),382,1.03,1.01,1.04,0.031,0.259
+Fractured dental filling (finding),273,6.31,6.23,6.43,0.031,0.182
+Fracture of bone (disorder),526,1.99,1.96,2.02,0.027,0.266
+Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),171,1.13,1.11,1.14,0.027,0.193
+Polyp of colon,278,3.16,3.11,3.19,0.025,0.188
+Primary dental caries (disorder),363,6.32,6.24,6.4,0.025,0.201
+Fetus with chromosomal abnormality,38,3.15,3.13,3.2,0.024,0.275
+Gingival disease (disorder),358,8.44,8.34,8.52,0.022,0.228
+Blighted ovum,108,3.14,3.11,3.17,0.021,0.226
+Laceration - injury (disorder),511,1.60,1.59,1.62,0.019,0.173
+Torus palatinus (disorder),93,5.37,5.33,5.43,0.018,0.288
+Complete miscarriage (disorder),185,3.14,3.11,3.17,0.018,0.23
+Secondary malignant neoplasm of colon,74,1.00,1.0,1.02,0.018,0.352
+Seizure disorder,102,1.54,1.53,1.56,0.017,0.325
+Acute Cholecystitis,156,1.39,1.38,1.41,0.015,0.544
+Acute bacterial sinusitis (disorder),293,1.02,1.02,1.03,0.014,0.415
+Sinusitis (disorder),295,1.03,1.02,1.03,0.014,0.467
+Malignant tumor of colon,268,1.05,1.05,1.06,0.014,0.232
+Non-small cell carcinoma of lung  TNM stage 1 (disorder),308,1.13,1.12,1.13,0.014,0.212
+Allergy to substance (finding),352,1.94,1.93,1.95,0.012,0.215
+Tubal pregnancy,89,3.08,3.06,3.1,0.012,0.277
+Acute bronchitis (disorder),382,1.35,1.34,1.36,0.012,0.245
+COVID-19,408,1.10,1.09,1.1,0.009,0.345
+Cerebral palsy (disorder),123,2.00,1.98,2.0,0.008,0.216
+Sleep disorder (disorder),191,2.67,2.65,2.67,0.008,0.16
+Resorption of alveolar process due to dental trauma (disorder),53,5.07,5.05,5.09,0.007,0.201
+Loss of teeth (disorder),350,2.49,2.48,2.5,0.007,0.247
+Injury of knee (disorder),254,1.50,1.5,1.51,0.006,0.193
+Asthma,494,1.00,1.0,1.0,0.002,0.064
+Impacted molars,340,1.50,1.5,1.5,0.001,0.235
+Dependent drug abuse (disorder),401,1.00,1.0,1.0,0.001,0.235
+Concussion with no loss of consciousness,220,1.00,1.0,1.0,0.0,0.045
+Epidermal burn of skin (disorder),131,1.00,1.0,1.0,0.0,0.047
+Fracture of forearm,177,1.00,1.0,1.0,0.0,0.047
+Concussion injury of brain (disorder),346,1.00,1.0,1.0,0.0,0.046
+Second degree burn,91,1.00,1.0,1.0,0.0,0.066
+Osteoarthritis of knee,93,1.00,1.0,1.0,0.0,0.244
+Acute allergic reaction,184,1.50,1.5,1.5,0.0,0.247
+Fracture of clavicle,170,1.00,1.0,1.0,0.0,0.047
+Appendicitis,90,1.00,1.0,1.0,0.0,1.253
+Kidney transplant failure and rejection (disorder),41,1.67,1.67,1.67,0.0,0.212
+Primary fibromyalgia syndrome,90,1.00,1.0,1.0,0.0,0.242
+Otitis media,323,1.00,1.0,1.0,0.0,0.244
+Perennial allergic rhinitis,38,1.00,1.0,1.0,0.0,0.323
+Osteoarthritis of hip,21,1.00,1.0,1.0,0.0,0.306
+Localized  primary osteoarthritis of the hand,26,1.00,1.0,1.0,0.0,0.26
+Child attention deficit disorder,259,1.00,1.0,1.0,0.0,0.218
+Gout,58,1.00,1.0,1.0,0.0,0.296
+Opioid abuse (disorder),32,1.00,1.0,1.0,0.0,0.238
+Fracture subluxation of wrist,148,1.00,1.0,1.0,0.0,0.047
+Chronic intractable migraine without aura,339,1.00,1.0,1.0,0.0,0.061
+Fracture of ankle,147,1.00,1.0,1.0,0.0,0.047
+Drug overdose,466,1.00,1.0,1.0,0.0,0.049
+Injury of neck (disorder),365,1.00,1.0,1.0,0.0,0.196
+Viral sinusitis (disorder),386,1.00,1.0,1.0,0.0,0.174
+Fracture of rib,80,1.00,1.0,1.0,0.0,0.038
+Alveolitis of jaw (disorder),195,6.00,6.0,6.0,0.0,0.148
+Atopic dermatitis,93,1.00,1.0,1.0,0.0,0.255
+Concussion with loss of consciousness,87,1.00,1.0,1.0,0.0,0.035
+Perennial allergic rhinitis with seasonal variation,43,1.00,1.0,1.0,0.0,0.139
+Closed fracture of hip,51,1.00,1.0,1.0,0.0,0.036
+Sprain (morphologic abnormality),517,1.00,1.0,1.0,0.0,0.175
