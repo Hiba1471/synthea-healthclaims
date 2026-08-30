@@ -1219,20 +1219,34 @@ demonstrated rather than assumed, but they carry no conclusion of their own —
 report. Read Q3's answer off the bottom two rows.
 
 **Observation.** **86 hospitals** cover half of all spending, while it takes
-**134,198 patients (10.7%)** to reach the same mark — a gap of three orders of
-magnitude between the two. Among 731 hospitals with ≥1,000 patients, cost per
-patient ranges **$4,401 to $144,422 — a 32.8× spread**. Across those sites the
-spread tracks **cost per visit** (Spearman +0.81) slightly more closely than
-**visits per patient** (+0.65), so both drive it. The extreme tail behaves
-differently: nine of the ten dearest sites are VA and veterans' facilities
-seeing each patient **47–55 times** against a median of **4.5**, at per-visit
-prices of $1,978–$2,926 that sit between the **46th and 59th percentile** of
-all 731 sites — squarely ordinary. Identifying them as VA sites relies on
-reading the facility names; six say so outright (*Vet Center*, *VA Medical
-Center*) and three are VA community clinics recognisable only if you know the
-naming (*Auburn Gresham*, *Lakeside*, *Parma Community Based Outpatient
-Clinic*). **Nothing in the data marks a facility as VA**, so this cannot be
-re-derived by query alone.
+**134,198 patients (10.7%)** to reach the same mark. Compare those as *shares
+of their own group* — **2.2% against 10.7%**, about five times more
+concentrated. The raw counts differ by nearly a thousandfold, but there are
+321 times more patients than hospitals to begin with, so that gap is
+arithmetic rather than concentration; what it does show is that 86 sites is a
+workable list and 134,198 people is not. Among 731 hospitals with ≥1,000
+patients, cost per patient ranges **$4,401 to $144,422 — a 32.8× spread**.
+Across those sites the spread tracks **cost per visit** (Spearman +0.81)
+slightly more closely than **visits per patient** (+0.65), so both drive it.
+The extreme tail behaves differently: nine of the ten dearest sites are VA and
+veterans' facilities seeing each patient **47–55 times** against a median of
+**4.5**, at per-visit prices of $1,978–$2,926 that sit between the **46th and
+59th percentile** of all 731 sites — squarely ordinary. Identifying them as VA
+sites relies on reading the facility names; six say so outright (*Vet Center*,
+*VA Medical Center*) and three are VA community clinics recognisable only if
+you know the naming (*Auburn Gresham*, *Lakeside*, *Parma Community Based
+Outpatient Clinic*). **Nothing in the data marks a facility as VA**, so this
+cannot be re-derived by query alone.
+
+**Those visits are dialysis.** Two thirds of visits to the veterans' sites are
+kidney failure — chronic kidney disease stage 4 at **53.1% of visits and 129
+visits per patient**, end-stage renal disease at **11.7% and 71.6**, both
+around **$815 a visit**. Three sessions a week, indefinitely, at a modest
+price. The comparison that rules out any care-quality reading is that kidney
+patients **elsewhere average 141 visits, slightly more than the VA's 129**:
+the per-patient rate is the same everywhere, and these sites stand out only
+because kidney failure is **65% of their work against 31% elsewhere**
+(`q3_site_group_top_conditions.sql`).
 
 **The tenth site is the instructive contrast.** Lucy Webb Hayes National
 Training School is dear the opposite way: **$4,539 per visit — the top 6% on
@@ -1241,7 +1255,8 @@ patient, because ordinary prices times fifty visits beat top-decile prices
 times nineteen. Note that 18.9 visits is itself four times the median, so this
 is a site that is high on both counts and merely less extreme on frequency.
 The lesson is that frequency is the stronger route to being expensive, and
-that these ten sites are two different problems, not one.
+that these ten sites are two different situations sharing one number — only
+one of which is a problem.
 
 **Interpretation.** Spend concentrates in *places*, not in *people*. A small
 set of sites carries the money while the patient population behind it is
@@ -1289,6 +1304,23 @@ of an inpatient bed. Their high per-visit figures come from 22-day stays
 carrying half their billing, not from an inflated rate
 (`q3_hospice_site_encounter_mix.sql`).
 
+**What the hospice sites actually are.** Worth stating because the obvious
+reading is wrong twice over. Only **18.1% of visits** to those 22 sites are
+end-of-life stays — but those run **22.3 days** and carry **50.7% of the
+billing**, which is what lifts their per-visit figure. **63.9% are ordinary
+same-day emergency trips** at $2,774, an unremarkable price, and those are why
+the top conditions there come back as pregnancy, drug overdose, lacerations
+and fractures rather than anything end-of-life. So long stays carry the money
+without being most of the visits (`q3_hospice_site_encounter_mix.sql`).
+
+*Correction (2026-08-29).* `two_ways_expensive.html` first explained that
+cluster as "one whole stay = one visit", citing
+`delayed_claims_tail_2020_2024.csv`. That file groups by `ENCOUNTERCLASS`
+across every organisation, while the chart's cluster is defined by
+organisation **name** — different populations, and the mismatch let a claim
+about the money be stated as a claim about the visits. The per-day conclusion
+was unaffected and still stands.
+
 *Correction (2026-08-27).* This subsection previously read "the hospital
 spread is a frequency effect, not a pricing one" and recommended chronic-care
 management over price negotiation on that basis. That was the top-ten pattern
@@ -1297,7 +1329,9 @@ marginally stronger driver overall. The tail finding stands, the general claim
 did not.
 
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
-`q3_hospital_cost_intensity.sql` ·
+`q3_hospital_cost_intensity.sql`, `q3_lorenz_points.sql`,
+`q3_site_group_conditions.sql`, `q3_site_group_top_conditions.sql`,
+`q3_hospice_site_encounter_mix.sql` ·
 *Charts:* `dashboard/places_not_people.html` (the finding, plainly — for
 stakeholders), `dashboard/two_ways_expensive.html` (the hospital split, and the
 actionable half of this question), `dashboard/concentration.html` (Lorenz
