@@ -945,11 +945,19 @@ deductibles, tiers, networks and negotiated rates that this data does not
 model. The mechanism above explains how the simulation assigns cost-sharing.
 It should not be read as a finding about how insurance actually works.
 
-**Recommendation.** Where the goal is preventive uptake, flat copays are
-counterproductive — the mechanism, not the rate, is the lever. For providers,
-payer mix determines collection risk: **$20.3B must be collected from
-individuals rather than institutions**, and ambulatory care alone carries
-$12.7B (63%) of it.
+**Recommendation.** Where the goal is preventive uptake, the mechanism rather
+than the rate is the lever — but it is a *different* mechanism for each kind
+of insurance, and a single fix will not reach both. For government patients
+the flat $0–50 copay is the obstacle, and it bites hardest on the cheapest
+visits. For commercial patients there is no flat copay at all: preventive care
+is expensive to them because it never accumulates enough in a year to reach
+their out-of-pocket maximum, so they pay coinsurance on all of it. Lowering a
+copay does nothing for the second group; only bringing preventive care inside
+the cap would.
+
+For providers, payer mix determines collection risk: **$20.3B must be
+collected from individuals rather than institutions**, and ambulatory care
+alone carries $12.7B (63%) of it.
 
 *Queries:* `sql/analysis/q2_who_pays.sql`, `q2_who_pays_by_year.sql`,
 `q2_commercial_cap_by_care_type.sql`,
@@ -1030,8 +1038,10 @@ by fewer than 12.9 points. Prediabetes and obesity are the extremes:
 government covers ~92% of the bill, commercial ~14%, so a commercially
 insured patient pays roughly **ten times the share** for the same condition.
 Both are chronic-risk conditions managed through routine screening and
-counselling — precisely the cheap-visit territory where a flat copay absorbs
-most of the bill.
+counselling — precisely the cheap-visit territory that never accumulates
+enough in a year to reach a commercial patient's out-of-pocket maximum, so
+they carry coinsurance on the whole of it while government patients pay their
+flat copay and no more.
 
 **Patients out-pay both insurers combined on 9 of these 10.** Obesity:
 patients $42.8M against $33.6M from all insurers together. Otitis media:
@@ -1261,23 +1271,37 @@ one of which is a problem.
 **Interpretation.** Spend concentrates in *places*, not in *people*. A small
 set of sites carries the money while the patient population behind it is
 broad, which is the one thing Q3 establishes that no other question can —
-neither Q1 nor Q2 counts patients at all. Among hospitals, price and frequency
-both matter, with price somewhat the stronger of the two — but the handful of
-sites at the very top are expensive almost purely through frequency, at
-ordinary per-visit prices. **Only one of those is a problem.** High price is a
-lever; high frequency at these sites is dialysis three times a week, which is
-the treatment working. One number, two situations, and only the first is worth
-acting on.
+neither Q1 nor Q2 counts patients at all. Among hospitals, cost per visit and
+visit frequency both matter, with cost per visit somewhat the stronger — but
+**cost per visit is not price**. Reprice every procedure in the dataset to its
+all-hospital average and the spread barely moves, 15.8× to 15.2×; a median of
+only **7.8%** of a site's cost per visit reflects what it charges rather than
+what it does (`q3_price_vs_casemix.sql`). Both drivers are quantities: what a
+site treats, and how often patients return. The sites at the very top are the
+clearest case — expensive purely through frequency, at per-visit prices in the
+middle of the pack, and that frequency is dialysis three times a week, which
+is the treatment working rather than a problem.
 
 **Recommendation.** Target the 86 sites that cover half of spend — small
 enough to address individually, and the actionable half of this question. Do
 not build a case-management programme around high-cost patients: at 134,198
 people for half the spend, there is no small group of patients to manage.
 
-**One lever, not two.** The lever is **price negotiation across the broad
-middle**, where cost per visit is the stronger driver. The most extreme sites
-are not a second opportunity — they are a dead end, and worth stating as one
-so nobody spends effort there.
+**The lever is not price.** An earlier version of this section recommended
+price negotiation across the broad middle of hospitals, on the strength of
+cost per visit correlating with cost per patient at +0.81. The correlation is
+real; the inference from it was wrong. Equalising every price in the dataset
+leaves the spread essentially unchanged (15.8× to 15.2×), and a median of only
+**7.8%** of a site's cost per visit reflects its prices. There is nothing to
+negotiate — consistent with §Q1, which found `ADJUSTMENTS` is 0 on all 887M
+rows and that only two of the ten highest-spend conditions vary between
+typical hospitals at all.
+
+**What remains actionable is utilisation, not rates.** The concentration
+finding is untouched — 86 sites still carry half of spend, and that is still a
+workable list. But the question to ask of them is *which procedures are being
+performed, and are they necessary*, not *what does each one cost*. Every
+driver Q3 identified turns out to be a quantity.
 
 **Why the VA tail is a dead end.** Those sites see each patient 47–55 times
 because **two thirds of their visits are kidney failure** — chronic kidney
@@ -1290,6 +1314,12 @@ more than the VA's 129** — the per-patient rate is the same everywhere, and
 these sites look extreme only because kidney failure is 65% of their work
 against 31% elsewhere. A difference in case mix, not in care
 (`q3_site_group_top_conditions.sql`).
+
+*Correction (2026-08-29, second).* The surviving recommendation — price
+negotiation — was withdrawn later the same day, after a consistency check
+against §Q1 showed the two sections disagreeing about whether hospital prices
+vary at all. `q3_price_vs_casemix.sql` settled it in §Q1's favour. Q3 now
+recommends no pricing action.
 
 *Correction (2026-08-29).* This paragraph previously recommended **chronic-
 care management for the VA tail** on the strength of its visit count alone,
@@ -1321,17 +1351,28 @@ organisation **name** — different populations, and the mismatch let a claim
 about the money be stated as a claim about the visits. The per-day conclusion
 was unaffected and still stands.
 
-*Correction (2026-08-27).* This subsection previously read "the hospital
-spread is a frequency effect, not a pricing one" and recommended chronic-care
-management over price negotiation on that basis. That was the top-ten pattern
-generalised to all 731 sites; the correlations above show price is in fact the
-marginally stronger driver overall. The tail finding stands, the general claim
-did not.
+*Correction (2026-08-27, since partly reversed).* This subsection originally
+read "the hospital spread is a frequency effect, not a pricing one" and
+recommended chronic-care management on that basis. It was corrected on
+2026-08-27 because that generalised the top-ten pattern to all 731 sites, and
+the correlations show cost per visit is the marginally stronger driver
+overall.
+
+That correction was right about the reasoning and wrong about the conclusion.
+The original claim's second half — **"not a pricing one"** — turns out to be
+correct: repricing every procedure to a common average leaves the spread
+almost intact, so cost per visit is case-mix intensity, not price. The
+original was incomplete rather than wrong, in that the spread is driven by two
+quantities (what is treated, how often) and not by frequency alone. Recorded
+at length because the same claim has now been overturned in both directions,
+and the evidence for each step is worth being able to retrace:
+`q3_hospital_cost_intensity.sql` for the correlations,
+`q3_price_vs_casemix.sql` for the repricing test.
 
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
 `q3_hospital_cost_intensity.sql`, `q3_lorenz_points.sql`,
 `q3_site_group_conditions.sql`, `q3_site_group_top_conditions.sql`,
-`q3_hospice_site_encounter_mix.sql` ·
+`q3_hospice_site_encounter_mix.sql`, `q3_price_vs_casemix.sql` ·
 *Charts:* `dashboard/places_not_people.html` (the finding, plainly — for
 stakeholders), `dashboard/two_ways_expensive.html` (the hospital split, and the
 actionable half of this question), `dashboard/concentration.html` (Lorenz
