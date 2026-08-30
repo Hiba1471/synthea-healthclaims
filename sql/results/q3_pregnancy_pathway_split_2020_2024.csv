@@ -1,3 +1,5 @@
-BAND,WOMEN,PCT_SPEND_ON_THE_BIRTH,PCT_WOMEN_WHO_GAVE_BIRTH_HERE
-1 cheapest quarter,64642,29.7,95.5
-4 dearest quarter,87051,0.1,7.1
+"Quarter, cheapest to dearest",Hospitals,Women,Cost per claim,Visits per woman,% of spend on the birth,% who gave birth there
+1,214,65776,4130,1.3,29.7,95.5
+2,214,46781,5263,1.3,30.1,95.8
+3,214,101424,13640,9.6,0.2,12.2
+4,214,83838,17314,10.3,0.1,6.8

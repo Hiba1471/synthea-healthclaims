@@ -1324,14 +1324,14 @@ short enough to work through one by one. Nothing below weakens it.
 **The one condition that looked like utilisation is not.** Normal pregnancy
 varies 0.962 across 856 sites and carries $28.9B — 84% of all spend in
 high-variation conditions, so it was the only place a lever could plausibly
-hide. Splitting its sites into cheapest and dearest quarter settles it: at the
-cheap sites (**$4,130** a claim) **95.5% of the women give birth there** and
-the birth is 29.7% of the billing — these are **delivery units**. At the dear
-sites (**$17,314**) only **7.1% give birth there** and the birth is 0.1% of
-billing — these are **antenatal clinics**, seeing a woman ten times across
-nine months while she delivers somewhere else. Cost per pregnancy claim
-compares one birth against nine months of check-ups
-(`q3_pregnancy_pathway_split.sql`).
+hide. Ranking those sites by cost per claim and cutting them into four groups
+of 214 shows a cliff, not a slope. Groups 1 and 2 are **delivery units**: ~1.3
+visits per woman, **95.5% and 95.8% giving birth on site**, at $4,130 and
+$5,263 a claim. Groups 3 and 4 are **antenatal clinics**: ~10 visits, only
+**12.2% and 6.8% giving birth there**, at $13,640 and $17,314. Nothing sits
+between the two. Cost per pregnancy claim compares one birth against nine
+months of check-ups, and waste would have shown as a smooth spread rather than
+two populations (`q3_pregnancy_pathway_split.sql`).
 
 **What would make the 86 sites actionable** is the one thing this dataset
 lacks: a way to compare like with like — severity or case-mix adjustment, real
