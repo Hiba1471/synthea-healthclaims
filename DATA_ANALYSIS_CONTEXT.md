@@ -1324,13 +1324,14 @@ short enough to work through one by one. Nothing below weakens it.
 **The one condition that looked like utilisation is not.** Normal pregnancy
 varies 0.962 across 856 sites and carries $28.9B — 84% of all spend in
 high-variation conditions, so it was the only place a lever could plausibly
-hide. Splitting its sites into cheapest and dearest quarter shows what
-separates them: the cheap quarter ($4,130 a claim) does **deliveries** —
-childbirth, epidurals, episiotomies, caesareans. The dear quarter ($17,315)
-runs **antenatal clinics** — prenatal visits, fetal monitoring, scans. A site
-following someone for nine months bills far more per claim than one that sees
-them once for the birth. Different halves of a pathway, not different
-intensities of the same work.
+hide. Splitting its sites into cheapest and dearest quarter settles it: at the
+cheap sites (**$4,130** a claim) **95.5% of the women give birth there** and
+the birth is 29.7% of the billing — these are **delivery units**. At the dear
+sites (**$17,314**) only **7.1% give birth there** and the birth is 0.1% of
+billing — these are **antenatal clinics**, seeing a woman ten times across
+nine months while she delivers somewhere else. Cost per pregnancy claim
+compares one birth against nine months of check-ups
+(`q3_pregnancy_pathway_split.sql`).
 
 **What would make the 86 sites actionable** is the one thing this dataset
 lacks: a way to compare like with like — severity or case-mix adjustment, real
@@ -1416,7 +1417,7 @@ and the evidence for each step is worth being able to retrace:
 *Queries:* `sql/analysis/q3_concentration.sql`, `q3_top_entities.sql`,
 `q3_hospital_cost_intensity.sql`, `q3_lorenz_points.sql`,
 `q3_site_group_conditions.sql`, `q3_site_group_top_conditions.sql`,
-`q3_hospice_site_encounter_mix.sql`, `q3_price_vs_casemix.sql`, `q3_utilisation_or_composition.sql` ·
+`q3_hospice_site_encounter_mix.sql`, `q3_price_vs_casemix.sql`, `q3_utilisation_or_composition.sql`, `q3_pregnancy_pathway_split.sql` ·
 *Charts:* `dashboard/places_not_people.html` (the finding, plainly — for
 stakeholders), `dashboard/two_ways_expensive.html` (the hospital split, and the
 actionable half of this question), `dashboard/concentration.html` (Lorenz
