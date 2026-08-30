@@ -26,24 +26,33 @@ VA community clinics recognisable only if you know the naming convention. That
 was confirmed by the user, not derived. All 12 land above 24 visits per patient,
 which is corroboration but not proof. Say so on the chart, as the footnote does.
 
-The hospice cluster is the finding most likely to be misread, and the first
-version of this chart misread it in the other direction -- calling it purely a
-"measurement artefact", which undersold what is actually going on.
+The hospice cluster is the finding most likely to be misread, and this chart has
+now misread it twice in opposite directions. Version one called it a pure
+"measurement artefact", waving away real end-of-life care. Version two said a
+whole multi-week stay is billed as one visit -- true of the money, but stated as
+though it described every visit to these sites. It does not.
 
-Both things are true at once, and the note has to carry both. A hospice
-encounter runs 17-54 days against 0 for a clinic appointment, so one record
-covers weeks of continuous end-of-life care: the total is large because someone
-is very ill for a long time, which is real. But the RATE is modest. Per day,
-hospice bills $523-$579 -- below skilled nursing at $777-$917 and roughly a
-tenth of an inpatient bed at $6,023 (figures from
-delayed_claims_tail_2020_2024.csv, AVG_BILLED divided by AVG_ENCOUNTER_DAYS).
+The evidence is q3_hospice_site_encounter_mix.sql, which was written after
+q3_site_group_top_conditions.sql showed the top conditions here are Normal
+pregnancy, drug overdose, lacerations and fractures -- impossible under a pure
+end-of-life story. At these 22 sites:
 
-So the practical conclusion survives: there is no inflated price to negotiate
-down, because hospice is already among the cheapest care per day in the data.
-What fails is the x-axis label. "What one visit costs" quietly assumes visits
-are comparable units, and for these 22 sites a visit is a seven-week stay. Do
-not restate this as sites being overpriced, and do not restate it as nothing
-real happening either.
+  hospice class    18.1% of visits, 22.3 days each, 50.7% of the money
+  emergency        63.9% of visits,  0.1 days each, 39.3% of the money
+  snf               2.2% of visits, 19.7 days,       7.2%
+
+So the long stays carry the money and lift the per-visit average, while most
+actual visits are ordinary same-day emergency trips at an unremarkable $2,774.
+One dot blends the two. The earlier note took evidence grouped by ENCOUNTERCLASS
+across all organisations and applied it to a cluster defined by organisation
+NAME -- different populations, and the mismatch is what let the overstatement
+through.
+
+What survives unchanged is the practical point: hospice bills about $567 a day,
+below skilled nursing at $740 and roughly a tenth of an inpatient bed, so there
+is no inflated rate to negotiate. Do not restate these sites as overpriced, as
+nothing-real-happening, or as uniformly long stays.
+
 """
 import csv, math, os, re  # math is used by the log scale
 
@@ -144,7 +153,7 @@ def build():
     lx, ly = 352.0, 66.0
     for i, (g, txt) in enumerate([
             ('va',    '{} veterans’ sites &#8212; they come back constantly'.format(n['va'])),
-            ('stay',  '{} hospices &#8212; one whole stay = one visit'.format(n['stay'])),
+            ('stay',  '{} hospices &amp; nursing homes &#8212; half their money is long stays'.format(n['stay'])),
             ('other', '{} everything else'.format(n['other']))]):
         y = ly + i * 19
         o.append('<circle class="pt {}" cx="{:.0f}" cy="{:.0f}" r="5"/>'.format(g, lx, y - 4))
@@ -185,14 +194,16 @@ svg{display:block;width:100%;height:auto;min-width:620px;}
 .note{color:var(--text-muted);font-size:12.5px;margin-top:16px;line-height:1.55;}
 </style>'''
 
-NOTE = '''<p class="note"><strong>The hospices are not overcharging &mdash; but something real is
-happening to those patients.</strong> A hospice encounter lasts <strong>17 to 54 days</strong> against
-0 days for a clinic appointment, so one record covers weeks of continuous end-of-life care. That is
-genuine, serious, expensive care. What it is <em>not</em> is expensive per day: hospice bills
-<strong>$523&ndash;$579 a day</strong>, near the bottom of every setting &mdash; below nursing homes at
-$777&ndash;$917 and about a tenth of an inpatient bed at $6,023. The length of the stay, not the price of
-the care, is what pushes these dots right (<code>delayed_claims_tail_2020_2024.csv</code>). There is no
-rate here to negotiate down.</p>
+NOTE = '''<p class="note"><strong>The hospices are not overcharging, and their high position is a blend of two
+things.</strong> Only <strong>18% of their visits</strong> are actual end-of-life stays &mdash; but those
+run <strong>22 days each</strong> and carry <strong>half of all their billing</strong>, which is what
+lifts their per-visit figure. Another <strong>64% of visits are ordinary same-day emergency trips</strong>
+at $2,774, a normal price. So one dot mixes weeks of continuous care with afternoon visits, counted
+alike.</p>
+<p class="note">The long stays are real care for genuinely dying patients, but they are not dear by the
+day: hospice bills about <strong>$567 a day</strong>, below skilled nursing at $740 and roughly a tenth of
+an inpatient bed. <strong>There is no rate here to negotiate down</strong>
+(<code>q3_hospice_site_encounter_mix_2020_2024.csv</code>).</p>
 <p class="note"><strong>Both highlighted groups are identified by their names</strong>, because nothing in
 the data marks a facility as a VA site or a hospice. Six of the twelve say <em>Vet Center</em> or
 <em>VA Medical Center</em> outright; three others are VA community clinics recognisable only from the

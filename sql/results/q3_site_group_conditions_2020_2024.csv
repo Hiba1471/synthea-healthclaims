@@ -1,0 +1,46 @@
+Site group,Type of care,Visits,% of that group's visits,Patients,Billed,Conditions per patient (group),Visits per patient (group),Visits per condition (group)
+Everywhere else,Kidney & urinary,6078150,32.1,156767,5438336155,4.05,15.7,3.44
+Everywhere else,Dental & oral,3426220,18.1,922998,11331802355,4.05,15.7,3.44
+Everywhere else,Maternity,2002933,10.6,178417,28779766145,4.05,15.7,3.44
+Everywhere else,Respiratory & ENT,1993955,10.5,920078,2395345935,4.05,15.7,3.44
+Everywhere else,Mental health & substance use,1705438,9.0,196915,1536106749,4.05,15.7,3.44
+Everywhere else,Allergy & immune,828740,4.4,49259,8643881573,4.05,15.7,3.44
+Everywhere else,Heart & circulation,805676,4.3,138610,2979400199,4.05,15.7,3.44
+Everywhere else,Diabetes & metabolic,648355,3.4,252447,424327782,4.05,15.7,3.44
+Everywhere else,Injury & trauma,513737,2.7,326306,1381133951,4.05,15.7,3.44
+Everywhere else,Cancer & tumours,475557,2.5,61848,6025928828,4.05,15.7,3.44
+Everywhere else,Chronic pain,192531,1.0,30407,274840453,4.05,15.7,3.44
+Everywhere else,Other,94465,0.5,54063,77126670,4.05,15.7,3.44
+Everywhere else,Blood disorders,89505,0.5,66206,119198589,4.05,15.7,3.44
+Everywhere else,Infections (other),43353,0.2,12564,302968425,4.05,15.7,3.44
+Everywhere else,Brain & nervous system,36377,0.2,21269,118787791,4.05,15.7,3.44
+Hospice & nursing,Injury & trauma,33715,30.8,29879,119861099,1.20,1.5,1.16
+Hospice & nursing,Maternity,16546,15.1,12436,79695089,1.20,1.5,1.16
+Hospice & nursing,Mental health & substance use,12686,11.6,7220,1903604,1.20,1.5,1.16
+Hospice & nursing,Kidney & urinary,9723,8.9,9162,113403142,1.20,1.5,1.16
+Hospice & nursing,Brain & nervous system,8276,7.6,8002,109454713,1.20,1.5,1.16
+Hospice & nursing,Respiratory & ENT,7158,6.5,6212,39302184,1.20,1.5,1.16
+Hospice & nursing,Cancer & tumours,5589,5.1,5278,76553575,1.20,1.5,1.16
+Hospice & nursing,Dental & oral,5240,4.8,2939,33081846,1.20,1.5,1.16
+Hospice & nursing,Other,3514,3.2,1325,6816719,1.20,1.5,1.16
+Hospice & nursing,Chronic pain,2564,2.3,635,529147,1.20,1.5,1.16
+Hospice & nursing,Heart & circulation,2467,2.3,2319,27491052,1.20,1.5,1.16
+Hospice & nursing,Infections (other),959,0.9,957,18771107,1.20,1.5,1.16
+Hospice & nursing,Allergy & immune,741,0.7,719,1899157,1.20,1.5,1.16
+Hospice & nursing,Diabetes & metabolic,249,0.2,235,615480,1.20,1.5,1.16
+Hospice & nursing,Blood disorders,18,0.0,18,19909,1.20,1.5,1.16
+Veterans sites,Kidney & urinary,562584,64.9,8166,470687431,4.49,33.4,6.31
+Veterans sites,Dental & oral,139996,16.1,21987,462945855,4.49,33.4,6.31
+Veterans sites,Mental health & substance use,53033,6.1,5915,23461716,4.49,33.4,6.31
+Veterans sites,Respiratory & ENT,35806,4.1,17866,63556191,4.49,33.4,6.31
+Veterans sites,Cancer & tumours,25278,2.9,4087,997177656,4.49,33.4,6.31
+Veterans sites,Diabetes & metabolic,22572,2.6,7127,9627188,4.49,33.4,6.31
+Veterans sites,Maternity,10379,1.2,1081,152054490,4.49,33.4,6.31
+Veterans sites,Heart & circulation,6067,0.7,3212,10119224,4.49,33.4,6.31
+Veterans sites,Injury & trauma,3623,0.4,3333,4379925,4.49,33.4,6.31
+Veterans sites,Other,2375,0.3,1881,6857526,4.49,33.4,6.31
+Veterans sites,Blood disorders,1749,0.2,1266,2259989,4.49,33.4,6.31
+Veterans sites,Allergy & immune,1412,0.2,50,13786295,4.49,33.4,6.31
+Veterans sites,Brain & nervous system,1395,0.2,909,7671311,4.49,33.4,6.31
+Veterans sites,Infections (other),972,0.1,165,2550587,4.49,33.4,6.31
+Veterans sites,Chronic pain,19,0.0,7,7866,4.49,33.4,6.31

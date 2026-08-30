@@ -1,0 +1,230 @@
+Site group,Condition,Visits,% of that group's visits,Patients,Visits per patient,Billed per visit
+Everywhere else,Chronic kidney disease stage 4 (disorder),4782283,25.3,30107,158.8,823
+Everywhere else,Gingivitis (disorder),2611588,13.8,787073,3.3,3135
+Everywhere else,Normal pregnancy,1961230,10.4,178269,11.0,14635
+Everywhere else,Dependent drug abuse (disorder),1375982,7.3,94765,14.5,439
+Everywhere else,End-stage renal disease (disorder),1101991,5.8,13395,82.3,820
+Everywhere else,Allergy to substance (finding),810673,4.3,42762,19.0,10636
+Everywhere else,Viral sinusitis (disorder),613322,3.2,485230,1.3,168
+Everywhere else,Hyperlipidemia,468152,2.5,107180,4.4,137
+Everywhere else,Chronic congestive heart failure (disorder),358202,1.9,9823,36.5,865
+Everywhere else,Acute viral pharyngitis (disorder),354017,1.9,308083,1.1,761
+Everywhere else,Malignant neoplasm of breast (disorder),330043,1.7,17348,19.0,3171
+Everywhere else,Acute bronchitis (disorder),292997,1.5,266114,1.1,1967
+Everywhere else,Loss of teeth (disorder),200082,1.1,101336,2.0,1001
+Everywhere else,Essential hypertension (disorder),192910,1.0,61441,3.1,464
+Everywhere else,Chronic pain (finding),192531,1.0,30407,6.3,1428
+Everywhere else,Primary dental caries (disorder),179854,1.0,160801,1.1,4060
+Everywhere else,Suspected COVID-19,167167,0.9,118950,1.4,724
+Everywhere else,Gingival disease (disorder),161430,0.9,141930,1.1,5598
+Everywhere else,Ischemic heart disease (disorder),158830,0.8,46516,3.4,4552
+Everywhere else,Drug overdose,122738,0.6,67707,1.8,121
+Everywhere else,Asthma,122287,0.6,40046,3.1,123
+Everywhere else,Acute infective cystitis (disorder),104830,0.6,62288,1.7,4154
+Everywhere else,Otitis media,97610,0.5,78746,1.2,478
+Everywhere else,Anemia (disorder),89505,0.5,66206,1.4,1332
+Everywhere else,Streptococcal sore throat (disorder),86149,0.5,82379,1.0,1194
+Everywhere else,Sinusitis (disorder),81504,0.4,35004,2.3,267
+Everywhere else,Child attention deficit disorder,81096,0.4,7232,11.2,9285
+Everywhere else,Sprain (morphologic abnormality),80311,0.4,77835,1.0,328
+Everywhere else,Laceration - injury (disorder),79516,0.4,77257,1.0,9493
+Everywhere else,Fracture of bone (disorder),77718,0.4,74768,1.0,4754
+Everywhere else,Acute bacterial sinusitis (disorder),72643,0.4,34645,2.1,255
+Everywhere else,Polyp of colon,62518,0.3,38762,1.6,20306
+Everywhere else,Childhood asthma,60342,0.3,21822,2.8,207
+Everywhere else,Infection of tooth (disorder),58590,0.3,55841,1.0,5774
+Everywhere else,Body mass index 30+ - obesity (finding),58510,0.3,58510,1.0,1285
+Everywhere else,Concussion injury of brain (disorder),44026,0.2,41415,1.1,122
+Everywhere else,Severe anxiety (panic) (finding),41533,0.2,39627,1.0,1420
+Everywhere else,Unhealthy alcohol drinking behavior (finding),40350,0.2,38886,1.0,1432
+Everywhere else,Non-small cell carcinoma of lung  TNM stage 1 (disorder),37273,0.2,1768,21.1,70952
+Everywhere else,Prediabetes,35353,0.2,35353,1.0,1270
+Everywhere else,Dental filling lost (finding),34533,0.2,33275,1.0,4056
+Everywhere else,Loose dental filling (finding),34482,0.2,33254,1.0,4057
+Everywhere else,Leaking dental filling (finding),34451,0.2,33197,1.0,4057
+Everywhere else,Fractured dental filling (finding),34314,0.2,33122,1.0,4060
+Everywhere else,Concussion with no loss of consciousness,33911,0.2,33538,1.0,72
+Everywhere else,Abnormal findings diagnostic imaging heart+coronary circulat (finding),32070,0.2,19908,1.6,24749
+Everywhere else,COVID-19,31563,0.2,22332,1.4,28584
+Everywhere else,Chronic kidney disease stage 1 (disorder),30080,0.2,30080,1.0,1709
+Everywhere else,Chronic kidney disease stage 2 (disorder),28504,0.2,28504,1.0,1593
+Everywhere else,Human immunodeficiency virus infection (disorder),28228,0.1,2434,11.6,1892
+Everywhere else,Impacted molars,26367,0.1,6348,4.2,10975
+Everywhere else,Chronic intractable migraine without aura,25976,0.1,6306,4.1,129
+Everywhere else,Alzheimer's disease (disorder),25948,0.1,14851,1.7,2347
+Everywhere else,Injury of neck (disorder),25180,0.1,24975,1.0,330
+Everywhere else,Metabolic syndrome X (disorder),24831,0.1,24831,1.0,1455
+Everywhere else,Chronic kidney disease stage 3 (disorder),23453,0.1,23453,1.0,1535
+Everywhere else,Alveolitis of jaw (disorder),22718,0.1,22256,1.0,2527
+Everywhere else,Sleep disorder (disorder),22146,0.1,7490,3.0,973
+Everywhere else,Complete miscarriage (disorder),21939,0.1,20705,1.1,1447
+Everywhere else,Burn injury (morphologic abnormality),21190,0.1,20946,1.0,484
+Everywhere else,Fracture of forearm,20467,0.1,20235,1.0,72
+Everywhere else,Malignant tumor of colon,19746,0.1,3944,5.0,13201
+Everywhere else,Misuses drugs (finding),18057,0.1,17843,1.0,1406
+Everywhere else,Fracture of clavicle,17632,0.1,17512,1.0,71
+Everywhere else,Fracture of ankle,15904,0.1,15803,1.0,72
+Everywhere else,Aortic valve stenosis (disorder),15783,0.1,3763,4.2,3351
+Everywhere else,Fracture subluxation of wrist,15530,0.1,15425,1.0,72
+Everywhere else,Prediabetes (finding),13755,0.1,13755,1.0,1333
+Everywhere else,Epidermal burn of skin (disorder),13100,0.1,13049,1.0,72
+Everywhere else,Myocardial infarction (disorder),12567,0.1,12567,1.0,11753
+Everywhere else,Osteoporosis (disorder),12096,0.1,12096,1.0,10141
+Everywhere else,Injury of knee (disorder),12018,0.1,11976,1.0,814
+Everywhere else,Cerebral palsy (disorder),11988,0.1,1725,6.9,565
+Everywhere else,Aortic valve regurgitation (disorder),11736,0.1,3046,3.9,2711
+Everywhere else,Overlapping malignant neoplasm of colon,11524,0.1,4298,2.7,12662
+Everywhere else,Diabetes mellitus type 2 (disorder),10718,0.1,10718,1.0,1722
+Everywhere else,Appendicitis,10455,0.1,5506,1.9,6160
+Everywhere else,Blighted ovum,10386,0.1,10092,1.0,1449
+Everywhere else,Injury of tendon of the rotator cuff of shoulder,9266,0.0,8422,1.1,1574
+Everywhere else,Torus palatinus (disorder),9161,0.0,9161,1.0,2184
+Everywhere else,Acute non-ST segment elevation myocardial infarction (disorder),9022,0.0,6921,1.3,14484
+Everywhere else,Osteoarthritis of knee,9003,0.0,9003,1.0,232
+Everywhere else,Acute ST segment elevation myocardial infarction (disorder),8923,0.0,8106,1.1,12296
+Everywhere else,Concussion with loss of consciousness,8905,0.0,8876,1.0,72
+Everywhere else,Second degree burn,8643,0.0,8616,1.0,73
+Everywhere else,Tubal pregnancy,8300,0.0,4142,2.0,3502
+Everywhere else,Hypertriglyceridemia (disorder),8224,0.0,8224,1.0,1432
+Everywhere else,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),8180,0.0,318,25.7,73693
+Everywhere else,Fracture of rib,7837,0.0,7808,1.0,72
+Everywhere else,Acute allergic reaction,7664,0.0,7368,1.0,2536
+Everywhere else,Resorption of alveolar process due to dental trauma (disorder),6283,0.0,6283,1.0,2038
+Everywhere else,Traumatic dislocation of temporomandibular joint (disorder),6247,0.0,2242,2.8,2186
+Everywhere else,Atopic dermatitis,6168,0.0,5185,1.2,217
+Everywhere else,Fracture of mandible (disorder),6120,0.0,2201,2.8,3199
+Everywhere else,Hyperglycemia (disorder),5870,0.0,5870,1.0,1899
+Everywhere else,Closed fracture of hip,5722,0.0,5685,1.0,72
+Everywhere else,Pulmonary emphysema (disorder),5525,0.0,4879,1.1,20615
+Everywhere else,Familial Alzheimer's disease of early onset (disorder),5317,0.0,2889,1.8,1535
+Everywhere else,Seizure disorder,5112,0.0,3549,1.4,9725
+Everywhere else,Primary fibromyalgia syndrome,4771,0.0,3170,1.5,216
+Everywhere else,Sepsis (disorder),4657,0.0,4657,1.0,39759
+Everywhere else,Chronic obstructive bronchitis (disorder),4496,0.0,3947,1.1,19832
+Everywhere else,Pneumonia (disorder),4301,0.0,2021,2.1,562
+Everywhere else,Perennial allergic rhinitis with seasonal variation,4270,0.0,4270,1.0,179
+Everywhere else,Fetus with chromosomal abnormality,4225,0.0,4179,1.0,1455
+Everywhere else,Perennial allergic rhinitis,4096,0.0,4096,1.0,176
+Everywhere else,Injury of medial collateral ligament of knee,4039,0.0,4034,1.0,16530
+Everywhere else,Neuropathy due to type 2 diabetes mellitus (disorder),3989,0.0,3958,1.0,2762
+Everywhere else,Localized  primary osteoarthritis of the hand,3737,0.0,3737,1.0,232
+Everywhere else,Osteoarthritis of hip,3312,0.0,3312,1.0,231
+Everywhere else,Rupture of patellar tendon,3300,0.0,3297,1.0,16725
+Everywhere else,Opioid abuse (disorder),3103,0.0,768,4.0,545
+Everywhere else,Retinopathy due to type 2 diabetes mellitus (disorder),3101,0.0,3101,1.0,1535
+Everywhere else,Stroke,3013,0.0,2597,1.2,175718
+Everywhere else,Gout,2992,0.0,2768,1.1,502
+Everywhere else,Injury of anterior cruciate ligament,2952,0.0,2949,1.0,16298
+Everywhere else,Pyelonephritis,2652,0.0,1714,1.5,4329
+Everywhere else,Secondary malignant neoplasm of colon,2546,0.0,563,4.5,12200
+Everywhere else,Atrial fibrillation (disorder),2526,0.0,2526,1.0,24010
+Everywhere else,Posttraumatic stress disorder,2339,0.0,115,20.3,88
+Everywhere else,Non-small cell lung cancer (disorder),2200,0.0,1736,1.3,6741
+Everywhere else,Contact dermatitis,2170,0.0,2170,1.0,186
+Everywhere else,Seasonal allergic rhinitis,2037,0.0,2037,1.0,189
+Everywhere else,Nonproliferative diabetic retinopathy due to type 2 diabetes mellitus (disorder),1911,0.0,1911,1.0,1563
+Everywhere else,Primary malignant neoplasm of colon,1859,0.0,1574,1.2,6445
+Everywhere else,Idiopathic atrophic hypothyroidism,1795,0.0,1795,1.0,0
+Everywhere else,Bullet wound,1787,0.0,1786,1.0,89
+Everywhere else,Congenital uterine anomaly,1767,0.0,1762,1.0,1442
+Everywhere else,Recurrent urinary tract infection (disorder),1734,0.0,1734,1.0,2404
+Everywhere else,Gunshot wound (disorder),1659,0.0,1658,1.0,568
+Everywhere else,Neoplasm of prostate,1459,0.0,870,1.7,6285
+Everywhere else,Bleeding from anus,1454,0.0,732,2.0,5601
+Everywhere else,Kidney transplant failure and rejection (disorder),1386,0.0,1386,1.0,1572
+Everywhere else,Cystic Fibrosis,1343,0.0,90,14.9,5128
+Everywhere else,Acute Cholecystitis,1144,0.0,1144,1.0,11293
+Everywhere else,Fracture of vertebral column without spinal cord injury,1124,0.0,658,1.7,60
+Everywhere else,Complication occuring during pregnancy,1078,0.0,1075,1.0,1488
+Everywhere else,Infectious mediastinitis (disorder),1058,0.0,1053,1.0,906
+Everywhere else,Mitral valve regurgitation (disorder),1048,0.0,1035,1.0,567
+Everywhere else,Third degree burn,908,0.0,908,1.0,72
+Everywhere else,Traumatic injury of spinal cord and/or vertebral column (disorder),787,0.0,787,1.0,190
+Everywhere else,Leukemia  disease (disorder),784,0.0,784,1.0,124
+Everywhere else,Preinfarction syndrome (disorder),737,0.0,609,1.2,16067
+Everywhere else,Tongue tie (disorder),730,0.0,730,1.0,2007
+Everywhere else,Rheumatoid arthritis,691,0.0,691,1.0,284
+Everywhere else,Meningomyelocele (disorder),679,0.0,121,5.6,276
+Everywhere else,Macular edema and retinopathy due to type 2 diabetes mellitus (disorder),667,0.0,667,1.0,1573
+Everywhere else,Acquired immune deficiency syndrome (disorder),648,0.0,56,11.6,1762
+Everywhere else,Body mass index 40+ - severely obese (finding),623,0.0,623,1.0,1466
+Everywhere else,Proliferative diabetic retinopathy due to type II diabetes mellitus (disorder),531,0.0,531,1.0,1551
+Everywhere else,Major depression  single episode,529,0.0,285,1.9,354
+Hospice & nursing,Normal pregnancy,16546,15.7,12436,1.3,4817
+Hospice & nursing,Drug overdose,12407,11.8,6969,1.8,121
+Hospice & nursing,Laceration - injury (disorder),7964,7.6,7732,1.0,9558
+Hospice & nursing,Sprain (morphologic abnormality),7800,7.4,7583,1.0,327
+Hospice & nursing,Fracture of bone (disorder),7719,7.3,7423,1.0,4879
+Hospice & nursing,Alzheimer's disease (disorder),7168,6.8,7030,1.0,13383
+Hospice & nursing,Chronic kidney disease stage 4 (disorder),6086,5.8,6047,1.0,13620
+Hospice & nursing,Concussion injury of brain (disorder),4154,4.0,4098,1.0,128
+Hospice & nursing,Impacted molars,2647,2.5,635,4.2,10841
+Hospice & nursing,Chronic intractable migraine without aura,2593,2.5,637,4.1,127
+Hospice & nursing,Chronic pain (finding),2564,2.4,635,4.0,206
+Hospice & nursing,Injury of neck (disorder),2473,2.4,2440,1.0,333
+Hospice & nursing,Chronic congestive heart failure (disorder),2331,2.2,2184,1.1,11691
+Hospice & nursing,Gingivitis (disorder),2193,2.1,1919,1.1,1456
+Hospice & nursing,Malignant neoplasm of breast (disorder),2168,2.1,2092,1.0,13648
+Hospice & nursing,Burn injury (morphologic abnormality),2116,2.0,2099,1.0,491
+Hospice & nursing,Asthma,1864,1.8,1519,1.2,130
+Hospice & nursing,Acute infective cystitis (disorder),1760,1.7,1667,1.1,5461
+Hospice & nursing,Pulmonary emphysema (disorder),1625,1.5,1527,1.1,11430
+Hospice & nursing,Pneumonia (disorder),1566,1.5,1256,1.2,3052
+Hospice & nursing,End-stage renal disease (disorder),1456,1.4,1067,1.4,13036
+Hospice & nursing,Chronic obstructive bronchitis (disorder),1318,1.3,1256,1.0,11625
+Hospice & nursing,Overlapping malignant neoplasm of colon,1311,1.2,1232,1.1,13722
+Hospice & nursing,Malignant tumor of colon,1246,1.2,1145,1.1,13289
+Hospice & nursing,Injury of knee (disorder),1233,1.2,1229,1.0,833
+Hospice & nursing,Acute allergic reaction,741,0.7,719,1.0,2563
+Hospice & nursing,Childhood asthma,731,0.7,612,1.2,125
+Hospice & nursing,Familial Alzheimer's disease of early onset (disorder),670,0.6,656,1.0,13939
+Hospice & nursing,Primary malignant neoplasm of colon,611,0.6,602,1.0,14635
+Veterans sites,Chronic kidney disease stage 4 (disorder),455440,53.1,3530,129.0,821
+Veterans sites,Gingivitis (disorder),104912,12.2,20299,5.2,3270
+Veterans sites,End-stage renal disease (disorder),100624,11.7,1406,71.6,811
+Veterans sites,Dependent drug abuse (disorder),43938,5.1,3192,13.8,423
+Veterans sites,Hyperlipidemia,19426,2.3,4602,4.2,119
+Veterans sites,Viral sinusitis (disorder),11687,1.4,9434,1.2,172
+Veterans sites,Non-small cell carcinoma of lung  TNM stage 1 (disorder),11271,1.3,624,18.1,64900
+Veterans sites,Normal pregnancy,10119,1.2,1079,9.4,14984
+Veterans sites,Loss of teeth (disorder),9528,1.1,4849,2.0,960
+Veterans sites,Gingival disease (disorder),7202,0.8,5422,1.3,5332
+Veterans sites,Primary dental caries (disorder),6954,0.8,5431,1.3,3870
+Veterans sites,Acute viral pharyngitis (disorder),6819,0.8,5915,1.2,382
+Veterans sites,Acute bronchitis (disorder),5698,0.7,5179,1.1,1900
+Veterans sites,Posttraumatic stress disorder,5668,0.7,254,22.3,86
+Veterans sites,Malignant neoplasm of breast (disorder),4315,0.5,238,18.1,4331
+Veterans sites,Essential hypertension (disorder),3973,0.5,1345,3.0,454
+Veterans sites,Neoplasm of prostate,3293,0.4,1962,1.7,5621
+Veterans sites,Suspected COVID-19,3046,0.4,2391,1.3,645
+Veterans sites,Infection of tooth (disorder),2603,0.3,2340,1.1,5508
+Veterans sites,Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),2570,0.3,112,22.9,64668
+Veterans sites,Asthma,2403,0.3,921,2.6,129
+Veterans sites,Polyp of colon,2270,0.3,1403,1.6,19271
+Veterans sites,Dental filling lost (finding),1766,0.2,1637,1.1,3878
+Veterans sites,Anemia (disorder),1749,0.2,1266,1.4,1292
+Veterans sites,Leaking dental filling (finding),1729,0.2,1602,1.1,3884
+Veterans sites,Loose dental filling (finding),1712,0.2,1592,1.1,3885
+Veterans sites,Acute infective cystitis (disorder),1687,0.2,1128,1.5,4000
+Veterans sites,Fractured dental filling (finding),1674,0.2,1561,1.1,3877
+Veterans sites,Chronic kidney disease stage 1 (disorder),1660,0.2,1660,1.0,1804
+Veterans sites,Chronic kidney disease stage 2 (disorder),1627,0.2,1627,1.0,1661
+Veterans sites,Sinusitis (disorder),1616,0.2,697,2.3,213
+Veterans sites,Allergy to substance (finding),1410,0.2,48,29.4,9774
+Veterans sites,Acute bacterial sinusitis (disorder),1352,0.2,663,2.0,227
+Veterans sites,Ischemic heart disease (disorder),1336,0.2,1318,1.0,2665
+Veterans sites,Chronic kidney disease stage 3 (disorder),1310,0.2,1310,1.0,1537
+Veterans sites,Alzheimer's disease (disorder),1216,0.1,803,1.5,5807
+Veterans sites,Streptococcal sore throat (disorder),1197,0.1,1175,1.0,1407
+Veterans sites,COVID-19,1142,0.1,707,1.6,31627
+Veterans sites,Alveolitis of jaw (disorder),1079,0.1,1037,1.0,2428
+Veterans sites,Unhealthy alcohol drinking behavior (finding),1052,0.1,1008,1.0,1508
+Veterans sites,Severe anxiety (panic) (finding),998,0.1,962,1.0,1445
+Veterans sites,Body mass index 30+ - obesity (finding),893,0.1,893,1.0,1242
+Veterans sites,Human immunodeficiency virus infection (disorder),887,0.1,81,11.0,1845
+Veterans sites,Malignant tumor of colon,870,0.1,178,4.9,12476
+Veterans sites,Non-small cell lung cancer (disorder),805,0.1,606,1.3,6877
+Veterans sites,Prediabetes,704,0.1,704,1.0,1259
+Veterans sites,Sleep disorder (disorder),568,0.1,194,2.9,924
+Veterans sites,Concussion with no loss of consciousness,567,0.1,563,1.0,79
+Veterans sites,Metabolic syndrome X (disorder),539,0.1,539,1.0,1611
