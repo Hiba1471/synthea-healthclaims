@@ -102,6 +102,14 @@ SELECT
     ROUND(s.sd_cpc, 2)                               AS "SD",
     ROUND(s.cv, 3)                                   AS "CV",
     ROUND(s.robust_cv, 3)                            AS "Robust CV (IQR/median)",
+    -- P25 and P75 were computed all along and thrown away. Emitting them because
+    -- the box on panel 3 of dashboard/where_the_money_goes.html is drawn between
+    -- them, and the quartiles are NOT symmetric about the median -- for Normal
+    -- pregnancy they sit at $4,747 and $15,776 against a median of $11,499. A
+    -- box reconstructed as median +/- half the IQR is visibly wrong, so the
+    -- chart could not be regenerated without these.
+    ROUND(s.p25_cpc, 2)                              AS "P25 Cost per Claim",
+    ROUND(s.p75_cpc, 2)                              AS "P75 Cost per Claim",
     ROUND(s.min_cpc)                                 AS "Min",
     ROUND(s.max_cpc)                                 AS "Max",
     ROUND(s.max_cpc / NULLIF(s.min_cpc, 0), 1)       AS "Max/Min",
