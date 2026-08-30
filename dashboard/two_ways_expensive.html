@@ -2254,10 +2254,14 @@ $107,099 per patient &#183; 1,002 patients</title></circle>
 <circle class="pt other" cx="352" cy="100" r="5"/>
 <text x="364" y="104" class="leg">697 everything else</text>
 </svg></div>
-<p class="note"><strong>The hospices are not overcharging.</strong> They sit far right because a
-whole multi-week stay is billed as a single encounter, so their &ldquo;price per visit&rdquo; is really a
-price per stay &mdash; the same effect recorded in <code>delayed_claims_tail_2020_2024.csv</code>. Read
-that cluster as a measurement artefact, not a negotiating target.</p>
+<p class="note"><strong>The hospices are not overcharging &mdash; but something real is
+happening to those patients.</strong> A hospice encounter lasts <strong>17 to 54 days</strong> against
+0 days for a clinic appointment, so one record covers weeks of continuous end-of-life care. That is
+genuine, serious, expensive care. What it is <em>not</em> is expensive per day: hospice bills
+<strong>$523&ndash;$579 a day</strong>, near the bottom of every setting &mdash; below nursing homes at
+$777&ndash;$917 and about a tenth of an inpatient bed at $6,023. The length of the stay, not the price of
+the care, is what pushes these dots right (<code>delayed_claims_tail_2020_2024.csv</code>). There is no
+rate here to negotiate down.</p>
 <p class="note"><strong>Both highlighted groups are identified by their names</strong>, because nothing in
 the data marks a facility as a VA site or a hospice. Six of the twelve say <em>Vet Center</em> or
 <em>VA Medical Center</em> outright; three others are VA community clinics recognisable only from the
