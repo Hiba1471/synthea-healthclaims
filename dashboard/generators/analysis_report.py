@@ -485,17 +485,19 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'the largest at 39.8%.'),
               (2,
                'top20',
-               'The largest condition bills more than three times the second',
+               'Five conditions are three quarters of the bill, and the sixth drops below 2%',
                'The twenty largest conditions by total billed. The highlighted top bar is '
                'pregnancy, marked only because it is the outlier &mdash; every bar is measured '
                'the same way.')],
   'para': 'The chart ranks conditions by total billed, and the ranking is severely top-heavy: '
           'normal pregnancy alone accounts for $28.9B, more than three times the second-placed '
-          'condition and more than the next three combined. Taken together the twenty bars are '
-          '90.8% of the $72.7B that carries a diagnosis and 66.6% of the $99.1B billed in '
-          'total &mdash; two denominators worth quoting together, since the first alone '
-          'overstates this chart&rsquo;s reach by about a third. Everything outside the twenty '
-          'is a third of the money at most. What the ranking cannot convey is that these '
+          'condition and more than the next three combined. The concentration is not confined '
+          'to first place. Running the cumulative total down the ranking, five conditions '
+          'reach 74.1% of the $72.7B that carries a diagnosis, and the sixth contributes 1.8% '
+          '&mdash; the fifteen bars after that add $12.1B between them. Twenty conditions '
+          'together are 90.8% of diagnosed spend and 66.6% of the $99.1B billed in total, two '
+          'denominators worth quoting together since the first alone overstates this '
+          'chart&rsquo;s reach by about a third. What the ranking cannot convey is that these '
           'conditions become expensive for unrelated reasons: dividing each one&rsquo;s spend '
           'by the members it affects reorders the list completely, with gingivitis spreading '
           '$10,661 across 800,465 members while lung cancer concentrates $1,416,145 into '
