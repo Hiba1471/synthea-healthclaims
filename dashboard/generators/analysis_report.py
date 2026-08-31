@@ -571,10 +571,12 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'government-funded.',
                'Why the mechanism differs by line of business, which is Finding 3.'],
   'sowhat': 'What members experience as the cost of cover is the routine care, not the serious '
-            'care. Because the categories carrying the highest member share are also among the '
-            'widest-reaching ( dental alone touches 938,009 people), a small '
-            'change in cost-sharing there reaches far more members than the same change made '
-            'anywhere else.'},
+            'care. High share and wide reach do not usually go together here: blood disorders '
+            'carries the highest share at 38.9% but touches only 67,419 people, the smallest '
+            'group on this list. Dental is the exception, combining a high share, 27.9%, with '
+            'the widest reach of any category, 938,009 people. A change in cost-sharing there '
+            'would touch far more members than the same change made against any other '
+            'high-share category.'},
  {'title': 'Which plan a member holds matters more than what is wrong with them',
   'figures': [(5,
                'insurance',
@@ -673,10 +675,12 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'antenatal clinics.',
                'The two groups that stand out on the chart, both identified by facility name '
                'rather than by anything in the data itself.'],
-  'sowhat': 'There is no pricing problem at these facilities to correct, so a negotiation '
-            'aimed at rates would be working on 7.8% of the difference. What separates the '
-            'expensive sites from the rest is the clinical work they do, which is a question '
-            'about where care happens rather than what it costs.'}]
+  'sowhat': 'There is no pricing problem at these facilities to correct. A median of just '
+            '7.8% of a facility&rsquo;s own cost per visit comes from what it charges, and '
+            'equalising every price across all of them barely moves the spread between the '
+            'cheapest and priciest facility. What separates the expensive sites from the '
+            'rest is the clinical work they do, which is a question about where care happens '
+            'rather than what it costs.'}]
 
 if __name__ == '__main__':
     open(OUT, 'w').write(build())
