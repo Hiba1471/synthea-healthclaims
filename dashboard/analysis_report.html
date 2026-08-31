@@ -297,7 +297,8 @@ border-radius:0 4px 4px 0;}
 recommendations follow in a later pass.</p>
 <h2 class="sec">Client background</h2>
 <p><strong>The brief.</strong> Before benefits are set and networks negotiated for 2026, Calder
-Health asked three questions: where did the money go, who bore it, and where does it concentrate?
+Health asked three questions: where did the money go, who bore it, and where does it
+concentrate?
 Everything below answers those three and stops there.</p>
 <p>Calder Health is a non-profit health plan headquartered in Cleveland, serving 1.26 million
 members, with further concentrations in Chicago, Detroit and Northeast Ohio. Members are treated
@@ -323,9 +324,10 @@ cover affordable for every member, in every place they seek care, measuring affo
 a member actually pays rather than by what a plan spends, and holding that standard equally across
 commercial and government lines. That is why member cost burden sits among the headline metrics
 rather than in an appendix, and why facilities are examined separately from conditions.</p>
-<p>We analysed 68.6 million claims across five years in Snowflake, then focused on diagnostic
-patterns and facility-level concentration to answer your three questions. What follows is what
-that showed, together with the queries behind each figure so you can check any of it.</p>
+<p>This analysis covered 68.6 million claims across five years in Snowflake, then focused on
+diagnostic patterns and facility-level concentration to answer those three questions. What follows
+is what that showed, together with the queries behind every figure so any of it can be
+checked.</p>
 <h2 class="sec">About the data</h2>
 <p>Claims were drawn from a read-only Snowflake share,
 <code>SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER</code>, containing Synthea-generated
@@ -417,8 +419,10 @@ places.</li>
 They pay 41.6% of a wellness visit and 8.6% of an inpatient stay. The inexpensive, routine things
 are what people actually feel.</li>
 <li><strong>Which plan a member holds matters more than what is wrong with them.</strong>
-Prediabetes costs a commercial member 85.0% of the bill and a government member 8.5%: the
-same care, a ten-fold difference, produced by benefit design rather than by illness.</li>
+On all ten of the conditions where members carry the most, commercial members pay a larger
+share than government members, by between 12.9 and 78.1 percentage points. Obesity and
+prediabetes are the widest, at 86.8% against 8.7% and 85.0% against 8.5% for identical
+care.</li>
 <li><strong>Spending concentrates in places, not in people.</strong> 86 of 3,918 sites carry half
 the money, but it takes 134,198 members to reach the same half. There is no small group of
 high-cost members to manage.</li>
