@@ -181,6 +181,8 @@ def build():
         for n, key, title, cap in f['figures']:
             o.append(figure(n, key, title, cap, figs))
         o.append('<div class="prose"><p>%s</p></div>' % f['para'])
+        o.append('<div class="sowhat"><p class="swhd">So what</p><p>%s</p></div>'
+                 % f['sowhat'])
         o.append('<div class="examined"><p class="exhd">What was examined</p><ul>%s</ul></div>'
                  % ''.join('<li>%s</li>' % b for b in f['examined']))
         o.append(sources_block(i - 1))
@@ -246,6 +248,10 @@ figcaption{font-size:12.5px;color:var(--text-muted);margin-top:9px;line-height:1
 .prose{margin-top:20px;}
 .prose p{font-size:15.5px;color:var(--text-secondary);}
 .prose strong{color:var(--text-primary);}
+.sowhat{margin-top:18px;border-left:3px solid var(--accent);padding:2px 0 2px 16px;}
+.swhd{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+font-weight:700;margin:0 0 6px;}
+.sowhat p:last-child{font-size:15.5px;line-height:1.6;color:var(--text-primary);margin:0;}
 .examined{margin-top:16px;background:var(--card);border:1px solid var(--rule);
 border-radius:8px;padding:15px 18px 8px;}
 .exhd{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted);
@@ -526,7 +532,11 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'moderately extreme on all three at once &mdash; members reached, visits each, '
                'cost per visit &mdash; and the multiplication does the rest.',
                'Whether facilities differ in what they charge for the same condition. For '
-               'eight of the ten largest, barely at all.']},
+               'eight of the ten largest, barely at all.'],
+  'sowhat': 'Cost work has a small and well-defined target: five conditions and most of the '
+            'bill is covered. But the five reach the top by different routes &mdash; some '
+            'through the number of members affected, others through intensity within a few '
+            '&mdash; so they will not respond to one common approach.'},
  {'title': 'Members carry a fifth of the bill, and it falls hardest on the cheapest care',
   'figures': [(3,
                'whobears',
@@ -572,7 +582,12 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'The two care types that appeared to break the pattern. Neither does &mdash; '
                'one is skewed by a handful of very large claims, the other is 90.2% '
                'government-funded.',
-               'Why the mechanism differs by line of business, which is Finding 3.']},
+               'Why the mechanism differs by line of business, which is Finding 3.'],
+  'sowhat': 'What members experience as the cost of cover is the routine care, not the serious '
+            'care. Because the categories carrying the highest member share are also among the '
+            'widest-reaching &mdash; dental alone touches 938,009 people &mdash; a small '
+            'change in cost-sharing there reaches far more members than the same change made '
+            'anywhere else.'},
  {'title': 'Which plan a member holds matters more than what is wrong with them',
   'figures': [(5,
                'insurance',
@@ -609,7 +624,12 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'The mechanism behind it, measured rather than assumed &mdash; a flat '
                '$0&ndash;50 per claim on one side, a deductible and annual cap on the other.',
                'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by '
-               'care type, government members 0.6% to 8.1%; the blend describes neither.']},
+               'care type, government members 0.6% to 8.1%; the blend describes neither.'],
+  'sowhat': 'This gap is a design choice rather than a market condition, which places it '
+            'within Calder&rsquo;s control in a way that almost nothing else in this report '
+            'is. It also means a single blended member-cost figure describes neither line of '
+            'business, and any board pack quoting one is reporting an average that matches no '
+            'actual member.'},
  {'title': 'Spending concentrates in places, not in people',
   'figures': [(6,
                'places',
@@ -651,7 +671,11 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'How the member concentration compares with real claims data. This population '
                'is flatter &mdash; the top 1% carry 11.8% where real books run 20&ndash;25% '
                '&mdash; so if anything this understates how few members matter.',
-               'Whether the facility concentration is actionable, which is Finding 5.']},
+               'Whether the facility concentration is actionable, which is Finding 5.'],
+  'sowhat': 'Attention aimed at facilities can be exhaustive, because 86 is a list a team can '
+            'finish. Attention aimed at members cannot: reaching the same half of spending '
+            'means reaching 134,198 people, so member-level work has to be selective on some '
+            'basis this analysis does not supply.'},
  {'title': 'The most expensive facilities are not charging more',
   'figures': [(8,
                'hospitals',
@@ -691,7 +715,11 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'women give birth on site; at the most expensive, 6.8%. Delivery units against '
                'antenatal clinics.',
                'The two groups that stand out on the chart, both identified by facility name '
-               'rather than by anything in the data itself.']}]
+               'rather than by anything in the data itself.'],
+  'sowhat': 'There is no pricing problem at these facilities to correct, so a negotiation '
+            'aimed at rates would be working on 7.8% of the difference. What separates the '
+            'expensive sites from the rest is the clinical work they do, which is a question '
+            'about where care happens rather than what it costs.'}]
 
 if __name__ == '__main__':
     open(OUT, 'w').write(build())
