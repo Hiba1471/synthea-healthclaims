@@ -86,14 +86,44 @@ def scope_css(css, wrap):
     return theme, out
 
 
+def _matched_div(s, start):
+    """The full <div>...</div> beginning at `start`, respecting nesting."""
+    depth, i = 0, start
+    while i < len(s):
+        if s.startswith('<div', i):
+            depth += 1
+        elif s.startswith('</div>', i):
+            depth -= 1
+            if depth == 0:
+                return s[start:i + 6]
+            i += 5
+        i += 1
+    return s[start:]
+
+
 def figure_of(name):
-    """The <div class="figure"> from a built chart, plus any legend after it."""
+    """Return (css, [(figure_html, legend_html), ...]) for a built chart.
+
+    Legends are paired to figures BY POSITION, not by index. A multi-panel chart
+    can have a legend on one panel and none on another -- where_the_money_goes
+    has three panels and only two legends -- so zipping the two lists by index
+    silently files a legend under the wrong figure. That produced a legend
+    reading "counted only for hospitalised patients" beneath a bar chart whose
+    blue bar meant nothing of the kind.
+    """
     with open(os.path.join(DASH, name + '.html')) as fh:
         s = fh.read()
     css = re.search(r'<style>(.*?)</style>', s, re.S).group(1)
-    figs = re.findall(r'<div class="figure">.*?</svg></div>', s, re.S)
-    keys = re.findall(r'<div class="key">.*?</div>\s*(?=<|$)', s, re.S)
-    return css, figs, keys
+    figs = [(m.start(), m.group(0))
+            for m in re.finditer(r'<div class="figure">.*?</svg></div>', s, re.S)]
+    keys = [(m.start(), _matched_div(s, m.start()))
+            for m in re.finditer(r'<div class="key">', s)]
+    out = []
+    for i, (pos, html) in enumerate(figs):
+        nxt = figs[i + 1][0] if i + 1 < len(figs) else len(s)
+        mine = [k for kpos, k in keys if pos < kpos < nxt]
+        out.append((html, mine[0] if mine else ''))
+    return css, out
 
 
 # figure key -> (source chart, which figure in it, wrapper class)
@@ -113,14 +143,14 @@ def collect():
     """Pull every figure and its scoped CSS. Returns (theme_css, css, figs)."""
     theme, css, figs = [], [], {}
     for key, (chart, idx, wrap) in FIGURES.items():
-        raw, found, keys = figure_of(chart)
+        raw, found = figure_of(chart)
         t, rules = scope_css(raw, wrap)
         for b in t:
             if b not in theme:
                 theme.append(b)          # tokens are shared; declare each once
         css.extend(rules)
-        legend = keys[idx] if idx < len(keys) else ''
-        figs[key] = '<div class="%s">%s%s</div>' % (wrap, found[idx], legend)
+        fig, legend = found[idx]
+        figs[key] = '<div class="%s">%s%s</div>' % (wrap, fig, legend)
     return theme, css, figs
 
 
@@ -361,23 +391,27 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
   'figures': [(1,
                'donut',
                'Pregnancy alone is two fifths of all diagnosed spending',
-               'Diagnosed spend by condition, 2020&ndash;2024. Pregnancy is the single largest '
-               'slice at 39.8%.'),
+               'Diagnosed spend split by condition, 2020&ndash;2024. Each slice is one '
+               'condition&rsquo;s share of the $72.7B that carries a diagnosis; pregnancy is '
+               'the largest at 39.8%.'),
               (2,
                'top20',
                'The largest condition bills more than three times the second',
-               'The twenty largest conditions by total billed. The first bar is more than '
-               'three times the second.')],
+               'The twenty largest conditions by total billed. The highlighted top bar is '
+               'pregnancy, marked only because it is the outlier &mdash; every bar is measured '
+               'the same way.')],
   'para': 'The eye goes straight to the top bar, and it should: normal pregnancy runs the full '
           'width of the chart at <strong>$28.9B</strong> while the second-placed condition '
-          'reaches barely a third of it. Twenty conditions account for <strong>90.8%</strong> '
-          'of the $72.7B that can be attached to a diagnosis and <strong>66.6%</strong> of all '
-          'spending, so everything past the twentieth bar is a third of the money at most. The '
-          'harder thing to see is that these conditions become expensive in unrelated ways '
-          '&mdash; gingivitis spreads $10,661 across 800,465 members while lung cancer '
-          'concentrates $1,416,145 into 2,384 &mdash; so a list that looks like a single '
-          'priority queue is really several different problems that happen to be ranked '
-          'together.',
+          'reaches barely a third of it. Summing the twenty bars gives <strong>90.8%</strong> '
+          'of the $72.7B that carries a diagnosis, and <strong>66.6%</strong> of the $99.1B '
+          'billed in total &mdash; two different denominators, quoted together because the '
+          'first alone would overstate the reach of this chart by about a third. Everything '
+          'past the twentieth bar is therefore a third of the money at most. What the ranking '
+          'cannot show is that these conditions become expensive in unrelated ways: re-ranking '
+          'the same twenty by spend divided by members affected reorders them completely, with '
+          'gingivitis spreading <strong>$10,661 across 800,465 members</strong> while lung '
+          'cancer concentrates <strong>$1,416,145 into 2,384</strong>. A list that looks like '
+          'one priority queue is several different problems ranked together.',
   'examined': ['Total billed per condition, ranked, against total billed per member &mdash; '
                'the two rankings disagree sharply and the disagreement is the point.',
                'Whether pregnancy at 39.8% is credible. The number of visits per pregnancy is '
@@ -392,23 +426,32 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
   'figures': [(3,
                'whobears',
                'The smaller the bill, the more of it members pay',
-               'Share of the bill paid by members rather than the plan, by type of care.'),
+               'Share of each bill paid by members rather than the plan, by type of care. The '
+               'coloured segment is the member&rsquo;s share, the grey remainder the '
+               'plan&rsquo;s; total bill and number of people affected are printed alongside '
+               'because share alone says nothing about size.'),
               (4,
                'cheapcare',
                'Every step down in cost is a step up in what members carry',
-               'Cost per member against the share they carry. The cheaper the care, the more '
-               'of it they pay.')],
+               'Cost per member against the share members carry, one circle per type of care. '
+               '<strong>Circle size is the number of people affected</strong> (1,802 to '
+               '938,009). The <strong>dashed line is a fitted trend</strong> through all '
+               'fifteen points. The <strong>two circles picked out in purple</strong> are the '
+               'only types that sit away from that trend &mdash; both were tested and neither '
+               'is a real exception, as the notes below record.')],
   'para': 'The bars are ordered by what members carry, and the notable thing is what sits at '
           'the top: not cancer or intensive care but <strong>blood disorders at 38.9%</strong> '
-          'and diabetes at 36.6% &mdash; the small, ordinary, recurring bills. The scatter '
-          'makes the same point as a slope, running down and to the right without exception '
-          'across fifteen types of care. Members bear <strong>20.4% of all spending</strong>, '
-          '$20.3B or $16,084 each across five years, but the burden runs opposite to cost: '
-          '<strong>41.6% of a wellness visit against 8.6% of an inpatient stay</strong>. What '
-          'a member feels is therefore the check-up, the filling and the screening &mdash; the '
-          'care that is easiest to put off &mdash; while the catastrophic care they could '
-          'never have deferred is the part the plan absorbs. Dental is the clearest single '
-          'case, at 27.9% of an $11.83B bill falling on 938,009 people.',
+          'of a $121M bill and diabetes at 36.6% of $435M &mdash; small, ordinary, recurring '
+          'costs. The scatter makes the same point as a slope, running down and to the right '
+          'across all fifteen types of care without exception. Members bear <strong>20.4% of '
+          'all spending</strong>, which is $20.3B, or $16,084 each across five years once '
+          'divided by the 1.26 million members. Splitting the same spend by kind of visit '
+          'rather than by condition sharpens it further: members pay <strong>41.6% of a '
+          'wellness visit against 8.6% of an inpatient stay</strong>. What a member feels is '
+          'therefore the check-up, the filling and the screening &mdash; the care easiest to '
+          'put off &mdash; while the catastrophic care they could never have deferred is the '
+          'part the plan absorbs. Dental is the clearest single case, at 27.9% of an $11.83B '
+          'bill falling on 938,009 people.',
   'examined': ['Member share by type of care, with total bill and number of people alongside '
                '&mdash; share alone says nothing about size.',
                'Whether the pattern survives inside one line of business, or was an artefact '
@@ -423,19 +466,24 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'insurance',
                'The same condition, ten times the cost, depending only on the plan',
                'The ten conditions where members carry the most, split by line of business. '
-               'The gap is the plan, not the illness.')],
-  'para': 'Each row is one condition and the line across it is the gap between two members '
+               'Each row is one condition; the two dots are the typical commercial and '
+               'government member and <strong>the line between them is the gap</strong>. Dots '
+               'are the median of the five annual figures, not the five years pooled.')],
+  'para': 'Each row is one condition, and the line across it is the gap between two members '
           'receiving identical care. None of the ten lines closes: commercial members pay more '
-          'on every one, never by fewer than 12.9 points. Prediabetes stretches furthest '
-          '&mdash; <strong>85.0% for a commercial member against 8.5% for a government '
-          'one</strong> &mdash; and across five years the same divide shows as $19,178 out of '
-          'pocket against $2,118, with uninsured members at $61,742. Nothing about the illness '
-          'explains the gap; it is the difference between a flat copay and a deductible with '
-          'an annual maximum. Cheap routine care never accumulates enough within a year to '
-          'reach a commercial member&rsquo;s out-of-pocket maximum, so they pay coinsurance on '
-          'all of it, while a government member pays their copay and nothing further. The '
-          'practical consequence is that any single figure quoted as &ldquo;what members '
-          'pay&rdquo; describes nobody at all.',
+          'on every one, <strong>never by fewer than 12.9 percentage points</strong>. '
+          'Prediabetes stretches furthest, at <strong>85.0% for a commercial member against '
+          '8.5% for a government one</strong>. Totalling what each kind of member actually '
+          'paid across the five years puts the same divide in money: <strong>$19,178 out of '
+          'pocket for a commercial member, $2,118 for a government one</strong>, and $61,742 '
+          'for someone uninsured. Nothing about the illness explains it. The mechanism was '
+          'measured rather than assumed, by grouping claims into $500 bands and tracking what '
+          'members paid as bills grew: government members pay a flat $0&ndash;50 whatever the '
+          'size, so their share shrinks as the bill rises, while commercial members pay '
+          'coinsurance until an annual out-of-pocket maximum is reached. Cheap routine care '
+          'never accumulates enough within a year to reach that maximum. The practical '
+          'consequence is that any single figure quoted as &ldquo;what members pay&rdquo; '
+          'describes nobody at all.',
   'examined': ['The ten highest-burden conditions, split three ways, using the typical year '
                'rather than five years pooled so the range is visible.',
                'Whether the gap is stable or a single bad year. It holds in all five.',
@@ -447,23 +495,30 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
   'figures': [(6,
                'places',
                '86 facilities carry what it takes 134,198 members to reach',
-               'How much of each group is needed to reach half of all spending.'),
+               'How much of each group is needed to reach half of all spending. <strong>The '
+               'coloured portion is that few</strong>; the grey remainder is everyone else. '
+               'Bars are drawn as a share of each group, not as raw counts, because there are '
+               '321 times more members than facilities.'),
               (7,
                'lorenz',
                'Facilities bow sharply away from the line; members barely do',
-               'The same finding as a curve: how quickly spend accumulates as you work down '
-               'each ranked list.')],
+               'The same finding drawn as curves: working down each ranked list, how fast '
+               'spending accumulates. <strong>The dashed diagonal is what perfectly even '
+               'spending would look like</strong> &mdash; the further a curve bows above it, '
+               'the more concentrated that group is.')],
   'para': 'The two coloured slivers are the comparison: a thin one for facilities, a much '
           'wider one for members, each showing how much of that group is needed to reach half '
           'of all spending. <strong>86 of 3,918 facilities</strong> get there, against '
-          '<strong>134,198 members</strong>. Measured fairly, as a share of each group rather '
-          'than as raw counts, facilities are about five times more concentrated &mdash; 2.2% '
-          'against 10.7% &mdash; and the curves show the same thing by how far each bows away '
-          'from the diagonal. The practical difference is one of scale: 86 sites is a list a '
-          'team can work through one at a time, while 134,198 members is a small city that no '
-          'case-management programme reaches. It is the one thing this analysis establishes '
-          'that examining conditions or costs alone never could, because neither counts '
-          'people.',
+          '<strong>134,198 of 1,259,375 members</strong>. Comparing those counts directly '
+          'would flatter the finding &mdash; there are 321 times more members than facilities '
+          'to begin with &mdash; so the bars are drawn as a share of each group, at '
+          '<strong>2.2% against 10.7%</strong>, making facilities about five times more '
+          'concentrated rather than a thousand. The curves show the same thing by how far each '
+          'bows away from the diagonal. The practical difference is one of scale: 86 sites is '
+          'a list a team can work through one at a time, while 134,198 members is a small city '
+          'that no case-management programme reaches. It is the one thing this analysis '
+          'establishes that examining conditions or costs alone never could, because neither '
+          'counts people.',
   'examined': ['Concentration measured four ways &mdash; by member, by facility, by condition, '
                'by type of care &mdash; to check the answer was not an artefact of one '
                'grouping.',
@@ -479,22 +534,28 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'hospitals',
                'The dearest facilities charge ordinary prices &mdash; their patients simply '
                'return fifty times',
-               'Every facility by what an average visit costs and how often members return. '
-               'Three groups, doing three different things.')],
+               'Every facility placed by what an average visit costs and how often members '
+               'return. Colour marks the two groups that separate out, identified by facility '
+               'name; the axis is a log scale, so each step right is a tenfold increase.')],
   'para': 'Three clumps separate on this chart, and the important one sits at the top: a dozen '
-          'facilities whose members return around fifty times, at prices in the middle of the '
-          'pack. Cost per member ranges from <strong>$4,401 to $144,422</strong> across '
-          'facilities, a thirty-three-fold spread that looks like a pricing problem until the '
-          'prices are equalised &mdash; reprice every procedure in the data to a single common '
-          'rate and the spread barely moves, from 15.8&times; to 15.2&times;. <strong>A median '
-          'of just 7.8% of a facility&rsquo;s cost per visit reflects what it '
-          'charges.</strong> The same holds for volume of work: for the typical condition, '
-          'facilities perform near-identical amounts. What the three clumps actually represent '
-          'is three different jobs &mdash; dialysis at ordinary prices in the top group, '
-          'hospices billing a multi-week stay as a single visit on the right, and ordinary '
-          'care in the mass at the lower left. Even pregnancy, the one condition where '
-          'facilities genuinely differ, splits into delivery units and antenatal clinics doing '
-          'different halves of the same care.',
+          'facilities whose members return around fifty times a year, at prices in the middle '
+          'of the pack. Cost per member ranges from <strong>$4,401 to $144,422</strong> across '
+          'facilities, a thirty-three-fold spread that reads as a pricing problem until the '
+          'prices are tested directly. Recomputing every facility&rsquo;s cost per visit with '
+          'each procedure repriced to its all-facility average barely moves the spread &mdash; '
+          'from <strong>15.8&times; to 15.2&times;</strong> &mdash; which puts a median of '
+          'just <strong>7.8%</strong> of a facility&rsquo;s cost per visit down to what it '
+          'charges. Volume of work behaves the same way: across 119 conditions the typical '
+          'spread in procedures per claim between facilities is <strong>0.027</strong>, '
+          'near-identical. The three clumps are three different jobs rather than three price '
+          'points. Breaking the top group down by condition shows two thirds of its visits are '
+          'kidney failure &mdash; chronic kidney disease at <strong>53.1% of visits and 129 '
+          'visits per member</strong> &mdash; which is dialysis, three sessions a week. The '
+          'group on the right is hospices, where only <strong>18.1% of visits</strong> are '
+          'end-of-life stays but those run 22 days each and carry half the billing. Even '
+          'pregnancy, the one condition where facilities genuinely differ, splits on whether '
+          'the birth happens there: <strong>95.5% of women deliver on site at the cheapest '
+          'quarter of facilities, 6.8% at the dearest</strong>.',
   'examined': ['Whether the spread is price or case mix, by repricing every procedure to its '
                'all-facility average and remeasuring. It is case mix.',
                'Whether facilities differ in how much they do for the same condition. For the '
