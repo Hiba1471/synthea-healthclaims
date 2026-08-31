@@ -164,7 +164,7 @@ def figure(n, key, title, caption, figs):
 def build():
     verify_sources()
     theme, css, figs = collect()
-    o = ['<title>Calder Health — Five-Year Claims Analysis</title>',
+    o = ['<title>Calder Health: Five-Year Claims Analysis</title>',
          '<style>', PAGE_CSS, '\n'.join(theme), '\n'.join(css),
          # the one token the charts disagree on
          '.fig-places .rest{fill:#d2d0ca;}',
@@ -194,101 +194,94 @@ def build():
 
 
 PAGE_CSS = '''
-:root{--surface-1:#fcfcfb;--surface-2:#fff;--text-primary:#0b0b0b;--text-secondary:#52514e;
---text-muted:#78766f;--rule:#e6e5e1;--accent:#2a78d6;--warn:#eb6834;--card:#fff;}
+/* Spacing is one 4px scale: 4 8 12 16 24 32 48 64. No value off it. */
+:root{--surface-1:#fcfcfb;--surface-2:#fff;--text-primary:#111110;--text-secondary:#4a4946;
+--text-muted:#63625c;--rule:#d8d6d0;--rule-strong:#94928b;--accent:#1d64b8;--card:#fff;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#171716;
---surface-2:#1f1f1e;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;
---rule:#33322f;--accent:#3987e5;--warn:#d95926;--card:#232322;}}
+--surface-2:#1f1f1e;--text-primary:#fff;--text-secondary:#c9c8bd;--text-muted:#a3a199;
+--rule:#403f3b;--rule-strong:#6b6962;--accent:#7fb0ea;--card:#212120;}}
 :root[data-theme="dark"]{--surface-1:#171716;--surface-2:#1f1f1e;--text-primary:#fff;
---text-secondary:#c3c2b7;--text-muted:#9a988f;--rule:#33322f;--accent:#3987e5;
---warn:#d95926;--card:#232322;}
-body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:40px 20px 72px;
+--text-secondary:#c9c8bd;--text-muted:#a3a199;--rule:#403f3b;--rule-strong:#6b6962;
+--accent:#7fb0ea;--card:#212120;}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:48px 24px 64px;
 font:16px/1.65 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
 .wrap{max-width:860px;margin:0 auto;}
-.eyebrow{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted);
-font-weight:650;margin:0 0 10px;}
-h1.title{font-size:31px;line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;}
-.standfirst{font-size:17px;color:var(--text-secondary);margin:0 0 6px;max-width:64ch;}
-.meta{font-size:13px;color:var(--text-muted);margin:14px 0 0;}
-h2.sec{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-muted);
-font-weight:650;margin:52px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule);}
-h3{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:0 0 22px;}
-h3.subsec{font-size:15px;line-height:1.35;font-weight:650;letter-spacing:0;
-margin:26px 0 10px;color:var(--text-primary);}
-.fno{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-color:var(--accent);font-weight:700;margin-bottom:5px;}
-p{margin:0 0 13px;}
-.mission{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 20px;
-font-size:17px;line-height:1.55;color:var(--text-primary);}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 8px;}
-@media (max-width:700px){.cards{grid-template-columns:1fr;}}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:17px 18px;}
-.card .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);
-font-weight:650;margin-bottom:8px;}
-.card .big{font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.1;}
-.card .sub2{font-size:12.5px;color:var(--text-secondary);margin-top:7px;line-height:1.45;}
-.callout{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--accent);
-border-radius:8px;padding:16px 18px;margin:0 0 8px;}
-.callout p{font-size:14px;color:var(--text-secondary);margin:0 0 9px;}
+h1.title{font-size:30px;line-height:1.2;letter-spacing:-.02em;margin:0 0 12px;}
+.standfirst{font-size:17px;color:var(--text-secondary);margin:0 0 8px;max-width:64ch;}
+.meta{font-size:13px;color:var(--text-muted);margin:0;}
+h2.sec{font-size:19px;letter-spacing:-.01em;margin:48px 0 16px;padding-bottom:8px;
+border-bottom:1px solid var(--rule-strong);}
+h3.subsec{font-size:16px;font-weight:650;margin:24px 0 8px;color:var(--text-primary);}
+h3{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:0 0 24px;}
+.fno{display:block;font-size:13px;color:var(--text-muted);font-weight:400;margin-bottom:4px;}
+p{margin:0 0 12px;}
+ul{margin:0 0 12px;padding-left:24px;}
+li{margin-bottom:8px;color:var(--text-secondary);}
+li strong,p strong{color:var(--text-primary);}
+.mission{font-size:17px;line-height:1.55;margin:0 0 16px;padding:16px;
+background:var(--card);border:1px solid var(--rule);border-radius:4px;}
+/* Metrics are a plain three-row table, not a row of boxes. */
+table.metrics{width:100%;border-collapse:collapse;margin:0 0 8px;}
+table.metrics th{text-align:left;font-size:13px;font-weight:650;color:var(--text-secondary);
+padding:12px 16px 12px 0;border-bottom:1px solid var(--rule);white-space:nowrap;
+vertical-align:baseline;}
+table.metrics td.val{font-size:24px;font-weight:650;letter-spacing:-.02em;padding:12px 24px 12px 0;
+border-bottom:1px solid var(--rule);white-space:nowrap;vertical-align:baseline;}
+table.metrics td.note{font-size:14px;color:var(--text-secondary);padding:12px 0;
+border-bottom:1px solid var(--rule);vertical-align:baseline;}
+table.metrics td.note a{color:var(--text-muted);font-size:12.5px;text-decoration:none;}
+table.metrics td.note a:hover{color:var(--accent);text-decoration:underline;}
+@media (max-width:640px){table.metrics,table.metrics tbody,table.metrics tr,
+table.metrics th,table.metrics td{display:block;width:auto;border:0;padding:0;white-space:normal;}
+table.metrics tr{border-bottom:1px solid var(--rule);padding:12px 0;}
+table.metrics td.val{font-size:24px;padding:4px 0;}}
+.callout{background:var(--card);border:1px solid var(--rule);border-radius:4px;
+padding:24px;margin:0 0 8px;}
+.callout p{font-size:15px;color:var(--text-secondary);margin:0 0 12px;}
 .callout p:last-child{margin:0;}
 .callout strong{color:var(--text-primary);}
-ul{margin:0 0 13px;padding-left:20px;}
-li{margin-bottom:7px;color:var(--text-secondary);}
-li strong{color:var(--text-primary);}
-.summary li{font-size:15.5px;margin-bottom:11px;}
-section.finding{margin:0 0 46px;padding:0 0 6px;}
-figure.fig{margin:0 0 22px;}
-.figtitle{font-size:15.5px;line-height:1.4;font-weight:650;letter-spacing:-.005em;
-margin:0 0 11px;padding-left:11px;border-left:2px solid var(--accent);
+.summary li{font-size:16px;margin-bottom:12px;}
+section.finding{margin:0 0 48px;}
+figure.fig{margin:0 0 24px;}
+.figtitle{font-size:16px;line-height:1.4;font-weight:650;margin:0 0 12px;
 color:var(--text-primary);}
-figure.fig + figure.fig{margin-top:30px;}
-h3 + figure.fig .figtitle{margin-top:2px;}
-figcaption{font-size:12.5px;color:var(--text-muted);margin-top:9px;line-height:1.5;}
+figure.fig + figure.fig{margin-top:32px;}
+figcaption{font-size:13px;color:var(--text-secondary);margin:8px 0 0;line-height:1.5;}
 .fignum{color:var(--text-primary);font-weight:650;}
-.prose{margin-top:20px;}
-.prose p{font-size:15.5px;color:var(--text-secondary);}
-.prose strong{color:var(--text-primary);}
-.sowhat{margin-top:18px;border-left:3px solid var(--accent);padding:2px 0 2px 16px;}
-.swhd{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
-font-weight:700;margin:0 0 6px;}
-.sowhat p:last-child{font-size:15.5px;line-height:1.6;color:var(--text-primary);margin:0;}
-.examined{margin-top:16px;background:var(--card);border:1px solid var(--rule);
-border-radius:8px;padding:15px 18px 8px;}
-.exhd{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted);
-font-weight:650;margin:0 0 10px;}
-.examined li{font-size:14px;}
-details.sources{margin-top:12px;border:1px solid var(--rule);border-radius:8px;
-background:var(--card);padding:0 16px;}
-details.sources summary{cursor:pointer;font-size:12px;letter-spacing:.06em;
-text-transform:uppercase;color:var(--text-muted);font-weight:650;padding:12px 0;
-list-style:none;}
+.prose{margin-top:24px;}
+.prose p{font-size:16px;color:var(--text-secondary);}
+.sowhat{margin-top:16px;padding:16px;background:var(--card);
+border:1px solid var(--rule);border-radius:4px;}
+.swhd{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 4px;}
+.sowhat p:last-child{font-size:16px;line-height:1.6;color:var(--text-secondary);margin:0;}
+.examined{margin-top:16px;}
+.exhd{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 8px;}
+.examined ul{margin:0;}
+.examined li{font-size:15px;}
+details.sources{margin-top:16px;border-top:1px solid var(--rule);padding-top:12px;}
+details.sources summary{cursor:pointer;font-size:13px;color:var(--text-muted);
+font-weight:650;list-style:none;}
 details.sources summary::-webkit-details-marker{display:none;}
-details.sources summary::before{content:"\25B8";display:inline-block;margin-right:8px;
-transition:transform .15s;}
-details.sources[open] summary::before{transform:rotate(90deg);}
-details.sources ul{margin:0 0 12px;padding-left:20px;}
-details.sources li{font-size:13.5px;margin-bottom:8px;color:var(--text-secondary);}
-details.sources a{color:var(--accent);text-decoration:none;}
-details.sources a:hover{text-decoration:underline;}
-details.sources a.csv{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
-color:var(--text-muted);margin-left:2px;}
-.card .src{margin-top:9px;font-size:11.5px;}
-.card .src a{color:var(--text-muted);text-decoration:none;}
-.card .src a:hover{color:var(--accent);text-decoration:underline;}
-footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);
-font-size:12.5px;color:var(--text-muted);}
+details.sources summary::before{content:"+";display:inline-block;width:16px;font-weight:400;}
+details.sources[open] summary::before{content:"\2212";}
+details.sources ul{margin:12px 0 0;}
+details.sources li{font-size:14px;margin-bottom:8px;}
+details.sources a{color:var(--accent);}
+details.sources a.csv{font-size:13px;color:var(--text-muted);margin-left:4px;}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--rule-strong);
+font-size:13px;color:var(--text-muted);}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;}
 '''
 
-HEADER = '''<p class="eyebrow">Calder Health &middot; Prepared for the 2026 planning cycle</p>
-<h1 class="title">Where five years of spend went, and who carried it</h1>
+HEADER = '''<h1 class="title">Where five years of spend went, and who carried it</h1>
 <p class="standfirst">An analysis of 68.6 million claims across 1.26 million members,
-2020&ndash;2024.</p>
-<p class="meta">Findings only. Recommendations follow in a later pass.</p>'''
+2020 to 2024.</p>
+<p class="meta">Prepared for Calder Health, 2026 planning cycle. Findings only;
+recommendations follow in a later pass.</p>'''
 
 ABOUT = '''<h2 class="sec">About Calder Health</h2>
 <p class="mission"><strong>Mission.</strong> To keep comprehensive cover affordable for every
-member, in every place they seek care &mdash; measuring affordability by what a member actually
+member, in every place they seek care, measuring affordability by what a member actually
 pays rather than by what a plan spends, and holding that standard equally across commercial and
 government lines.</p>
 <p>Calder Health is a non-profit health plan headquartered in Cleveland, serving <strong>1.26
@@ -297,17 +290,17 @@ Members are treated across a network of <strong>3,918 facilities</strong>, from 
 clinics to large teaching hospitals. The plan operates two lines of business, and they are
 designed differently:</p>
 <ul>
-<li><strong>Commercial</strong> &mdash; employer group plans, built on a deductible and
+<li><strong>Commercial</strong>: employer group plans, built on a deductible and
 coinsurance with an annual out-of-pocket maximum. A member pays a share of each bill until the
 annual maximum is reached, after which the plan pays everything.</li>
-<li><strong>Government</strong> &mdash; Medicaid and Medicare managed care, built on a flat copay
+<li><strong>Government</strong>: Medicaid and Medicare managed care, built on a flat copay
 per visit. A member pays the same small amount whatever the bill comes to.</li>
 </ul>
 <p>That difference turns out to matter more than almost anything else in this report. The same
 condition can cost a commercial member ten times what it costs a government member, and it is the
 plan&rsquo;s own benefit design producing the gap.</p>
-<p>The mission sets the shape of the analysis. Affordability measured by what members pay &mdash;
-rather than by total spend &mdash; is why member cost burden sits among the headline metrics
+<p>The mission sets the shape of the analysis. Affordability measured by what members pay,
+rather than by total spend, is why member cost burden sits among the headline metrics
 instead of in an appendix. &ldquo;In every place they seek care&rdquo; is why facilities are
 examined separately from conditions. &ldquo;Equally across both lines&rdquo; is why every figure
 that can be split by line of business has been.</p>
@@ -317,7 +310,7 @@ three things: where the money went, who bore it, and where it concentrates.</p>'
 DATASECTION = '''<h2 class="sec">About the data</h2>
 <p>Claims were drawn from a read-only Snowflake share,
 <code>SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER</code>, containing Synthea-generated
-synthetic healthcare records &mdash; 887 million claim transactions across 124 million claims and
+synthetic healthcare records: 887 million claim transactions across 124 million claims and
 1.4 million simulated patients in total.</p>
 <p><strong>Time frame.</strong> All figures cover <strong>1 January 2020 to 31 December 2024</strong>,
 five complete years. The window matters: unfiltered, the source spans simulated history back to
@@ -325,19 +318,19 @@ five complete years. The window matters: unfiltered, the source spans simulated 
 covers <strong>68.6 million claims, 1,259,375 patients and $99.11 billion billed</strong>.</p>
 <p><strong>Tables used.</strong></p>
 <ul>
-<li><code>SILVER.CLAIMS</code> &mdash; diagnosis fields, used to attach spend to a condition.</li>
-<li><code>SILVER.ENCOUNTERS</code> &mdash; visit class, dates and the facility each visit belongs
+<li><code>SILVER.CLAIMS</code>: diagnosis fields, used to attach spend to a condition.</li>
+<li><code>SILVER.ENCOUNTERS</code>: visit class, dates and the facility each visit belongs
 to.</li>
-<li><code>SILVER.ORGANIZATIONS</code> &mdash; facility name and city.</li>
-<li><code>SILVER.PATIENTS</code> &mdash; dates of birth, used only for the age check behind the
+<li><code>SILVER.ORGANIZATIONS</code>: facility name and city.</li>
+<li><code>SILVER.PATIENTS</code>: dates of birth, used only for the age check behind the
 preventive-care question.</li>
 </ul>
 <p>Two curated objects sit in front of the raw share and every query reads through them, because
 the source carries traps that return confident, plausible, wrong answers rather than errors:</p>
 <ul>
-<li><code>V_CLAIMS_TX_CLEAN</code> &mdash; claim transactions with the money columns corrected,
+<li><code>V_CLAIMS_TX_CLEAN</code>: claim transactions with the money columns corrected,
 payer collapsed to type, administrative rows flagged, and the date window applied.</li>
-<li><code>CODE_DICTIONARY</code> &mdash; 1,453 rows mapping every clinical code to one canonical
+<li><code>CODE_DICTIONARY</code>: 1,453 rows mapping every clinical code to one canonical
 name and category, resolving all nine code fields.</li>
 </ul>
 <p><strong>Data dictionary.</strong> Full table and column references, together with the known
@@ -350,7 +343,7 @@ HOWTOREAD = '''<h2 class="sec">How to read these numbers</h2>
 <div class="callout">
 <p><strong>The relative patterns here are solid. Use this to steer strategy, not for line-item
 budgeting.</strong></p>
-<p><strong>What holds.</strong> Rankings, shares, ratios and concentration &mdash; which conditions
+<p><strong>What holds.</strong> Rankings, shares, ratios and concentration: which conditions
 dominate and by how much, what proportion of a bill members carry and how that differs by line of
 business, how few facilities carry the spend. Every finding below rests on these, and each was
 tested more than one way: the concentration result was measured across four separate groupings, the
@@ -358,8 +351,8 @@ member-burden pattern was re-checked inside each line of business on its own, an
 spread was retested with every procedure repriced to a common rate. All three held.</p>
 <p><strong>Where the boundary sits.</strong> Absolute per-case dollar amounts. This is simulated
 claims data and it prices a pregnancy at roughly 8.6&times; the real-world figure. That leaves
-everything above intact &mdash; pregnancy is genuinely the largest cost centre, and the shares and
-rankings are unaffected &mdash; but a per-case figure from this report is not a budgeting input.
+everything above intact: pregnancy is genuinely the largest cost centre, and the shares and
+rankings are unaffected. But a per-case figure from this report is not a budgeting input.
 Read the shape rather than the price tag.</p>
 <p><strong>Outside the scope of this data.</strong> Negotiated rates, denials, bad debt and
 collections. Every claim here is paid in full and no provider is charged differently from any
@@ -368,35 +361,36 @@ them would need real contract and remittance data.</p>
 </div>'''
 
 NORTHSTAR = '''<h2 class="sec">The three numbers Calder steers by</h2>
-<div class="cards">
-<div class="card"><div class="lbl">Total cost of care</div><div class="big">$99.1B</div>
-<div class="sub2">Billed across five years. $72.7B of it attaches to a specific diagnosis; the
-rest is care recorded without one.</div>
-<div class="src"><a href="../sql/analysis/q1_cost_drivers.sql">q1_cost_drivers.sql</a></div></div>
-<div class="card"><div class="lbl">Member cost burden</div><div class="big">20.4%</div>
-<div class="sub2">$20.3B paid out of pocket &mdash; $16,084 per member over five years. This is
-the number the mission lives or dies on.</div><div class="src"><a href="../sql/analysis/q2_who_pays.sql">q2_who_pays.sql</a></div></div>
-<div class="card"><div class="lbl">Spend concentration</div><div class="big">86 sites</div>
-<div class="sub2">Of 3,918 facilities, 86 carry half of all spending. A list short enough to work
-through by hand.</div><div class="src"><a href="../sql/analysis/q3_concentration.sql">q3_concentration.sql</a></div></div>
-</div>'''
+<table class="metrics"><tbody>
+<tr><th>Total cost of care</th><td class="val">$99.1B</td>
+<td class="note">Billed across five years. $72.7B of it attaches to a specific diagnosis; the rest
+is care recorded without one.
+<a href="../sql/analysis/q1_cost_drivers.sql">q1_cost_drivers.sql</a></td></tr>
+<tr><th>Member cost burden</th><td class="val">20.4%</td>
+<td class="note">$20.3B paid out of pocket, or $16,084 per member over five years. This is the
+number the mission lives or dies on.
+<a href="../sql/analysis/q2_who_pays.sql">q2_who_pays.sql</a></td></tr>
+<tr><th>Spend concentration</th><td class="val">86 sites</td>
+<td class="note">Of 3,918 facilities, 86 carry half of all spending. A list short enough to work
+through by hand.
+<a href="../sql/analysis/q3_concentration.sql">q3_concentration.sql</a></td></tr>
+</tbody></table>'''
 
 SUMMARY = '''<h2 class="sec">Executive summary</h2>
 <ul class="summary">
-<li><strong>Twenty conditions carry 91% of the bill that can be attributed to a diagnosis</strong>
-&mdash; and pregnancy alone is 39.8% of it. Spending is not spread thin; it sits in a handful of
+<li><strong>Twenty conditions carry 91% of the bill that can be attributed to a diagnosis</strong>, and pregnancy alone is 39.8% of it. Spending is not spread thin; it sits in a handful of
 places.</li>
 <li><strong>Members carry a fifth of the total, and it lands hardest on the cheapest care.</strong>
 They pay 41.6% of a wellness visit and 8.6% of an inpatient stay. The inexpensive, routine things
 are what people actually feel.</li>
 <li><strong>Which plan a member holds matters more than what is wrong with them.</strong>
-Prediabetes costs a commercial member 85.0% of the bill and a government member 8.5% &mdash; the
+Prediabetes costs a commercial member 85.0% of the bill and a government member 8.5%: the
 same care, a ten-fold difference, produced by benefit design rather than by illness.</li>
 <li><strong>Spending concentrates in places, not in people.</strong> 86 of 3,918 sites carry half
 the money, but it takes 134,198 members to reach the same half. There is no small group of
 high-cost members to manage.</li>
 <li><strong>The most expensive facilities are not charging more.</strong> Reprice every procedure
-identically and the gap between sites barely moves &mdash; only 7.8% of a site&rsquo;s cost per
+identically and the gap between sites barely moves: only 7.8% of a site&rsquo;s cost per
 visit is its prices. Facilities differ in what they treat, not in what they charge.</li>
 </ul>'''
 
@@ -420,8 +414,8 @@ with real claims data.</li>
 
 FOOTER = '''<footer>Calder Health is an illustrative client. The analysis is real and reproducible;
 every figure traces to a saved query in <code>sql/analysis/</code> and a result file in
-<code>sql/results/</code>. Generated by <code>dashboard/generators/analysis_report.py</code> &mdash;
-edit the script, not this page.</footer>'''
+<code>sql/results/</code>. Generated by <code>dashboard/generators/analysis_report.py</code>.
+Edit the script, not this page.</footer>'''
 
 
 # Which saved query established which numbers in each finding. Keep this honest:
@@ -482,10 +476,10 @@ def sources_block(i):
     items = ''.join(
         '<li><a href="../sql/analysis/{q}.sql"><code>{q}.sql</code></a> '
         '<a class="csv" href="../sql/results/{csv}">results</a> '
-        '&mdash; {what}</li>'.format(q=e[0], csv=_result_of(e), what=e[1])
+        ': {what}</li>'.format(q=e[0], csv=_result_of(e), what=e[1])
         for e in SOURCES[i])
     return ('<details class="sources"><summary>Sources for this finding '
-            '&mdash; {n} queries</summary><ul>{items}</ul></details>'
+            ', {n} queries</summary><ul>{items}</ul></details>'
             .format(n=len(SOURCES[i]), items=items))
 
 
@@ -500,7 +494,7 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'top20',
                'Five conditions are three quarters of the bill, and the sixth drops below 2%',
                'The twenty largest conditions by total billed. The highlighted top bar is '
-               'pregnancy, marked only because it is the outlier &mdash; every bar is measured '
+               'pregnancy, marked only because it is the outlier; every bar is measured '
                'the same way.')],
   'para': 'Both charts rank conditions by total billed, one as shares of the whole and one as '
           'a ranked bar for each. The distribution they describe is severely top-heavy. Normal '
@@ -509,23 +503,23 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
           'down the ranking, three conditions reach 63.4% and five reach 74.1%, at which point '
           'the distribution flattens: the sixth adds 1.8%, and the fifteen bars after it are '
           'worth $12.1B between them. All twenty together are 90.8% of diagnosed spend, and '
-          '66.6% of the $99.1B billed overall &mdash; the gap between those two figures is the '
+          '66.6% of the $99.1B billed overall. The gap between those two figures is the '
           'roughly quarter of spending that carries no diagnosis and sits outside these charts '
           'entirely.',
-  'examined': ['Total billed per condition, ranked, against total billed per member &mdash; '
+  'examined': ['Total billed per condition, ranked, against total billed per member: '
                'the two rankings disagree sharply and the disagreement is the point.',
                'Whether pregnancy at 39.8% is credible. The number of visits per pregnancy is '
                'plausible (11.1, against a real-world 10&ndash;15); the price per visit is '
                'not.',
                'Whether the top twenty are extreme on one driver or several. They are '
-               'moderately extreme on all three at once &mdash; members reached, visits each, '
-               'cost per visit &mdash; and the multiplication does the rest.',
+               'moderately extreme on all three at once ( members reached, visits each, '
+               'cost per visit), and the multiplication does the rest.',
                'Whether facilities differ in what they charge for the same condition. For '
                'eight of the ten largest, barely at all.'],
   'sowhat': 'Cost work has a small and well-defined target: five conditions and most of the '
-            'bill is covered. But the five reach the top by different routes &mdash; some '
+            'bill is covered. But the five reach the top by different routes: some '
             'through the number of members affected, others through intensity within a few '
-            '&mdash; so they will not respond to one common approach.'},
+            ', so they will not respond to one common approach.'},
  {'title': 'Members carry a fifth of the bill, and it falls hardest on the cheapest care',
   'figures': [(3,
                'whobears',
@@ -541,30 +535,30 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                '<strong>Circle size is the number of people affected</strong> (1,802 to '
                '938,009). The <strong>dashed line is a fitted trend</strong> through all '
                'fifteen points. The <strong>two circles picked out in purple</strong> are the '
-               'only types that sit away from that trend &mdash; both were tested and neither '
+               'only types that sit away from that trend; both were tested and neither '
                'is a real exception, as the notes below record.')],
   'para': 'Both charts measure the proportion of a bill met by the member rather than the '
           'plan. The bars rank the fifteen types of care by that share; the scatter plots the '
           'same share against what the care costs per person, sized by how many people it '
           'reaches. Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with '
-          'cost. The categories at the top are the cheapest ones &mdash; blood disorders at '
-          '38.9% on $1,802 a person, diabetes at 36.6% on $1,675 &mdash; while cancer sits at '
+          'cost. The categories at the top are the cheapest ones: blood disorders at '
+          '38.9% on $1,802 a person, diabetes at 36.6% on $1,675, while cancer sits at '
           '8.3% on $104,622 and allergy and immune conditions at 10.0% on $175,111. The '
           'scatter shows that slope holding across all fifteen points without exception. Size '
           'and share are largely independent: dental is high on both at 27.9% and 938,009 '
           'people, while blood disorders lead on share while reaching only 67,419.',
   'examined': ['Member share by type of care, with total bill and number of people alongside '
-               '&mdash; share alone says nothing about size.',
+               ': share alone says nothing about size.',
                'Whether the pattern survives inside one line of business, or was an artefact '
                'of mixing them. It strengthens: the relationship is clearer within commercial '
                'and within government than across both together.',
-               'The two care types that appeared to break the pattern. Neither does &mdash; '
+               'The two care types that appeared to break the pattern. Neither does: '
                'one is skewed by a handful of very large claims, the other is 90.2% '
                'government-funded.',
                'Why the mechanism differs by line of business, which is Finding 3.'],
   'sowhat': 'What members experience as the cost of cover is the routine care, not the serious '
             'care. Because the categories carrying the highest member share are also among the '
-            'widest-reaching &mdash; dental alone touches 938,009 people &mdash; a small '
+            'widest-reaching ( dental alone touches 938,009 people), a small '
             'change in cost-sharing there reaches far more members than the same change made '
             'anywhere else.'},
  {'title': 'Which plan a member holds matters more than what is wrong with them',
@@ -579,17 +573,17 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
           'for the typical government member; the line between them is the difference in the '
           'share of an identical bill. No row closes. Commercial members carry more on all '
           'ten, by between 12.9 and 78.1 percentage points. Two metabolic conditions separate '
-          'from the rest &mdash; obesity at 86.8% against 8.7%, prediabetes at 85.0% against '
-          '8.5% &mdash; while the other eight sit between 13 and 48 points. The two '
+          'from the rest: obesity at 86.8% against 8.7%, prediabetes at 85.0% against '
+          '8.5%, while the other eight sit between 13 and 48 points. The two '
           'populations barely overlap: commercial shares run 61.5% to 86.8%, government shares '
           '8.5% to 58.4%, so the lowest commercial figure still exceeds all but the highest '
           'government one. These are typical-year figures, and the year-to-year movement is '
-          'small &mdash; prediabetes stays between 83.8% and 86.1% for commercial members '
+          'small: prediabetes stays between 83.8% and 86.1% for commercial members '
           'across all five years.',
   'examined': ['The ten highest-burden conditions, split three ways, using the typical year '
                'rather than five years pooled so the range is visible.',
                'Whether the gap is stable or a single bad year. It holds in all five.',
-               'The mechanism behind it, measured rather than assumed &mdash; a flat '
+               'The mechanism behind it, measured rather than assumed: a flat '
                '$0&ndash;50 per claim on one side, a deductible and annual cap on the other.',
                'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by '
                'care type, government members 0.6% to 8.1%; the blend describes neither.'],
@@ -611,27 +605,27 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'Facilities bow sharply away from the line; members barely do',
                'The same finding drawn as curves: working down each ranked list, how fast '
                'spending accumulates. <strong>The dashed diagonal is what perfectly even '
-               'spending would look like</strong> &mdash; the further a curve bows above it, '
+               'spending would look like</strong>. The further a curve bows above it, '
                'the more concentrated that group is.')],
   'para': 'Both charts show how much of a group is needed to reach half of all spending. The '
           'bars give the threshold: 86 of 3,918 facilities, against 134,198 of 1,259,375 '
           'members. They are drawn as a share of each group rather than as counts, because '
-          'there are 321 times more members than facilities &mdash; 2.2% against 10.7%. The '
+          'there are 321 times more members than facilities: 2.2% against 10.7%. The '
           'curves show the same relationship continuously, with the dashed diagonal marking '
           'perfectly even spending, and the separation widens along their whole length: the '
           'priciest 1% of facilities account for 32.5% of spending against 11.8% for the '
           'priciest 1% of members, and by the 10% mark the figures are 86.2% and 48.2%. The '
           'facility curve bows sharply throughout; the member curve stays close to even.',
-  'examined': ['Concentration measured four ways &mdash; by member, by facility, by condition, '
-               'by type of care &mdash; to check the answer was not an artefact of one '
+  'examined': ['Concentration measured four ways ( by member, by facility, by condition, '
+               'by type of care) to check the answer was not an artefact of one '
                'grouping.',
                'Whether comparing 86 against 134,198 is fair. It is not on its own: there are '
                '321 times more members than facilities, so the fair comparison is 2.2% against '
                '10.7%.',
                'How the member concentration compares with real claims data. This population '
-               'is flatter &mdash; the top 1% carry 11.8% where real books run 20&ndash;25% '
-               '&mdash; so if anything this understates how few members matter.',
-               'Whether the facility concentration is actionable, which is Finding 5.'],
+               'is flatter ( the top 1% carry 11.8% where real books run 20&ndash;25% '
+               '), so if anything this understates how few members matter.',
+               'Whether the facility concentration is few enough to work through, which is Finding 5.'],
   'sowhat': 'Attention aimed at facilities can be exhaustive, because 86 is a list a team can '
             'finish. Attention aimed at members cannot: reaching the same half of spending '
             'means reaching 134,198 people, so member-level work has to be selective on some '
@@ -639,7 +633,7 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
  {'title': 'The most expensive facilities are not charging more',
   'figures': [(8,
                'hospitals',
-               'The dearest facilities charge ordinary prices &mdash; their patients come '
+               'The dearest facilities charge ordinary prices: their patients come '
                'back fifty times in five years',
                'Every facility placed by what an average visit costs and how often members '
                'return. Colour marks the two groups that separate out, identified by facility '
@@ -659,7 +653,7 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
   'examined': ['Whether the spread is price or case mix, by repricing every procedure to its '
                'all-facility average and remeasuring. It is case mix.',
                'Whether facilities differ in how much they do for the same condition. For the '
-               'typical condition, no &mdash; and the one big exception is pregnancy.',
+               'typical condition, no, and the one big exception is pregnancy.',
                'What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of '
                'women give birth on site; at the most expensive, 6.8%. Delivery units against '
                'antenatal clinics.',

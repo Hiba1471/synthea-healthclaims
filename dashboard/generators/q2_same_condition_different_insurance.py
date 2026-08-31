@@ -105,7 +105,7 @@ def build():
                      .format(cx + 9, y - 11))
 
     o.append('<text x="460" y="424" class="axis-title">Typical share of the bill the '
-             'patient pays &#8212; median of the five years 2020&#8211;2024</text>')
+             'patient pays: median of the five years 2020&#8211;2024</text>')
     o.append('</svg></div>')
     o.append(TAIL)
     o.append('</div>')

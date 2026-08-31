@@ -146,7 +146,7 @@ def build():
     o.append('<line class="axis" x1="{:.0f}" y1="{:.0f}" x2="{:.0f}" y2="{:.0f}"/>'
              .format(PX0, PY0, PX1, PY0))
     o.append('<text x="{:.0f}" y="{:.0f}" class="axis-title">What an average visit costs '
-             '&#8212; mostly what they treat, not what they charge (log scale)</text>'
+             ': mostly what they treat, not what they charge (log scale)</text>'
              .format((PX0 + PX1) / 2, PY0 + 44))
     o.append('<text class="axis-title" transform="translate(20,{:.0f}) rotate(-90)">'
              'Visits per patient over five years</text>'.format((PY0 + PY1) / 2))
@@ -154,8 +154,8 @@ def build():
     # legend sits top-right, the one empty corner: nothing is both dear and frequent
     lx, ly = 352.0, 66.0
     for i, (g, txt) in enumerate([
-            ('va',    '{} veterans’ sites &#8212; they come back constantly'.format(n['va'])),
-            ('stay',  '{} hospices &amp; nursing homes &#8212; half their money is long stays'.format(n['stay'])),
+            ('va',    '{} veterans’ sites: they come back constantly'.format(n['va'])),
+            ('stay',  '{} hospices &amp; nursing homes: half their money is long stays'.format(n['stay'])),
             ('other', '{} everything else'.format(n['other']))]):
         y = ly + i * 19
         o.append('<circle class="pt {}" cx="{:.0f}" cy="{:.0f}" r="5"/>'.format(g, lx, y - 4))

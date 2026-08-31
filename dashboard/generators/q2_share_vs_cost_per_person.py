@@ -166,7 +166,7 @@ def build():
 
     o.append('<line class="axis" x1="74" y1="448" x2="764" y2="448"/>')
     o.append('<text x="419" y="492" class="axis-title">Total cost per person over five '
-             'years &#8212; log scale</text>')
+             'years, log scale</text>')
     o.append('<text class="axis-title" transform="translate(16,256) rotate(-90)">'
              'Share of the bill patients pay</text>')
     o.append('</svg></div>')
