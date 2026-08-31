@@ -639,15 +639,16 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
  {'title': 'The most expensive facilities are not charging more',
   'figures': [(8,
                'hospitals',
-               'The dearest facilities charge ordinary prices &mdash; their patients simply '
-               'return fifty times',
+               'The dearest facilities charge ordinary prices &mdash; their patients come '
+               'back fifty times in five years',
                'Every facility placed by what an average visit costs and how often members '
                'return. Colour marks the two groups that separate out, identified by facility '
                'name; the axis is a log scale, so each step right is a tenfold increase.')],
   'para': 'The chart places every facility by what an average visit costs against how often '
           'members return, on a log scale. Three groups separate rather than forming one '
           'continuous spread: 12 facilities high on the vertical axis whose members return '
-          'around fifty times, 22 extending far to the right at high cost per visit, and the '
+          'around fifty times across the five years, 22 extending far to the right at high '
+          'cost per visit, and the '
           'remaining 697 massed at the lower left. Cost per member across them ranges from '
           '$4,401 to $144,422, a thirty-three-fold difference. That range is case mix rather '
           'than pricing: repricing every procedure to its all-facility average moves the '
