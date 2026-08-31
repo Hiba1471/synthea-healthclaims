@@ -218,7 +218,7 @@ p{margin:0 0 12px;}
 ul{margin:0 0 12px;padding-left:24px;}
 li{margin-bottom:8px;color:var(--text-secondary);}
 li strong,p strong{color:var(--text-primary);}
-.mission{font-size:17px;line-height:1.55;margin:0 0 16px;padding:16px;
+.mission{font-size:15px;line-height:1.55;margin:0 0 16px;padding:16px;
 background:var(--card);border:1px solid var(--rule);border-radius:4px;}
 /* Metrics are a plain three-row table, not a row of boxes. */
 table.metrics{width:100%;border-collapse:collapse;margin:0 0 8px;}
@@ -279,33 +279,37 @@ HEADER = '''<h1 class="title">Where five years of spend went, and who carried it
 <p class="meta">Prepared for Calder Health, 2026 planning cycle. Findings only;
 recommendations follow in a later pass.</p>'''
 
-ABOUT = '''<h2 class="sec">About Calder Health</h2>
-<p class="mission"><strong>Mission.</strong> To keep comprehensive cover affordable for every
-member, in every place they seek care, measuring affordability by what a member actually
-pays rather than by what a plan spends, and holding that standard equally across commercial and
-government lines.</p>
-<p>Calder Health is a non-profit health plan headquartered in Cleveland, serving <strong>1.26
-million members</strong> with further concentrations in Chicago, Detroit and Northeast Ohio.
-Members are treated across a network of <strong>3,918 facilities</strong>, from single-site
-clinics to large teaching hospitals. The plan operates two lines of business, and they are
-designed differently:</p>
+ABOUT = '''<h2 class="sec">Client background</h2>
+<p><strong>The brief.</strong> Before benefits are set and networks negotiated for 2026, Calder
+Health asked three questions: where did the money go, who bore it, and where does it concentrate?
+Everything below answers those three and stops there.</p>
+<p>Calder Health is a non-profit health plan headquartered in Cleveland, serving 1.26 million
+members, with further concentrations in Chicago, Detroit and Northeast Ohio. Members are treated
+across a network of 3,918 facilities, from single-site clinics to large teaching hospitals. That
+network size is the reason the third question is worth asking at all: with nearly four thousand
+places to look, knowing whether spending is spread across them or pooled in a few changes what any
+review of the network would involve.</p>
+<p>Calder runs two lines of business, and the difference between them is not administrative
+detail. It is the largest single source of variation in what members pay, which makes it central
+to the second question rather than background to it:</p>
 <ul>
-<li><strong>Commercial</strong>: employer group plans, built on a deductible and
-coinsurance with an annual out-of-pocket maximum. A member pays a share of each bill until the
-annual maximum is reached, after which the plan pays everything.</li>
-<li><strong>Government</strong>: Medicaid and Medicare managed care, built on a flat copay
-per visit. A member pays the same small amount whatever the bill comes to.</li>
+<li><strong>Commercial:</strong> employer group plans, built on a deductible and coinsurance with
+an annual out-of-pocket maximum. A member pays a share of each bill until the annual maximum is
+reached, after which the plan pays everything.</li>
+<li><strong>Government:</strong> Medicaid and Medicare managed care, built on a flat copay per
+visit. A member pays the same small amount whatever the bill comes to.</li>
 </ul>
-<p>That difference turns out to matter more than almost anything else in this report. The same
-condition can cost a commercial member ten times what it costs a government member, and it is the
-plan&rsquo;s own benefit design producing the gap.</p>
-<p>The mission sets the shape of the analysis. Affordability measured by what members pay,
-rather than by total spend, is why member cost burden sits among the headline metrics
-instead of in an appendix. &ldquo;In every place they seek care&rdquo; is why facilities are
-examined separately from conditions. &ldquo;Equally across both lines&rdquo; is why every figure
-that can be split by line of business has been.</p>
-<p><strong>The brief.</strong> Before benefits are set and networks negotiated for 2026, establish
-three things: where the money went, who bore it, and where it concentrates.</p>'''
+<p>Those two designs behave in opposite directions as a bill grows, so a single figure for
+&ldquo;what members pay&rdquo; would average across two populations that never overlap. Every
+figure below that can be split by line of business has been.</p>
+<p class="mission"><strong>The mission this is measured against.</strong> To keep comprehensive
+cover affordable for every member, in every place they seek care, measuring affordability by what
+a member actually pays rather than by what a plan spends, and holding that standard equally across
+commercial and government lines. That is why member cost burden sits among the headline metrics
+rather than in an appendix, and why facilities are examined separately from conditions.</p>
+<p>We analysed 68.6 million claims across five years in Snowflake, then focused on diagnostic
+patterns and facility-level concentration to answer your three questions. What follows is what
+that showed, together with the queries behind each figure so you can check any of it.</p>'''
 
 DATASECTION = '''<h2 class="sec">About the data</h2>
 <p>Claims were drawn from a read-only Snowflake share,
@@ -339,7 +343,7 @@ traps in the source data, are documented in
 in this report traces to a saved query in <code>sql/analysis/</code> and a result file in
 <code>sql/results/</code>.</p>'''
 
-HOWTOREAD = '''<h2 class="sec">How to read these numbers</h2>
+HOWTOREAD = '''<h2 class="sec">Things to be aware of before proceeding</h2>
 <div class="callout">
 <p><strong>The relative patterns here are solid. Use this to steer strategy, not for line-item
 budgeting.</strong></p>
