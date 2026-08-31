@@ -20,6 +20,8 @@ h1.title{font-size:31px;line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;}
 h2.sec{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-muted);
 font-weight:650;margin:52px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule);}
 h3{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:0 0 22px;}
+h3.subsec{font-size:15px;line-height:1.35;font-weight:650;letter-spacing:0;
+margin:26px 0 10px;color:var(--text-primary);}
 .fno{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
 color:var(--accent);font-weight:700;margin-bottom:5px;}
 p{margin:0 0 13px;}
@@ -369,6 +371,23 @@ debt or collections. In this data every claim is paid in full, and no provider i
 different price from any other. Those are properties of the simulation, not findings about
 Calder.</p>
 </div>
+<h3 class="subsec">What this analysis could not answer</h3>
+<p>Stated plainly so that silence is not mistaken for a clean bill of health.</p>
+<ul>
+<li><strong>Whether members skip preventive care.</strong> Wellness visits reach 1,259,199 of the
+1,259,375 members, and the small variation that exists tracks who is in each group rather than
+what they received. The data schedules these visits by protocol, so it cannot show anyone
+declining or missing care. The answerable neighbour of this question is Finding 2.
+(<code>q3_preventive_access.sql</code>)</li>
+<li><strong>Whether any facility is efficient.</strong> Every difference between sites resolves to
+what they treat. Prices barely vary, and neither does the amount of work done for a given
+condition.</li>
+<li><strong>Anything about denials, collections or bad debt.</strong> Every claim in this data is
+paid in full.</li>
+<li><strong>Whether this membership is sicker or healthier than the market.</strong> The
+population is generated, not observed, and its very sickest members are under-represented compared
+with real claims data.</li>
+</ul>
 <h2 class="sec">The three numbers Calder steers by</h2>
 <div class="cards">
 <div class="card"><div class="lbl">Total cost of care</div><div class="big">$99.1B</div>
@@ -399,23 +418,6 @@ high-cost members to manage.</li>
 <li><strong>The most expensive facilities are not charging more.</strong> Reprice every procedure
 identically and the gap between sites barely moves &mdash; only 7.8% of a site&rsquo;s cost per
 visit is its prices. Facilities differ in what they treat, not in what they charge.</li>
-</ul>
-<h2 class="sec">What this analysis could not answer</h2>
-<p>Stated plainly so that silence is not mistaken for a clean bill of health.</p>
-<ul>
-<li><strong>Whether members skip preventive care.</strong> Wellness visits reach 1,259,199 of the
-1,259,375 members, and the small variation that exists tracks who is in each group rather than
-what they received. The data schedules these visits by protocol, so it cannot show anyone
-declining or missing care. The answerable neighbour of this question is Finding 2.
-(<code>q3_preventive_access.sql</code>)</li>
-<li><strong>Whether any facility is efficient.</strong> Every difference between sites resolves to
-what they treat. Prices barely vary, and neither does the amount of work done for a given
-condition.</li>
-<li><strong>Anything about denials, collections or bad debt.</strong> Every claim in this data is
-paid in full.</li>
-<li><strong>Whether this membership is sicker or healthier than the market.</strong> The
-population is generated, not observed, and its very sickest members are under-represented compared
-with real claims data.</li>
 </ul>
 <h2 class="sec">The findings</h2>
 <section class="finding"><h3><span class="fno">Finding 1</span>Twenty conditions carry nearly all of the bill, and one of them is pregnancy</h3>

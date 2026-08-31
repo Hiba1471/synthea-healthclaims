@@ -171,8 +171,8 @@ def build():
          '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) '
          '.fig-places .rest{fill:#3a3936;}}',
          '</style>',
-         '<div class="wrap">', HEADER, ABOUT, DATASECTION, HOWTOREAD, NORTHSTAR, SUMMARY,
-         NOTANSWERED,
+         '<div class="wrap">', HEADER, ABOUT, DATASECTION, HOWTOREAD, NOTANSWERED,
+         NORTHSTAR, SUMMARY,
          '<h2 class="sec">The findings</h2>']
 
     for i, f in enumerate(FINDINGS, 1):
@@ -211,6 +211,8 @@ h1.title{font-size:31px;line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;}
 h2.sec{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-muted);
 font-weight:650;margin:52px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule);}
 h3{font-size:20px;line-height:1.3;letter-spacing:-.01em;margin:0 0 22px;}
+h3.subsec{font-size:15px;line-height:1.35;font-weight:650;letter-spacing:0;
+margin:26px 0 10px;color:var(--text-primary);}
 .fno{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
 color:var(--accent);font-weight:700;margin-bottom:5px;}
 p{margin:0 0 13px;}
@@ -387,7 +389,7 @@ identically and the gap between sites barely moves &mdash; only 7.8% of a site&r
 visit is its prices. Facilities differ in what they treat, not in what they charge.</li>
 </ul>'''
 
-NOTANSWERED = '''<h2 class="sec">What this analysis could not answer</h2>
+NOTANSWERED = '''<h3 class="subsec">What this analysis could not answer</h3>
 <p>Stated plainly so that silence is not mistaken for a clean bill of health.</p>
 <ul>
 <li><strong>Whether members skip preventive care.</strong> Wellness visits reach 1,259,199 of the
