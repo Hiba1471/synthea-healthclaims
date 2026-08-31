@@ -574,9 +574,11 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
             'care. High share and wide reach do not usually go together here: blood disorders '
             'carries the highest share at 38.9% but touches only 67,419 people, the smallest '
             'group on this list. Dental is the exception, combining a high share, 27.9%, with '
-            'the widest reach of any category, 938,009 people. A change in cost-sharing there '
-            'would touch far more members than the same change made against any other '
-            'high-share category.'},
+            'the widest reach of any category, 938,009 people. Reach sets the ceiling on who '
+            'a cost-sharing change could affect, since only members who actually receive that '
+            'kind of care would feel it: a change to dental cost-sharing could reach up to '
+            '938,009 members, against 67,419 for blood disorders and 259,513 for diabetes, '
+            'the two categories with a higher share than dental&rsquo;s.'},
  {'title': 'Which plan a member holds matters more than what is wrong with them',
   'figures': [(5,
                'insurance',
