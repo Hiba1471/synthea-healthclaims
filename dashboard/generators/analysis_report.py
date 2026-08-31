@@ -525,9 +525,15 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                'Whether facilities differ in what they charge for the same condition. For '
                'eight of the ten largest, barely at all.'],
   'sowhat': 'Cost work has a small and well-defined target: five conditions and most of the '
-            'bill is covered. But the five reach the top by different routes: some '
-            'through the number of members affected, others through intensity within a few '
-            ', so they will not respond to one common approach.'},
+            'bill is covered. But the five reach the top by different routes, and that '
+            'changes what each one would need. Gingivitis reaches 800,475 members at 6.9 '
+            'claims each: it is expensive because of how many people it touches, so anything '
+            'aimed at it has to work at population scale. Chronic kidney disease and lung '
+            'cancer are the opposite: 37,037 and 2,384 members respectively, but 258.5 and '
+            '255.8 claims each: they are expensive because a few people need a great deal of '
+            'care, so the same scale of effort there reaches far fewer members. Treating all '
+            'five as one kind of problem would size the response wrong for at least some of '
+            'them.'},
  {'title': 'Members carry a fifth of the bill, and it falls hardest on the cheapest care',
   'figures': [(3,
                'whobears',
