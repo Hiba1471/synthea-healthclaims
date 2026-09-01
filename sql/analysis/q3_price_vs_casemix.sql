@@ -18,11 +18,27 @@
 --
 --   actual cost per visit             $1,013 - $16,030     15.8x spread
 --   case-mix only, prices equalised   $1,105 - $16,805     15.2x spread
---   median share attributable to price          7.8%
+--   median |actual - casemix| / actual, across sites        7.8%
+--
+-- THE 7.8% IS AN ABSOLUTE-VALUE MEDIAN -- state it that way, not as "7.8% of
+-- cost is price." The signed column below runs -29.8% to +27.0%, and the
+-- median of the SIGNED values is only 3.0%, not 7.8%: 298 of 730 sites (41%)
+-- have a NEGATIVE value, meaning their real prices for the procedures they
+-- perform run BELOW the all-facility average for that same case mix. Taking
+-- the absolute value is the right choice for "how much of cost-per-visit is
+-- explained by a site's own pricing, as opposed to what it treats" -- a site
+-- priced 10% under the benchmark is explained by price exactly as much as one
+-- priced 10% over it -- but it means 7.8% is a typical MAGNITUDE of deviation
+-- in either direction, not a typical markup, and it is not the same number as
+-- the signed median. Report both if the distinction matters to the reader.
 --
 -- (On the wider 1,505-site population at a >=1,000-visit floor the same test
 -- gives 29.9x against 24.1x, correlation 0.974, mean gap 9.24% -- the same
--- conclusion, and the reason the floor choice does not matter here.)
+-- conclusion. NOT BACKED BY A SAVED RESULT FILE, unlike everything else in
+-- this project: no query for the 1,505-site run exists in sql/analysis/, so
+-- this line cannot be re-verified from the repo, and whether "mean gap" here
+-- is signed or absolute is not recorded. Treat it as a secondary robustness
+-- note, not as a citable figure, until it is rerun and saved.)
 --
 -- Equalising every price in the dataset removes almost none of the spread. A
 -- hospital's cost per visit is what it treats, not what it charges. Q1 was
