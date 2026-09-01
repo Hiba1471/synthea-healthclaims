@@ -89,14 +89,24 @@ ORDER BY r.rank_repriced;
 -- in 10 minutes against 1.26M patients -- keep the window-function shape if
 -- this is ever rerun).
 --
--- Result: repricing pregnancy DOWN makes patient concentration go UP, not
--- down -- top 1% moves from 11.8% (unrepriced) to 15.4%, and the number of
--- patients needed to reach half of spend falls from 134,198 to 127,841.
+-- Result: repricing pregnancy ALONE DOWN makes patient concentration go UP,
+-- not down -- top 1% moves from 11.8% (unrepriced) to 15.4%, and the number
+-- of patients needed to reach half of spend falls from 134,198 to 127,841.
 -- Pregnancy spend was moderate-sized and spread across many patients, so
 -- removing its inflation shifts relative weight toward the genuinely highest-
--- cost patients (cancer, kidney failure). Finding 4 is not merely robust to
--- the pregnancy pricing error -- it is conservative: the real concentration
--- is at least as strong as reported, arguably stronger.
+-- cost patients (cancer, kidney failure).
+--
+-- THIS DOES NOT GENERALISE. q1_multi_condition_sensitivity.sql runs the same
+-- test correcting eleven confidently-inflated conditions together, not just
+-- pregnancy, and finds the OPPOSITE movement: top 1% comes back down to
+-- 12.5%, close to the as-billed 11.8%. Conditions besides pregnancy that are
+-- also inflated (allergy, dental, colon polyp, bronchitis, UTI) are
+-- themselves broadly spread across many patients, so correcting them too
+-- pulls concentration back down rather than compounding test 1's rise. Do
+-- not describe Finding 4 as "conservative" or "at least as strong as
+-- reported" on the strength of this single-condition test alone -- the
+-- direction of this specific effect depends on how many conditions are
+-- corrected, and is not settled by either test on its own.
 -- =====================================================================
 
 WITH claim_money AS (

@@ -1,0 +1,21 @@
+TEST,CONDITION_NAME,RANK_REPRICED,BILLED_REPRICED,PCT_OF_DIAGNOSED_REPRICED
+"Condition ranking, 11-condition repricing",Chronic kidney disease stage 4 (disorder),1,4391639551,19.21
+"Condition ranking, 11-condition repricing",Normal pregnancy,2,3369469264,14.74
+"Condition ranking, 11-condition repricing",Malignant neoplasm of breast (disorder),3,1094711018,4.79
+"Condition ranking, 11-condition repricing",End-stage renal disease (disorder),4,1004387437,4.39
+"Condition ranking, 11-condition repricing",COVID-19,5,938324734,4.10
+"Condition ranking, 11-condition repricing",Abnormal findings diagnostic imaging heart+coronary circulat (finding),6,793695625,3.47
+"Condition ranking, 11-condition repricing",Primary small cell malignant neoplasm of lung  TNM stage 1 (disorder),7,769007334,3.36
+"Condition ranking, 11-condition repricing",Child attention deficit disorder,8,752948402,3.29
+"Condition ranking, 11-condition repricing",Ischemic heart disease (disorder),9,726643399,3.18
+"Condition ranking, 11-condition repricing",Gingivitis (disorder),10,680397120,2.98
+"Condition ranking, 11-condition repricing",Dependent drug abuse (disorder),11,622280745,2.72
+"Condition ranking, 11-condition repricing",Fracture of bone (disorder),12,407234912,1.78
+"Condition ranking, 11-condition repricing",Infection of tooth (disorder),13,352660516,1.54
+"Condition ranking, 11-condition repricing",Chronic congestive heart failure (disorder),14,338872250,1.48
+"Condition ranking, 11-condition repricing",Impacted molars,15,318073629,1.39
+"Condition ranking, 11-condition repricing",Non-small cell carcinoma of lung  TNM stage 1 (disorder),16,305860560,1.34
+"Condition ranking, 11-condition repricing",Malignant tumor of colon,17,288070634,1.26
+"Condition ranking, 11-condition repricing",Chronic pain (finding),18,275377466,1.20
+"Condition ranking, 11-condition repricing",Acute viral pharyngitis (disorder),19,272078918,1.19
+"Condition ranking, 11-condition repricing",Loss of teeth (disorder),20,209508980,0.92

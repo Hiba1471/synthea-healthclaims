@@ -380,29 +380,47 @@ was measured across four separate groupings, the member-paid-share pattern was r
 each line of business on its own, and the facility spread was retested with every procedure
 repriced to a common rate. That is evidence the patterns are not an artefact of one calculation.
 It is not evidence they match the real world, which this dataset cannot supply on its own.</p>
-<p><strong>A known pricing defect, and what it does and does not affect.</strong> This data prices a
-normal pregnancy at roughly 8.6&times; a comparable real-world figure. (Peterson-KFF Health System
-Tracker, 2022: ~$18,865 average cost of pregnancy, childbirth and postpartum care under a large
-employer plan, against $161,988 here.) That is not a rounding difference. So it was tested, not
-assumed away: every pregnancy claim was repriced down by 8.6&times; and the affected results were
-recomputed (<code>q1_pregnancy_sensitivity.sql</code>). Pregnancy&rsquo;s rank drops from 1st to 5th.
-Its share of diagnosed spend drops from 39.8% to 7.1%. So the claim &ldquo;pregnancy is the largest
-cost centre&rdquo; does not survive the correction, and is not asserted as fact below. What does
-survive: roughly twenty conditions still account for most diagnosed spend either way, 90.8% priced
-as billed against 85.8% repriced. Concentration among facilities and patients (Finding 4) also
-survives, and moves the opposite way from what a reader might expect: repriced, the top 1% of
-members carry MORE of total spend, not less. Each finding below states which of these two
-categories it falls into.</p>
-<p><strong>Pregnancy is not the only condition priced this way, and its repriced figures above
-are not a corrected dataset.</strong> Allergy immunotherapy, the condition that moves into 1st
-place once pregnancy is repriced, is itself billed at $11,122 a shot against a real-world
-$50&ndash;200 (documented separately, in <code>q1_condition_procedures.sql</code>). That gap is
-proportionally larger than pregnancy&rsquo;s. No number in this report has been rescaled to
-correct for it, and none of Synthea&rsquo;s other procedure prices have been checked against a
-real-world benchmark at all. The 8.6&times; repricing above is a bounded &ldquo;what if&rdquo;
-test on the one figure this report had already benchmarked, not a corrected version of the
-dataset: read the repriced numbers as evidence the ranking is sensitive to a known pricing
-defect, not as a fixed replacement for the as-billed numbers.</p>
+<p><strong>A known pricing defect, tested at two widths.</strong> This data prices a normal
+pregnancy at roughly 8.6&times; a comparable real-world figure (Peterson-KFF Health System Tracker,
+2022: ~$18,865 for a full pregnancy episode, against $161,988 here). That is not the only condition
+priced this way. Checked one at a time against a named benchmark, eleven of the twenty highest-cost
+conditions carry a similar, well-grounded defect, from 3.8&times; (stroke) to roughly 90&times;
+(allergy immunotherapy, at the procedure level). Two bounded &ldquo;what if&rdquo; tests were run,
+neither of which rescales anything in the underlying data:</p>
+<p><strong>Test 1: correct pregnancy alone</strong> (<code>q1_pregnancy_sensitivity.sql</code>).
+Pregnancy&rsquo;s rank drops from 1st to 5th and its share of diagnosed spend from 39.8% to 7.1%.
+Patient-level concentration (Finding 4) moves the opposite way from what a reader might expect:
+repriced, the top 1% of members carry MORE of total spend, 15.4% against 11.8% as billed.</p>
+<p><strong>Test 2: correct all eleven together</strong>
+(<code>q1_multi_condition_sensitivity.sql</code>). Five more conditions with a similarly large gap
+(cardiac imaging findings, small cell lung cancer, child ADHD, ischemic heart disease, dependent
+drug abuse) were deliberately left uncorrected: each carries many claims spread across the
+five-year window with no fixed visit cadence to anchor a correction on, unlike dialysis&rsquo;s
+known three-times-weekly schedule, so no defensible single factor exists for them. Even with only
+eleven of twenty corrected, the ranking reshuffles far more than test 1 alone suggested. Pregnancy
+falls to 2nd (14.7%). Chronic kidney disease, never touched because it was already checked and
+found NOT inflated, rises to 1st (19.2%) purely because everything around it got smaller. The
+top-5 share of diagnosed spend falls from 74.1% as billed to 47.2%; the top-20 share falls from
+90.8% to 78.3%, a much larger movement than test 1&rsquo;s 90.8%-to-85.8%. And patient-level
+concentration REVERSES test 1&rsquo;s result: correcting all eleven brings the top 1% back down to
+12.5%, close to the as-billed 11.8%, not the 15.4% test 1 found. <strong>The direction of that
+specific effect is itself sensitive to how many conditions are corrected, and should not be read
+as settled in either direction.</strong> An earlier version of this disclosure treated
+test 1&rsquo;s result as evidence Finding 4 was conservative; that does not hold once more of the
+known defects are corrected together, and is not asserted below.</p>
+<p><strong>What actually survives both tests, and what does not.</strong> That roughly twenty
+conditions account for most (not all) diagnosed spend holds under both, though "most" ranges from
+78% to 91% depending on which correction is applied. Which single condition leads, and by how
+much, does not survive either test, and does not survive consistently in the same direction:
+pregnancy, allergy and NSCLC all lose their as-billed rank; CKD-4 gains one it never had.
+Patient-level concentration survives as a qualitative fact (spend is concentrated in a minority of
+patients either way) but its exact magnitude moves in different directions depending on the test,
+so no specific percentage for it should be treated as final. Each finding below states which of
+these categories it falls into. No number in this report has been rescaled to correct for any of
+this outside these two clearly labeled tests; none of Synthea&rsquo;s other procedure prices have
+been checked against a real-world benchmark at all, and the five conditions above were left
+uncorrected because no defensible factor exists for them, not because they are known to be
+fine.</p>
 <p><strong>Outside the scope of this data entirely.</strong> Negotiated rates, denials, bad debt and
 collections. Every claim here is paid in full and no provider is charged differently from any
 other, so those are properties of the simulation rather than findings about Calder. Answering
@@ -513,7 +531,11 @@ SOURCES = [
    'q1_pregnancy_procedures_2020_2024.csv'),
   ('q1_hospital_cost_spread', 'whether facilities charge differently for the same condition'),
   ('q1_pregnancy_sensitivity', 'the sensitivity test: repricing pregnancy down 8.6x drops it to '
-   '5th place and 7.1% of diagnosed spend, and moves patient-level concentration UP, not down')],
+   '5th place and 7.1% of diagnosed spend, and moves patient-level concentration UP, not down'),
+  ('q1_multi_condition_sensitivity', 'the extended test: correcting all eleven confidently-'
+   'inflated conditions together puts kidney disease in 1st, drops the top-20 share to 78.3%, '
+   'and moves patient-level concentration back DOWN, close to as-billed',
+   'q1_multi_condition_sensitivity_ranking_2020_2024.csv')],
  [('q2_who_pays', 'the 20.4% member share, $20.3B, $16,084 each, and the 41.6% against 8.6% split by kind of visit'),
   ('q2_patient_cost_by_care_type', 'member share by type of care, including blood disorders at 38.9% and dental at 27.9% of $11.83B'),
   ('q2_pattern_within_payer', 'that the pattern strengthens rather than dissolves inside a single line of business'),
@@ -593,19 +615,22 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
           'pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, '
           'more than three times the second-placed condition. That specific figure carries a '
           'known caveat, tested rather than assumed (see &ldquo;Things to be aware of&rdquo; '
-          'above and <code>q1_pregnancy_sensitivity.sql</code>): pregnancy is priced roughly '
-          '8.6&times; a comparable real-world benchmark, and correcting for that drops it to '
-          '5th place and 7.1% of diagnosed spend, with allergy and gingivitis moving to 1st '
-          'and 2nd. Allergy&rsquo;s new lead is not itself a corrected figure: its own price '
-          'is separately documented as inflated, and by more than pregnancy&rsquo;s ($11,122 '
-          'per immunotherapy shot against a real-world $50&ndash;200). Only pregnancy&rsquo;s '
-          'price was repriced here; nothing else in the dataset was rescaled. What is stable '
-          'across both the as-billed and the pregnancy-only-repriced version is the shape, not '
-          'the identity of the leader: all twenty conditions together are 90.8% of diagnosed '
-          'spend as billed and 85.8% repriced, and 66.6% of the $99.1B billed overall as '
-          'billed. The gap between the diagnosed-spend and all-spend figures is the roughly '
-          'quarter of spending that carries no diagnosis and sits outside these charts '
-          'entirely.',
+          'above): correcting pregnancy alone against a real-world benchmark drops it to 5th '
+          'place and 7.1% of diagnosed spend (<code>q1_pregnancy_sensitivity.sql</code>).'
+          ' Ten more of the top twenty carry a similarly documented pricing gap, and correcting '
+          'all eleven together moves the ranking much further '
+          '(<code>q1_multi_condition_sensitivity.sql</code>): pregnancy falls to 2nd place '
+          '(14.7%), and chronic kidney disease, never touched because it was already checked '
+          'and found not inflated, rises to 1st (19.2%) purely because the conditions around '
+          'it shrank. Allergy immunotherapy, whose own price gap is proportionally larger than '
+          'pregnancy&rsquo;s ($11,122 a shot against a real-world $50&ndash;200), drops out of '
+          'the top twenty entirely once corrected rather than moving up into it. What holds '
+          'under both tests is the shape, not the identity of the leader, and even the shape '
+          'moves more than a single-condition test suggests: all twenty conditions together '
+          'are 90.8% of diagnosed spend as billed, 85.8% correcting pregnancy alone, and 78.3% '
+          'correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The '
+          'gap between the diagnosed-spend and all-spend figures is the roughly quarter of '
+          'spending that carries no diagnosis and sits outside these charts entirely.',
   'examined': ['Total billed per condition, ranked, against total billed per member: '
                'the two rankings disagree sharply and the disagreement is the point.',
                'Whether pregnancy at 39.8% is credible, and whether the ranking survives '
@@ -617,7 +642,12 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'moderately extreme on all three at once ( members reached, visits each, '
                'cost per visit), and the multiplication does the rest.',
                'Whether facilities differ in what they charge for the same condition. For '
-               'eight of the ten largest, barely at all.'],
+               'eight of the ten largest, barely at all.',
+               'Whether correcting more than pregnancy changes the ranking further. It does, '
+               'substantially: eleven of the top twenty conditions carry a similarly '
+               'documented pricing gap, and correcting all eleven together drops the top-20 '
+               'share to 78.3% and puts chronic kidney disease, not pregnancy, in first place '
+               '(<code>q1_multi_condition_sensitivity.sql</code>).'],
   'sowhat': 'Five conditions are the first places to investigate, but they reach the top '
             'through very different combinations of prevalence and care intensity, and high '
             'spend does not automatically mean reducible or avoidable spend. Gingivitis '
@@ -767,6 +797,14 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'synthetic population does, the true member-level concentration could be '
                'tighter than reported here, meaning a smaller, more identifiable group might '
                'carry a larger share of spend in reality than this analysis shows.',
+               'Whether the 11.8% figure survives correcting known pricing defects. It moves in '
+               'BOTH directions depending on the test, not consistently in one: correcting '
+               'pregnancy alone raises it to 15.4%; correcting all eleven confidently-inflated '
+               'conditions brings it back down to 12.5%, close to the as-billed figure '
+               '(<code>q1_pregnancy_sensitivity.sql</code>, '
+               '<code>q1_multi_condition_sensitivity.sql</code>). The exact percentage should '
+               'not be treated as settled; that spend concentrates in a minority of patients at '
+               'all is the more durable part of this finding.',
                'Whether the facility concentration is few enough to work through, which is Finding 5.'],
   'sowhat': 'Attention aimed at facilities can be exhaustive, because 86 is a list a team can '
             'finish. Attention aimed at members cannot: reaching the same half of spending '
