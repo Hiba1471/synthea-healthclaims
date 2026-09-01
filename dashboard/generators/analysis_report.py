@@ -161,6 +161,115 @@ def figure(n, key, title, caption, figs):
             '</figure>').format(title, figs[key], n, caption)
 
 
+_HATCH_IDS = {'s1': 'hatch-s1', 's2': 'hatch-s2', 's3': 'hatch-s3'}
+
+
+def _hypothetical_wrap(svg_body, viewbox_w, viewbox_h, label):
+    """Wraps a chart body in the shared 'this is not the data' styling: a
+    dashed border, one diagonal-hatch pattern per scenario colour (SVG
+    <pattern> content does not inherit a referencing element's local custom
+    properties, only :root-level ones, so each scenario needs its own named
+    pattern rather than one pattern parameterised by class), and an explicit
+    banner. Used only for sensitivity-test charts -- never for a primary
+    finding, which must stay visually distinct at a glance, not just by
+    reading the caption."""
+    patterns = ''.join(
+        '<pattern id="{pid}" width="6" height="6" patternTransform="rotate(45)" '
+        'patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--{cls}-fill)" '
+        'fill-opacity=".28"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--{cls}-fill)" '
+        'stroke-width="2.5"/></pattern>'.format(pid=pid, cls=cls)
+        for cls, pid in _HATCH_IDS.items())
+    return (
+        '<div class="hypothetical">'
+        '<p class="hyplabel">HYPOTHETICAL: SENSITIVITY TEST, NOT THE UNDERLYING DATA</p>'
+        '<div class="figure"><svg viewBox="0 0 {w} {h}" role="img" aria-label="{label}">'
+        '<defs>{patterns}</defs>'
+        '{body}</svg></div></div>'
+    ).format(w=viewbox_w, h=viewbox_h, label=label, patterns=patterns, body=svg_body)
+
+
+def scenario_chart():
+    """Grouped bars: five conditions' share of diagnosed spend across the
+    three pricing scenarios (as billed / pregnancy-only-repriced / all-eleven
+    -repriced). Data from q1_scenario_comparison_2020_2024.csv, itself
+    q1_multi_condition_sensitivity.sql part 3."""
+    rows = [
+        ('Pregnancy', 39.81, 7.15, 14.74),
+        ('Allergy', 11.88, 18.33, 0.42),
+        ('Gingivitis', 11.74, 18.11, 2.98),
+        ('Kidney disease st.4', 6.04, 9.32, 19.21),
+        ('NSCLC stage 1', 4.64, 7.16, 1.34),
+    ]
+    W, H = 700, 420
+    left, right, top, bot = 150, 40, 20, 50
+    plot_w, plot_h = W - left - right, H - top - bot
+    max_v = 46.0
+    group_h = plot_h / len(rows)
+    bar_h = group_h / 4.2
+    scen_labels = ['As billed', 'Pregnancy only', 'All eleven']
+    scen_class = ['s1', 's2', 's3']
+    body = []
+    for gx in (0, 10, 20, 30, 40):
+        x = left + (gx / max_v) * plot_w
+        body.append('<line x1="{0:.1f}" y1="{1}" x2="{0:.1f}" y2="{2}" class="grid"/>'
+                     '<text x="{0:.1f}" y="{2}" dy="16" class="axis">{3}%</text>'
+                     .format(x, top, top + plot_h, gx))
+    for i, (name, v1, v2, v3) in enumerate(rows):
+        gy = top + i * group_h
+        body.append('<text x="{0}" y="{1:.1f}" class="catlabel">{2}</text>'
+                     .format(left - 12, gy + group_h / 2 + 4, name))
+        for j, (val, cls) in enumerate(zip((v1, v2, v3), scen_class)):
+            by = gy + 6 + j * (bar_h + 4)
+            bw = (val / max_v) * plot_w
+            body.append('<rect x="{0}" y="{1:.1f}" width="{2:.1f}" height="{3:.1f}" '
+                        'rx="2" class="bar" fill="url(#{4})"/>'
+                        '<text x="{5:.1f}" y="{6:.1f}" class="barval">{7:.1f}%</text>'
+                        .format(left, by, bw, bar_h, _HATCH_IDS[cls],
+                                left + bw + 6, by + bar_h / 2 + 4, val))
+    legy = top + plot_h + 22
+    for k, (lbl, cls) in enumerate(zip(scen_labels, scen_class)):
+        lx = left + k * 170
+        body.append('<rect x="{0}" y="{1}" width="12" height="12" class="bar" '
+                     'fill="url(#{2})"/>'
+                     '<text x="{3}" y="{4}" class="leglabel">{5}</text>'
+                     .format(lx, legy, _HATCH_IDS[cls], lx + 18, legy + 10, lbl))
+    return _hypothetical_wrap(''.join(body), W, H,
+        'Five conditions\' share of diagnosed spend under three pricing scenarios')
+
+
+def concentration_chart():
+    """Three bars: the priciest 1% of members' share of total spend, under
+    the same three scenarios. Data from q1_pregnancy_sensitivity.sql part 2
+    and q1_multi_condition_sensitivity.sql part 2."""
+    rows = [('As billed', 11.8), ('Pregnancy only repriced', 15.4),
+            ('All eleven repriced', 12.5)]
+    W, H = 700, 220
+    left, right, top, bot = 190, 60, 20, 30
+    plot_w, plot_h = W - left - right, H - top - bot
+    max_v = 18.0
+    bar_h = plot_h / len(rows) / 1.8
+    gap = plot_h / len(rows)
+    body = []
+    for gx in (0, 5, 10, 15):
+        x = left + (gx / max_v) * plot_w
+        body.append('<line x1="{0:.1f}" y1="{1}" x2="{0:.1f}" y2="{2}" class="grid"/>'
+                     '<text x="{0:.1f}" y="{2}" dy="16" class="axis">{3}%</text>'
+                     .format(x, top, top + plot_h, gx))
+    for i, (name, val) in enumerate(rows):
+        y = top + i * gap + gap / 2 - bar_h / 2
+        bw = (val / max_v) * plot_w
+        cls = 's2' if 'Pregnancy' in name else ('s3' if 'eleven' in name else 's1')
+        body.append('<text x="{0}" y="{1:.1f}" class="catlabel">{2}</text>'
+                     '<rect x="{3}" y="{4:.1f}" width="{5:.1f}" height="{6:.1f}" '
+                     'rx="2" class="bar" fill="url(#{7})"/>'
+                     '<text x="{8:.1f}" y="{9:.1f}" class="barval">{10:.1f}%</text>'
+                     .format(left - 12, y + bar_h / 2 + 4, name,
+                             left, y, bw, bar_h, _HATCH_IDS[cls],
+                             left + bw + 8, y + bar_h / 2 + 4, val))
+    return _hypothetical_wrap(''.join(body), W, H,
+        'Priciest 1% of members\' share of total spend under three pricing scenarios')
+
+
 def build():
     verify_sources()
     theme, css, figs = collect()
@@ -260,6 +369,23 @@ figcaption{font-size:13px;color:var(--text-secondary);margin:8px 0 0;line-height
 .fignum{color:var(--text-primary);font-weight:650;}
 .prose{margin-top:24px;}
 .prose p{font-size:16px;color:var(--text-secondary);}
+.hypothetical{margin-top:16px;border:2px dashed var(--rule-strong);border-radius:6px;
+padding:16px;background:var(--surface-1);}
+.hyplabel{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text-muted);
+margin:0 0 12px;}
+.hypothetical .figure{overflow-x:auto;}
+.hypothetical svg{display:block;width:100%;height:auto;min-width:520px;}
+:root{--s1-fill:#8a8778;--s2-fill:#b0723e;--s3-fill:#3f6674;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--s1-fill:#a5a293;--s2-fill:#cf9a68;--s3-fill:#6ea2b3;}}
+:root[data-theme="dark"]{--s1-fill:#a5a293;--s2-fill:#cf9a68;--s3-fill:#6ea2b3;}
+.hypothetical .grid{stroke:var(--rule);stroke-width:1;}
+.hypothetical .axis{fill:var(--text-muted);font-size:11px;text-anchor:middle;}
+.hypothetical .catlabel{fill:var(--text-primary);font-size:12.5px;text-anchor:end;
+dominant-baseline:middle;}
+.hypothetical .barval{fill:var(--text-secondary);font-size:11.5px;}
+.hypothetical .leglabel{fill:var(--text-secondary);font-size:12px;}
+.hypothetical .bar{stroke:var(--rule-strong);stroke-width:1;}
 .minitable{margin-top:16px;}
 .mtcap{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 8px;}
 .minitable table{width:100%;border-collapse:collapse;font-size:14px;}
@@ -631,6 +757,7 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
           'correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The '
           'gap between the diagnosed-spend and all-spend figures is the roughly quarter of '
           'spending that carries no diagnosis and sits outside these charts entirely.',
+  'extra': scenario_chart(),
   'examined': ['Total billed per condition, ranked, against total billed per member: '
                'the two rankings disagree sharply and the disagreement is the point.',
                'Whether pregnancy at 39.8% is credible, and whether the ranking survives '
@@ -783,6 +910,7 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
           'priciest 1% of facilities account for 32.5% of spending against 11.8% for the '
           'priciest 1% of members, and by the 10% mark the figures are 86.2% and 48.2%. The '
           'facility curve bows sharply throughout; the member curve stays close to even.',
+  'extra': concentration_chart(),
   'examined': ['Concentration measured four ways ( by member, by facility, by condition, '
                'by type of care) to check the answer was not an artefact of one '
                'grouping.',

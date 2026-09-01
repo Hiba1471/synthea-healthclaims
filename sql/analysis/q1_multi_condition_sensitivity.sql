@@ -153,3 +153,59 @@ SELECT
   ROUND(MIN(IFF(rk = CEIL(0.10*n), running_total/tot*100, NULL)), 2) AS "Priciest 10%, repriced",
   MIN(IFF(running_total/tot >= 0.5, rk, NULL))                  AS "= this many for half, repriced"
 FROM ranked;
+
+-- =====================================================================
+-- PART 3: five specific conditions' share of diagnosed spend across all
+-- three scenarios (as billed / pregnancy-only-repriced / all-eleven-repriced)
+-- in one place, for the report's supplementary sensitivity chart. Same
+-- repricing factors as parts 1 and 2, just narrowed to conditions worth
+-- charting side by side.
+--
+-- Results: sql/results/q1_scenario_comparison_2020_2024.csv
+-- =====================================================================
+
+WITH claim_money AS (
+    SELECT CLAIM_ID, MIN(PATIENT_ID) AS patient_id, SUM(BILLED_AMOUNT) AS billed
+    FROM SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN
+    WHERE NOT IS_ADMIN_NOISE_CODE AND PROCEDURECODE IS NOT NULL
+    GROUP BY CLAIM_ID
+),
+claim_condition AS (
+    SELECT c.CLAIM_ID,
+           CASE WHEN d1.IS_CONDITION THEN c.DIAGNOSIS1 WHEN d2.IS_CONDITION THEN c.DIAGNOSIS2 END AS condition_code
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS c
+    LEFT JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d1 ON c.DIAGNOSIS1 = d1.CODE
+    LEFT JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d2 ON c.DIAGNOSIS2 = d2.CODE
+),
+joined AS (
+    SELECT cc.condition_code, m.billed
+    FROM claim_money m JOIN claim_condition cc ON m.CLAIM_ID = cc.CLAIM_ID
+    WHERE cc.condition_code IS NOT NULL
+),
+scen2 AS (
+    SELECT condition_code, IFF(condition_code='72892002', billed/8.587, billed) AS billed FROM joined
+),
+scen3 AS (
+    SELECT condition_code,
+        billed / CASE condition_code
+            WHEN '72892002' THEN 8.587 WHEN '419199007' THEN 88.976 WHEN '66383009' THEN 12.542
+            WHEN '18718003' THEN 7.522 WHEN '424132000' THEN 11.038 WHEN '68496003' THEN 19.736
+            WHEN '312608009' THEN 5.285 WHEN '109570002' THEN 16.564 WHEN '10509002' THEN 9.252
+            WHEN '230690007' THEN 3.836 WHEN '307426000' THEN 23.590 ELSE 1 END AS billed
+    FROM joined
+),
+totals AS (
+    SELECT (SELECT SUM(billed) FROM joined) AS t1,
+           (SELECT SUM(billed) FROM scen2) AS t2,
+           (SELECT SUM(billed) FROM scen3) AS t3
+),
+codes AS (SELECT column1 AS code, column2 AS label FROM VALUES
+    ('72892002','Pregnancy'),('419199007','Allergy'),('66383009','Gingivitis'),
+    ('431857002','Chronic kidney disease st.4'),('424132000','NSCLC stage 1')
+)
+SELECT c.label AS "Condition",
+  ROUND(100.0*(SELECT SUM(billed) FROM joined WHERE condition_code=c.code)/t.t1,2) AS "As billed",
+  ROUND(100.0*(SELECT SUM(billed) FROM scen2 WHERE condition_code=c.code)/t.t2,2) AS "Pregnancy only repriced",
+  ROUND(100.0*(SELECT SUM(billed) FROM scen3 WHERE condition_code=c.code)/t.t3,2) AS "All eleven repriced"
+FROM codes c CROSS JOIN totals t
+ORDER BY "As billed" DESC;
