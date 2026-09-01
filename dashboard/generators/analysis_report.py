@@ -605,11 +605,13 @@ FINDINGS = [{'title': 'Twenty conditions carry nearly all of the bill, and one o
                '$0&ndash;50 per claim on one side, a deductible and annual cap on the other.',
                'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by '
                'care type, government members 0.6% to 8.1%; the blend describes neither.'],
-  'sowhat': 'This gap is a design choice rather than a market condition, which places it '
-            'within Calder&rsquo;s control in a way that almost nothing else in this report '
-            'is. It also means a single blended member-cost figure describes neither line of '
-            'business, and any board pack quoting one is reporting an average that matches no '
-            'actual member.'},
+  'sowhat': 'The mission commits to holding the same affordability standard across both '
+            'lines of business, and on the ten conditions members feel most, that standard '
+            'is not currently being held: a commercial member&rsquo;s exposure for identical '
+            'care runs 12.9 to 78.1 points above a government member&rsquo;s. Unlike most of what '
+            'is in this report, the gap traces to a design choice rather than to differences '
+            'in the care itself, which is what makes it something the mission is measured '
+            'against right now, not a market condition outside Calder&rsquo;s reach.'},
  {'title': 'Spending concentrates in places, not in people',
   'figures': [(6,
                'places',
