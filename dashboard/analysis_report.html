@@ -392,19 +392,19 @@ was measured across four separate groupings, the member-paid-share pattern was r
 each line of business on its own, and the facility spread was retested with every procedure
 repriced to a common rate. That is evidence the patterns are not an artefact of one calculation.
 It is not evidence they match the real world, which this dataset cannot supply on its own.</p>
-<p><strong>A known pricing defect, and what it does and does not affect.</strong> This data prices
-a normal pregnancy at roughly 8.6&times; a comparable real-world figure (Peterson-KFF Health System
+<p><strong>A known pricing defect, and what it does and does not affect.</strong> This data prices a
+normal pregnancy at roughly 8.6&times; a comparable real-world figure. (Peterson-KFF Health System
 Tracker, 2022: ~$18,865 average cost of pregnancy, childbirth and postpartum care under a large
-employer plan, against $161,988 here). That is not a rounding difference, and it does not leave the
-rest of the report untouched by assumption: it was tested directly by repricing every pregnancy
-claim down by 8.6&times; and recomputing the affected results
-(<code>q1_pregnancy_sensitivity.sql</code>). Pregnancy&rsquo;s rank drops from 1st to 5th and its
-share of diagnosed spend from 39.8% to 7.1%, so the specific claim &ldquo;pregnancy is the largest
-cost centre&rdquo; does NOT survive the correction and is not asserted as fact below. What does
-survive: roughly twenty conditions still account for most diagnosed spend either way (90.8% priced
-as billed, 85.8% repriced), and facility- and patient-level concentration (Finding 4) move in the
-opposite direction from what a reader might expect: repriced, the top 1% of members carry MORE of
-total spend, not less. Each finding below states which of these two categories it falls into.</p>
+employer plan, against $161,988 here.) That is not a rounding difference. So it was tested, not
+assumed away: every pregnancy claim was repriced down by 8.6&times; and the affected results were
+recomputed (<code>q1_pregnancy_sensitivity.sql</code>). Pregnancy&rsquo;s rank drops from 1st to 5th.
+Its share of diagnosed spend drops from 39.8% to 7.1%. So the claim &ldquo;pregnancy is the largest
+cost centre&rdquo; does not survive the correction, and is not asserted as fact below. What does
+survive: roughly twenty conditions still account for most diagnosed spend either way, 90.8% priced
+as billed against 85.8% repriced. Concentration among facilities and patients (Finding 4) also
+survives, and moves the opposite way from what a reader might expect: repriced, the top 1% of
+members carry MORE of total spend, not less. Each finding below states which of these two
+categories it falls into.</p>
 <p><strong>Outside the scope of this data entirely.</strong> Negotiated rates, denials, bad debt and
 collections. Every claim here is paid in full and no provider is charged differently from any
 other, so those are properties of the simulation rather than findings about Calder, and answering
