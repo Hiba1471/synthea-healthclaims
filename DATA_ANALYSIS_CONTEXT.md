@@ -836,8 +836,55 @@ regardless of what the procedure is.
 **This is systemic, not pregnancy-specific.** Allergy immunotherapy bills
 $11,122 per injection against a real $50–200; a hemogram bills $1,897 against
 a real $10–30. Treat every absolute dollar figure in this project as
-unrealistic in magnitude. **Rankings and ratios hold; totals do not**, and
-conditions whose pathway repeats many cheap procedures are inflated hardest.
+unrealistic in magnitude. **Rankings and ratios hold; totals do not.**
+
+#### All ten of the highest-cost conditions, benchmarked one at a time
+
+The claim above ("conditions whose pathway repeats many cheap procedures are
+inflated hardest") turned out to be too broad. Checked directly: every one of
+the top 10 conditions by total billed (`q1_cost_drivers_2020_2024.csv`) against
+a named real-world figure — CMS/USRDS for dialysis, published cost-of-care
+studies for cancer and COVID, consumer pricing data for the rest.
+
+| Condition | This data | Real-world benchmark | Source | Ratio |
+|---|---|---|---|---|
+| Normal pregnancy | $161,988/patient | $18,865, full episode | Peterson-KFF, 2022 | **8.6x over** |
+| Allergy to substance | $10,245/claim | $20–30/visit | GoodRx, Wyndly | **~400x over** |
+| Gingivitis | $10,661/patient | $500–1,200, full mouth | scaling & root planing, consumer pricing | **~9–21x over** |
+| Chronic kidney disease st.4 | $71,557/yr, annualized | $87,000–99,000/yr | Medicare/USRDS | **0.7–0.8x, UNDER** |
+| NSCLC stage 1 | $1,416,145/patient | $120,346–136,250, 4-yr | surgical resection cost studies | **~10–12x over** |
+| Polyp of colon | $32,692/patient | $1,346–1,967 | colonoscopy + polypectomy, consumer pricing | **~17–24x over** |
+| Malignant neoplasm of breast | $62,263/patient | $82,121, first yr, stage I/II | published cost-of-care studies | **0.8x, UNDER** |
+| End-stage renal disease | $71,566/yr, annualized | $87,000–99,000/yr | Medicare/USRDS | **0.7–0.8x, UNDER** |
+| Gingival disease | $6,394/patient | $500–1,200, full mouth | scaling & root planing, consumer pricing | **~5–13x over** |
+| COVID-19 | $40,749/patient, hospitalised | $20,000–45,683 | hospitalization cost studies (FAIR Health and others) | **~1x, in range** |
+
+CKD-4 and ESRD are annualized before comparing, not used as multi-year totals:
+patients carry 150–260 claims each across the window, consistent with roughly
+one to two years of dialysis at three sessions a week, so total billed was
+divided by implied years of care (claims ÷ 156/yr) before comparing to an
+annual benchmark.
+
+**Six of ten are inflated, one to two orders of magnitude apart (8.6x to
+~400x). Three are not inflated at all — two are UNDER the real-world figure.**
+That splits the top 10 roughly in half, and the split is not random: pregnancy,
+allergy, gingivitis/gingival disease, NSCLC and colon polyp are all conditions
+whose cost is dominated by a handful of large, itemized PROCEDURE line items.
+Dialysis (CKD-4, ESRD) and COVID hospitalization are billed mostly through
+repeated standard ENCOUNTERS, and breast cancer's cost is dominated by
+treatment courses rather than one-off procedures. The earlier claim that
+"repeated cheap procedures inflate hardest" gets this backwards for dialysis
+specifically: dialysis repeats a procedure roughly three times a week and is
+the one clear counterexample, priced *close to or under* the real annual cost.
+The pattern is procedure-vs-encounter billing, not procedure count.
+
+**Read this as a caution about the shape of the error, not a corrected
+dataset.** No number in this project has been rescaled to fix any of this —
+these ratios exist so a reader knows which of the top-10 conditions' absolute
+dollar figures to distrust and by roughly how much, not to produce an adjusted
+total. Six conditions here would need a specific, condition-by-condition
+correction factor to be trusted at face value; two of the "underpriced" three
+suggest this dataset can also be too conservative, not only too aggressive.
 
 #### Why the prices are wrong: clinical fidelity vs financial fidelity
 
