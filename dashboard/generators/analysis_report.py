@@ -393,6 +393,16 @@ as billed against 85.8% repriced. Concentration among facilities and patients (F
 survives, and moves the opposite way from what a reader might expect: repriced, the top 1% of
 members carry MORE of total spend, not less. Each finding below states which of these two
 categories it falls into.</p>
+<p><strong>Pregnancy is not the only condition priced this way, and its repriced figures above
+are not a corrected dataset.</strong> Allergy immunotherapy, the condition that moves into 1st
+place once pregnancy is repriced, is itself billed at $11,122 a shot against a real-world
+$50&ndash;200 (documented separately, in <code>q1_condition_procedures.sql</code>). That gap is
+proportionally larger than pregnancy&rsquo;s. No number in this report has been rescaled to
+correct for it, and none of Synthea&rsquo;s other procedure prices have been checked against a
+real-world benchmark at all. The 8.6&times; repricing above is a bounded &ldquo;what if&rdquo;
+test on the one figure this report had already benchmarked, not a corrected version of the
+dataset: read the repriced numbers as evidence the ranking is sensitive to a known pricing
+defect, not as a fixed replacement for the as-billed numbers.</p>
 <p><strong>Outside the scope of this data entirely.</strong> Negotiated rates, denials, bad debt and
 collections. Every claim here is paid in full and no provider is charged differently from any
 other, so those are properties of the simulation rather than findings about Calder. Answering
@@ -586,11 +596,15 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
           'above and <code>q1_pregnancy_sensitivity.sql</code>): pregnancy is priced roughly '
           '8.6&times; a comparable real-world benchmark, and correcting for that drops it to '
           '5th place and 7.1% of diagnosed spend, with allergy and gingivitis moving to 1st '
-          'and 2nd. What is stable across both the as-billed and the repriced version is the '
-          'shape, not the identity of the leader: all twenty conditions together are 90.8% of '
-          'diagnosed spend as billed and 85.8% repriced, and 66.6% of the $99.1B billed '
-          'overall as billed. The gap between the diagnosed-spend and all-spend figures is the '
-          'roughly quarter of spending that carries no diagnosis and sits outside these charts '
+          'and 2nd. Allergy&rsquo;s new lead is not itself a corrected figure: its own price '
+          'is separately documented as inflated, and by more than pregnancy&rsquo;s ($11,122 '
+          'per immunotherapy shot against a real-world $50&ndash;200). Only pregnancy&rsquo;s '
+          'price was repriced here; nothing else in the dataset was rescaled. What is stable '
+          'across both the as-billed and the pregnancy-only-repriced version is the shape, not '
+          'the identity of the leader: all twenty conditions together are 90.8% of diagnosed '
+          'spend as billed and 85.8% repriced, and 66.6% of the $99.1B billed overall as '
+          'billed. The gap between the diagnosed-spend and all-spend figures is the roughly '
+          'quarter of spending that carries no diagnosis and sits outside these charts '
           'entirely.',
   'examined': ['Total billed per condition, ranked, against total billed per member: '
                'the two rankings disagree sharply and the disagreement is the point.',
