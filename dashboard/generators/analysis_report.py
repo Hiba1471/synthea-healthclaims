@@ -511,8 +511,8 @@ pregnancy at roughly 8.6&times; a comparable real-world figure (Peterson-KFF Hea
 2022: ~$18,865 for a full pregnancy episode, against $161,988 here). That is not the only condition
 priced this way. Checked one at a time against a named benchmark, eleven of the twenty highest-cost
 conditions carry a similar, well-grounded defect, from 3.8&times; (stroke) to roughly 90&times;
-(allergy immunotherapy, at the procedure level). Two bounded &ldquo;what if&rdquo; tests were run,
-neither of which rescales anything in the underlying data:</p>
+(allergy immunotherapy, at the procedure level). Three bounded &ldquo;what if&rdquo; tests were
+run, none of which rescales anything in the underlying data:</p>
 <p><strong>Test 1: correct pregnancy alone</strong> (<code>q1_pregnancy_sensitivity.sql</code>).
 Pregnancy&rsquo;s rank drops from 1st to 5th and its share of diagnosed spend from 39.8% to 7.1%.
 Patient-level concentration (Finding 4) moves the opposite way from what a reader might expect:
@@ -534,7 +534,19 @@ specific effect is itself sensitive to how many conditions are corrected, and sh
 as settled in either direction.</strong> An earlier version of this disclosure treated
 test 1&rsquo;s result as evidence Finding 4 was conservative; that does not hold once more of the
 known defects are corrected together, and is not asserted below.</p>
-<p><strong>What actually survives both tests, and what does not.</strong> That roughly twenty
+<p><strong>Test 3: what the correction does to the other two headline numbers</strong>
+(<code>q1_robustness_three_findings.sql</code>). The member-paid share of 20.4% does NOT hold:
+corrected, it rises to <strong>23.3%</strong>. That reads backwards at first, because the dollars
+members pay fall at the same time, from $20.3B to $11.4B. Both are true and the reason is mix, not
+members paying more. The eleven corrected conditions carry $54.9B at a 17.7% member share, while
+everything untouched carries $44.2B at 23.8%; shrinking the low-share group by around ninety per
+cent leaves the blend dominated by the high-share remainder, landing just under that
+remainder&rsquo;s own figure. The commercial-against-government gap behaves in the opposite way and
+is <strong>exactly unchanged</strong>, to the decimal, for every condition tested: pregnancy stays
+at 25.2 times, gingivitis at 17.1, allergy at 9.4. Scaling a bill and what was paid on it by the
+same factor cancels in a ratio, so that finding is immune to this entire class of defect rather
+than merely surviving it.</p>
+<p><strong>What actually survives these tests, and what does not.</strong> That roughly twenty
 conditions account for most (not all) diagnosed spend holds under both, though "most" ranges from
 78% to 91% depending on which correction is applied. Which single condition leads, and by how
 much, does not survive either test, and does not survive consistently in the same direction:
@@ -543,7 +555,7 @@ Patient-level concentration survives as a qualitative fact (spend is concentrate
 patients either way) but its exact magnitude moves in different directions depending on the test,
 so no specific percentage for it should be treated as final. Each finding below states which of
 these categories it falls into. No number in this report has been rescaled to correct for any of
-this outside these two clearly labeled tests; none of Synthea&rsquo;s other procedure prices have
+this outside these three clearly labeled tests; none of Synthea&rsquo;s other procedure prices have
 been checked against a real-world benchmark at all, and the five conditions above were left
 uncorrected because no defensible factor exists for them, not because they are known to be
 fine.</p>
@@ -582,6 +594,8 @@ is care recorded without one.
 <td class="note">$20.3B paid out of pocket: $16,084 average member-paid spending per enrolled
 member over five years (median $7,026: the average sits well above the typical member's
 figure, pulled up by a right-skewed tail). This is the number the mission lives or dies on.
+Corrected for known pricing defects it rises to 23.3%, while the dollars members pay fall to
+$11.4B, which is a change in the mix rather than in what members pay (Finding 2).
 <a href="../sql/analysis/q2_who_pays.sql">q2_who_pays.sql</a>,
 <a href="../sql/analysis/q2_member_paid_percentiles.sql">q2_member_paid_percentiles.sql</a></td></tr>
 <tr><th>Spend concentration</th><td class="val">86 sites</td>
@@ -667,12 +681,17 @@ SOURCES = [
   ('q2_pattern_within_payer', 'that the pattern strengthens rather than dissolves inside a single line of business'),
   ('q2_pattern_breakers', 'the two care types that appear to break the rule, and why neither does'),
   ('q2_oop_percentiles_by_care_type', 'the dollar side: median/P75/P90 out-of-pocket per affected '
-   'member by type of care, which reorders the finding sharply')],
+   'member by type of care, which reorders the finding sharply'),
+  ('q1_robustness_three_findings', 'that the 20.4% headline does NOT survive price correction: it '
+   'rises to 23.3% while the dollars members pay fall to $11.4B, a mix effect')],
  [('q2_top10_share_by_payer_type', 'the ten conditions split by line of business, and the 12.9-point minimum gap'),
   ('q2_share_by_payer_type_yearly', 'that the gap holds in all five years rather than one'),
   ('q2_who_pays', 'the five-year totals of $19,178, $2,118 and $61,742'),
   ('q2_commercial_cap_by_care_type', 'the mechanism, measured by grouping claims into $500 bands'),
-  ('q2_care_type_share_by_payer_type', 'the ranges a blended figure would hide')],
+  ('q2_care_type_share_by_payer_type', 'the ranges a blended figure would hide'),
+  ('q1_robustness_three_findings', 'that the commercial-against-government ratio is EXACTLY '
+   'unchanged by price correction, on every condition tested, because scaling a bill and what '
+   'was paid on it by the same factor cancels in a ratio')],
  [('q3_concentration', 'the 86 facilities and 134,198 members, and the 2.2% against 10.7% comparison'),
   ('q3_lorenz_points', 'the curve coordinates behind Figure 7'),
   ('q3_top_entities', 'which specific facilities and conditions make up the concentrated half')],
@@ -836,7 +855,14 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'What an affected member actually paid in dollars, not just the share, for each '
                'type of care: the result is the table above, and it does not track the share '
                'ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).',
-               'Why the mechanism differs by line of business, which is Finding 3.'],
+               'Why the mechanism differs by line of business, which is Finding 3.',
+               'Whether the 20.4% headline survives correcting known pricing defects. It does '
+               'not: corrected, it rises to 23.3%, while the dollars members pay fall from '
+               '$20.3B to $11.4B. Both at once, because the eleven corrected conditions carry '
+               '$54.9B at a 17.7% member share against $44.2B at 23.8% for everything '
+               'untouched, so shrinking the low-share group reweights the blend upward. The '
+               'share is a mix effect, not members paying more '
+               '(<code>q1_robustness_three_findings.sql</code>).'],
   'sowhat': 'Member-paid share is highest on the cheapest, most routine care, and reach sets '
             'a ceiling on how many members a change to any one category could affect: dental, '
             'the widest-reaching high-share category, could reach up to 938,009 members, '
@@ -877,7 +903,14 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'Whether plan type is the largest driver of member-paid share compared with '
                'condition, care type or claim size. Not tested here: this finding shows the '
                'gap is real and consistent within a condition, not that plan type outweighs '
-               'other factors in general.'],
+               'other factors in general.',
+               'Whether the gap survives correcting the pricing defects that reshaped Finding '
+               '1. It is exactly unchanged, to the decimal, on every condition tested: '
+               'pregnancy stays at 25.2 times, gingivitis at 17.1, allergy at 9.4. Scaling a '
+               'bill and what was paid on it by the same factor cancels in a ratio, so this '
+               'finding is immune to that entire class of defect rather than merely surviving '
+               'it, and is the most robust of the five on that measure '
+               '(<code>q1_robustness_three_findings.sql</code>).'],
   'sowhat': 'The gap is persistent and closely aligned with the two benefit designs, making '
             'plan design an important factor to examine. It is measured, not assumed: a flat '
             'copay on the government side against a deductible and coinsurance on the '
