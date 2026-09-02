@@ -16,3 +16,5 @@ BY WIDEST GAP (unadjusted),Injury of medial collateral ligament of knee,1.000,35
 BY WIDEST GAP (unadjusted),Impacted molars,1.000,32.6,1.4,23.3,32.6,1.4,23.3
 BY WIDEST GAP (unadjusted),Infection of tooth (disorder),1.000,47.9,2.1,22.8,47.9,2.1,22.8
 BY WIDEST GAP (unadjusted),Primary dental caries (disorder),0.059,55.4,2.5,22.2,55.4,2.5,22.2
+spearman_as_billed,spearman_corrected_RANK_ties,spearman_corrected_python_ties
+-0.600,-0.571,-0.586

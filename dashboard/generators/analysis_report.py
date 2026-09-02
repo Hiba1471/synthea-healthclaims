@@ -609,20 +609,23 @@ SUMMARY = '''<h2 class="sec">Executive summary</h2>
 <li><strong>Diagnosed spend concentrates in about twenty conditions, not hundreds.</strong> They
 carry 91% of the $72.7B that can be attributed to a diagnosis. Which single condition leads, and by
 how much, is sensitive to a known pricing defect: as billed, pregnancy is 39.8% of that total, but
-correcting pregnancy's price down to a real-world benchmark drops it to 5th place and 7.1%
-(<code>q1_pregnancy_sensitivity.sql</code>). The twenty-conditions concentration is the finding to
-carry forward; the identity and size of the single largest one is not.</li>
+correcting the eleven conditions with a documented pricing gap drops it to 2nd place and 14.7%,
+and puts chronic kidney disease first at 19.2% without it ever being corrected
+(<code>q1_multi_condition_sensitivity.sql</code>). The twenty-conditions concentration is the
+finding to carry forward; the identity and size of the single largest one is not.</li>
 <li><strong>Members pay a larger share of the bill for cheaper care.</strong> Member-paid share runs
-from 8.3% to 38.9% of the bill by type of care and is highest for the least expensive kinds. That is
-a statement about percentage share, not about dollars paid: the categories with the highest share
-are not the ones with the highest typical dollar amount paid, which is a separate result (Finding
-2).</li>
+from 8.3% to 38.9% of the bill by type of care and is highest for the least expensive kinds, a
+pattern that holds under price correction (the median stays at 20.6% and the top at 38.9%; only
+the bottom of the range moves, to 7.4%). That is a statement about percentage share, not about
+dollars paid: the categories with the highest share are not the ones with the highest typical
+dollar amount paid, which is a separate result (Finding 2).</li>
 <li><strong>Member-paid share differs sharply by plan type, even within the same condition.</strong>
 On all ten of the conditions where members carry the most, commercial members pay a larger
 share than government members, by between 12.9 and 78.1 percentage points. Obesity and
 prediabetes show the widest gap, at 86.8% against 8.7% and 85.0% against 8.5% within the same
-condition, not necessarily matched on setting, severity or the specific services
-billed.</li>
+condition, not necessarily matched on setting, severity or the specific services billed. This is
+the one finding here that price correction leaves exactly unchanged, because scaling a bill and
+what was paid on it by the same factor cancels in a ratio.</li>
 <li><strong>Member spending is less concentrated than facility spending in this synthetic
 population.</strong> 86 of 3,918 facilities carry half the money; reaching the same half through
 members takes 134,198 people. Real claims populations concentrate member spending more heavily at
@@ -752,9 +755,10 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
               (2,
                'top20',
                'Five conditions are three quarters of the bill, and the sixth drops below 2%',
-               'The twenty largest conditions by total billed. The highlighted top bar is '
-               'pregnancy, marked only because it is the outlier; every bar is measured '
-               'the same way.')],
+               'The twenty largest conditions by total billed, as billed. The highlighted '
+               'top bar is pregnancy, marked only because it is the outlier; every bar is '
+               'measured the same way. Correcting known pricing defects reorders this list '
+               'substantially, as the paragraph below sets out.')],
   'para': 'Both charts rank conditions by total billed, one as shares of the whole and one as '
           'a ranked bar for each. As billed, the distribution is severely top-heavy: normal '
           'pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, '
@@ -820,17 +824,30 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                '938,009). The <strong>dashed line is a fitted trend</strong> through all '
                'fifteen points. The <strong>two circles picked out in purple</strong> are the '
                'only types that sit away from that trend; both were tested and neither '
-               'is a real exception, as the notes below record.')],
+               'is a real exception, as the notes below record. Positions are as billed: '
+               'the allergy circle in particular sits at $175,111 a person here against '
+               '$2,432 once its price is corrected, so read its place on the horizontal '
+               'axis with that in mind.')],
   'para': 'Both charts measure member-paid SHARE: the proportion of a bill met by the member '
           'rather than the plan, not a dollar amount and not a measure of financial hardship '
           'on its own. The bars rank the fifteen types of care by that share; the scatter '
           'plots the same share against cost per person, sized by how many people it reaches. '
           'Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood '
           'disorders leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% '
-          'on $1,675, while cancer sits at 8.3% on $104,622 and allergy and immune conditions '
-          'at 10.0% on $175,111. That slope holds across all fifteen points without exception. '
-          'But share and the actual dollar amount an affected member pays are a separate '
-          'question, answered in the table below rather than by either chart above.',
+          'on $1,675, while cancer sits at 8.3% on $104,622. That slope holds across all fifteen '
+          'points without exception, and it survives price correction: the rank correlation '
+          'between share and cost per person stays at about &minus;0.6 either way (the second '
+          'decimal depends on how one tied pair is ranked, so it is not quoted), the median '
+          'share stays at 20.6% and the top at 38.9%, with only the bottom of the range '
+          'shifting to 7.4%. One illustration does NOT survive it, and is left out above for '
+          'that reason: '
+          'allergy and immune care reads as 10.0% on $175,111 a person as billed, a textbook '
+          'expensive-care-low-share case, but its price carries the largest documented gap in '
+          'this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is '
+          'cheap care at a middling share and illustrates nothing. Cancer is used instead '
+          'because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual '
+          'dollar amount an affected member pays are a separate question, answered in the table '
+          'below rather than by either chart above.',
   'extra': '<div class="minitable"><p class="mtcap">What an affected member actually paid, '
            'by type of care (five-year total; <code>q2_oop_percentiles_by_care_type.sql</code>)'
            '</p><table><thead><tr><th>Type of care</th><th>Share rank</th>'

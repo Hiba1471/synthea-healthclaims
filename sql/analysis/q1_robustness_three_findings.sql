@@ -102,3 +102,92 @@ SELECT 'F2 member share of ALL billed',
        ROUND(SUM(patient_paid)),
        ROUND(SUM(patient_paid*f))
 FROM adj;
+
+-- =====================================================================
+-- FOLLOW-UP: does Finding 2's inverse slope (member-paid share against
+-- cost per person, across the 15 care types) survive price correction?
+--
+-- Yes. Spearman stays at about -0.6 either way.
+--
+-- DO NOT QUOTE A SECOND DECIMAL. The corrected data contains one tied
+-- pair (Respiratory & ENT and Injury & trauma both land on 25.0%), and
+-- the coefficient moves with the tie convention: Snowflake RANK() gives
+-- -0.571, a naive sort-index in Python gives -0.586, and a proper
+-- tie-averaged Spearman would give a third value. The as-billed figure is
+-- -0.600 under both. Only "about -0.6, essentially unchanged" is robust to
+-- the choice, and that is all the report claims.
+--
+-- The illustration that does NOT survive, and why it was pulled from the
+-- report's Finding 2 paragraph: allergy & immune reads 10.0% share on
+-- $175,111 per person as billed, a textbook expensive-care-low-share
+-- case. It carries the largest documented pricing gap in this dataset
+-- (~89x), and corrected it becomes 15.0% on $2,432 -- cheap care at a
+-- middling share, illustrating the opposite of the point it was used for.
+-- Cancer holds its shape (8.3% on $104,622 -> 7.4% on $41,007) and is
+-- used instead.
+-- =====================================================================
+-- Spearman rank correlation between member-paid share and cost per person,
+-- across the 15 care types, computed twice: as billed and price-corrected.
+-- Ranks first, then CORR on the ranks (Snowflake's CORR is Pearson).
+WITH claim_raw AS (
+    SELECT CLAIM_ID, MIN(PATIENT_ID) AS patient_id,
+           SUM(BILLED_AMOUNT) AS billed, SUM(PAID_AMOUNT) AS paid,
+           SUM(PAID_BY_PATIENT) AS patient_paid
+    FROM SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN
+    WHERE NOT IS_ADMIN_NOISE_CODE AND PROCEDURECODE IS NOT NULL
+    GROUP BY CLAIM_ID
+),
+cc AS (
+    SELECT c.CLAIM_ID,
+           CASE WHEN d1.IS_CONDITION THEN c.DIAGNOSIS1 WHEN d2.IS_CONDITION THEN c.DIAGNOSIS2 END AS code
+    FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.CLAIMS c
+    LEFT JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d1 ON c.DIAGNOSIS1 = d1.CODE
+    LEFT JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d2 ON c.DIAGNOSIS2 = d2.CODE
+),
+j AS (
+    SELECT r.patient_id, r.billed, r.paid, r.patient_paid, d.DESCRIPTION AS nm,
+      CASE cc.code
+        WHEN '72892002' THEN 0.116 WHEN '66383009' THEN 0.067 WHEN '424132000' THEN 0.091
+        WHEN '109570002' THEN 0.059 WHEN '68496003' THEN 0.050 WHEN '419199007' THEN 0.011
+        WHEN '18718003' THEN 0.133 WHEN '312608009' THEN 0.189 WHEN '10509002' THEN 0.108
+        WHEN '230690007' THEN 0.261 WHEN '307426000' THEN 0.042 ELSE 1.0 END AS f
+    FROM claim_raw r JOIN cc ON r.CLAIM_ID = cc.CLAIM_ID
+    JOIN SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY d ON cc.code = d.CODE
+    WHERE cc.code IS NOT NULL
+),
+typed AS (
+    SELECT CASE
+      WHEN LOWER(nm) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*' THEN 'Dental & oral'
+      WHEN LOWER(nm) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*' THEN 'Maternity'
+      WHEN LOWER(nm) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*' THEN 'Cancer & tumours'
+      WHEN LOWER(nm) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*' THEN 'Kidney & urinary'
+      WHEN LOWER(nm) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*' THEN 'Heart & circulation'
+      WHEN LOWER(nm) REGEXP '.*(bronchitis|covid|pharyngitis|sinusitis|sore throat|emphysema|asthma|otitis|respiratory|pneumon|influenza).*' THEN 'Respiratory & ENT'
+      WHEN LOWER(nm) REGEXP '.*(diabet|obesity|lipid|glycemia|metabolic|triglyceride|osteoporosis|body mass).*' THEN 'Diabetes & metabolic'
+      WHEN LOWER(nm) REGEXP '.*(drug|alcohol|anxiety|attention deficit|sleep|suicide|overdose|depress|stress).*' THEN 'Mental health & substance use'
+      WHEN LOWER(nm) REGEXP '.*(injury|fracture|sprain|laceration|burn|concussion|rupture|dislocation|wound).*' THEN 'Injury & trauma'
+      WHEN LOWER(nm) REGEXP '.*allerg.*' THEN 'Allergy & immune'
+      WHEN LOWER(nm) REGEXP '.*(seizure|alzheimer|neuropathy|epilep|dementia).*' THEN 'Brain & nervous system'
+      WHEN LOWER(nm) REGEXP '.*(sepsis|immunodeficiency|appendicitis|cholecystitis|infection|infective|viral|bacterial).*' THEN 'Infections (other)'
+      WHEN LOWER(nm) REGEXP '.*(anemia|anaemia).*' THEN 'Blood disorders'
+      WHEN LOWER(nm) REGEXP '.*pain.*' THEN 'Chronic pain'
+      ELSE 'Other' END AS care_type,
+      patient_id, billed, paid, patient_paid, f
+    FROM j
+),
+agg AS (
+    SELECT care_type,
+      100.0*SUM(patient_paid)/NULLIF(SUM(paid),0)         AS share_orig,
+      SUM(billed)/NULLIF(COUNT(DISTINCT patient_id),0)    AS cpp_orig,
+      100.0*SUM(patient_paid*f)/NULLIF(SUM(paid*f),0)     AS share_adj,
+      SUM(billed*f)/NULLIF(COUNT(DISTINCT patient_id),0)  AS cpp_adj
+    FROM typed GROUP BY care_type
+),
+ranked AS (
+    SELECT RANK() OVER (ORDER BY share_orig) rso, RANK() OVER (ORDER BY cpp_orig) rco,
+           RANK() OVER (ORDER BY share_adj) rsa, RANK() OVER (ORDER BY cpp_adj) rca
+    FROM agg
+)
+SELECT ROUND(CORR(rso, rco), 3) AS spearman_as_billed,
+       ROUND(CORR(rsa, rca), 3) AS spearman_corrected
+FROM ranked;
