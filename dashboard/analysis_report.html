@@ -82,6 +82,13 @@ dominant-baseline:middle;}
 .hypothetical .barval{fill:var(--text-secondary);font-size:11.5px;}
 .hypothetical .leglabel{fill:var(--text-secondary);font-size:12px;}
 .hypothetical .bar{stroke:var(--rule-strong);stroke-width:1;}
+h3.apphd{font-size:16px;font-weight:650;margin:32px 0 12px;color:var(--text-primary);}
+table.apptable{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 4px;}
+table.apptable th{text-align:left;color:var(--text-muted);font-weight:650;font-size:12.5px;
+letter-spacing:.03em;text-transform:uppercase;padding:8px 14px 8px 0;border-bottom:1px solid var(--rule-strong);}
+table.apptable td{padding:10px 14px 10px 0;border-bottom:1px solid var(--rule);color:var(--text-secondary);}
+table.apptable td:first-child{color:var(--text-primary);font-weight:600;}
+.appnote{font-size:13.5px;color:var(--text-muted);margin:10px 0 28px;line-height:1.55;}
 .minitable{margin-top:16px;}
 .mtcap{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 8px;}
 .minitable table{width:100%;border-collapse:collapse;font-size:14px;}
@@ -558,82 +565,78 @@ data.</li>
 </ul>
 <h2 class="sec">The findings</h2>
 <section class="finding"><h3><span class="fno">Finding 1</span>Diagnosed spend concentrates in about twenty conditions</h3>
-<figure class="fig"><h4 class="figtitle">Kidney disease leads once prices are corrected, at a fifth of diagnosed spending</h4><div class="fig-donut"><div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Donut chart: three conditions account for 39 percent of condition-attributable spend"><path d="M301.14,95.00 A190.00,190.00 0 0 1 477.15,216.32 L404.43,244.52 A112.00,112.00 0 0 0 300.67,173.00 Z" fill="var(--s1)"><title>Chronic kidney disease stage 4: $4,391,639,551 (19.2%)</title></path><path d="M477.97,218.46 A190.00,190.00 0 0 1 461.36,385.32 L395.12,344.13 A112.00,112.00 0 0 0 404.91,245.77 Z" fill="var(--s2)"><title>Normal pregnancy: $3,369,469,264 (14.7%)</title></path><path d="M460.14,387.25 A190.00,190.00 0 0 1 424.38,428.63 L373.32,369.66 A112.00,112.00 0 0 0 394.40,345.27 Z" fill="var(--s3)"><title>Malignant neoplasm of breast: $1,094,711,018 (4.8%)</title></path><path d="M422.65,430.11 A190.00,190.00 0 1 1 298.86,95.00 L299.33,173.00 A112.00,112.00 0 1 0 372.30,370.54 Z" fill="var(--rest)"><title>All other 182 conditions: $14,005,942,371 (61.3%)</title></path><polyline points="416.9,115.4 430.5,95.6 442.5,95.6" class="lead"/><text x="447.5" y="92.6" class="lbl" text-anchor="start">Chronic kidney disease stage 4</text><text x="447.5" y="110.6" class="lsub" text-anchor="start">$4.4B &#183; 19.2%</text><polyline points="505.0,305.4 528.9,307.8 540.9,307.8" class="lead"/><text x="545.9" y="304.8" class="lbl" text-anchor="start">Normal pregnancy</text><text x="545.9" y="322.8" class="lsub" text-anchor="start">$3.4B &#183; 14.7%</text><polyline points="455.9,419.7 474.0,435.4 486.0,435.4" class="lead"/><text x="491.0" y="432.4" class="lbl" text-anchor="start">Malignant neoplasm of breast</text><text x="491.0" y="450.4" class="lsub" text-anchor="start">$1.1B &#183; 4.8%</text><text x="300" y="279" class="ctr">39%</text><text x="300" y="303" class="ctrsub">from just three</text><text x="300" y="319" class="ctrsub">conditions</text></svg></div></div>
-<figcaption><span class="fignum">Figure 1.</span> Diagnosed spend split by condition, 2020&ndash;2024, <strong>price-corrected</strong>: eleven conditions divided down to a real-world benchmark, 174 left as billed. Each slice is one condition&rsquo;s share of the corrected $22.9B that carries a diagnosis, against $72.7B as billed. Kidney disease leads at 19.2% without ever being corrected itself; pregnancy, 39.8% as billed, falls to 14.7%.</figcaption></figure>
-<figure class="fig"><h4 class="figtitle">Corrected, the drop-off is gentler: five conditions make 47%, not three quarters</h4><div class="fig-top20"><div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Top 20 conditions by total billed"><text x="450.0" y="552.0" class="axis-title">total billed, 2020-2024</text><rect x="232.0" y="16.0" width="436.0" height="19.0" rx="4" class="bar hi"/>
-<text x="222.0" y="29.5" class="cat">Chronic kidney disease st.4</text>
-<text x="676.0" y="29.5" class="val">$4.4B</text>
-<rect x="232.0" y="41.0" width="334.5" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="54.5" class="cat">Normal pregnancy</text>
-<text x="574.5" y="54.5" class="val">$3.4B</text>
-<rect x="232.0" y="66.0" width="108.7" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="79.5" class="cat">Malignant neoplasm of breast</text>
-<text x="348.7" y="79.5" class="val">$1.1B</text>
-<rect x="232.0" y="91.0" width="99.7" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="104.5" class="cat">End-stage renal disease</text>
-<text x="339.7" y="104.5" class="val">$1.0B</text>
-<rect x="232.0" y="116.0" width="93.2" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="129.5" class="cat">COVID-19</text>
-<text x="333.2" y="129.5" class="val">$938M</text>
-<rect x="232.0" y="141.0" width="78.8" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="154.5" class="cat">Abnormal cardiac imaging</text>
-<text x="318.8" y="154.5" class="val">$794M</text>
-<rect x="232.0" y="166.0" width="76.3" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="179.5" class="cat">Small cell lung neoplasm</text>
-<text x="316.3" y="179.5" class="val">$769M</text>
-<rect x="232.0" y="191.0" width="74.8" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="204.5" class="cat">Child attention deficit disord</text>
-<text x="314.8" y="204.5" class="val">$753M</text>
-<rect x="232.0" y="216.0" width="72.1" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="229.5" class="cat">Ischemic heart disease</text>
-<text x="312.1" y="229.5" class="val">$727M</text>
-<rect x="232.0" y="241.0" width="67.5" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="254.5" class="cat">Gingivitis</text>
-<text x="307.5" y="254.5" class="val">$680M</text>
-<rect x="232.0" y="266.0" width="61.8" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="279.5" class="cat">Dependent drug abuse</text>
-<text x="301.8" y="279.5" class="val">$622M</text>
-<rect x="232.0" y="291.0" width="40.4" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="304.5" class="cat">Fracture of bone</text>
-<text x="280.4" y="304.5" class="val">$407M</text>
-<rect x="232.0" y="316.0" width="35.0" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="329.5" class="cat">Infection of tooth</text>
-<text x="275.0" y="329.5" class="val">$353M</text>
-<rect x="232.0" y="341.0" width="33.6" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="354.5" class="cat">Chronic heart failure</text>
-<text x="273.6" y="354.5" class="val">$339M</text>
-<rect x="232.0" y="366.0" width="31.6" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="379.5" class="cat">Impacted molars</text>
-<text x="271.6" y="379.5" class="val">$318M</text>
-<rect x="232.0" y="391.0" width="30.4" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="404.5" class="cat">Non-small cell lung carcinoma</text>
-<text x="270.4" y="404.5" class="val">$306M</text>
-<rect x="232.0" y="416.0" width="28.6" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="429.5" class="cat">Malignant tumor of colon</text>
-<text x="268.6" y="429.5" class="val">$288M</text>
-<rect x="232.0" y="441.0" width="27.3" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="454.5" class="cat">Chronic pain</text>
-<text x="267.3" y="454.5" class="val">$275M</text>
-<rect x="232.0" y="466.0" width="27.0" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="479.5" class="cat">Acute viral pharyngitis</text>
-<text x="267.0" y="479.5" class="val">$272M</text>
-<rect x="232.0" y="491.0" width="20.8" height="19.0" rx="4" class="bar"/>
-<text x="222.0" y="504.5" class="cat">Loss of teeth</text>
-<text x="260.8" y="504.5" class="val">$210M</text>
+<figure class="fig"><h4 class="figtitle">Pregnancy alone is two fifths of all diagnosed spending</h4><div class="fig-donut"><div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Donut chart: three conditions account for 63 percent of condition-attributable spend"><path d="M301.14,95.00 A190.00,190.00 0 0 1 414.45,436.66 L367.47,374.40 A112.00,112.00 0 0 0 300.67,173.00 Z" fill="var(--s1)"><title>Normal pregnancy: $28,933,632,566 (39.8%)</title></path><path d="M412.62,438.02 A190.00,190.00 0 0 1 281.02,474.05 L288.81,396.44 A112.00,112.00 0 0 0 366.39,375.20 Z" fill="var(--s2)"><title>Allergy to substance: $8,636,357,451 (11.9%)</title></path><path d="M278.75,473.81 A190.00,190.00 0 0 1 158.80,412.14 L216.77,359.94 A112.00,112.00 0 0 0 287.47,396.30 Z" fill="var(--s3)"><title>Gingivitis: $8,533,540,681 (11.7%)</title></path><path d="M157.29,410.43 A190.00,190.00 0 0 1 298.86,95.00 L299.33,173.00 A112.00,112.00 0 0 0 215.87,358.94 Z" fill="var(--rest)"><title>All other 182 conditions: $26,581,961,971 (36.6%)</title></path><polyline points="495.5,220.2 518.3,212.6 530.3,212.6" class="lead"/><text x="535.3" y="209.6" class="lbl" text-anchor="start">Normal pregnancy</text><text x="535.3" y="227.6" class="lsub" text-anchor="start">$28.9B &#183; 39.8%</text><polyline points="354.4,483.7 360.7,506.8 372.7,506.8" class="lead"/><text x="377.7" y="503.8" class="lbl" text-anchor="start">Allergy to substance</text><text x="377.7" y="521.8" class="lsub" text-anchor="start">$8.6B &#183; 11.9%</text><polyline points="205.8,468.2 194.8,489.5 182.8,489.5" class="lead"/><text x="177.8" y="486.5" class="lbl" text-anchor="end">Gingivitis</text><text x="177.8" y="504.5" class="lsub" text-anchor="end">$8.5B &#183; 11.7%</text><text x="300" y="279" class="ctr">63%</text><text x="300" y="303" class="ctrsub">from just three</text><text x="300" y="319" class="ctrsub">conditions</text></svg></div></div>
+<figcaption><span class="fignum">Figure 1.</span> Diagnosed spend split by condition, 2020&ndash;2024, as billed. Each slice is one condition&rsquo;s share of the $72.7B that carries a diagnosis; pregnancy is the largest at 39.8% as billed, but its price is known to be inflated (see the paragraph below).</figcaption></figure>
+<figure class="fig"><h4 class="figtitle">Five conditions are three quarters of the bill, and the sixth drops below 2%</h4><div class="fig-top20"><div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Top 20 conditions by total billed"><text x="450.0" y="552.0" class="axis-title">total billed, 2020-2024</text><rect x="232.0" y="16.0" width="436.0" height="19.0" rx="4" class="bar hi"/>
+<text x="222.0" y="29.5" class="cat">Normal pregnancy</text>
+<text x="676.0" y="29.5" class="val">$28.9B</text>
+<rect x="232.0" y="41.0" width="130.1" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="54.5" class="cat">Allergy to substance</text>
+<text x="370.1" y="54.5" class="val">$8.6B</text>
+<rect x="232.0" y="66.0" width="128.6" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="79.5" class="cat">Gingivitis</text>
+<text x="368.6" y="79.5" class="val">$8.5B</text>
+<rect x="232.0" y="91.0" width="66.2" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="104.5" class="cat">Chronic kidney disease st.4</text>
+<text x="306.2" y="104.5" class="val">$4.4B</text>
+<rect x="232.0" y="116.0" width="50.9" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="129.5" class="cat">Non-small cell lung carcinoma</text>
+<text x="290.9" y="129.5" class="val">$3.4B</text>
+<rect x="232.0" y="141.0" width="19.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="154.5" class="cat">Polyp of colon</text>
+<text x="259.8" y="154.5" class="val">$1.3B</text>
+<rect x="232.0" y="166.0" width="16.5" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="179.5" class="cat">Malignant neoplasm of breast</text>
+<text x="256.5" y="179.5" class="val">$1.1B</text>
+<rect x="232.0" y="191.0" width="15.1" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="204.5" class="cat">End-stage renal disease</text>
+<text x="255.1" y="204.5" class="val">$1.0B</text>
+<rect x="232.0" y="216.0" width="14.2" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="229.5" class="cat">Gingival disease</text>
+<text x="254.2" y="229.5" class="val">$942M</text>
+<rect x="232.0" y="241.0" width="14.1" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="254.5" class="cat">COVID-19</text>
+<text x="254.1" y="254.5" class="val">$938M</text>
+<rect x="232.0" y="266.0" width="12.5" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="279.5" class="cat">Laceration - injury</text>
+<text x="252.5" y="279.5" class="val">$831M</text>
+<rect x="232.0" y="291.0" width="12.0" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="304.5" class="cat">Abnormal cardiac imaging</text>
+<text x="252.0" y="304.5" class="val">$794M</text>
+<rect x="232.0" y="316.0" width="11.6" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="329.5" class="cat">Small cell lung neoplasm</text>
+<text x="251.6" y="329.5" class="val">$769M</text>
+<rect x="232.0" y="341.0" width="11.4" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="354.5" class="cat">Primary dental caries</text>
+<text x="251.4" y="354.5" class="val">$757M</text>
+<rect x="232.0" y="366.0" width="11.3" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="379.5" class="cat">Child attention deficit disord</text>
+<text x="251.3" y="379.5" class="val">$753M</text>
+<rect x="232.0" y="391.0" width="10.9" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="404.5" class="cat">Ischemic heart disease</text>
+<text x="250.9" y="404.5" class="val">$727M</text>
+<rect x="232.0" y="416.0" width="9.4" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="429.5" class="cat">Dependent drug abuse</text>
+<text x="249.4" y="429.5" class="val">$622M</text>
+<rect x="232.0" y="441.0" width="8.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="454.5" class="cat">Acute bronchitis</text>
+<text x="248.8" y="454.5" class="val">$587M</text>
+<rect x="232.0" y="466.0" width="8.0" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="479.5" class="cat">Stroke</text>
+<text x="248.0" y="479.5" class="val">$529M</text>
+<rect x="232.0" y="491.0" width="6.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="504.5" class="cat">Acute infective cystitis</text>
+<text x="246.8" y="504.5" class="val">$452M</text>
 <line x1="232.0" y1="16.0" x2="232.0" y2="516.0" class="grid"/>
 <text x="232.0" y="536.0" class="tick tick-x">$0B</text>
-<line x1="331.3" y1="16.0" x2="331.3" y2="516.0" class="grid"/>
-<text x="331.3" y="536.0" class="tick tick-x">$1B</text>
-<line x1="430.6" y1="16.0" x2="430.6" y2="516.0" class="grid"/>
-<text x="430.6" y="536.0" class="tick tick-x">$2B</text>
-<line x1="529.8" y1="16.0" x2="529.8" y2="516.0" class="grid"/>
-<text x="529.8" y="536.0" class="tick tick-x">$3B</text>
-<line x1="629.1" y1="16.0" x2="629.1" y2="516.0" class="grid"/>
-<text x="629.1" y="536.0" class="tick tick-x">$4B</text>
-<line x1="728.4" y1="16.0" x2="728.4" y2="516.0" class="grid"/>
-<text x="728.4" y="536.0" class="tick tick-x">$5B</text></svg></div></div>
-<figcaption><span class="fignum">Figure 2.</span> The twenty largest conditions by total billed, <strong>price-corrected</strong>. Eight conditions appear here that were nowhere near the as-billed twenty, including fracture of bone, infection of tooth and impacted molars. The highlighted bar is the largest, kidney disease, marked only because it tops the list; every bar is measured the same way.</figcaption></figure>
-<div class="prose"><p>Both charts rank conditions by total billed and both are <strong>price-corrected</strong>: eleven of the top twenty carry a documented pricing gap against a real-world benchmark and are divided down to it, while the other 174 conditions, including the four checked and found not inflated, stay exactly as billed (<code>q1_condition_breakdown_repriced.sql</code>). On that basis chronic kidney disease is the largest condition at 19.2% of a $22.9B corrected diagnosed total, and it got there without ever being corrected itself: everything around it shrank. Normal pregnancy is 2nd at 14.7%. Twenty conditions together are 78.3% of the corrected total, and 18.1% of the $99.11B actually billed. As billed the same charts read very differently, which is the point of correcting them: pregnancy led at 39.8% of $72.7B, more than three times the second condition, and the top twenty covered 90.8%. Eight conditions in the corrected twenty were nowhere near the as-billed one, and allergy immunotherapy went the other way, dropping out of the twenty entirely once its own gap (roughly 89 times, $11,122 a shot against a real-world $50&ndash;200) is corrected. What holds either way is the shape rather than the identity of the leader: a minority of conditions carries most of the diagnosed bill, though "most" is 78% corrected against 91% as billed. The gap between the diagnosed-spend and all-spend figures is the roughly quarter of spending that carries no diagnosis and sits outside these charts entirely, uncorrected because nothing in it is attributed to a condition at all.</p></div>
+<line x1="382.7" y1="16.0" x2="382.7" y2="516.0" class="grid"/>
+<text x="382.7" y="536.0" class="tick tick-x">$10B</text>
+<line x1="533.4" y1="16.0" x2="533.4" y2="516.0" class="grid"/>
+<text x="533.4" y="536.0" class="tick tick-x">$20B</text>
+<line x1="684.1" y1="16.0" x2="684.1" y2="516.0" class="grid"/>
+<text x="684.1" y="536.0" class="tick tick-x">$30B</text></svg></div></div>
+<figcaption><span class="fignum">Figure 2.</span> The twenty largest conditions by total billed, as billed. The highlighted top bar is pregnancy, marked only because it is the outlier; every bar is measured the same way. Correcting known pricing defects reorders this list substantially, as the paragraph below sets out.</figcaption></figure>
+<div class="prose"><p>Both charts rank conditions by total billed, one as shares of the whole and one as a ranked bar for each. As billed, the distribution is severely top-heavy: normal pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, more than three times the second-placed condition. That specific figure carries a known caveat, tested rather than assumed (see &ldquo;Things to be aware of&rdquo; above): correcting pregnancy alone against a real-world benchmark drops it to 5th place and 7.1% of diagnosed spend (<code>q1_pregnancy_sensitivity.sql</code>). Ten more of the top twenty carry a similarly documented pricing gap, and correcting all eleven together moves the ranking much further (<code>q1_multi_condition_sensitivity.sql</code>): pregnancy falls to 2nd place (14.7%), and chronic kidney disease, never touched because it was already checked and found not inflated, rises to 1st (19.2%) purely because the conditions around it shrank. Allergy immunotherapy, whose own price gap is proportionally larger than pregnancy&rsquo;s ($11,122 a shot against a real-world $50&ndash;200), drops out of the top twenty entirely once corrected rather than moving up into it. What holds under both tests is the shape, not the identity of the leader, and even the shape moves more than a single-condition test suggests: all twenty conditions together are 90.8% of diagnosed spend as billed, 85.8% correcting pregnancy alone, and 78.3% correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The gap between the diagnosed-spend and all-spend figures is the roughly quarter of spending that carries no diagnosis and sits outside these charts entirely.</p></div>
 <div class="hypothetical"><p class="hyplabel">HYPOTHETICAL: SENSITIVITY TEST, NOT THE UNDERLYING DATA</p><div class="figure"><svg viewBox="0 0 700 420" role="img" aria-label="Five conditions' share of diagnosed spend under three pricing scenarios"><defs><pattern id="hatch-s1" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--s1-fill)" fill-opacity=".28"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--s1-fill)" stroke-width="2.5"/></pattern><pattern id="hatch-s2" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--s2-fill)" fill-opacity=".28"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--s2-fill)" stroke-width="2.5"/></pattern><pattern id="hatch-s3" width="6" height="6" patternTransform="rotate(45)" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--s3-fill)" fill-opacity=".28"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--s3-fill)" stroke-width="2.5"/></pattern></defs><line x1="150.0" y1="20" x2="150.0" y2="370" class="grid"/><text x="150.0" y="370" dy="16" class="axis">0%</text><line x1="260.9" y1="20" x2="260.9" y2="370" class="grid"/><text x="260.9" y="370" dy="16" class="axis">10%</text><line x1="371.7" y1="20" x2="371.7" y2="370" class="grid"/><text x="371.7" y="370" dy="16" class="axis">20%</text><line x1="482.6" y1="20" x2="482.6" y2="370" class="grid"/><text x="482.6" y="370" dy="16" class="axis">30%</text><line x1="593.5" y1="20" x2="593.5" y2="370" class="grid"/><text x="593.5" y="370" dy="16" class="axis">40%</text><text x="138" y="59.0" class="catlabel">Pregnancy</text><rect x="150" y="26.0" width="441.4" height="16.7" rx="2" class="bar" fill="url(#hatch-s1)"/><text x="597.4" y="38.3" class="barval">39.8%</text><rect x="150" y="46.7" width="79.3" height="16.7" rx="2" class="bar" fill="url(#hatch-s2)"/><text x="235.3" y="59.0" class="barval">7.2%</text><rect x="150" y="67.3" width="163.4" height="16.7" rx="2" class="bar" fill="url(#hatch-s3)"/><text x="319.4" y="79.7" class="barval">14.7%</text><text x="138" y="129.0" class="catlabel">Allergy</text><rect x="150" y="96.0" width="131.7" height="16.7" rx="2" class="bar" fill="url(#hatch-s1)"/><text x="287.7" y="108.3" class="barval">11.9%</text><rect x="150" y="116.7" width="203.2" height="16.7" rx="2" class="bar" fill="url(#hatch-s2)"/><text x="359.2" y="129.0" class="barval">18.3%</text><rect x="150" y="137.3" width="4.7" height="16.7" rx="2" class="bar" fill="url(#hatch-s3)"/><text x="160.7" y="149.7" class="barval">0.4%</text><text x="138" y="199.0" class="catlabel">Gingivitis</text><rect x="150" y="166.0" width="130.2" height="16.7" rx="2" class="bar" fill="url(#hatch-s1)"/><text x="286.2" y="178.3" class="barval">11.7%</text><rect x="150" y="186.7" width="200.8" height="16.7" rx="2" class="bar" fill="url(#hatch-s2)"/><text x="356.8" y="199.0" class="barval">18.1%</text><rect x="150" y="207.3" width="33.0" height="16.7" rx="2" class="bar" fill="url(#hatch-s3)"/><text x="189.0" y="219.7" class="barval">3.0%</text><text x="138" y="269.0" class="catlabel">Kidney disease st.4</text><rect x="150" y="236.0" width="67.0" height="16.7" rx="2" class="bar" fill="url(#hatch-s1)"/><text x="223.0" y="248.3" class="barval">6.0%</text><rect x="150" y="256.7" width="103.3" height="16.7" rx="2" class="bar" fill="url(#hatch-s2)"/><text x="259.3" y="269.0" class="barval">9.3%</text><rect x="150" y="277.3" width="213.0" height="16.7" rx="2" class="bar" fill="url(#hatch-s3)"/><text x="369.0" y="289.7" class="barval">19.2%</text><text x="138" y="339.0" class="catlabel">NSCLC stage 1</text><rect x="150" y="306.0" width="51.4" height="16.7" rx="2" class="bar" fill="url(#hatch-s1)"/><text x="207.4" y="318.3" class="barval">4.6%</text><rect x="150" y="326.7" width="79.4" height="16.7" rx="2" class="bar" fill="url(#hatch-s2)"/><text x="235.4" y="339.0" class="barval">7.2%</text><rect x="150" y="347.3" width="14.9" height="16.7" rx="2" class="bar" fill="url(#hatch-s3)"/><text x="170.9" y="359.7" class="barval">1.3%</text><rect x="150" y="392" width="12" height="12" class="bar" fill="url(#hatch-s1)"/><text x="168" y="402" class="leglabel">As billed</text><rect x="320" y="392" width="12" height="12" class="bar" fill="url(#hatch-s2)"/><text x="338" y="402" class="leglabel">Pregnancy only</text><rect x="490" y="392" width="12" height="12" class="bar" fill="url(#hatch-s3)"/><text x="508" y="402" class="leglabel">All eleven</text></svg></div></div>
 <div class="sowhat"><p class="swhd">So what</p><p>Five conditions are the first places to investigate, but they reach the top through very different combinations of prevalence and care intensity, and high spend does not automatically mean reducible or avoidable spend. Gingivitis reaches 800,475 members at 6.9 claims each: it is expensive because of how many people it touches. Chronic kidney disease and lung cancer are the opposite: 37,037 and 2,384 members respectively, but 258.5 and 255.8 claims each, which for kidney disease is a patient on dialysis three times a week, care working as intended rather than a problem to reduce. This analysis does not show which, if any, of the twenty represents avoidable spend rather than necessary and already appropriate care; that would need clinical review this dataset cannot supply.</p></div>
 <div class="examined"><p class="exhd">What was examined</p><ul><li>Total billed per condition, ranked, against total billed per member: the two rankings disagree sharply and the disagreement is the point.</li><li>Whether pregnancy at 39.8% is credible, and whether the ranking survives correcting it. The number of visits per pregnancy is plausible (11.1, against a historical ACOG standard of 12&ndash;14 in-person visits for a normal, low-risk pregnancy); the price per visit is not, and repricing it changes the ranking materially (<code>q1_pregnancy_sensitivity.sql</code>).</li><li>Whether the top twenty are extreme on one driver or several. They are moderately extreme on all three at once ( members reached, visits each, cost per visit), and the multiplication does the rest.</li><li>Whether facilities differ in what they charge for the same condition. For eight of the ten largest, barely at all.</li><li>Whether correcting more than pregnancy changes the ranking further. It does, substantially: eleven of the top twenty conditions carry a similarly documented pricing gap, and correcting all eleven together drops the top-20 share to 78.3% and puts chronic kidney disease, not pregnancy, in first place (<code>q1_multi_condition_sensitivity.sql</code>).</li></ul></div>
@@ -672,23 +675,23 @@ data.</li>
 <text x="185" y="151.1" class="cat">Infections (other)</text>
 <text x="628" y="151.1" class="mval">$324M</text>
 <text x="710" y="151.1" class="mval">13,122</text>
-<rect class="seg-pat" x="196" y="163.5" width="105.78" height="23" rx="2"><title>Dental & oral: patients paid $630M of $2.45B</title></rect>
-<rect class="seg-ins" x="301.78" y="163.5" width="304.22" height="23" rx="2"><title>Dental & oral: insurers paid $1.82B</title></rect>
-<text x="297.8" y="179.6" class="inbar">25.8%</text>
+<rect class="seg-pat" x="196" y="163.5" width="114.39" height="23" rx="2"><title>Dental & oral: patients paid $3.30B of $11.83B</title></rect>
+<rect class="seg-ins" x="310.39" y="163.5" width="295.61" height="23" rx="2"><title>Dental & oral: insurers paid $8.53B</title></rect>
+<text x="306.4" y="179.6" class="inbar">27.9%</text>
 <text x="185" y="179.6" class="cat">Dental & oral</text>
-<text x="628" y="179.6" class="mval">$2.45B</text>
+<text x="628" y="179.6" class="mval">$11.83B</text>
 <text x="710" y="179.6" class="mval">938,009</text>
-<rect class="seg-pat" x="196" y="192.0" width="102.50" height="23" rx="2"><title>Respiratory & ENT: patients paid $494M of $1.97B</title></rect>
-<rect class="seg-ins" x="298.50" y="192.0" width="307.50" height="23" rx="2"><title>Respiratory & ENT: insurers paid $1.48B</title></rect>
-<text x="294.5" y="208.1" class="inbar">25.0%</text>
+<rect class="seg-pat" x="196" y="192.0" width="109.88" height="23" rx="2"><title>Respiratory & ENT: patients paid $668M of $2.50B</title></rect>
+<rect class="seg-ins" x="305.88" y="192.0" width="300.12" height="23" rx="2"><title>Respiratory & ENT: insurers paid $1.83B</title></rect>
+<text x="301.9" y="208.1" class="inbar">26.8%</text>
 <text x="185" y="208.1" class="cat">Respiratory & ENT</text>
-<text x="628" y="208.1" class="mval">$1.97B</text>
+<text x="628" y="208.1" class="mval">$2.50B</text>
 <text x="710" y="208.1" class="mval">937,507</text>
-<rect class="seg-pat" x="196" y="220.5" width="102.50" height="23" rx="2"><title>Injury & trauma: patients paid $207M of $831M</title></rect>
-<rect class="seg-ins" x="298.50" y="220.5" width="307.50" height="23" rx="2"><title>Injury & trauma: insurers paid $624M</title></rect>
-<text x="294.5" y="236.6" class="inbar">25.0%</text>
+<rect class="seg-pat" x="196" y="220.5" width="107.83" height="23" rx="2"><title>Injury & trauma: patients paid $396M of $1.51B</title></rect>
+<rect class="seg-ins" x="303.83" y="220.5" width="302.17" height="23" rx="2"><title>Injury & trauma: insurers paid $1.11B</title></rect>
+<text x="299.8" y="236.6" class="inbar">26.3%</text>
 <text x="185" y="236.6" class="cat">Injury & trauma</text>
-<text x="628" y="236.6" class="mval">$831M</text>
+<text x="628" y="236.6" class="mval">$1.51B</text>
 <text x="710" y="236.6" class="mval">342,757</text>
 <rect class="seg-pat" x="196" y="249.0" width="93.89" height="23" rx="2"><title>Chronic pain: patients paid $63M of $275M</title></rect>
 <rect class="seg-ins" x="289.89" y="249.0" width="316.11" height="23" rx="2"><title>Chronic pain: insurers paid $212M</title></rect>
@@ -708,41 +711,41 @@ data.</li>
 <text x="185" y="322.1" class="cat">Other</text>
 <text x="628" y="322.1" class="mval">$91M</text>
 <text x="710" y="322.1" class="mval">56,781</text>
-<rect class="seg-pat" x="196" y="334.5" width="69.70" height="23" rx="2"><title>Maternity: patients paid $587M of $3.45B</title></rect>
-<rect class="seg-ins" x="265.70" y="334.5" width="340.30" height="23" rx="2"><title>Maternity: insurers paid $2.86B</title></rect>
+<rect class="seg-pat" x="196" y="334.5" width="69.70" height="23" rx="2"><title>Maternity: patients paid $4.94B of $29.01B</title></rect>
+<rect class="seg-ins" x="265.70" y="334.5" width="340.30" height="23" rx="2"><title>Maternity: insurers paid $24.07B</title></rect>
 <text x="261.7" y="350.6" class="inbar">17.0%</text>
 <text x="185" y="350.6" class="cat">Maternity</text>
-<text x="628" y="350.6" class="mval">$3.45B</text>
+<text x="628" y="350.6" class="mval">$29.01B</text>
 <text x="710" y="350.6" class="mval">178,766</text>
-<rect class="seg-pat" x="196" y="363.0" width="61.50" height="23" rx="2"><title>Allergy & immune: patients paid $18M of $120M</title></rect>
-<rect class="seg-ins" x="257.50" y="363.0" width="348.50" height="23" rx="2"><title>Allergy & immune: insurers paid $102M</title></rect>
-<text x="253.5" y="379.1" class="inbar">15.0%</text>
-<text x="185" y="379.1" class="cat">Allergy & immune</text>
-<text x="628" y="379.1" class="mval">$120M</text>
-<text x="710" y="379.1" class="mval">49,452</text>
-<rect class="seg-pat" x="196" y="391.5" width="61.09" height="23" rx="2"><title>Heart & circulation: patients paid $392M of $2.63B</title></rect>
-<rect class="seg-ins" x="257.09" y="391.5" width="348.91" height="23" rx="2"><title>Heart & circulation: insurers paid $2.23B</title></rect>
-<text x="253.1" y="407.6" class="inbar">14.9%</text>
-<text x="185" y="407.6" class="cat">Heart & circulation</text>
-<text x="628" y="407.6" class="mval">$2.63B</text>
-<text x="710" y="407.6" class="mval">139,952</text>
-<rect class="seg-pat" x="196" y="420.0" width="53.30" height="23" rx="2"><title>Kidney & urinary: patients paid $728M of $5.59B</title></rect>
-<rect class="seg-ins" x="249.30" y="420.0" width="356.70" height="23" rx="2"><title>Kidney & urinary: insurers paid $4.86B</title></rect>
-<text x="245.3" y="436.1" class="inbar">13.0%</text>
-<text x="185" y="436.1" class="cat">Kidney & urinary</text>
-<text x="628" y="436.1" class="mval">$5.59B</text>
-<text x="710" y="436.1" class="mval">167,126</text>
+<rect class="seg-pat" x="196" y="363.0" width="60.27" height="23" rx="2"><title>Heart & circulation: patients paid $444M of $3.02B</title></rect>
+<rect class="seg-ins" x="256.27" y="363.0" width="349.73" height="23" rx="2"><title>Heart & circulation: insurers paid $2.57B</title></rect>
+<text x="252.3" y="379.1" class="inbar">14.7%</text>
+<text x="185" y="379.1" class="cat">Heart & circulation</text>
+<text x="628" y="379.1" class="mval">$3.02B</text>
+<text x="710" y="379.1" class="mval">139,952</text>
+<rect class="seg-pat" x="196" y="391.5" width="58.22" height="23" rx="2"><title>Kidney & urinary: patients paid $857M of $6.02B</title></rect>
+<rect class="seg-ins" x="254.22" y="391.5" width="351.78" height="23" rx="2"><title>Kidney & urinary: insurers paid $5.17B</title></rect>
+<text x="250.2" y="407.6" class="inbar">14.2%</text>
+<text x="185" y="407.6" class="cat">Kidney & urinary</text>
+<text x="628" y="407.6" class="mval">$6.02B</text>
+<text x="710" y="407.6" class="mval">167,126</text>
+<rect class="seg-pat" x="196" y="420.0" width="41.00" height="23" rx="2"><title>Allergy & immune: patients paid $863M of $8.66B</title></rect>
+<rect class="seg-ins" x="237.00" y="420.0" width="369.00" height="23" rx="2"><title>Allergy & immune: insurers paid $7.80B</title></rect>
+<text x="233.0" y="436.1" class="inbar">10.0%</text>
+<text x="185" y="436.1" class="cat">Allergy & immune</text>
+<text x="628" y="436.1" class="mval">$8.66B</text>
+<text x="710" y="436.1" class="mval">49,452</text>
 <rect class="seg-pat" x="196" y="448.5" width="34.85" height="23" rx="2"><title>Brain & nervous system: patients paid $20M of $236M</title></rect>
 <rect class="seg-ins" x="230.85" y="448.5" width="375.15" height="23" rx="2"><title>Brain & nervous system: insurers paid $216M</title></rect>
 <text x="226.8" y="464.6" class="inbar">8.5%</text>
 <text x="185" y="464.6" class="cat">Brain & nervous system</text>
 <text x="628" y="464.6" class="mval">$236M</text>
 <text x="710" y="464.6" class="mval">26,392</text>
-<rect class="seg-pat" x="196" y="477.0" width="30.34" height="23" rx="2"><title>Cancer & tumours: patients paid $205M of $2.78B</title></rect>
-<rect class="seg-ins" x="226.34" y="477.0" width="379.66" height="23" rx="2"><title>Cancer & tumours: insurers paid $2.58B</title></rect>
-<text x="222.3" y="493.1" class="inbar">7.4%</text>
+<rect class="seg-pat" x="196" y="477.0" width="34.03" height="23" rx="2"><title>Cancer & tumours: patients paid $589M of $7.10B</title></rect>
+<rect class="seg-ins" x="230.03" y="477.0" width="375.97" height="23" rx="2"><title>Cancer & tumours: insurers paid $6.51B</title></rect>
+<text x="226.0" y="493.1" class="inbar">8.3%</text>
 <text x="185" y="493.1" class="cat">Cancer & tumours</text>
-<text x="628" y="493.1" class="mval">$2.78B</text>
+<text x="628" y="493.1" class="mval">$7.10B</text>
 <text x="710" y="493.1" class="mval">67,860</text>
 <text x="401" y="538" class="axis-title">Percentage of the bill, patients (orange) vs insurers (grey)</text>
 </svg></div></div>
@@ -771,25 +774,25 @@ data.</li>
 <text x="656.4" y="466" class="tick tick-x">$100K</text>
 <line class="ticker" x1="751.0" y1="448" x2="751.0" y2="453"/>
 <text x="751.0" y="466" class="tick tick-x">$200K</text>
-<line class="trend" x1="80.7" y1="194.5" x2="757.0" y2="399.1"/>
-<circle class="pt" cx="159.0" cy="212.1" r="30.0"><title>Dental & oral
-$2.6K per person over five years
-patients pay 25.8% of it
+<line class="trend" x1="80.7" y1="176.4" x2="757.0" y2="356.3"/>
+<circle class="pt" cx="373.9" cy="192.9" r="30.0"><title>Dental & oral
+$13K per person over five years
+patients pay 27.9% of it
 938,009 people affected</title></circle>
-<line class="lead" x1="191.0" y1="212.1" x2="197.0" y2="227.1"/>
-<text x="197.0" y="231.1" class="lab s">Dental & oral</text>
-<circle class="pt" cx="129.8" cy="219.4" r="30.0"><title>Respiratory & ENT
-$2.1K per person over five years
-patients pay 25.0% of it
+<line class="lead" x1="405.9" y1="192.9" x2="411.9" y2="207.9"/>
+<text x="411.9" y="211.9" class="lab s">Dental & oral</text>
+<circle class="pt" cx="161.9" cy="203.0" r="30.0"><title>Respiratory & ENT
+$2.7K per person over five years
+patients pay 26.8% of it
 937,507 people affected</title></circle>
-<line class="lead" x1="161.8" y1="219.4" x2="167.8" y2="194.4"/>
-<text x="167.8" y="198.4" class="lab s">Respiratory & ENT</text>
-<circle class="pt" cx="149.0" cy="219.4" r="18.8"><title>Injury & trauma
-$2.4K per person over five years
-patients pay 25.0% of it
+<line class="lead" x1="193.9" y1="203.0" x2="199.9" y2="178.0"/>
+<text x="199.9" y="182.0" class="lab s">Respiratory & ENT</text>
+<circle class="pt" cx="230.1" cy="207.5" r="18.8"><title>Injury & trauma
+$4.4K per person over five years
+patients pay 26.3% of it
 342,757 people affected</title></circle>
-<line class="lead" x1="169.8" y1="219.4" x2="175.8" y2="169.4"/>
-<text x="175.8" y="173.4" class="lab s">Injury & trauma</text>
+<line class="lead" x1="250.8" y1="207.5" x2="256.8" y2="157.5"/>
+<text x="256.8" y="161.5" class="lab s">Injury & trauma</text>
 <circle class="pt" cx="98.6" cy="113.4" r="16.6"><title>Diabetes & metabolic
 $1.7K per person over five years
 patients pay 36.6% of it
@@ -800,27 +803,27 @@ $7.8K per person over five years
 patients pay 20.6% of it
 200,549 people affected</title></circle>
 <text x="330.9" y="263.6" class="lab s">Mental health & substance use</text>
-<circle class="pt" cx="431.9" cy="292.6" r="14.0"><title>Maternity
-$19K per person over five years
+<circle class="pt" cx="722.5" cy="292.6" r="14.0"><title>Maternity
+$162K per person over five years
 patients pay 17.0% of it
 178,766 people affected</title></circle>
-<text x="409.9" y="296.6" class="lab e">Maternity</text>
-<circle class="pt" cx="507.0" cy="329.1" r="13.6"><title>Kidney & urinary
-$33K per person over five years
-patients pay 13.0% of it
+<text x="700.4" y="296.6" class="lab e">Maternity</text>
+<circle class="pt" cx="517.2" cy="318.2" r="13.6"><title>Kidney & urinary
+$36K per person over five years
+patients pay 14.2% of it
 167,126 people affected</title></circle>
-<text x="528.6" y="333.1" class="lab s">Kidney & urinary</text>
-<circle class="pt" cx="428.1" cy="311.8" r="12.6"><title>Heart & circulation
-$19K per person over five years
-patients pay 14.9% of it
+<text x="538.8" y="322.2" class="lab s">Kidney & urinary</text>
+<circle class="pt" cx="447.1" cy="313.6" r="12.6"><title>Heart & circulation
+$22K per person over five years
+patients pay 14.7% of it
 139,952 people affected</title></circle>
-<line class="lead" x1="442.7" y1="311.8" x2="448.7" y2="291.8"/>
-<text x="448.7" y="295.8" class="lab s">Heart & circulation</text>
-<circle class="pt" cx="534.8" cy="380.3" r="9.3"><title>Cancer & tumours
-$41K per person over five years
-patients pay 7.4% of it
+<line class="lead" x1="461.7" y1="313.6" x2="467.7" y2="293.6"/>
+<text x="467.7" y="297.6" class="lab s">Heart & circulation</text>
+<circle class="pt" cx="662.6" cy="372.1" r="9.3"><title>Cancer & tumours
+$105K per person over five years
+patients pay 8.3% of it
 67,860 people affected</title></circle>
-<text x="517.5" y="384.3" class="lab e">Cancer & tumours</text>
+<text x="645.3" y="376.1" class="lab e">Cancer & tumours</text>
 <circle class="pt" cx="108.5" cy="92.3" r="9.2"><title>Blood disorders
 $1.8K per person over five years
 patients pay 38.9% of it
@@ -831,11 +834,11 @@ $1.6K per person over five years
 patients pay 17.9% of it
 56,781 people affected</title></circle>
 <text x="108.9" y="288.3" class="lab s">Other</text>
-<circle class="pt" cx="149.4" cy="310.9" r="8.2"><title>Allergy & immune
-$2.4K per person over five years
-patients pay 15.0% of it
+<circle class="pt" cx="732.8" cy="356.6" r="8.2"><title>Allergy & immune
+$175K per person over five years
+patients pay 10.0% of it
 49,452 people affected</title></circle>
-<text x="133.3" y="309.9" class="lab e">Allergy & immune</text>
+<text x="716.7" y="355.6" class="lab e">Allergy & immune</text>
 <circle class="pt" cx="325.9" cy="238.6" r="6.8"><title>Chronic pain
 $8.9K per person over five years
 patients pay 22.9% of it
@@ -855,8 +858,8 @@ patients pay 28.0% of it
 <text x="419" y="492" class="axis-title">Total cost per person over five years, log scale</text>
 <text class="axis-title" transform="translate(16,256) rotate(-90)">Share of the bill patients pay</text>
 </svg></div></div>
-<figcaption><span class="fignum">Figure 4.</span> Cost per member against the share members carry, one circle per type of care. <strong>Circle size is the number of people affected</strong> (1,802 to 938,009). The <strong>dashed line is a fitted trend</strong> through all fifteen points. The <strong>two circles picked out in purple</strong> are the only types that sit away from that trend; both were tested and neither is a real exception, as the notes below record. Positions are <strong>price-corrected</strong>, which moves allergy furthest: it sits at $2,432 a person here against $175,111 as billed, roughly 72 times to the left of where the uncorrected data would put it.</figcaption></figure>
-<div class="prose"><p>Both charts measure member-paid SHARE: the proportion of a bill met by the member rather than the plan, not a dollar amount and not a measure of financial hardship on its own. Both are <strong>price-corrected</strong> on the same basis as Finding 1. The bars rank the fifteen types of care by that share; the scatter plots the same share against cost per person, sized by how many people it reaches. Corrected, share runs from 7.4% to 38.9%, median 20.6%, and it moves inversely with cost: blood disorders leads at 38.9% on $1,802 a person, diabetes follows at 36.6% on $1,675, while cancer sits last at 7.4% on $41,007. That slope is the finding, and it is robust to the correction rather than created by it: the rank correlation between share and cost per person stays at about &minus;0.6 whether prices are corrected or not, the median holds at 20.6% and the top at 38.9%, and only the bottom of the range moves, from 8.3% as billed to 7.4%. The one category the correction genuinely relocates is allergy and immune care, which reads 10.0% on $175,111 a person as billed and 15.0% on $2,432 corrected: it carries the largest documented pricing gap in this dataset, and on the scatter it moves roughly seventy-two times to the left, out of the expensive-care corner it appeared to occupy. Categories containing no corrected condition are unchanged to the decimal, which is the check that the correction did only what it claims. But share and the actual dollar amount an affected member pays remain a separate question, answered in the table below rather than by either chart above.</p></div>
+<figcaption><span class="fignum">Figure 4.</span> Cost per member against the share members carry, one circle per type of care. <strong>Circle size is the number of people affected</strong> (1,802 to 938,009). The <strong>dashed line is a fitted trend</strong> through all fifteen points. The <strong>two circles picked out in purple</strong> are the only types that sit away from that trend; both were tested and neither is a real exception, as the notes below record. Positions are as billed: the allergy circle in particular sits at $175,111 a person here against $2,432 once its price is corrected, so read its place on the horizontal axis with that in mind.</figcaption></figure>
+<div class="prose"><p>Both charts measure member-paid SHARE: the proportion of a bill met by the member rather than the plan, not a dollar amount and not a measure of financial hardship on its own. The bars rank the fifteen types of care by that share; the scatter plots the same share against cost per person, sized by how many people it reaches. Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood disorders leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% on $1,675, while cancer sits at 8.3% on $104,622. That slope holds across all fifteen points without exception, and it survives price correction: the rank correlation between share and cost per person stays at about &minus;0.6 either way (the second decimal depends on how one tied pair is ranked, so it is not quoted), the median share stays at 20.6% and the top at 38.9%, with only the bottom of the range shifting to 7.4%. One illustration does NOT survive it, and is left out above for that reason: allergy and immune care reads as 10.0% on $175,111 a person as billed, a textbook expensive-care-low-share case, but its price carries the largest documented gap in this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is cheap care at a middling share and illustrates nothing. Cancer is used instead because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual dollar amount an affected member pays are a separate question, answered in the table below rather than by either chart above.</p></div>
 <div class="minitable"><p class="mtcap">What an affected member actually paid, by type of care (five-year total; <code>q2_oop_percentiles_by_care_type.sql</code>)</p><table><thead><tr><th>Type of care</th><th>Share rank</th><th>Median $ paid</th><th>P90 $ paid</th></tr></thead><tbody><tr><td>Maternity</td><td>10th by share (17.0%)</td><td>$10,765</td><td>$64,681</td></tr><tr><td>Dental &amp; oral</td><td>4th by share (27.9%)</td><td>$1,358</td><td>$9,497</td></tr><tr><td>Diabetes &amp; metabolic</td><td>2nd by share (36.6%)</td><td>$233</td><td>$1,502</td></tr><tr><td>Blood disorders</td><td>1st by share (38.9%)</td><td>$179</td><td>$2,049</td></tr></tbody></table><p class="mtnote">The two categories with the highest SHARE (blood disorders, diabetes) have the lowest typical dollar exposure of the four shown. Maternity, 10th by share, has by far the highest, both typically (median) and at the high end (P90). Share and dollar exposure are different findings and should not be described with the same word.</p></div>
 <div class="sowhat"><p class="swhd">So what</p><p>Member-paid share is highest on the cheapest, most routine care, and reach sets a ceiling on how many members a change to any one category could affect: dental, the widest-reaching high-share category, could reach up to 938,009 members, against 67,419 for blood disorders. But share is not dollar exposure. The category with the highest real financial exposure at the tail is maternity, whose share ranks only 10th, so a plan built around the share ranking alone would look past the largest dollar amounts members are actually paying. This analysis does not measure hardship directly (income, savings, or ability to pay are not in this dataset), so &ldquo;highest dollar exposure&rdquo; here means the largest amount paid, not the largest burden felt.</p></div>
 <div class="examined"><p class="exhd">What was examined</p><ul><li>Member share by type of care, with total bill and number of people alongside : share alone says nothing about size.</li><li>Whether the pattern survives inside one line of business, or was an artefact of mixing them. It strengthens: the relationship is clearer within commercial and within government than across both together.</li><li>The two care types that appeared to break the pattern. Neither does: one is skewed by a handful of very large claims, the other is 90.2% government-funded.</li><li>What an affected member actually paid in dollars, not just the share, for each type of care: the result is the table above, and it does not track the share ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).</li><li>Why the mechanism differs by line of business, which is Finding 3.</li><li>Whether the 20.4% headline survives correcting known pricing defects. It does not: corrected, it rises to 23.3%, while the dollars members pay fall from $20.3B to $11.4B. Both at once, because the eleven corrected conditions carry $54.9B at a 17.7% member share against $44.2B at 23.8% for everything untouched, so shrinking the low-share group reweights the blend upward. The share is a mix effect, not members paying more (<code>q1_robustness_three_findings.sql</code>).</li></ul></div>
@@ -3230,6 +3233,52 @@ $107,099 per patient &#183; 1,002 patients</title></circle>
 <div class="examined"><p class="exhd">What was examined</p><ul><li>Whether the spread is price or case mix, by repricing every procedure to its all-facility average and remeasuring, within this dataset&rsquo;s own simulated prices. It is case mix.</li><li>Whether facilities differ in how much they do for the same condition. For the typical condition, no, and the one big exception is pregnancy.</li><li>What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of women give birth on site; at the most expensive, 6.8%. Delivery units against antenatal clinics.</li><li>The two groups that stand out on the chart, both identified by facility name rather than by anything in the data itself.</li><li>Whether the 7.8% price-share figure has a consistent direction. It does not: 298 of 730 facilities (41%) price below the case-mix benchmark, not above it (<code>q3_price_vs_casemix.sql</code>).</li></ul></div>
 <details class="sources"><summary>Sources for this finding , 7 queries</summary><ul><li><a href="../sql/analysis/q3_hospital_cost_intensity.sql"><code>q3_hospital_cost_intensity.sql</code></a> <a class="csv" href="../sql/results/q3_hospital_cost_intensity_2020_2024.csv">results</a> : the $4,401 to $144,422 range across facilities</li><li><a href="../sql/analysis/q3_price_vs_casemix.sql"><code>q3_price_vs_casemix.sql</code></a> <a class="csv" href="../sql/results/q3_price_vs_casemix_2020_2024.csv">results</a> : the repricing test: 15.8x to 15.2x, and the median ABSOLUTE deviation of 7.8% between actual and case-mix-equalised cost per visit (41% of facilities price below the benchmark, not above it -- the signed median is only 3.0%)</li><li><a href="../sql/analysis/q3_utilisation_or_composition.sql"><code>q3_utilisation_or_composition.sql</code></a> <a class="csv" href="../sql/results/q3_utilisation_or_composition_2020_2024.csv">results</a> : the typical spread in procedures per claim across sites for the median condition (IQR divided by median, i.e. (P75-P25)/median): 0.027</li><li><a href="../sql/analysis/q3_site_group_conditions.sql"><code>q3_site_group_conditions.sql</code></a> <a class="csv" href="../sql/results/q3_site_group_conditions_2020_2024.csv">results</a> : the top group broken down by condition, giving kidney disease at 53.1% of visits</li><li><a href="../sql/analysis/q3_site_group_top_conditions.sql"><code>q3_site_group_top_conditions.sql</code></a> <a class="csv" href="../sql/results/q3_site_group_top_conditions_2020_2024.csv">results</a> : which conditions specifically bring members into each kind of site</li><li><a href="../sql/analysis/q3_hospice_site_encounter_mix.sql"><code>q3_hospice_site_encounter_mix.sql</code></a> <a class="csv" href="../sql/results/q3_hospice_site_encounter_mix_2020_2024.csv">results</a> : the hospice group: 18.1% of visits, running 22 days and carrying half the billing</li><li><a href="../sql/analysis/q3_pregnancy_pathway_split.sql"><code>q3_pregnancy_pathway_split.sql</code></a> <a class="csv" href="../sql/results/q3_pregnancy_pathway_split_2020_2024.csv">results</a> : the pregnancy split, 95.5% delivering on site against 6.8%</li></ul></details>
 </section>
+<h2 class="sec">Appendix: sensitivity to the known pricing defect</h2>
+<p>The findings above show real, as-billed data throughout. Eleven of the twenty highest-cost
+conditions carry a documented pricing gap against a named real-world benchmark (see &ldquo;Things
+to be aware of before proceeding&rdquo;); this appendix tests each finding against a corrected
+version of those eleven, side by side with the as-billed figure, rather than replacing any chart
+with one. Full detail and every number here is sourced to
+<code>q1_multi_condition_sensitivity.sql</code>, <code>q1_robustness_three_findings.sql</code> and
+<code>q2_care_type_breakdown_repriced.sql</code>.</p>
+
+<h3 class="apphd">Finding 1: which condition leads</h3>
+<table class="apptable"><thead><tr><th>Measure</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Largest condition</td><td>Normal pregnancy, 39.8%</td><td>Chronic kidney disease st.4, 19.2% (never itself corrected)</td></tr>
+<tr><td>Pregnancy&rsquo;s rank</td><td>1st</td><td>2nd, at 14.7%</td></tr>
+<tr><td>Top 5 share of diagnosed spend</td><td>74.1%</td><td>47.2%</td></tr>
+<tr><td>Top 20 share of diagnosed spend</td><td>90.8%</td><td>78.3%</td></tr>
+</tbody></table>
+<p class="appnote">Eight conditions enter the corrected top twenty that were nowhere near the
+as-billed one, including fracture of bone and infection of tooth. Allergy immunotherapy, whose own
+gap (roughly 89&times;) is larger than pregnancy&rsquo;s, drops out of the top twenty entirely.
+What survives either way: a minority of conditions carries most of diagnosed spend. What does not:
+which one, and how large its lead is.</p>
+
+<h3 class="apphd">Finding 2: what members pay</h3>
+<table class="apptable"><thead><tr><th>Measure</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Member-paid share, overall</td><td>20.4% ($20.3B)</td><td>23.3% ($11.4B)</td></tr>
+<tr><td>Care-type share range</td><td>8.3% to 38.9%, median 20.6%</td><td>7.4% to 38.9%, median 20.6%</td></tr>
+<tr><td>Maternity, median $ paid per member</td><td>$10,765</td><td>$1,308</td></tr>
+<tr><td>Highest median $ exposure</td><td>Maternity</td><td>Infections (other), $1,456, unchanged</td></tr>
+</tbody></table>
+<p class="appnote">The share rises while the dollars fall, and both are true at once: the eleven
+corrected conditions carry $54.9B at a 17.7% member share against $44.2B at 23.8% for everything
+untouched, so shrinking the low-share group reweights the blend upward. Members are not paying
+more. Separately, maternity&rsquo;s out-of-pocket figure, cited earlier in this project as the
+clearest example of real dollar exposure, turns out to be mostly the pricing defect rather than a
+finding about members.</p>
+
+<h3 class="apphd">Finding 3: commercial against government</h3>
+<table class="apptable"><thead><tr><th>Condition</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Normal pregnancy</td><td>25.2&times;</td><td>25.2&times; (unchanged)</td></tr>
+<tr><td>Gingivitis</td><td>17.1&times;</td><td>17.1&times; (unchanged)</td></tr>
+<tr><td>Allergy to substance</td><td>9.4&times;</td><td>9.4&times; (unchanged)</td></tr>
+</tbody></table>
+<p class="appnote">Exactly unchanged, to the decimal, on every condition tested. Scaling a bill and
+what was paid on it by the same factor cancels in a ratio, so this finding is immune to the entire
+class of defect the other two are sensitive to, rather than merely robust to it.</p>
+
 <footer>Calder Health is an illustrative client. The analysis is real and reproducible;
 every figure traces to a saved query in <code>sql/analysis/</code> and a result file in
 <code>sql/results/</code>. Generated by <code>dashboard/generators/analysis_report.py</code>.

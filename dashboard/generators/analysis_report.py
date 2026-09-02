@@ -127,19 +127,11 @@ def figure_of(name):
 
 
 # figure key -> (source chart, which figure in it, wrapper class)
-# Figures 1-4 point at the PRICE-CORRECTED charts: eleven conditions divided
-# down to a real-world benchmark, 174 left as billed. The as-billed generators
-# and their output are untouched and still correct -- other files in this
-# project cite their numbers as ground truth. Figure 5 is deliberately NOT
-# repriced and needs no corrected variant: it plots the commercial-against-
-# government ratio, which q1_robustness_three_findings.sql showed is exactly
-# unchanged by correction, because scaling a bill and what was paid on it by
-# the same factor cancels in a ratio. A repriced version would be identical.
 FIGURES = {
-    'donut':     ('q1_donut_repriced',                    0, 'fig-donut'),
-    'top20':     ('where_the_money_goes_repriced',        0, 'fig-top20'),
-    'whobears':  ('q2_who_bears_the_cost_repriced',       0, 'fig-whobears'),
-    'cheapcare': ('q2_share_vs_cost_per_person_repriced', 0, 'fig-cheapcare'),
+    'donut':     ('q1_donut',                             0, 'fig-donut'),
+    'top20':     ('where_the_money_goes',                 0, 'fig-top20'),
+    'whobears':  ('q2_who_bears_the_cost',                0, 'fig-whobears'),
+    'cheapcare': ('q2_share_vs_cost_per_person',          0, 'fig-cheapcare'),
     'insurance': ('q2_same_condition_different_insurance', 0, 'fig-insurance'),
     'places':    ('places_not_people',                    0, 'fig-places'),
     'lorenz':    ('concentration',                        0, 'fig-lorenz'),
@@ -307,6 +299,7 @@ def build():
         o.append(sources_block(i - 1))
         o.append('</section>')
 
+    o.append(APPENDIX)
     o.append(FOOTER)
     o.append('</div>')
     return '\n'.join(o) + '\n'
@@ -394,6 +387,13 @@ dominant-baseline:middle;}
 .hypothetical .barval{fill:var(--text-secondary);font-size:11.5px;}
 .hypothetical .leglabel{fill:var(--text-secondary);font-size:12px;}
 .hypothetical .bar{stroke:var(--rule-strong);stroke-width:1;}
+h3.apphd{font-size:16px;font-weight:650;margin:32px 0 12px;color:var(--text-primary);}
+table.apptable{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 4px;}
+table.apptable th{text-align:left;color:var(--text-muted);font-weight:650;font-size:12.5px;
+letter-spacing:.03em;text-transform:uppercase;padding:8px 14px 8px 0;border-bottom:1px solid var(--rule-strong);}
+table.apptable td{padding:10px 14px 10px 0;border-bottom:1px solid var(--rule);color:var(--text-secondary);}
+table.apptable td:first-child{color:var(--text-primary);font-weight:600;}
+.appnote{font-size:13.5px;color:var(--text-muted);margin:10px 0 28px;line-height:1.55;}
 .minitable{margin-top:16px;}
 .mtcap{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 8px;}
 .minitable table{width:100%;border-collapse:collapse;font-size:14px;}
@@ -665,6 +665,53 @@ population is generated, not observed, and its very sickest members are under-re
 with real claims data.</li>
 </ul>'''
 
+APPENDIX = '''<h2 class="sec">Appendix: sensitivity to the known pricing defect</h2>
+<p>The findings above show real, as-billed data throughout. Eleven of the twenty highest-cost
+conditions carry a documented pricing gap against a named real-world benchmark (see &ldquo;Things
+to be aware of before proceeding&rdquo;); this appendix tests each finding against a corrected
+version of those eleven, side by side with the as-billed figure, rather than replacing any chart
+with one. Full detail and every number here is sourced to
+<code>q1_multi_condition_sensitivity.sql</code>, <code>q1_robustness_three_findings.sql</code> and
+<code>q2_care_type_breakdown_repriced.sql</code>.</p>
+
+<h3 class="apphd">Finding 1: which condition leads</h3>
+<table class="apptable"><thead><tr><th>Measure</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Largest condition</td><td>Normal pregnancy, 39.8%</td><td>Chronic kidney disease st.4, 19.2% (never itself corrected)</td></tr>
+<tr><td>Pregnancy&rsquo;s rank</td><td>1st</td><td>2nd, at 14.7%</td></tr>
+<tr><td>Top 5 share of diagnosed spend</td><td>74.1%</td><td>47.2%</td></tr>
+<tr><td>Top 20 share of diagnosed spend</td><td>90.8%</td><td>78.3%</td></tr>
+</tbody></table>
+<p class="appnote">Eight conditions enter the corrected top twenty that were nowhere near the
+as-billed one, including fracture of bone and infection of tooth. Allergy immunotherapy, whose own
+gap (roughly 89&times;) is larger than pregnancy&rsquo;s, drops out of the top twenty entirely.
+What survives either way: a minority of conditions carries most of diagnosed spend. What does not:
+which one, and how large its lead is.</p>
+
+<h3 class="apphd">Finding 2: what members pay</h3>
+<table class="apptable"><thead><tr><th>Measure</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Member-paid share, overall</td><td>20.4% ($20.3B)</td><td>23.3% ($11.4B)</td></tr>
+<tr><td>Care-type share range</td><td>8.3% to 38.9%, median 20.6%</td><td>7.4% to 38.9%, median 20.6%</td></tr>
+<tr><td>Maternity, median $ paid per member</td><td>$10,765</td><td>$1,308</td></tr>
+<tr><td>Highest median $ exposure</td><td>Maternity</td><td>Infections (other), $1,456, unchanged</td></tr>
+</tbody></table>
+<p class="appnote">The share rises while the dollars fall, and both are true at once: the eleven
+corrected conditions carry $54.9B at a 17.7% member share against $44.2B at 23.8% for everything
+untouched, so shrinking the low-share group reweights the blend upward. Members are not paying
+more. Separately, maternity&rsquo;s out-of-pocket figure, cited earlier in this project as the
+clearest example of real dollar exposure, turns out to be mostly the pricing defect rather than a
+finding about members.</p>
+
+<h3 class="apphd">Finding 3: commercial against government</h3>
+<table class="apptable"><thead><tr><th>Condition</th><th>As billed</th><th>Price-corrected</th></tr></thead><tbody>
+<tr><td>Normal pregnancy</td><td>25.2&times;</td><td>25.2&times; (unchanged)</td></tr>
+<tr><td>Gingivitis</td><td>17.1&times;</td><td>17.1&times; (unchanged)</td></tr>
+<tr><td>Allergy to substance</td><td>9.4&times;</td><td>9.4&times; (unchanged)</td></tr>
+</tbody></table>
+<p class="appnote">Exactly unchanged, to the decimal, on every condition tested. Scaling a bill and
+what was paid on it by the same factor cancels in a ratio, so this finding is immune to the entire
+class of defect the other two are sensitive to, rather than merely robust to it.</p>
+'''
+
 FOOTER = '''<footer>Calder Health is an illustrative client. The analysis is real and reproducible;
 every figure traces to a saved query in <code>sql/analysis/</code> and a result file in
 <code>sql/results/</code>. Generated by <code>dashboard/generators/analysis_report.py</code>.
@@ -755,39 +802,39 @@ def sources_block(i):
 FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
   'figures': [(1,
                'donut',
-               'Kidney disease leads once prices are corrected, at a fifth of diagnosed spending',
-               'Diagnosed spend split by condition, 2020&ndash;2024, <strong>price-corrected</strong>: '
-               'eleven conditions divided down to a real-world benchmark, 174 left as billed. Each '
-               'slice is one condition&rsquo;s share of the corrected $22.9B that carries a diagnosis, '
-               'against $72.7B as billed. Kidney disease leads at 19.2% without ever being corrected '
-               'itself; pregnancy, 39.8% as billed, falls to 14.7%.'),
+               'Pregnancy alone is two fifths of all diagnosed spending',
+               'Diagnosed spend split by condition, 2020&ndash;2024, as billed. Each slice is '
+               'one condition&rsquo;s share of the $72.7B that carries a diagnosis; pregnancy '
+               'is the largest at 39.8% as billed, but its price is known to be inflated (see '
+               'the paragraph below).'),
               (2,
                'top20',
-               'Corrected, the drop-off is gentler: five conditions make 47%, not three quarters',
-               'The twenty largest conditions by total billed, <strong>price-corrected</strong>. Eight '
-               'conditions appear here that were nowhere near the as-billed twenty, including fracture '
-               'of bone, infection of tooth and impacted molars. The highlighted bar is the largest, '
-               'kidney disease, marked only because it tops the list; every bar is measured the same '
-               'way.')],
-  'para': 'Both charts rank conditions by total billed and both are <strong>price-corrected</st'
-          'rong>: eleven of the top twenty carry a documented pricing gap against a real-world '
-          'benchmark and are divided down to it, while the other 174 conditions, including the '
-          'four checked and found not inflated, stay exactly as billed (<code>q1_condition_brea'
-          'kdown_repriced.sql</code>). On that basis chronic kidney disease is the largest cond'
-          'ition at 19.2% of a $22.9B corrected diagnosed total, and it got there without ever '
-          'being corrected itself: everything around it shrank. Normal pregnancy is 2nd at 14.7'
-          '%. Twenty conditions together are 78.3% of the corrected total, and 18.1% of the $99'
-          '.11B actually billed. As billed the same charts read very differently, which is the '
-          'point of correcting them: pregnancy led at 39.8% of $72.7B, more than three times th'
-          'e second condition, and the top twenty covered 90.8%. Eight conditions in the correc'
-          'ted twenty were nowhere near the as-billed one, and allergy immunotherapy went the o'
-          'ther way, dropping out of the twenty entirely once its own gap (roughly 89 times, $1'
-          '1,122 a shot against a real-world $50&ndash;200) is corrected. What holds either way'
-          ' is the shape rather than the identity of the leader: a minority of conditions carri'
-          'es most of the diagnosed bill, though "most" is 78% corrected against 91% as billed.'
-          ' The gap between the diagnosed-spend and all-spend figures is the roughly quarter of'
-          ' spending that carries no diagnosis and sits outside these charts entirely, uncorrec'
-          'ted because nothing in it is attributed to a condition at all.',
+               'Five conditions are three quarters of the bill, and the sixth drops below 2%',
+               'The twenty largest conditions by total billed, as billed. The highlighted '
+               'top bar is pregnancy, marked only because it is the outlier; every bar is '
+               'measured the same way. Correcting known pricing defects reorders this list '
+               'substantially, as the paragraph below sets out.')],
+  'para': 'Both charts rank conditions by total billed, one as shares of the whole and one as '
+          'a ranked bar for each. As billed, the distribution is severely top-heavy: normal '
+          'pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, '
+          'more than three times the second-placed condition. That specific figure carries a '
+          'known caveat, tested rather than assumed (see &ldquo;Things to be aware of&rdquo; '
+          'above): correcting pregnancy alone against a real-world benchmark drops it to 5th '
+          'place and 7.1% of diagnosed spend (<code>q1_pregnancy_sensitivity.sql</code>).'
+          ' Ten more of the top twenty carry a similarly documented pricing gap, and correcting '
+          'all eleven together moves the ranking much further '
+          '(<code>q1_multi_condition_sensitivity.sql</code>): pregnancy falls to 2nd place '
+          '(14.7%), and chronic kidney disease, never touched because it was already checked '
+          'and found not inflated, rises to 1st (19.2%) purely because the conditions around '
+          'it shrank. Allergy immunotherapy, whose own price gap is proportionally larger than '
+          'pregnancy&rsquo;s ($11,122 a shot against a real-world $50&ndash;200), drops out of '
+          'the top twenty entirely once corrected rather than moving up into it. What holds '
+          'under both tests is the shape, not the identity of the leader, and even the shape '
+          'moves more than a single-condition test suggests: all twenty conditions together '
+          'are 90.8% of diagnosed spend as billed, 85.8% correcting pregnancy alone, and 78.3% '
+          'correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The '
+          'gap between the diagnosed-spend and all-spend figures is the roughly quarter of '
+          'spending that carries no diagnosis and sits outside these charts entirely.',
   'extra': scenario_chart(),
   'examined': ['Total billed per condition, ranked, against total billed per member: '
                'the two rankings disagree sharply and the disagreement is the point.',
@@ -832,29 +879,30 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                '938,009). The <strong>dashed line is a fitted trend</strong> through all '
                'fifteen points. The <strong>two circles picked out in purple</strong> are the '
                'only types that sit away from that trend; both were tested and neither '
-               'is a real exception, as the notes below record. Positions are <strong>price-corrected'
-               '</strong>, which moves allergy furthest: it sits at $2,432 a person here against '
-               '$175,111 as billed, roughly 72 times to the left of where the uncorrected '
-               'data would put it.')],
-  'para': 'Both charts measure member-paid SHARE: the proportion of a bill met by the member ra'
-          'ther than the plan, not a dollar amount and not a measure of financial hardship on i'
-          'ts own. Both are <strong>price-corrected</strong> on the same basis as Finding 1. Th'
-          'e bars rank the fifteen types of care by that share; the scatter plots the same shar'
-          'e against cost per person, sized by how many people it reaches. Corrected, share run'
-          's from 7.4% to 38.9%, median 20.6%, and it moves inversely with cost: blood disorder'
-          's leads at 38.9% on $1,802 a person, diabetes follows at 36.6% on $1,675, while canc'
-          'er sits last at 7.4% on $41,007. That slope is the finding, and it is robust to the '
-          'correction rather than created by it: the rank correlation between share and cost pe'
-          'r person stays at about &minus;0.6 whether prices are corrected or not, the median h'
-          'olds at 20.6% and the top at 38.9%, and only the bottom of the range moves, from 8.3'
-          '% as billed to 7.4%. The one category the correction genuinely relocates is allergy '
-          'and immune care, which reads 10.0% on $175,111 a person as billed and 15.0% on $2,43'
-          '2 corrected: it carries the largest documented pricing gap in this dataset, and on t'
-          'he scatter it moves roughly seventy-two times to the left, out of the expensive-care'
-          ' corner it appeared to occupy. Categories containing no corrected condition are unch'
-          'anged to the decimal, which is the check that the correction did only what it claims'
-          '. But share and the actual dollar amount an affected member pays remain a separate q'
-          'uestion, answered in the table below rather than by either chart above.',
+               'is a real exception, as the notes below record. Positions are as billed: '
+               'the allergy circle in particular sits at $175,111 a person here against '
+               '$2,432 once its price is corrected, so read its place on the horizontal '
+               'axis with that in mind.')],
+  'para': 'Both charts measure member-paid SHARE: the proportion of a bill met by the member '
+          'rather than the plan, not a dollar amount and not a measure of financial hardship '
+          'on its own. The bars rank the fifteen types of care by that share; the scatter '
+          'plots the same share against cost per person, sized by how many people it reaches. '
+          'Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood '
+          'disorders leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% '
+          'on $1,675, while cancer sits at 8.3% on $104,622. That slope holds across all fifteen '
+          'points without exception, and it survives price correction: the rank correlation '
+          'between share and cost per person stays at about &minus;0.6 either way (the second '
+          'decimal depends on how one tied pair is ranked, so it is not quoted), the median '
+          'share stays at 20.6% and the top at 38.9%, with only the bottom of the range '
+          'shifting to 7.4%. One illustration does NOT survive it, and is left out above for '
+          'that reason: '
+          'allergy and immune care reads as 10.0% on $175,111 a person as billed, a textbook '
+          'expensive-care-low-share case, but its price carries the largest documented gap in '
+          'this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is '
+          'cheap care at a middling share and illustrates nothing. Cancer is used instead '
+          'because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual '
+          'dollar amount an affected member pays are a separate question, answered in the table '
+          'below rather than by either chart above.',
   'extra': '<div class="minitable"><p class="mtcap">What an affected member actually paid, '
            'by type of care (five-year total; <code>q2_oop_percentiles_by_care_type.sql</code>)'
            '</p><table><thead><tr><th>Type of care</th><th>Share rank</th>'
