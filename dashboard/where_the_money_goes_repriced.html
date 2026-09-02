@@ -1,0 +1,197 @@
+<title>Where the Money Goes</title>
+<style>
+:root{--surface-1:#fcfcfb;--surface-2:#f4f3f0;--text-primary:#0b0b0b;--text-secondary:#52514e;
+--text-muted:#78766f;--grid:#e6e5e1;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--iqr:#9ec5f4;--bar-hi:#184f95;--bar-mute:#a9b4c2;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--surface-1:#1a1a19;--surface-2:#232322;
+--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#9a988f;--grid:#33322f;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--iqr:#1c5cab;--bar-hi:#5598e7;--bar-mute:#5c6672;}}
+:root[data-theme="dark"]{--surface-1:#1a1a19;--surface-2:#232322;--text-primary:#fff;--text-secondary:#c3c2b7;
+--text-muted:#9a988f;--grid:#33322f;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--iqr:#1c5cab;--bar-hi:#5598e7;--bar-mute:#5c6672;}
+*{box-sizing:border-box}
+body{background:var(--surface-1);color:var(--text-primary);margin:0;padding:32px 20px 48px;
+font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",system-ui,sans-serif;}
+.wrap{max-width:820px;margin:0 auto;}
+h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em;}
+.lede{color:var(--text-secondary);font-size:14px;margin:0 0 34px;}
+section{margin:0 0 44px;}
+h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em;}
+.sub{color:var(--text-secondary);font-size:13.5px;margin:0 0 16px;}
+.figure{overflow-x:auto;background:var(--surface-2);border-radius:10px;padding:14px 10px;}
+svg{display:block;width:100%;height:auto;min-width:660px;}
+.grid{stroke:var(--grid);stroke-width:1;}
+.bar{fill:var(--bar-mute);}
+.bar.hi{fill:var(--bar-hi);}
+.tick{fill:var(--text-muted);font-size:11.5px;}
+.tick-x{text-anchor:middle;} .tick-y{text-anchor:end;}
+.cat{fill:var(--text-primary);font-size:12px;text-anchor:end;}
+.val{fill:var(--text-secondary);font-size:11.5px;}
+.axis-title{fill:var(--text-secondary);font-size:12px;text-anchor:middle;}
+.dot{fill:var(--bar-mute);stroke:var(--surface-2);stroke-width:2;}
+.dot.sev{fill:var(--bar-hi);}
+.qline{stroke:var(--grid);stroke-width:1;stroke-dasharray:3 5;}
+.axis{stroke:var(--grid);stroke-width:1.25;}
+.ticker{stroke:var(--grid);stroke-width:1;}
+.arw{stroke:var(--text-muted);stroke-width:1.2;fill:none;opacity:.7;}
+.ahd{fill:var(--text-muted);opacity:.7;}
+.qt{fill:var(--text-secondary);font-size:12px;font-weight:600;}
+.qs{fill:var(--text-muted);font-size:11px;}
+.pt{fill:var(--text-primary);font-size:11px;text-anchor:middle;}
+.rng{stroke:var(--text-muted);stroke-width:1.5;opacity:.45;}
+.rng.hi{stroke:var(--bar-hi);opacity:.85;stroke-width:2;}
+.iqr.hi{fill:var(--bar-hi);}
+.medot.hi{fill:var(--bar-hi);}
+.cat.vary{font-style:italic;fill:var(--bar-hi);font-weight:600;}
+.ln{display:inline-block;width:16px;height:0;border-top:1.5px solid var(--text-muted);}
+.iqr{fill:var(--iqr);}
+.medot{fill:var(--s1);stroke:var(--surface-2);stroke-width:2;}
+.key{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0 0;font-size:12.5px;color:var(--text-secondary);}
+.key span{display:flex;align-items:center;gap:7px;}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
+.note{color:var(--text-muted);font-size:12.5px;margin:14px 0 0;}
+.fine{font-size:12.5px;font-style:italic;}
+.mval{fill:var(--text-muted);font-size:11.5px;}
+.mval.hi{fill:var(--bar-hi);font-weight:700;}
+.colhd{fill:var(--text-secondary);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;}
+.take{background:var(--surface-2);border-left:3px solid var(--s1);padding:11px 15px;border-radius:0 7px 7px 0;
+margin:14px 0 0;font-size:13.5px;color:var(--text-primary);}
+</style>
+<div class="wrap">
+<h1>Where the money goes</h1>
+<p class="lede">Synthea healthcare claims, 2020&ndash;2024. $99.1&nbsp;billion billed across 68.6&nbsp;million claims;
+$72.7&nbsp;billion of it attributable to a clinical condition.</p>
+
+<section>
+<h2>1. Twenty conditions account for 78% of it, once prices are corrected</h2>
+<p class="sub">Total billed per condition, <strong>price-corrected</strong>: eleven conditions repriced to a real-world benchmark, 174 as billed. The top 20 cover 78.3% of the $22.9B corrected condition-attributable total, and 18.1% of the $99.11B actually billed.</p>
+<div class="figure"><svg viewBox="0 0 760 560" role="img" aria-label="Top 20 conditions by total billed"><text x="450.0" y="552.0" class="axis-title">total billed, 2020-2024</text><rect x="232.0" y="16.0" width="436.0" height="19.0" rx="4" class="bar hi"/>
+<text x="222.0" y="29.5" class="cat">Chronic kidney disease st.4</text>
+<text x="676.0" y="29.5" class="val">$4.4B</text>
+<rect x="232.0" y="41.0" width="334.5" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="54.5" class="cat">Normal pregnancy</text>
+<text x="574.5" y="54.5" class="val">$3.4B</text>
+<rect x="232.0" y="66.0" width="108.7" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="79.5" class="cat">Malignant neoplasm of breast</text>
+<text x="348.7" y="79.5" class="val">$1.1B</text>
+<rect x="232.0" y="91.0" width="99.7" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="104.5" class="cat">End-stage renal disease</text>
+<text x="339.7" y="104.5" class="val">$1.0B</text>
+<rect x="232.0" y="116.0" width="93.2" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="129.5" class="cat">COVID-19</text>
+<text x="333.2" y="129.5" class="val">$938M</text>
+<rect x="232.0" y="141.0" width="78.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="154.5" class="cat">Abnormal cardiac imaging</text>
+<text x="318.8" y="154.5" class="val">$794M</text>
+<rect x="232.0" y="166.0" width="76.3" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="179.5" class="cat">Small cell lung neoplasm</text>
+<text x="316.3" y="179.5" class="val">$769M</text>
+<rect x="232.0" y="191.0" width="74.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="204.5" class="cat">Child attention deficit disord</text>
+<text x="314.8" y="204.5" class="val">$753M</text>
+<rect x="232.0" y="216.0" width="72.1" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="229.5" class="cat">Ischemic heart disease</text>
+<text x="312.1" y="229.5" class="val">$727M</text>
+<rect x="232.0" y="241.0" width="67.5" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="254.5" class="cat">Gingivitis</text>
+<text x="307.5" y="254.5" class="val">$680M</text>
+<rect x="232.0" y="266.0" width="61.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="279.5" class="cat">Dependent drug abuse</text>
+<text x="301.8" y="279.5" class="val">$622M</text>
+<rect x="232.0" y="291.0" width="40.4" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="304.5" class="cat">Fracture of bone</text>
+<text x="280.4" y="304.5" class="val">$407M</text>
+<rect x="232.0" y="316.0" width="35.0" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="329.5" class="cat">Infection of tooth</text>
+<text x="275.0" y="329.5" class="val">$353M</text>
+<rect x="232.0" y="341.0" width="33.6" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="354.5" class="cat">Chronic heart failure</text>
+<text x="273.6" y="354.5" class="val">$339M</text>
+<rect x="232.0" y="366.0" width="31.6" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="379.5" class="cat">Impacted molars</text>
+<text x="271.6" y="379.5" class="val">$318M</text>
+<rect x="232.0" y="391.0" width="30.4" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="404.5" class="cat">Non-small cell lung carcinoma</text>
+<text x="270.4" y="404.5" class="val">$306M</text>
+<rect x="232.0" y="416.0" width="28.6" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="429.5" class="cat">Malignant tumor of colon</text>
+<text x="268.6" y="429.5" class="val">$288M</text>
+<rect x="232.0" y="441.0" width="27.3" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="454.5" class="cat">Chronic pain</text>
+<text x="267.3" y="454.5" class="val">$275M</text>
+<rect x="232.0" y="466.0" width="27.0" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="479.5" class="cat">Acute viral pharyngitis</text>
+<text x="267.0" y="479.5" class="val">$272M</text>
+<rect x="232.0" y="491.0" width="20.8" height="19.0" rx="4" class="bar"/>
+<text x="222.0" y="504.5" class="cat">Loss of teeth</text>
+<text x="260.8" y="504.5" class="val">$210M</text>
+<line x1="232.0" y1="16.0" x2="232.0" y2="516.0" class="grid"/>
+<text x="232.0" y="536.0" class="tick tick-x">$0B</text>
+<line x1="331.3" y1="16.0" x2="331.3" y2="516.0" class="grid"/>
+<text x="331.3" y="536.0" class="tick tick-x">$1B</text>
+<line x1="430.6" y1="16.0" x2="430.6" y2="516.0" class="grid"/>
+<text x="430.6" y="536.0" class="tick tick-x">$2B</text>
+<line x1="529.8" y1="16.0" x2="529.8" y2="516.0" class="grid"/>
+<text x="529.8" y="536.0" class="tick tick-x">$3B</text>
+<line x1="629.1" y1="16.0" x2="629.1" y2="516.0" class="grid"/>
+<text x="629.1" y="536.0" class="tick tick-x">$4B</text>
+<line x1="728.4" y1="16.0" x2="728.4" y2="516.0" class="grid"/>
+<text x="728.4" y="536.0" class="tick tick-x">$5B</text></svg></div>
+<div class="take">Normal pregnancy alone is <strong>39.8%</strong> &mdash; more than the next three combined.</div>
+</section>
+
+<section>
+<h2>2. High-cost conditions are driven by either volume or treatment intensity</h2>
+<p class="sub">Each dot is one of the top 20 conditions, placed by how many patients it affects and what it costs to
+treat each one. The two extremes sit in opposite corners.</p>
+<div class="figure"><svg viewBox="0 0 800 640" role="img" aria-label="Patients treated against cost per patient, four quadrants"><defs><marker id="ah2" viewBox="0 0 8 8" refX="2" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M8,1 L2,4 L8,7 z" class="ahd"/></marker><marker id="ah" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L6,4 L0,7 z" class="ahd"/></marker></defs><line x1="122.0" y1="518.0" x2="744.0" y2="518.0" class="axis"/><line x1="122.0" y1="78.0" x2="122.0" y2="518.0" class="axis"/><line x1="122.0" y1="518.0" x2="122.0" y2="523.0" class="ticker"/><text x="122.0" y="539.0" class="tick tick-x">0</text><line x1="225.7" y1="518.0" x2="225.7" y2="523.0" class="ticker"/><text x="225.7" y="539.0" class="tick tick-x">10</text><line x1="329.3" y1="518.0" x2="329.3" y2="523.0" class="ticker"/><text x="329.3" y="539.0" class="tick tick-x">100</text><line x1="433.0" y1="518.0" x2="433.0" y2="523.0" class="ticker"/><text x="433.0" y="539.0" class="tick tick-x">1K</text><line x1="536.7" y1="518.0" x2="536.7" y2="523.0" class="ticker"/><text x="536.7" y="539.0" class="tick tick-x">10K</text><line x1="640.3" y1="518.0" x2="640.3" y2="523.0" class="ticker"/><text x="640.3" y="539.0" class="tick tick-x">100K</text><line x1="744.0" y1="518.0" x2="744.0" y2="523.0" class="ticker"/><text x="744.0" y="539.0" class="tick tick-x">1M</text><line x1="117.0" y1="518.0" x2="122.0" y2="518.0" class="ticker"/><text x="111.0" y="522.0" class="tick tick-y">0</text><line x1="117.0" y1="408.0" x2="122.0" y2="408.0" class="ticker"/><text x="111.0" y="412.0" class="tick tick-y">$10K</text><line x1="117.0" y1="298.0" x2="122.0" y2="298.0" class="ticker"/><text x="111.0" y="302.0" class="tick tick-y">$100K</text><line x1="117.0" y1="188.0" x2="122.0" y2="188.0" class="ticker"/><text x="111.0" y="192.0" class="tick tick-y">$1M</text><line x1="117.0" y1="78.0" x2="122.0" y2="78.0" class="ticker"/><text x="111.0" y="82.0" class="tick tick-y">$10M</text><line x1="433.0" y1="78.0" x2="433.0" y2="518.0" class="qline"/><line x1="122.0" y1="298.0" x2="744.0" y2="298.0" class="qline"/><text x="203.5" y="38.0" class="qt" text-anchor="middle">Intensity-driven</text><text x="203.5" y="52.0" class="qs" text-anchor="middle">few patients, high cost each</text><text x="662.5" y="38.0" class="qt" text-anchor="middle">High priority</text><text x="662.5" y="52.0" class="qs" text-anchor="middle">many patients, high cost each</text><text x="203.5" y="570.0" class="qt" text-anchor="middle">Lower impact</text><text x="203.5" y="584.0" class="qs" text-anchor="middle">few patients, low cost each</text><text x="662.5" y="570.0" class="qt" text-anchor="middle">Volume-driven</text><text x="662.5" y="584.0" class="qs" text-anchor="middle">many patients, low cost each</text><circle cx="595.6" cy="289.9" r="7" class="dot"><title>Chronic kidney disease
+37,037 patients | $118,574 per patient</title></circle><circle cx="666.4" cy="377.7" r="7" class="dot"><title>Normal pregnancy
+178,616 patients | $18,864 per patient</title></circle><circle cx="562.1" cy="320.6" r="7" class="dot"><title>Malignant neoplasm of breast
+17,582 patients | $62,263 per patient</title></circle><circle cx="553.5" cy="315.6" r="7" class="dot"><title>End-stage renal disease
+14,528 patients | $69,135 per patient</title></circle><circle cx="574.2" cy="340.9" r="7" class="dot sev"><title>COVID-19
+23,027 patients | $40,749 per patient</title></circle><circle cx="567.7" cy="341.9" r="7" class="dot"><title>Abnormal cardiac imaging
+19,908 patients | $39,868 per patient</title></circle><circle cx="394.7" cy="159.9" r="7" class="dot sev"><title>Small cell lung cancer
+427 patients | $1,800,954 per patient</title></circle><circle cx="522.1" cy="296.1" r="7" class="dot"><title>Child attention deficit disorder
+7,232 patients | $104,113 per patient</title></circle><circle cx="605.9" cy="386.7" r="7" class="dot"><title>Ischemic heart disease
+46,534 patients | $15,615 per patient</title></circle><circle cx="734.0" cy="525.8" r="7" class="dot"><title>Gingivitis
+800,475 patients | $850 per patient</title></circle><circle cx="639.4" cy="429.6" r="7" class="dot"><title>Dependent drug abuse
+97,898 patients | $6,356 per patient</title></circle><circle cx="631.5" cy="441.6" r="7" class="dot"><title>Fracture of bone
+82,213 patients | $4,953 per patient</title></circle><circle cx="615.9" cy="431.9" r="7" class="dot"><title>Infection of tooth
+58,182 patients | $6,061 per patient</title></circle><circle cx="535.9" cy="348.9" r="7" class="dot"><title>Chronic congestive heart failure
+9,829 patients | $34,477 per patient</title></circle><circle cx="520.5" cy="335.6" r="7" class="dot"><title>Impacted molars
+6,984 patients | $45,543 per patient</title></circle><circle cx="472.1" cy="286.1" r="7" class="dot sev"><title>Non-small cell lung cancer
+2,384 patients | $128,297 per patient</title></circle><circle cx="503.5" cy="322.2" r="7" class="dot"><title>Malignant tumor of colon
+4,784 patients | $60,215 per patient</title></circle><circle cx="587.7" cy="413.7" r="7" class="dot"><title>Chronic pain
+31,047 patients | $8,870 per patient</title></circle><circle cx="691.8" cy="524.8" r="7" class="dot"><title>Acute viral pharyngitis
+313,989 patients | $867 per patient</title></circle><circle cx="643.0" cy="485.5" r="7" class="dot"><title>Loss of teeth
+106,191 patients | $1,973 per patient</title></circle><text x="666.4" y="260.0" class="pt" text-anchor="middle">Normal pregnancy</text><text x="734.0" y="424.9" class="pt" text-anchor="middle">Gingivitis</text><text x="584.6" y="276.9" class="pt" text-anchor="end">Chronic kidney disease</text><text x="485.1" y="175.4" class="pt" text-anchor="start">Non-small cell lung cancer</text><text x="381.7" y="155.9" class="pt" text-anchor="end">Small cell lung cancer</text><text x="672.3" y="485.1" class="pt" text-anchor="end">Acute bronchitis</text><text x="463.0" y="268.0" class="pt" text-anchor="end">Stroke</text><text class="axis-title" transform="translate(30 298.0) rotate(-90)">cost per patient (log)</text><text x="433.0" y="600.0" class="axis-title">number of patients treated (log)</text><line x1="313.5" y1="34.0" x2="552.5" y2="34.0" class="arw" marker-start="url(#ah2)" marker-end="url(#ah)"/><line x1="313.5" y1="566.0" x2="552.5" y2="566.0" class="arw" marker-start="url(#ah2)" marker-end="url(#ah)"/></svg></div>
+<div class="key">
+  <span><i class="sw" style="background:var(--bar-hi)"></i>counted only for hospitalised patients</span>
+  <span><i class="sw" style="background:var(--bar-mute)"></i>counted for everyone with the condition</span>
+</div>
+<div class="take">Gingivitis and lung cancer bill nearly the same in total, from opposite corners:
+<strong>800,475 patients at $10,661 each</strong> versus <strong>2,384 patients at $1,416,145 each</strong>.</div>
+<p class="note">Log scales are used because patient counts and costs vary by several orders of magnitude.
+Dark blue conditions are recorded almost only on hospital stays, so their patient counts cover the sickest cases
+rather than everyone who had the illness.</p>
+</section>
+
+<section>
+<h2>3. Among the biggest-spend conditions, only two vary much between hospitals</h2>
+<p class="sub">NOT price-corrected, unlike panels 1 and 2: cost per claim across hospitals for the ten highest-spend conditions as billed. The
+<strong>variation</strong> score on the right measures how much ordinary hospitals differ: the price gap between
+the cheapest and dearest quarter of hospitals, as a share of the typical price.</p>
+<div class="figure"><svg viewBox="0 0 780 400" role="img" aria-label="Cost per claim across hospitals for the ten highest-spend conditions, with a variation score"><line x1="236.0" y1="336.0" x2="668.0" y2="336.0" class="axis"/><text x="682.0" y="20.0" class="colhd">variation</text><line x1="236.0" y1="336.0" x2="236.0" y2="341.0" class="ticker"/><text x="236.0" y="357.0" class="tick tick-x">$100</text><line x1="372.0" y1="336.0" x2="372.0" y2="341.0" class="ticker"/><text x="372.0" y="357.0" class="tick tick-x">$1,000</text><line x1="508.0" y1="336.0" x2="508.0" y2="341.0" class="ticker"/><text x="508.0" y="357.0" class="tick tick-x">$10,000</text><line x1="644.0" y1="336.0" x2="644.0" y2="341.0" class="ticker"/><text x="644.0" y="357.0" class="tick tick-x">$100,000</text><line x1="429.2" y1="45.3" x2="550.5" y2="45.3" class="rng"/><rect x="464.0" y="40.3" width="70.9" height="10" rx="3" class="iqr"/><circle cx="516.2" cy="45.3" r="5" class="medot"/><text x="224.0" y="49.3" class="cat">1. Normal pregnancy</text><text x="682.0" y="49.3" class="mval">0.96</text><line x1="493.3" y1="75.9" x2="530.0" y2="75.9" class="rng"/><rect x="505.7" y="70.9" width="12.2" height="10" rx="3" class="iqr"/><circle cx="511.4" cy="75.9" r="5" class="medot"/><text x="224.0" y="79.9" class="cat">2. Allergy to substance</text><text x="682.0" y="79.9" class="mval">0.21</text><line x1="272.3" y1="106.5" x2="452.1" y2="106.5" class="rng"/><rect x="331.2" y="101.5" width="25.8" height="10" rx="3" class="iqr"/><circle cx="342.6" cy="106.5" r="5" class="medot"/><text x="224.0" y="110.5" class="cat">3. Gingivitis</text><text x="682.0" y="110.5" class="mval">0.45</text><line x1="275.1" y1="137.1" x2="559.2" y2="137.1" class="rng"/><rect x="314.1" y="132.1" width="13.6" height="10" rx="3" class="iqr"/><circle cx="323.0" cy="137.1" r="5" class="medot"/><text x="224.0" y="141.1" class="cat">4. Chronic kidney disease</text><text x="682.0" y="141.1" class="mval">0.22</text><line x1="452.1" y1="167.7" x2="491.4" y2="167.7" class="rng"/><rect x="469.5" y="162.7" width="11.9" height="10" rx="3" class="iqr"/><circle cx="475.4" cy="167.7" r="5" class="medot"/><text x="224.0" y="171.7" class="cat">5. Non-small cell lung cancer</text><text x="682.0" y="171.7" class="mval">0.20</text><line x1="527.4" y1="198.3" x2="571.7" y2="198.3" class="rng"/><rect x="544.8" y="193.3" width="11.2" height="10" rx="3" class="iqr"/><circle cx="550.8" cy="198.3" r="5" class="medot"/><text x="224.0" y="202.3" class="cat">6. Polyp of colon</text><text x="682.0" y="202.3" class="mval">0.19</text><line x1="342.4" y1="228.9" x2="593.6" y2="228.9" class="rng hi"/><rect x="393.7" y="223.9" width="46.6" height="10" rx="3" class="iqr hi"/><circle cx="406.5" cy="228.9" r="5" class="medot hi"/><text x="224.0" y="232.9" class="cat vary">7. Malignant neoplasm of breast</text><text x="682.0" y="232.9" class="mval hi">0.97</text><line x1="242.2" y1="259.5" x2="542.9" y2="259.5" class="rng"/><rect x="318.8" y="254.5" width="10.0" height="10" rx="3" class="iqr"/><circle cx="324.2" cy="259.5" r="5" class="medot"/><text x="224.0" y="263.5" class="cat">8. End-stage renal disease</text><text x="682.0" y="263.5" class="mval">0.17</text><line x1="437.1" y1="290.1" x2="467.7" y2="290.1" class="rng"/><rect x="446.6" y="285.1" width="13.0" height="10" rx="3" class="iqr"/><circle cx="451.4" cy="290.1" r="5" class="medot"/><text x="224.0" y="294.1" class="cat">9. Gingival disease</text><text x="682.0" y="294.1" class="mval">0.23</text><line x1="242.2" y1="320.7" x2="425.9" y2="320.7" class="rng"/><rect x="365.5" y="315.7" width="20.5" height="10" rx="3" class="iqr"/><circle cx="376.6" cy="320.7" r="5" class="medot"/><text x="224.0" y="324.7" class="cat">10. COVID-19</text><text x="682.0" y="324.7" class="mval">0.34</text><text x="452.0" y="382.0" class="axis-title">cost per claim (log)</text></svg></div>
+<div class="key">
+  <span><i class="ln"></i>thin line &mdash; full range of hospital prices</span>
+  <span><i class="sw" style="background:var(--iqr)"></i>bar &mdash; the middle 50% of hospitals</span>
+  <span><i class="sw" style="background:var(--s1);border-radius:50%"></i>dot &mdash; the typical (median) hospital</span>
+</div>
+<p class="note fine">Conditions are listed in spend order (1 = largest). Log scale. Hospitals need &ge;30 claims
+for a condition to be included.</p>
+<div class="take">A score near <strong>0.20</strong> means hospitals charge almost the same. Only breast cancer
+(0.97) and normal pregnancy (0.96) approach 1.0; the long thin lines elsewhere are single outlier sites, not
+widespread price differences.</div>
+<p class="note">Payer type was tested and made almost no difference &mdash; spread across Government, Commercial
+and Self-Pay is about 6%. This dataset has no negotiated rates, so the same service is billed identically whoever
+pays; payers differ in what share they <em>cover</em>, not what they are charged.</p>
+</section>
+</div>
