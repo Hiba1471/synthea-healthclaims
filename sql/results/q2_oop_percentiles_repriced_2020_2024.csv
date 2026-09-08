@@ -1,12 +1,12 @@
 Type of care,People affected,Median OOP over 5 years,P75 OOP over 5 years,P90 OOP over 5 years,Mean OOP over 5 years
-Infections (other),13122,1456,7222,17062,6925
+Infections (other),14365,1355,6657,16072,6527
 Maternity,178766,1308,3513,7630,3270
 Chronic pain,31047,550,1286,5236,2029
 Heart & circulation,139952,385,1580,8388,2799
 Mental health & substance use,200549,338,1279,3681,1608
-Diabetes & metabolic,259513,233,919,1502,614
 Cancer & tumours,67860,233,722,2300,3014
-Kidney & urinary,167126,197,950,6748,4356
+Diabetes & metabolic,259513,233,919,1502,614
+Kidney & urinary,166099,197,936,6729,4365
 Injury & trauma,342757,187,427,1340,605
 Blood disorders,67419,179,1226,2049,701
 Brain & nervous system,26392,174,303,2119,756

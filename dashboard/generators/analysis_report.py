@@ -837,7 +837,7 @@ which one, and how large its lead is.</p>
 <tr><td>Member-paid share, overall</td><td>20.4% ($20.3B)</td><td>23.3% ($11.4B)</td></tr>
 <tr><td>Care-type share range</td><td>8.3% to 38.9%, median 20.6%</td><td>7.4% to 38.9%, median 20.6%</td></tr>
 <tr><td>Maternity, median $ paid per member</td><td>$10,765</td><td>$1,308</td></tr>
-<tr><td>Highest median $ exposure</td><td>Maternity</td><td>Infections (other), $1,456, unchanged</td></tr>
+<tr><td>Highest median $ exposure</td><td>Maternity</td><td>Infections (other), $1,355, unchanged</td></tr>
 </tbody></table>
 <p class="appnote">The share rises while the dollars fall, and both are true at once: the eleven
 corrected conditions carry $54.9B at a 17.7% member share against $44.2B at 23.8% for everything
