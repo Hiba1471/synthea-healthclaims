@@ -94,6 +94,9 @@ hits AS (
             IFF(LOWER(name) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*', 'Dental & oral', NULL),
             IFF(LOWER(name) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*', 'Maternity', NULL),
             IFF(LOWER(name) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*', 'Cancer & tumours', NULL),
+            -- Mirrors the ladder's own cholecystitis branch, so a gallbladder
+            -- infection shows up here as the three-way overlap it really is.
+            IFF(LOWER(name) REGEXP '.*cholecystitis.*', 'Infections (other)', NULL),
             IFF(LOWER(name) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*', 'Kidney & urinary', NULL),
             IFF(LOWER(name) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*', 'Heart & circulation', NULL),
             IFF(LOWER(name) REGEXP '.*(bronchitis|covid|pharyngitis|sinusitis|sore throat|emphysema|asthma|otitis|respiratory|pneumon|influenza).*', 'Respiratory & ENT', NULL),

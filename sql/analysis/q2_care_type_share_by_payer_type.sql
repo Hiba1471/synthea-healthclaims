@@ -47,6 +47,11 @@ classified AS (
                 THEN 'Maternity'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*'
                 THEN 'Cancer & tumours'
+            -- "cholecystitis" contains the substring "cystitis", so the Kidney &
+            -- urinary branch below would otherwise claim a gallbladder infection.
+            -- Tested first and routed where it belongs.
+            WHEN LOWER(d.DESCRIPTION) REGEXP '.*cholecystitis.*'
+                THEN 'Infections (other)'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*'
                 THEN 'Kidney & urinary'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*'

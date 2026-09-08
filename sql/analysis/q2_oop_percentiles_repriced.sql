@@ -21,7 +21,7 @@
 --                                                 categories contain no
 --                                                 corrected condition
 --
--- Corrected, infections (other) carries the highest median at $1,456,
+-- Corrected, infections (other) carries the highest median at $1,355,
 -- itself unchanged because nothing in that category was corrected. Do not
 -- restate "maternity carries by far the highest dollar exposure" as
 -- ground truth without this caveat sitting next to it.
@@ -54,6 +54,10 @@ classified AS (
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*' THEN 'Dental & oral'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*' THEN 'Maternity'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*' THEN 'Cancer & tumours'
+            -- "cholecystitis" contains the substring "cystitis", so the Kidney &
+            -- urinary branch below would otherwise claim a gallbladder infection.
+            -- Tested first and routed where it belongs.
+            WHEN LOWER(d.DESCRIPTION) REGEXP '.*cholecystitis.*' THEN 'Infections (other)'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*' THEN 'Kidney & urinary'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*' THEN 'Heart & circulation'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(bronchitis|covid|pharyngitis|sinusitis|sore throat|emphysema|asthma|otitis|respiratory|pneumon|influenza).*' THEN 'Respiratory & ENT'

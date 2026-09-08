@@ -160,6 +160,9 @@ typed AS (
       WHEN LOWER(nm) REGEXP '.*(gingiv|dental|tooth|teeth|molar|jaw|palatinus|temporomandibular|mandible|alveolitis).*' THEN 'Dental & oral'
       WHEN LOWER(nm) REGEXP '.*(pregnan|miscarriage|ovum|tubal|newborn|antenatal|postnatal).*' THEN 'Maternity'
       WHEN LOWER(nm) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*' THEN 'Cancer & tumours'
+      -- "cholecystitis" contains "cystitis"; tested first so a gallbladder
+      -- infection is not claimed by the Kidney & urinary branch below.
+      WHEN LOWER(nm) REGEXP '.*cholecystitis.*' THEN 'Infections (other)'
       WHEN LOWER(nm) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*' THEN 'Kidney & urinary'
       WHEN LOWER(nm) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*' THEN 'Heart & circulation'
       WHEN LOWER(nm) REGEXP '.*(bronchitis|covid|pharyngitis|sinusitis|sore throat|emphysema|asthma|otitis|respiratory|pneumon|influenza).*' THEN 'Respiratory & ENT'
