@@ -1,8 +1,8 @@
 Type of care,Patient share - everyone,% of spend on government patients,% of spend on commercial patients,% of spend on uninsured patients,Median claim,Average claim,Paid per person,Claims per person
 Blood disorders,38.9,38.4,54.4,7.2,895,937,1802,1.9
 Diabetes & metabolic,36.6,58.9,36.1,5.0,66,293,1675,5.7
-Infections (other),28.0,36.3,55.6,8.1,1542,5466,24715,4.5
 Dental & oral,27.9,56.1,37.7,6.3,655,1763,12610,7.2
+Infections (other),27.7,37.2,54.7,8.0,868,4484,23552,5.3
 Respiratory & ENT,26.8,54.5,39.5,6.0,72,681,2665,3.9
 Injury & trauma,26.3,53.3,40.6,6.2,121,1619,4392,2.7
 Chronic pain,22.9,42.3,50.1,7.7,528,1136,8870,7.8
@@ -10,7 +10,7 @@ Mental health & substance use,20.6,54.4,38.7,6.9,408,782,7786,10.0
 Other,17.9,65.8,28.9,5.3,120,621,1599,2.6
 Maternity,17.0,39.2,51.8,9.0,10820,14287,162288,11.4
 Heart & circulation,14.7,68.0,27.2,4.7,119,1794,21558,12.0
-Kidney & urinary,14.2,60.9,31.0,8.1,380,488,36037,73.9
+Kidney & urinary,14.2,60.9,31.0,8.1,380,487,36175,74.2
 Allergy & immune,10.0,51.5,41.7,6.8,7265,9924,175111,17.6
 Brain & nervous system,8.5,90.2,8.5,1.3,124,2634,8939,3.4
 Cancer & tumours,8.3,80.7,14.3,5.0,410,5643,104698,18.6

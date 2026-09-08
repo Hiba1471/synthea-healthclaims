@@ -16,5 +16,10 @@ BY WIDEST GAP (unadjusted),Injury of medial collateral ligament of knee,1.000,35
 BY WIDEST GAP (unadjusted),Impacted molars,1.000,32.6,1.4,23.3,32.6,1.4,23.3
 BY WIDEST GAP (unadjusted),Infection of tooth (disorder),1.000,47.9,2.1,22.8,47.9,2.1,22.8
 BY WIDEST GAP (unadjusted),Primary dental caries (disorder),0.059,55.4,2.5,22.2,55.4,2.5,22.2
-spearman_as_billed,spearman_corrected_RANK_ties,spearman_corrected_python_ties
--0.600,-0.571,-0.586
+-- NOTE: the block above is NOT produced by q1_robustness_three_findings.sql.
+-- No query in sql/analysis/ emits it. Carried forward unchanged on the
+-- 2026-09-08 re-run; it is condition-level, so the care-type ladder fix
+-- would not have moved it anyway. Needs a query written for it.
+
+SPEARMAN_AS_BILLED,SPEARMAN_CORRECTED
+-0.607,-0.571

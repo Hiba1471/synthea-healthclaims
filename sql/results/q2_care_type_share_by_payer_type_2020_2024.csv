@@ -7,14 +7,14 @@ Diabetes & metabolic,Commercial,74.5,73.0,75.5,5,36.6
 Diabetes & metabolic,Everyone,36.7,35.4,37.5,5,36.6
 Diabetes & metabolic,Government,8.3,7.1,8.5,5,36.6
 Diabetes & metabolic,Self-Pay / Uninsured,100.0,100.0,100.0,5,36.6
-Infections (other),Commercial,35.1,33.8,35.5,5,28.0
-Infections (other),Everyone,27.8,27.5,28.6,5,28.0
-Infections (other),Government,1.5,1.0,1.6,5,28.0
-Infections (other),Self-Pay / Uninsured,100.0,100.0,100.0,5,28.0
 Dental & oral,Commercial,53.0,52.3,53.1,5,27.9
 Dental & oral,Everyone,27.9,27.4,28.5,5,27.9
 Dental & oral,Government,3.0,2.9,3.1,5,27.9
 Dental & oral,Self-Pay / Uninsured,100.0,100.0,100.0,5,27.9
+Infections (other),Commercial,35.2,33.9,35.4,5,27.7
+Infections (other),Everyone,27.5,27.3,28.3,5,27.7
+Infections (other),Government,1.5,1.1,1.7,5,27.7
+Infections (other),Self-Pay / Uninsured,100.0,100.0,100.0,5,27.7
 Respiratory & ENT,Commercial,56.9,37.6,57.4,5,26.8
 Respiratory & ENT,Everyone,33.6,22.8,34.8,5,26.8
 Respiratory & ENT,Government,8.2,4.4,8.6,5,26.8
@@ -43,8 +43,8 @@ Heart & circulation,Commercial,29.4,29.2,30.7,5,14.7
 Heart & circulation,Everyone,14.8,14.2,15.2,5,14.7
 Heart & circulation,Government,2.8,2.7,2.9,5,14.7
 Heart & circulation,Self-Pay / Uninsured,100.0,100.0,100.0,5,14.7
-Kidney & urinary,Commercial,14.3,14.0,14.5,5,14.2
-Kidney & urinary,Everyone,14.2,13.9,14.7,5,14.2
+Kidney & urinary,Commercial,14.3,13.9,14.4,5,14.2
+Kidney & urinary,Everyone,14.2,13.8,14.7,5,14.2
 Kidney & urinary,Government,2.7,2.7,2.8,5,14.2
 Kidney & urinary,Self-Pay / Uninsured,100.0,100.0,100.0,5,14.2
 Allergy & immune,Commercial,6.7,6.7,6.8,5,10.0

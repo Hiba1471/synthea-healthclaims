@@ -89,23 +89,17 @@ WITH actual AS (
     GROUP BY CARE_TYPE
 ),
 -- ---------------------------------------------------------------------
--- !! THE EXPECTED BLOCK BELOW PREDATES THE CHOLECYSTITIS FIX (2026-09-03) !!
---
--- The ladder gained a branch routing "cholecystitis" to Infections (other)
--- before the Kidney & urinary branch could claim it on the substring
--- "cystitis". That moves $14,009,934 and 1,252 patients between exactly two
--- categories:
+-- The expected block below carries post-fix figures. The ladder gained a
+-- branch routing "cholecystitis" to Infections (other) before Kidney &
+-- urinary could claim it on the substring "cystitis", moving $14,009,934
+-- and 1,252 patients between exactly two categories:
 --
 --     Kidney & urinary     6,022,426,729  ->  6,008,416,795   (-0.23%)
 --     Infections (other)     324,290,119  ->    338,300,053   (+4.32%)
 --
--- Billed is arithmetic and shown above. Member-paid, share and distinct
--- patient counts are NOT, so they are deliberately not guessed here.
---
--- TO REFRESH: re-run sql/analysis/q2_patient_cost_by_care_type.sql, overwrite
--- sql/results/q2_patient_cost_by_care_type_2020_2024.csv, then regenerate this
--- VALUES block from that file. Until then, expect those two rows to FAIL on
--- billed and member paid, and treat every other row as a live check.
+-- REFRESHED 2026-09-08: the VALUES block above now carries post-fix figures,
+-- regenerated from sql/results/q2_patient_cost_by_care_type_2020_2024.csv.
+-- All fifteen rows should PASS.
 -- ---------------------------------------------------------------------
 expected AS (
     SELECT * FROM VALUES
@@ -113,13 +107,13 @@ expected AS (
         ('Dental & oral', 11827830056, 3295581951, 27.9, 938009, 15),
         ('Allergy & immune', 8659567025, 862954226, 10.0, 49452, 5),
         ('Cancer & tumours', 7099660059, 589210904, 8.3, 67860, 11),
-        ('Kidney & urinary', 6022426729, 857098889, 14.2, 167126, 13),
+        ('Kidney & urinary', 6008416795, 854218847, 14.2, 166099, 12),
         ('Heart & circulation', 3017010475, 443946673, 14.7, 139952, 13),
         ('Respiratory & ENT', 2498204310, 668382799, 26.8, 937507, 16),
         ('Mental health & substance use', 1561472069, 322408319, 20.6, 200549, 14),
         ('Injury & trauma', 1505374975, 396179724, 26.3, 342757, 28),
         ('Diabetes & metabolic', 434570450, 159224764, 36.6, 259513, 17),
-        ('Infections (other)', 324290119, 90874402, 28.0, 13122, 5),
+        ('Infections (other)', 338300053, 93754444, 27.7, 14365, 6),
         ('Chronic pain', 275377466, 63000430, 22.9, 31047, 1),
         ('Brain & nervous system', 235913815, 19964000, 8.5, 26392, 3),
         ('Blood disorders', 121478486, 47232822, 38.9, 67419, 1),
