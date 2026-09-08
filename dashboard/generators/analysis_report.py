@@ -468,14 +468,12 @@ visit. A member pays the same small amount whatever the bill comes to.</li>
 <p>Those two designs behave in opposite directions as a bill grows, so a single figure for
 &ldquo;what members pay&rdquo; would average across two populations that never overlap. Every
 figure below that can be split by line of business has been.</p>
-<p class="mission"><strong>The mission this is measured against.</strong> To keep comprehensive
-cover affordable for every member, in every place they seek care, measuring affordability by what
-a member actually pays rather than by what a plan spends, and holding that standard equally across
-commercial and government lines. That is why member-paid share sits among the headline metrics
-rather than in an appendix, and why facilities are examined separately from conditions. Member-paid
-share is a percentage of the bill, not a measure of hardship: a high share of a small bill and a
-high share of a large one are different things, and this report is explicit about which is which
-where it matters.</p>
+<p class="mission"><strong>The mission this is measured against.</strong> Keep cover
+affordable for every member, in every place they seek care, judged by what a member actually pays
+rather than by what the plan spends, and held equally across commercial and government lines. That
+is why member-paid share is a headline metric rather than an appendix. One caveat: it is a
+percentage of the bill, not a measure of hardship &mdash; a high share of a small bill and of a
+large one are different things.</p>
 <p>This analysis covered 68.6 million claims across five years in Snowflake, then focused on
 diagnostic patterns and facility-level concentration to answer those three questions. What follows
 is what that showed, together with the queries behind every figure so any of it can be
@@ -499,8 +497,7 @@ to.</li>
 <li><code>SILVER.PATIENTS</code>: dates of birth, used only for the age check behind the
 preventive-care question.</li>
 </ul>
-<p>Two curated objects sit in front of the raw share and every query reads through them, because
-the source carries traps that return confident, plausible, wrong answers rather than errors:</p>
+<p><strong>Curated objects.</strong> Every query reads through these, not the raw share:</p>
 <ul>
 <li><code>V_CLAIMS_TX_CLEAN</code>: claim transactions with the money columns corrected,
 payer collapsed to type, administrative rows flagged, and the date window applied.</li>
