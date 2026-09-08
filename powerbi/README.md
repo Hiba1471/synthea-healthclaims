@@ -8,75 +8,7 @@ Three pages built on ten pre-aggregated Snowflake tables. Every calculation that
 
 ## Data model
 
-```mermaid
-erDiagram
-    DIM_YEAR       ||--o{ AGG_SPEND : "filters"
-    DIM_PAYER_TYPE ||--o{ AGG_SPEND : "filters"
-    DIM_CARE_TYPE  ||--o{ AGG_SPEND : "filters"
-    DIM_CONDITION  ||--o{ AGG_SPEND : "filters"
-
-    DIM_YEAR {
-        int SERVICE_YEAR PK "5 rows"
-    }
-    DIM_PAYER_TYPE {
-        string PAYER_TYPE PK "3 rows"
-    }
-    DIM_CARE_TYPE {
-        string CARE_TYPE PK "16 rows"
-        bool IS_CLINICAL
-    }
-    DIM_CONDITION {
-        string PRIMARY_CONDITION PK "186 rows"
-        string CARE_TYPE
-        bool IS_CLINICAL
-    }
-    AGG_SPEND {
-        int SERVICE_YEAR FK "2,561 rows"
-        string PAYER_TYPE FK
-        string CARE_TYPE FK
-        string PRIMARY_CONDITION FK
-        number BILLED
-        number MEMBER_PAID
-        number PAYER_PAID
-        number PAID_TOTAL
-        number CLAIMS
-    }
-```
-
-Five more tables sit in the model with **no relationships at all**:
-
-```mermaid
-erDiagram
-    AGG_MEMBERS {
-        string GRAIN "40 rows"
-        string SEGMENT
-        int SERVICE_YEAR
-        number MEMBERS
-    }
-    AGG_FACILITY {
-        string FACILITY_ID "3,918 rows"
-        number BILLED_PER_VISIT
-        number VISITS_PER_MEMBER
-        number SPEND_RANK
-        number CUMULATIVE_PCT
-    }
-    AGG_STATE {
-        string PATIENT_STATE "11 rows"
-        number BILLED
-        number SPEND_RANK
-        number CUMULATIVE_PCT
-    }
-    AGG_CONCENTRATION {
-        string GRAIN "3 rows"
-        number ENTITIES_FOR_HALF
-        number TOP_1PCT_SHARE
-    }
-    AGG_LORENZ {
-        string GRAIN "~200 rows"
-        number PCT_OF_GROUP
-        number PCT_OF_SPEND
-    }
-```
+![Data model](images/data_model.svg)
 
 ### Why it's modelled this way
 
@@ -100,6 +32,8 @@ Every relationship is **one-to-many, single direction** — dimension into `AGG_
 
 **Member Cost Share by Plan Type.** This is the answer to the second half of the question, and it is the sharpest result on the dashboard. Commercial members pay **30.0%** of their bill. Government members pay **2.7%**. Same care, roughly 11× the burden. Self-pay is 100% by definition. Because these are ratios, they survive the pricing defect in the source data that makes every dollar figure suspect — scaling a bill and its payment by the same factor cancels out.
 
+**Why this matters.** Maternity is the biggest line in the book, so it is where contract negotiation returns the most. And an 11× burden gap between commercial and government members is a benefit design choice, not a fact of the care.
+
 ---
 
 ## Page 2 — Cost Concentration
@@ -111,6 +45,8 @@ Every relationship is **one-to-many, single direction** — dimension into `AGG_
 **Member paid share by care type and plan type.** The matrix is where the two halves of the question meet. The gap holds across the board, not in one or two places: respiratory and ENT runs 44.5% commercial against 5.8% government, injury and trauma 44.4% against 4.0%, brain and nervous system 40.2% against 4.1%. The overall row is 22.7% against 1.9%. The pattern is structural, not a mix effect from one expensive care type.
 
 **Top conditions.** Sorting by member paid share instead of spend separates two things that look alike. Non-small cell lung cancer bills $3.38bn and leaves the member 5.4%. Normal pregnancy bills $28.93bn — nearly ten times as much — and leaves the member 17.0%. Cancer is expensive to the plan; pregnancy is expensive to the person. Ranking conditions by cost alone would show only the first of those.
+
+**Why this matters.** Two care types carrying half the spend is a short enough list to act on. And because the burden gap holds across every care type, the fix is commercial cost-sharing rather than a programme aimed at one condition.
 
 ---
 
@@ -127,6 +63,8 @@ Supplementary to the main question: where care is delivered, and where members l
 **Top 20 Facility Spenders (scatter).** Billed per visit against members served, with bubble size for total billed. It separates two ways of being expensive. The cluster near $5K per visit serves ordinary volumes at ordinary prices. The points out at $22K–$30K per visit are the specialty and dialysis-heavy sites: few members, high intensity, and a total that rivals the large systems.
 
 **Top 20 Facility Spenders (bar).** The named ranking behind the curve. Cleveland Clinic East Region leads at $2.7bn, then University Hospitals Cleveland at $2.4bn and St Vincent Charity at $2.4bn. The top five are all Cleveland systems, which is the concentration KPI made concrete.
+
+**Why this matters.** 86 facilities is a list a contracting team can work through, and the top five sitting in one metro area is real leverage. A site that is expensive because it is busy needs a different response than one where each visit costs a fortune.
 
 ---
 

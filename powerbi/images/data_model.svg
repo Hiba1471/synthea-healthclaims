@@ -1,0 +1,158 @@
+<svg viewBox="0 0 1040 900" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f4a40"/>
+    </marker>
+  </defs>
+
+  <rect width="1040" height="900" fill="#ffffff"/>
+
+  <!-- ================= ZONE A : connected star ================= -->
+  <text x="28" y="38" font-size="17" font-weight="700" fill="#1f4a40">Connected — star schema</text>
+  <text x="28" y="58" font-size="13" fill="#5b6b66">Every relationship is one-to-many, filtering in a single direction: dimension into the fact table.</text>
+
+  <!-- DIM_YEAR -->
+  <g>
+    <rect x="60" y="90" width="200" height="66" rx="6" fill="#ffffff" stroke="#c9d8d3" stroke-width="1.5"/>
+    <path d="M 60 96 a 6 6 0 0 1 6 -6 h 188 a 6 6 0 0 1 6 6 v 24 h -200 z" fill="#2f8a75"/>
+    <text x="72" y="112" font-size="13" font-weight="700" fill="#ffffff">DIM_YEAR</text>
+    <text x="248" y="112" font-size="11" fill="#cfe8e0" text-anchor="end">5 rows</text>
+    <text x="72" y="140" font-size="12" fill="#1f2937">SERVICE_YEAR</text>
+    <circle cx="66" cy="136" r="3" fill="#2f8a75"/>
+  </g>
+
+  <!-- DIM_CARE_TYPE -->
+  <g>
+    <rect x="780" y="90" width="200" height="84" rx="6" fill="#ffffff" stroke="#c9d8d3" stroke-width="1.5"/>
+    <path d="M 780 96 a 6 6 0 0 1 6 -6 h 188 a 6 6 0 0 1 6 6 v 24 h -200 z" fill="#2f8a75"/>
+    <text x="792" y="112" font-size="13" font-weight="700" fill="#ffffff">DIM_CARE_TYPE</text>
+    <text x="968" y="112" font-size="11" fill="#cfe8e0" text-anchor="end">16 rows</text>
+    <text x="792" y="140" font-size="12" fill="#1f2937">CARE_TYPE</text>
+    <circle cx="786" cy="136" r="3" fill="#2f8a75"/>
+    <text x="792" y="160" font-size="12" fill="#4b5563">IS_CLINICAL</text>
+  </g>
+
+  <!-- DIM_PAYER_TYPE -->
+  <g>
+    <rect x="60" y="520" width="200" height="66" rx="6" fill="#ffffff" stroke="#c9d8d3" stroke-width="1.5"/>
+    <path d="M 60 526 a 6 6 0 0 1 6 -6 h 188 a 6 6 0 0 1 6 6 v 24 h -200 z" fill="#2f8a75"/>
+    <text x="72" y="542" font-size="13" font-weight="700" fill="#ffffff">DIM_PAYER_TYPE</text>
+    <text x="248" y="542" font-size="11" fill="#cfe8e0" text-anchor="end">3 rows</text>
+    <text x="72" y="570" font-size="12" fill="#1f2937">PAYER_TYPE</text>
+    <circle cx="66" cy="566" r="3" fill="#2f8a75"/>
+  </g>
+
+  <!-- DIM_CONDITION -->
+  <g>
+    <rect x="780" y="500" width="200" height="102" rx="6" fill="#ffffff" stroke="#c9d8d3" stroke-width="1.5"/>
+    <path d="M 780 506 a 6 6 0 0 1 6 -6 h 188 a 6 6 0 0 1 6 6 v 24 h -200 z" fill="#2f8a75"/>
+    <text x="792" y="522" font-size="13" font-weight="700" fill="#ffffff">DIM_CONDITION</text>
+    <text x="968" y="522" font-size="11" fill="#cfe8e0" text-anchor="end">186 rows</text>
+    <text x="792" y="550" font-size="12" fill="#1f2937">PRIMARY_CONDITION</text>
+    <circle cx="786" cy="546" r="3" fill="#2f8a75"/>
+    <text x="792" y="570" font-size="12" fill="#4b5563">CARE_TYPE</text>
+    <text x="792" y="590" font-size="12" fill="#4b5563">IS_CLINICAL</text>
+  </g>
+
+  <!-- AGG_SPEND : the fact table -->
+  <g>
+    <rect x="400" y="248" width="240" height="212" rx="6" fill="#ffffff" stroke="#1f4a40" stroke-width="2"/>
+    <path d="M 400 254 a 6 6 0 0 1 6 -6 h 228 a 6 6 0 0 1 6 6 v 26 h -240 z" fill="#1f4a40"/>
+    <text x="412" y="272" font-size="14" font-weight="700" fill="#ffffff">AGG_SPEND</text>
+    <text x="628" y="272" font-size="11" fill="#a9c9c0" text-anchor="end">2,561 rows</text>
+    <text x="412" y="298" font-size="10" font-weight="600" fill="#8a9a95" letter-spacing="0.5">GRAIN</text>
+    <text x="424" y="316" font-size="12" fill="#1f2937">SERVICE_YEAR</text>
+    <text x="424" y="334" font-size="12" fill="#1f2937">PAYER_TYPE</text>
+    <text x="424" y="352" font-size="12" fill="#1f2937">CARE_TYPE</text>
+    <text x="424" y="370" font-size="12" fill="#1f2937">PRIMARY_CONDITION</text>
+    <circle cx="415" cy="312" r="3" fill="#1f4a40"/>
+    <circle cx="415" cy="330" r="3" fill="#1f4a40"/>
+    <circle cx="415" cy="348" r="3" fill="#1f4a40"/>
+    <circle cx="415" cy="366" r="3" fill="#1f4a40"/>
+    <line x1="412" y1="382" x2="628" y2="382" stroke="#e2e8e6" stroke-width="1"/>
+    <text x="412" y="400" font-size="10" font-weight="600" fill="#8a9a95" letter-spacing="0.5">MEASURES</text>
+    <text x="424" y="418" font-size="12" fill="#4b5563">BILLED · MEMBER_PAID</text>
+    <text x="424" y="436" font-size="12" fill="#4b5563">PAYER_PAID · PAID_TOTAL</text>
+    <text x="424" y="452" font-size="12" fill="#4b5563">CLAIMS</text>
+  </g>
+
+  <!-- relationships -->
+  <g stroke="#1f4a40" stroke-width="1.6" marker-end="url(#arrow)">
+    <line x1="260" y1="126" x2="396" y2="296"/>
+    <line x1="780" y1="132" x2="644" y2="296"/>
+    <line x1="260" y1="552" x2="396" y2="416"/>
+    <line x1="780" y1="548" x2="644" y2="416"/>
+  </g>
+  <g font-size="16" font-weight="700" fill="#1f4a40" stroke="#ffffff" stroke-width="3.5" paint-order="stroke">
+    <text x="268" y="140">1</text>
+    <text x="378" y="292">∗</text>
+    <text x="762" y="146">1</text>
+    <text x="654" y="292">∗</text>
+    <text x="268" y="540">1</text>
+    <text x="378" y="424">∗</text>
+    <text x="762" y="536">1</text>
+    <text x="654" y="424">∗</text>
+  </g>
+
+  <!-- ================= divider ================= -->
+  <line x1="28" y1="652" x2="1012" y2="652" stroke="#dde5e3" stroke-width="1"/>
+
+  <!-- ================= ZONE B : disconnected ================= -->
+  <text x="28" y="686" font-size="17" font-weight="700" fill="#4b5563">Disconnected — no relationships</text>
+  <text x="28" y="706" font-size="13" fill="#6b7280">Read straight by their own visuals. They cover the whole 2020–2024 window and do not respond to the slicers.</text>
+
+  <g>
+    <rect x="28" y="726" width="185" height="128" rx="6" fill="#ffffff" stroke="#d6dbda" stroke-width="1.5"/>
+    <path d="M 28 732 a 6 6 0 0 1 6 -6 h 173 a 6 6 0 0 1 6 6 v 24 h -185 z" fill="#6b7280"/>
+    <text x="40" y="748" font-size="12" font-weight="700" fill="#ffffff">AGG_MEMBERS</text>
+    <text x="201" y="748" font-size="10" fill="#e5e7eb" text-anchor="end">40</text>
+    <text x="40" y="776" font-size="11" fill="#374151">GRAIN · SEGMENT</text>
+    <text x="40" y="793" font-size="11" fill="#374151">SERVICE_YEAR</text>
+    <text x="40" y="810" font-size="11" fill="#374151">MEMBERS</text>
+    <text x="40" y="836" font-size="10.5" font-style="italic" fill="#8a9a95">counts at 5 grains</text>
+  </g>
+
+  <g>
+    <rect x="228" y="726" width="185" height="128" rx="6" fill="#ffffff" stroke="#d6dbda" stroke-width="1.5"/>
+    <path d="M 228 732 a 6 6 0 0 1 6 -6 h 173 a 6 6 0 0 1 6 6 v 24 h -185 z" fill="#6b7280"/>
+    <text x="240" y="748" font-size="12" font-weight="700" fill="#ffffff">AGG_FACILITY</text>
+    <text x="401" y="748" font-size="10" fill="#e5e7eb" text-anchor="end">3,918</text>
+    <text x="240" y="776" font-size="11" fill="#374151">FACILITY_ID</text>
+    <text x="240" y="793" font-size="11" fill="#374151">BILLED_PER_VISIT</text>
+    <text x="240" y="810" font-size="11" fill="#374151">SPEND_RANK</text>
+    <text x="240" y="836" font-size="10.5" font-style="italic" fill="#8a9a95">rank precomputed</text>
+  </g>
+
+  <g>
+    <rect x="428" y="726" width="185" height="128" rx="6" fill="#ffffff" stroke="#d6dbda" stroke-width="1.5"/>
+    <path d="M 428 732 a 6 6 0 0 1 6 -6 h 173 a 6 6 0 0 1 6 6 v 24 h -185 z" fill="#6b7280"/>
+    <text x="440" y="748" font-size="12" font-weight="700" fill="#ffffff">AGG_STATE</text>
+    <text x="601" y="748" font-size="10" fill="#e5e7eb" text-anchor="end">11</text>
+    <text x="440" y="776" font-size="11" fill="#374151">PATIENT_STATE</text>
+    <text x="440" y="793" font-size="11" fill="#374151">BILLED</text>
+    <text x="440" y="810" font-size="11" fill="#374151">CUMULATIVE_PCT</text>
+    <text x="440" y="836" font-size="10.5" font-style="italic" fill="#8a9a95">where members live</text>
+  </g>
+
+  <g>
+    <rect x="628" y="726" width="185" height="128" rx="6" fill="#ffffff" stroke="#d6dbda" stroke-width="1.5"/>
+    <path d="M 628 732 a 6 6 0 0 1 6 -6 h 173 a 6 6 0 0 1 6 6 v 24 h -185 z" fill="#6b7280"/>
+    <text x="640" y="748" font-size="12" font-weight="700" fill="#ffffff">AGG_CONCENTRATION</text>
+    <text x="801" y="748" font-size="10" fill="#e5e7eb" text-anchor="end">3</text>
+    <text x="640" y="776" font-size="11" fill="#374151">GRAIN</text>
+    <text x="640" y="793" font-size="11" fill="#374151">ENTITIES_FOR_HALF</text>
+    <text x="640" y="810" font-size="11" fill="#374151">TOP_1PCT_SHARE</text>
+    <text x="640" y="836" font-size="10.5" font-style="italic" fill="#8a9a95">KPI thresholds</text>
+  </g>
+
+  <g>
+    <rect x="828" y="726" width="185" height="128" rx="6" fill="#ffffff" stroke="#d6dbda" stroke-width="1.5"/>
+    <path d="M 828 732 a 6 6 0 0 1 6 -6 h 173 a 6 6 0 0 1 6 6 v 24 h -185 z" fill="#6b7280"/>
+    <text x="840" y="748" font-size="12" font-weight="700" fill="#ffffff">AGG_LORENZ</text>
+    <text x="1001" y="748" font-size="10" fill="#e5e7eb" text-anchor="end">~200</text>
+    <text x="840" y="776" font-size="11" fill="#374151">GRAIN</text>
+    <text x="840" y="793" font-size="11" fill="#374151">PCT_OF_GROUP</text>
+    <text x="840" y="810" font-size="11" fill="#374151">PCT_OF_SPEND</text>
+    <text x="840" y="836" font-size="10.5" font-style="italic" fill="#8a9a95">curve points</text>
+  </g>
+</svg>
