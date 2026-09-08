@@ -12,6 +12,42 @@ data: 887M claim transactions, 124M claims, 1.4M patients).
 
 ---
 
+## Tech stack
+
+| Layer | What | Where |
+|---|---|---|
+| Source | Snowflake share `SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER` — read-only, 887M claim transactions | — |
+| Correction layer | Snowflake SQL views + a code dictionary table, in `SYNTHEA_HEALTHCLAIMS.PUBLIC` | `sql/ddl/v_claims_tx_clean.sql`, `code_dictionary_*.sql` |
+| Care-type layer | View adding care type, primary condition, facility and member attributes | `sql/ddl/v_claims_tx_with_caretype.sql` |
+| Aggregates | 10 pre-aggregated tables sized for import — facts, dimensions, concentration curves | `sql/ddl/powerbi_model_build.sql` |
+| Analysis | ~50 standalone analysis queries, one per question | `sql/analysis/` |
+| BI | Power BI Desktop — Import mode, star schema, 3 pages | — |
+| Measures | DAX | `powerbi/measures.dax` |
+| Charts & report | Python 3.12 (pandas, matplotlib) generating hand-authored HTML/CSS/SVG | `dashboard/generators/` |
+| Guardrail | Python script checking the care-type ladder stays identical in all 3 copies | `tools/check_care_type_ladder.py` |
+
+Data flows one way: **share → curated views → aggregate tables → Power BI import → DAX → visuals.** No transformation happens in Power BI; anything that could be pushed into SQL was.
+
+---
+
+## Power BI dashboard
+
+Answers: *where does healthcare spending concentrate by care type, and how does member cost burden vary by payer type?*
+
+Build the model with one file:
+
+```bash
+snow sql -f sql/ddl/powerbi_model_build.sql
+```
+
+It creates 10 tables, each with a short comment saying what it aggregates and which visuals it feeds, and ends with an acceptance check — every row must read `PASS` before you refresh Power BI. **These are tables, not views**; they go stale silently, so re-run the whole file after any change to `V_CLAIMS_TX_WITH_CARETYPE`.
+
+The dashboard itself — pages, visuals, model relationships, formatting gotchas and the figures every visual must reconcile to — is documented in **[`powerbi/README.md`](powerbi/README.md)**.
+
+The earlier `v_agg_*.sql` and `v_dim_*.sql` files in `sql/ddl/` are superseded by this one and are kept only for history.
+
+---
+
 ## The report
 
 `dashboard/analysis_report.html` is the client-facing write-up — client
@@ -58,13 +94,23 @@ fixed at source. These objects are the correction layer.
 ```
 sql/
   ddl/                              curated objects -- run in this order
-    v_claims_tx_clean.sql           the view
+    v_claims_tx_clean.sql           the base view
     code_dictionary_raw.sql         pass 1: gather codes from 11 sources
     code_dictionary_classify.sql    pass 2: classify them
+    v_claims_tx_with_caretype.sql   adds care type, condition, facility
+    powerbi_model_build.sql         all 10 aggregate tables, one file
+  analysis/                         one query per analysis question
   snowflake_queries.sql             analysis query history, chronological
   condition_cost_clean.sql          condition costs, DIAGNOSIS1 only
   condition_cost_with_fallback.sql  condition costs, with DIAGNOSIS2 fallback
   results/                          output CSVs -- see results/README.md
+powerbi/
+  measures.dax                      every DAX measure in the model
+dashboard/
+  analysis_report.html              the client-facing write-up
+  generators/                       Python scripts that build the HTML charts
+tools/
+  check_care_type_ladder.py         guards the 3 copies of the care-type ladder
 ```
 
 ### Rebuilding the curated objects
@@ -75,6 +121,8 @@ Order matters — `classify` alters the table `raw` creates.
 snow sql -f sql/ddl/v_claims_tx_clean.sql
 snow sql -f sql/ddl/code_dictionary_raw.sql
 snow sql -f sql/ddl/code_dictionary_classify.sql
+snow sql -f sql/ddl/v_claims_tx_with_caretype.sql
+snow sql -f sql/ddl/powerbi_model_build.sql
 ```
 
 `code_dictionary_raw.sql` scans ~1.3B rows across 11 tables (two columns each)

@@ -105,6 +105,16 @@ border:1px solid var(--rule);border-radius:4px;}
 .exhd{font-size:13px;font-weight:650;color:var(--text-primary);margin:0 0 8px;}
 .examined ul{margin:0;}
 .examined li{font-size:15px;}
+.rec-block{margin:0 0 24px;padding:16px 20px;background:var(--card);
+border:1px solid var(--rule);border-radius:4px;}
+.rec-block:last-child{margin-bottom:0;}
+.rec-block h4{font-size:16px;font-weight:650;margin:0 0 12px;color:var(--text-primary);
+line-height:1.4;}
+.rec-body{font-size:15px;line-height:1.6;color:var(--text-secondary);margin:0 0 10px;}
+.rec-body:last-child{margin-bottom:0;}
+.rec-label{color:var(--text-primary);font-weight:650;}
+.recgate{margin:0 0 24px;padding:12px 16px;border-left:3px solid var(--accent);
+background:var(--card);font-size:14.5px;color:var(--text-secondary);line-height:1.55;}
 details.sources{margin-top:16px;border-top:1px solid var(--rule);padding-top:12px;}
 details.sources summary{cursor:pointer;font-size:13px;color:var(--text-muted);
 font-weight:650;list-style:none;}
@@ -333,8 +343,7 @@ border-radius:0 4px 4px 0;}
 <h1 class="title">Where five years of spend went, and who carried it</h1>
 <p class="standfirst">An analysis of 68.6 million claims across 1.26 million members,
 2020 to 2024.</p>
-<p class="meta">Prepared for Calder Health, 2026 planning cycle. Findings only;
-recommendations follow in a later pass.</p>
+<p class="meta">Prepared for Calder Health, 2026 planning cycle.</p>
 <h2 class="sec">Client background</h2>
 <p><strong>The brief.</strong> Before benefits are set and networks negotiated for 2026, Calder
 Health asked three questions: where did the money go, who bore it, and where does it
@@ -3233,6 +3242,140 @@ $107,099 per patient &#183; 1,002 patients</title></circle>
 <div class="examined"><p class="exhd">What was examined</p><ul><li>Whether the spread is price or case mix, by repricing every procedure to its all-facility average and remeasuring, within this dataset&rsquo;s own simulated prices. It is case mix.</li><li>Whether facilities differ in how much they do for the same condition. For the typical condition, no, and the one big exception is pregnancy.</li><li>What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of women give birth on site; at the most expensive, 6.8%. Delivery units against antenatal clinics.</li><li>The two groups that stand out on the chart, both identified by facility name rather than by anything in the data itself.</li><li>Whether the 7.8% price-share figure has a consistent direction. It does not: 298 of 730 facilities (41%) price below the case-mix benchmark, not above it (<code>q3_price_vs_casemix.sql</code>).</li></ul></div>
 <details class="sources"><summary>Sources for this finding , 7 queries</summary><ul><li><a href="../sql/analysis/q3_hospital_cost_intensity.sql"><code>q3_hospital_cost_intensity.sql</code></a> <a class="csv" href="../sql/results/q3_hospital_cost_intensity_2020_2024.csv">results</a> : the $4,401 to $144,422 range across facilities</li><li><a href="../sql/analysis/q3_price_vs_casemix.sql"><code>q3_price_vs_casemix.sql</code></a> <a class="csv" href="../sql/results/q3_price_vs_casemix_2020_2024.csv">results</a> : the repricing test: 15.8x to 15.2x, and the median ABSOLUTE deviation of 7.8% between actual and case-mix-equalised cost per visit (41% of facilities price below the benchmark, not above it -- the signed median is only 3.0%)</li><li><a href="../sql/analysis/q3_utilisation_or_composition.sql"><code>q3_utilisation_or_composition.sql</code></a> <a class="csv" href="../sql/results/q3_utilisation_or_composition_2020_2024.csv">results</a> : the typical spread in procedures per claim across sites for the median condition (IQR divided by median, i.e. (P75-P25)/median): 0.027</li><li><a href="../sql/analysis/q3_site_group_conditions.sql"><code>q3_site_group_conditions.sql</code></a> <a class="csv" href="../sql/results/q3_site_group_conditions_2020_2024.csv">results</a> : the top group broken down by condition, giving kidney disease at 53.1% of visits</li><li><a href="../sql/analysis/q3_site_group_top_conditions.sql"><code>q3_site_group_top_conditions.sql</code></a> <a class="csv" href="../sql/results/q3_site_group_top_conditions_2020_2024.csv">results</a> : which conditions specifically bring members into each kind of site</li><li><a href="../sql/analysis/q3_hospice_site_encounter_mix.sql"><code>q3_hospice_site_encounter_mix.sql</code></a> <a class="csv" href="../sql/results/q3_hospice_site_encounter_mix_2020_2024.csv">results</a> : the hospice group: 18.1% of visits, running 22 days and carrying half the billing</li><li><a href="../sql/analysis/q3_pregnancy_pathway_split.sql"><code>q3_pregnancy_pathway_split.sql</code></a> <a class="csv" href="../sql/results/q3_pregnancy_pathway_split_2020_2024.csv">results</a> : the pregnancy split, 95.5% delivering on site against 6.8%</li></ul></details>
 </section>
+<h2 class="sec">Recommendations</h2>
+<p>Six priorities, each tied directly to the evidence above. They are ordered by what has to
+happen first, not by size of prize: recommendation 1 is a gate on several of the others, and
+where that is true it is said explicitly. Consistent with the decision-use boundary set out
+earlier, these are investigation and validation priorities against real claims data, not benefit
+or pricing changes to make on these figures alone.</p>
+
+<div class="recgate"><strong>Read 1 first.</strong> Eleven of the twenty highest-cost conditions
+carry a documented pricing gap, and correcting them reorders Finding 1 and moves Finding 2&rsquo;s
+dollar figures substantially. Recommendations 2 and 4 depend on numbers that recommendation 1 is
+designed to settle. Recommendations 3, 5 and 6 do not, and can proceed in parallel.</div>
+
+<div class="rec-block">
+<h4>1. Reprice the eleven flagged conditions against real claims before any 2026 budgeting</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Pull real per-episode costs
+for maternity and allergy immunotherapy from actual claims and contract data over the same
+2020&ndash;2024 window, then re-run <code>q1_multi_condition_sensitivity.sql</code> substituting
+those real factors for the benchmark-derived ones already in it. The query is written to take a
+factor per condition, so this is a substitution rather than a rebuild.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> As billed, pregnancy is 39.8%
+of diagnosed spend and leads by more than three times (<strong><em>Figure 1</em></strong>).
+Corrected, it falls to 2nd at 14.7% and chronic kidney disease takes 1st at 19.2% without ever
+being corrected itself. That is not a refinement of the priority list, it is a different list.
+Allergy immunotherapy leaves the top twenty altogether once corrected, and eight conditions that
+appear nowhere in <strong><em>Figure 2</em></strong> enter it.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> This is the one item that
+unblocks others rather than standing alone. Until it is done, any 2026 budget line built on the
+as-billed condition ranking is built on a number known to be roughly 8.6&times; wrong for the
+single largest contributor, and the maternity out-of-pocket figure behind recommendation 4 is
+unsettled in the same way.</p>
+</div>
+
+<div class="rec-block">
+<h4>2. Start clinical review with chronic kidney disease, not with the largest as-billed line</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Convene clinical review of the
+CKD stage 4 and end-stage renal cohort, 37,037 members at 258.5 claims each, and frame the
+question as whether the dialysis pathway sits at the right site of care rather than whether the
+spend is too high.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> CKD rises to first place under
+correction precisely because it was checked and found not inflated
+(<strong><em>Figure 2</em></strong>), so it is the top-of-list condition least likely to be an
+artefact. Its cost is volume, not price: 258.5 claims per member is a patient on dialysis three
+times a week, which is care working as intended. That makes it a capacity and network question
+with a real answer, unlike the conditions whose position depends on recommendation 1.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> This is deliberately narrower
+than a review of the whole top twenty. A 37,037-member cohort is small enough for actual case
+review; gingivitis, at 800,475 members and 6.9 claims each, is expensive for the opposite reason
+and would need a population-level intervention rather than clinical review. Starting where the
+number is trustworthy and the cohort is reviewable avoids spending the first review cycle on a
+condition recommendation 1 may reorder.</p>
+</div>
+
+<div class="rec-block">
+<h4>3. Reopen commercial cost-sharing for the two metabolic conditions with the widest gap</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Model what an obesity or
+prediabetes claim costs a commercial member against a government member under the current
+deductible-and-coinsurance design, and test a capped-coinsurance or copay carve-out variant for
+those two conditions in the 2026 benefit modelling.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> Commercial members carry 86.8%
+of an obesity bill against 8.7% for government members, and 85.0% against 8.5% for prediabetes
+(<strong><em>Figure 5</em></strong>). Those two separate furthest from the other eight, which sit
+between 13 and 48 points, and the gap holds in all five years measured. It is also the one
+finding in this report that price correction leaves exactly unchanged, to the decimal, because
+scaling a bill and what was paid on it by the same factor cancels in a ratio.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> Of the six, this is the
+recommendation to pursue with the most confidence, and the reason is structural rather than a
+matter of degree: it is immune to the defect that reshapes recommendations 1, 2 and 4 rather than
+merely surviving it. It can therefore run in parallel with the repricing work instead of waiting
+behind it. What this analysis has not established is how much of member-paid share plan type
+explains against condition, care type or claim size, so the modelling should treat the gap as
+real and large, not as proof that plan design is the dominant driver.</p>
+</div>
+
+<div class="rec-block">
+<h4>4. Check maternity&rsquo;s real out-of-pocket exposure before the share ranking drives design</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Pull the actual member
+out-of-pocket distribution for maternity from real claims, median and 90th percentile, and
+compare it against the annual out-of-pocket maximum currently set on the commercial plans.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> Member-paid share is highest on
+the cheapest care (<strong><em>Figures 3 and 4</em></strong>), so a benefit review organised
+around the share ranking would start with blood disorders at 38.9% and diabetes at 36.6%. Both
+have among the lowest typical dollar exposure measured, $179 and $233. Maternity ranks only 10th
+by share at 17.0% and carries the highest, $10,765 median and $64,681 at the 90th percentile. The
+share ranking and the dollar ranking point at different categories.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> It is also the clearest case
+for doing recommendation 1 first, and the honest reason to check rather than act: corrected for
+the pricing defect, maternity&rsquo;s median falls to $1,308 and it loses the top dollar-exposure
+position entirely. So the finding that share and dollars diverge holds, but the specific category
+at the top of the dollar ranking does not survive correction, and this check is what settles
+which one belongs there.</p>
+</div>
+
+<div class="rec-block">
+<h4>5. Build the facility review around the 86-site list, and do not build the member equivalent</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Name the 86 facilities from
+<code>q3_top_entities.sql</code> and split them into the three groups
+<strong><em>Figure 8</em></strong> separates &mdash; the 12 dialysis-heavy sites, the 22 hospices
+and nursing homes, and the rest &mdash; before any network conversation begins, since the three
+groups are expensive for unrelated reasons.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> 86 of 3,918 facilities carry
+half of all spending, against 134,198 of 1,259,375 members for the same half
+(<strong><em>Figures 6 and 7</em></strong>). Corrected for group size that is 2.2% against 10.7%,
+and the facility curve bows sharply along its whole length while the member curve stays close to
+even. 86 is a list a team can finish; 134,198 is not.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> The second half of this
+recommendation matters as much as the first. Member-level concentration moved in both directions
+under testing, 11.8% as billed, 15.4% correcting pregnancy alone, 12.5% correcting all eleven, so
+it is not settled enough to size a high-cost-member program against. Published real-world figures
+put the top 1% at roughly 20&ndash;25% against 11.8% here, which means real claims may support
+member-level targeting that this synthetic population cannot &mdash; another reason to run that
+question against real data rather than to conclude it is unavailable.</p>
+</div>
+
+<div class="rec-block">
+<h4>6. Treat facility cost differences as case mix and site of care, not as a pricing lever</h4>
+<p class="rec-body"><span class="rec-label">Getting started:</span> Investigate the pregnancy
+site-of-delivery split &mdash; 95.5% of women give birth on site at the cheapest facilities
+against 6.8% at the most expensive &mdash; to establish whether antenatal-clinic against
+delivery-unit routing is a network design choice worth making deliberately. Do not open price
+negotiations on the strength of this analysis.</p>
+<p class="rec-body"><span class="rec-label">Why it matters:</span> Repricing every procedure to
+its all-facility average moves the spread between cheapest and priciest facility only from
+15.8&times; to 15.2&times; (<strong><em>Figure 8</em></strong>), so within this dataset&rsquo;s
+own simulated prices the thirty-three-fold range in cost per member is what facilities treat, not
+what they charge. The 7.8% figure quoted for this test is a median absolute deviation with no
+consistent direction: 298 of 730 facilities, 41%, price below the case-mix benchmark rather than
+above it.</p>
+<p class="rec-body"><span class="rec-label">How this helps:</span> This is the finding most likely
+to be misread as a negotiation opportunity, and the misreading is expensive in wasted effort. It
+redirects the same attention somewhere it can pay: the dialysis group for capacity planning
+against a fixed three-times-weekly schedule, which is where recommendation 2 also lands, and the
+site-of-delivery split for routing. Assessing whether any real facility&rsquo;s prices are
+negotiable would need real negotiated-rate data, which this dataset does not contain at all.</p>
+</div>
 <h2 class="sec">Appendix: sensitivity to the known pricing defect</h2>
 <p>The findings above show real, as-billed data throughout. Eleven of the twenty highest-cost
 conditions carry a documented pricing gap against a named real-world benchmark (see &ldquo;Things

@@ -55,6 +55,13 @@ classified AS (
                 THEN 'Maternity'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*'
                 THEN 'Cancer & tumours'
+            -- "cholecystitis" contains the substring "cystitis", so the Kidney &
+            -- urinary branch below would otherwise claim a gallbladder infection.
+            -- Tested first and routed where it belongs. A word boundary would be
+            -- the tidier fix, but \\b support varies by regex engine and this
+            -- ladder has to behave identically in Snowflake and in Python.
+            WHEN LOWER(d.DESCRIPTION) REGEXP '.*cholecystitis.*'
+                THEN 'Infections (other)'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*'
                 THEN 'Kidney & urinary'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(heart|stroke|myocardial|atrial|aortic|coronary|hypertension|cardiac|circulat).*'

@@ -1,0 +1,176 @@
+// =====================================================================
+// CALDER CLAIMS DASHBOARD -- DAX MEASURES
+//
+// Written against the six imported tables:
+//   AGG_SPEND       year x care type x payer type x condition, 2,561 rows
+//   AGG_MEMBERS     distinct headcounts, long format, 40 rows
+//   DIM_CARE_TYPE   16 rows   DIM_CONDITION   186 rows
+//   DIM_PAYER_TYPE   3 rows   DIM_YEAR          5 rows
+//
+// Create each block as its own measure. Put them all on AGG_SPEND so they
+// live in one place in the field list.
+//
+// THE RULE BEHIND THE SHAPE OF THIS FILE: money adds up, members do not.
+// BILLED and the paid columns are additive, so SUM is always right on them.
+// COUNT(DISTINCT PATIENT_ID) is not, which is why no measure sums a member
+// column -- headcounts are read from AGG_MEMBERS at a stored grain.
+// =====================================================================
+
+
+// ---------------------------------------------------------------------
+// CORE MONEY -- cheap, additive, safe to slice any way
+// ---------------------------------------------------------------------
+
+Total Billed = SUM ( AGG_SPEND[BILLED] )
+// format: $0.00,,,"B"   display units: None   ->  $99.11B
+
+Paid by Members = SUM ( AGG_SPEND[MEMBER_PAID] )
+// format: $0.00,,,"B"   display units: None   ->  $20.26B
+
+Paid by Insurer = SUM ( AGG_SPEND[PAYER_PAID] )
+
+Total Paid = SUM ( AGG_SPEND[PAID_TOTAL] )
+
+Claims = SUM ( AGG_SPEND[CLAIMS] )
+// format: #,##0   ->  68,645,121
+
+
+// Member-paid share. Denominator is total PAID, not billed -- this is how
+// q2_who_pays.sql defines it and what reconciles to the published 20.4%.
+// Reads 20.4% with everything included, 17.6% filtered to diagnosed care
+// only. Both are correct; say which one a visual is showing.
+Member Paid Share = DIVIDE ( [Paid by Members], [Total Paid] )
+// format: Percentage, 1 dp   ->  20.4%
+
+
+Average Cost per Claim = DIVIDE ( [Total Billed], [Claims] )
+// format: $#,##0   ->  $1,444
+
+
+// ---------------------------------------------------------------------
+// HEADCOUNT -- read from a stored grain, never summed
+//
+// AGG_MEMBERS has no relationships, so this measure picks its own row.
+// It answers the year and payer slicers because those grains are stored;
+// combinations that are not stored fall back to the window total. There is
+// no arithmetic that recovers an unstored distinct count, so the fallback
+// is the honest answer rather than a wrong one.
+// ---------------------------------------------------------------------
+
+Members =
+VAR OneYear  = HASONEVALUE ( DIM_YEAR[SERVICE_YEAR] )
+VAR OnePayer = HASONEVALUE ( DIM_PAYER_TYPE[PAYER_TYPE] )
+VAR OneCare  = HASONEVALUE ( DIM_CARE_TYPE[CARE_TYPE] )
+VAR Yr = SELECTEDVALUE ( DIM_YEAR[SERVICE_YEAR] )
+VAR Py = SELECTEDVALUE ( DIM_PAYER_TYPE[PAYER_TYPE] )
+VAR Ct = SELECTEDVALUE ( DIM_CARE_TYPE[CARE_TYPE] )
+RETURN
+SWITCH ( TRUE (),
+    OneYear && OnePayer,
+        CALCULATE ( MAX ( AGG_MEMBERS[MEMBERS] ), REMOVEFILTERS ( AGG_MEMBERS ),
+            AGG_MEMBERS[GRAIN] = "Payer x Year",
+            AGG_MEMBERS[SEGMENT] = Py, AGG_MEMBERS[SERVICE_YEAR] = Yr ),
+    OneYear,
+        CALCULATE ( MAX ( AGG_MEMBERS[MEMBERS] ), REMOVEFILTERS ( AGG_MEMBERS ),
+            AGG_MEMBERS[GRAIN] = "Year", AGG_MEMBERS[SERVICE_YEAR] = Yr ),
+    OnePayer,
+        CALCULATE ( MAX ( AGG_MEMBERS[MEMBERS] ), REMOVEFILTERS ( AGG_MEMBERS ),
+            AGG_MEMBERS[GRAIN] = "Payer type", AGG_MEMBERS[SEGMENT] = Py ),
+    OneCare,
+        CALCULATE ( MAX ( AGG_MEMBERS[MEMBERS] ), REMOVEFILTERS ( AGG_MEMBERS ),
+            AGG_MEMBERS[GRAIN] = "Care type", AGG_MEMBERS[SEGMENT] = Ct ),
+    CALCULATE ( MAX ( AGG_MEMBERS[MEMBERS] ), REMOVEFILTERS ( AGG_MEMBERS ),
+        AGG_MEMBERS[GRAIN] = "Total" )
+)
+// format: #,##0   ->  1,259,375
+
+
+// Five-year figure, not annual. Label the card "Cost per member, 5 years" --
+// a health-plan reader will otherwise compare $78,699 against annual
+// benchmarks of roughly $7-8K and conclude the plan is expensive. It is not:
+// this dataset's prices carry a documented inflation defect.
+Cost per Member = DIVIDE ( [Total Billed], [Members] )
+// format: $#,##0   ->  $78,699
+
+Member Paid per Member = DIVIDE ( [Paid by Members], [Members] )
+// format: $#,##0   ->  $16,084
+
+
+// ---------------------------------------------------------------------
+// PLAN TYPE -- the most robust comparison in the analysis
+//
+// Ratios are immune to the pricing defect that reshapes every dollar figure:
+// scaling a bill and what was paid on it by the same factor cancels out.
+// ---------------------------------------------------------------------
+
+Commercial Member Share =
+CALCULATE ( [Member Paid Share], DIM_PAYER_TYPE[PAYER_TYPE] = "Commercial" )
+// -> 30.0%
+
+Government Member Share =
+CALCULATE ( [Member Paid Share], DIM_PAYER_TYPE[PAYER_TYPE] = "Government" )
+// -> 2.7%
+
+
+// Blank rather than a meaningless 1x when a single payer type is selected.
+Commercial vs Government =
+IF ( HASONEVALUE ( DIM_PAYER_TYPE[PAYER_TYPE] ),
+     BLANK (),
+     DIVIDE ( [Commercial Member Share], [Government Member Share] ) )
+// format: 0.0"x"   ->  11.0x
+
+Commercial vs Government (points) =
+IF ( HASONEVALUE ( DIM_PAYER_TYPE[PAYER_TYPE] ),
+     BLANK (),
+     [Commercial Member Share] - [Government Member Share] )
+// format: 0.0" pts"
+
+
+// ---------------------------------------------------------------------
+// DIAGNOSED-ONLY VARIANTS
+//
+// About a quarter of spend sits on claims with no resolvable diagnosis, and
+// members carry a much larger share of it (28.3%) than of diagnosed care
+// (17.6%). Including it gives the report's 20.4% headline; excluding it gives
+// the report's care-type figures. Use these where a visual must reconcile to
+// the care-type numbers, and say so in the title.
+// ---------------------------------------------------------------------
+
+Total Billed (diagnosed) =
+CALCULATE ( [Total Billed], DIM_CARE_TYPE[IS_CLINICAL] = TRUE )
+// -> $72.69B
+
+Member Paid Share (diagnosed) =
+CALCULATE ( [Member Paid Share], DIM_CARE_TYPE[IS_CLINICAL] = TRUE )
+// -> 17.6%
+
+
+// ---------------------------------------------------------------------
+// CONCENTRATION -- only if you import the three tables from
+// agg_concentration_powerbi.sql. Delete this block otherwise.
+//
+// These read precomputed values: ranking entities and running a cumulative
+// total costs n^2 comparisons in DAX, which is slow at 3,918 facilities and
+// does not complete at 1,259,375 members. They describe the whole window and
+// do not respond to slicers -- caption the cards "2020-2024, all payers".
+// ---------------------------------------------------------------------
+
+Facilities for Half of Spend =
+CALCULATE ( MAX ( AGG_CONCENTRATION[ENTITIES_FOR_HALF] ),
+            AGG_CONCENTRATION[GRAIN] = "Facilities" )
+// -> 86
+
+Members for Half of Spend =
+CALCULATE ( MAX ( AGG_CONCENTRATION[ENTITIES_FOR_HALF] ),
+            AGG_CONCENTRATION[GRAIN] = "Members" )
+// -> 134,198
+
+Facilities Total =
+CALCULATE ( MAX ( AGG_CONCENTRATION[ENTITIES_TOTAL] ),
+            AGG_CONCENTRATION[GRAIN] = "Facilities" )
+// -> 3,918
+
+Top 1% of Members Carry =
+DIVIDE ( CALCULATE ( MAX ( AGG_CONCENTRATION[TOP_1PCT_SHARE] ),
+                     AGG_CONCENTRATION[GRAIN] = "Members" ), 100 )
+// format: Percentage, 1 dp   ->  11.8%
