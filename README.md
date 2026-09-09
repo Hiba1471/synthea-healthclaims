@@ -1,127 +1,157 @@
-# Healthcare claims analysis — Snowflake
+# Calder Health: Five-Year Claims Analysis
 
-Analysis of the Snowflake share
-`SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER` (Synthea synthetic
-data: 887M claim transactions, 124M claims, 1.4M patients).
+An end-to-end healthcare claims analysis — a corrected data layer over a raw
+Snowflake share, 47 analysis queries, a Power BI model, and a client-facing
+report on where spending concentrates and who carries the cost.
 
-> **`SYNTHEA_HEALTHCLAIMS` is not a data source.** `.env` points at that
-> database, but its `PUBLIC` schema was empty — it exists here purely to host
-> the curated objects below. All source data lives in the read-only share.
-> `.env` also carries Gemini and EIA (energy) API keys left over from earlier
-> work; no energy data is used in this project.
+**[Read the report →](https://hiba1471.github.io/synthea-healthclaims/dashboard/analysis_report.html)**
 
----
+## Overview
 
-## Tech stack
+Calder Health is a non-profit health plan in Cleveland serving 1.26 million
+members across 3,918 facilities, running two lines of business: commercial
+employer plans with a deductible and coinsurance, and government Medicaid and
+Medicare plans with a flat copay per visit. Before setting benefits and
+negotiating networks, it wanted to know where five years of spending went and
+who actually paid for it.
 
-| Layer | What | Where |
-|---|---|---|
-| Source | Snowflake share `SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER` — read-only, 887M claim transactions | — |
-| Correction layer | Snowflake SQL views + a code dictionary table, in `SYNTHEA_HEALTHCLAIMS.PUBLIC` | `sql/ddl/v_claims_tx_clean.sql`, `code_dictionary_*.sql` |
-| Care-type layer | View adding care type, primary condition, facility and member attributes | `sql/ddl/v_claims_tx_with_caretype.sql` |
-| Aggregates | 10 pre-aggregated tables sized for import — facts, dimensions, concentration curves | `sql/ddl/powerbi_model_build.sql` |
-| Analysis | 47 standalone analysis queries, one per question | `sql/analysis/` |
-| BI | Power BI Desktop — Import mode, star schema, 3 pages | — |
-| Measures | DAX | `powerbi/measures.dax` |
-| Report | Self-contained HTML with inline SVG charts, built by a Python generator | `dashboard/analysis_report.html` |
+The analysis is built around three business questions:
 
-Data flows one way: **share → curated views → aggregate tables → Power BI import → DAX → visuals.** No transformation happens in Power BI; anything that could be pushed into SQL was.
+- **Where did the money go** — which conditions and types of care drive spending,
+  and is that concentrated enough to act on?
+- **Who bore it** — how much of each bill members pay themselves, and whether
+  that differs between commercial and government plans.
+- **Where does it concentrate** — whether spending pools in a few facilities and
+  places, or spreads evenly across the network.
 
----
+Member-paid share is treated as a headline metric rather than an appendix,
+because the plan measures affordability by what a member actually pays rather
+than by what the plan spends.
 
-## Power BI dashboard
+*Calder Health is an illustrative client — the questions needed someone to have
+asked them. The analysis behind every figure is real and reproducible.*
 
-Answers: *where does healthcare spending concentrate by care type, and how does member cost burden vary by payer type?*
+## Data
 
-Build the model with one file:
+Claims come from a read-only Snowflake share,
+`SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER`, holding Synthea-generated
+synthetic records: 887 million claim transactions across 124 million claims and
+1.4 million simulated patients. Five tables are used — claim transactions,
+claims, encounters, organizations and patients.
 
-```bash
-snow sql -f sql/ddl/powerbi_model_build.sql
-```
+All figures cover **1 January 2020 to 31 December 2024**, five complete years:
+68.6 million claims, 1,259,375 patients and $99.11 billion billed. The window
+matters, because unfiltered the source spans simulated history back to 1914 and
+volume steps up roughly eightfold in November 2019, so cumulative totals across
+the full span are not business figures.
 
-It creates 10 tables, each with a short comment saying what it aggregates and which visuals it feeds, and ends with an acceptance check — every row must read `PASS` before you refresh Power BI. **These are tables, not views**; they go stale silently, so re-run the whole file after any change to `V_CLAIMS_TX_WITH_CARETYPE`.
+## Data cleaning
 
-The dashboard itself — pages, visuals, model relationships, formatting gotchas and the figures every visual must reconcile to — is documented in **[`powerbi/README.md`](powerbi/README.md)**.
+The share is read-only, so nothing could be fixed at source. Everything reads
+through a curated view instead —
+[`sql/ddl/v_claims_tx_clean.sql`](sql/ddl/v_claims_tx_clean.sql) — which is the
+correction layer. The defects it neutralises are not missing values or bad
+formatting; they are columns that answer a different question than their name
+suggests, so a wrong result looks completely reasonable.
 
-The earlier `v_agg_*.sql` and `v_dim_*.sql` files in `sql/ddl/` are superseded by this one and are kept only for history.
+Three examples of what that meant in practice.
 
----
+**Uncollected revenue that wasn't.** `SUM(OUTSTANDING)` came to $45.3 billion,
+which would be a catastrophic unpaid balance. I checked it a second way —
+billed minus paid on each claim — and got roughly zero. Two answers five orders
+of magnitude apart meant one of them was measuring something else. `OUTSTANDING`
+turns out to be stamped on every row as money moves through charge, transfer and
+payment, so summing it counts the same balance again at every stage. True
+uncollected revenue is $83,363. I renamed the column `OUTSTANDING_RUNNING_BALANCE`
+rather than dropping it, because hiding it would send the next person back to the
+raw table with no warning, whereas a name that says "running balance" makes
+`SUM()` visibly wrong at the point of writing it.
 
-## The report
+**Payments credited to the wrong party.** `PAYER_ID` looked like it identified
+who paid. Tracing one claim through its transfer chain showed responsibility
+shifting to the patient, who then paid directly — while the claim still carried
+the insurer's id. The field records who was *billed*. The real signal is
+`METHOD` on payment rows: `ECHECK` is the insurer, everything else is the member
+paying out of pocket. Without that distinction $20.3 billion of member payments
+are credited to insurers, and the entire question of what members pay cannot be
+asked at all.
 
-`dashboard/analysis_report.html` is the client-facing write-up — client
-background, north-star metrics, executive summary, and five findings each with
-its figures, captions and what was examined. It is assembled from the charts in
-`dashboard/`, so rebuild those first if their data changes, then run:
+**A diagnosis field that mostly isn't.** A first pass at "top conditions by cost"
+returned *Full-time employment* and *Medication review due* in its top twelve.
+Testing `DIAGNOSIS1` against the encounter record explained it: about two thirds
+of its values are copied encounter metadata, and only 46.7% are a real condition.
+The convention is inverted — `DIAGNOSIS2` onward are progressively cleaner. I
+built a [code dictionary](sql/ddl/code_dictionary_classify.sql) flagging which
+codes are genuine conditions, then took `DIAGNOSIS1` when it qualified and fell
+back to `DIAGNOSIS2` when it did not, recovering 5.9 million claims. Both cuts
+are kept on disk, because the fallback attributes a claim's full cost to a
+nominally secondary diagnosis — a real trade-off, not a strict improvement.
 
-```bash
-python3 dashboard/generators/analysis_report.py
-```
+The same pattern covers the rest: `AMOUNT` populated on transfer rows as well as
+charges (double-counting $23.4B), 120 payer rows for 10 insurers keyed by
+insurer-*city* pair, and claim counts that sum to exactly twice the true figure
+across procedure rows.
 
-To serve it: enable GitHub Pages on this repo (Settings → Pages → deploy from
-branch, root). It will then be at
-`https://<user>.github.io/<repo>/dashboard/analysis_report.html`. Without Pages,
-clicking the file in GitHub shows its source rather than the rendered page.
+Every defect, how it was found, what it cost and how it was resolved is recorded
+in [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) — including a section on bugs in
+my own analysis, kept for the same reason.
 
-**The client, Calder Health, is invented** — the questions needed someone to
-have asked them. The analysis behind every figure is real and reproducible.
+## Methodology
 
-### How the queries were run
+**Care-type classification** —
+[`q2_patient_cost_by_care_type.sql`](sql/analysis/q2_patient_cost_by_care_type.sql)
+holds the reference copy of an ordered rule ladder that maps each condition
+description into one of fifteen care types. Order is load-bearing: the first
+matching rule wins, so a rule for gallbladder infection has to be tested before
+the kidney rule, whose keyword is a substring of it. The ladder is duplicated
+across fifteen files, so a checker compares every copy and fails if any branch,
+keyword or position drifts.
 
-Queries were written with Claude Code and run through the Snowflake CLI
-(`snow sql`) rather than the web UI, which let me edit and re-run without
-leaving the terminal and kept each query in a versioned `.sql` file. I manually
-validated every output against fixed anchors ($99,111,300,188 billed, 1,259,375
-patients, 68.6 million claims) to catch AI hallucinations, and read the query
-logic itself for correctness and optimisation before any result reached the
-report.
+**Aggregation** — ten pre-aggregated tables sized for import, with rankings and
+cumulative distributions computed in SQL as window functions rather than in DAX,
+which does not complete at 1.26 million rows.
 
----
+**Modeling** — a Power BI star schema: one fact table, four dimensions, all
+one-to-many and single-direction. Distinct member counts are stored separately at
+five grains, because counts of people do not sum across categories the way money
+does.
 
-## Quick start
+Every figure was reconciled against fixed anchors — $99,111,300,188 billed,
+1,259,375 patients, 68.6 million claims — before reaching the report, and several
+queries carry their own acceptance checks that print `PASS` or `CHECK`.
 
-Everything reads through two curated objects rather than the raw share. Query
-those, not the source tables — the source has traps that produce confidently
-wrong answers (see [Gotchas](#gotchas)).
+## Key findings
 
-```bash
-snow sql -q "SELECT PAYER_TYPE, SUM(PAID_BY_PAYER), SUM(PAID_BY_PATIENT) FROM SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN GROUP BY 1"
-```
+Diagnosed spending is severely top-heavy: twenty conditions carry 91% of it, and
+just two of fifteen care types account for half. Member cost burden splits
+sharply along plan design: across the ten conditions where members carry the most,
+**commercial members pay more on every one**, by between 12.9 and 78.1 percentage
+points — obesity runs 86.8% against 8.7%. The two populations barely overlap, which
+points at benefit design rather than clinical mix. That
+share is also highest on the cheapest, most routine care, so the conditions where
+members pay the largest *percentage* and the largest *dollars* are different
+lists: lung cancer bills $3.4B and leaves the member 5.4%, while normal pregnancy
+bills $28.9B and leaves them 17.0%. Spending concentrates in places far more than
+in people — **86 of 3,918 facilities** carry half of all spending, against 134,198
+members for the same half — and the expensive facilities are not overcharging;
+repricing every procedure to a common rate shows the spread is case mix, not
+price.
 
-| Object | Kind | Purpose |
-|---|---|---|
-| `SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_CLEAN` | view | Claim transactions with correct money columns, payer collapsed, date window applied |
-| `SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY` | table (1,453 rows) | Every clinical code → one canonical name + category. 100% resolution on all 9 code fields |
+Full findings, charts and recommendations are in the report.
 
-The share is **read-only** (an imported Snowflake share), so nothing can be
-fixed at source. These objects are the correction layer.
+## Repository structure
 
----
+| Path | Description |
+|---|---|
+| `dashboard/analysis_report.html` | Client-facing report: findings, charts and recommendations. |
+| `sql/ddl/` | Curated views, the code dictionary, and the ten aggregate tables. |
+| `sql/analysis/` | 47 standalone analysis queries, one per question. |
+| `sql/results/` | Query output as CSV, linked from the report. |
+| `powerbi/` | DAX measures, the data model diagram, and dashboard documentation. |
+| `DATA_ANALYSIS_CONTEXT.md` | Full table and column reference for the source share. |
+| `DATA_QUALITY_LOG.md` | Every data defect found, with evidence. |
 
-## Layout
-
-```
-sql/
-  ddl/                              curated objects -- run in this order
-    v_claims_tx_clean.sql           the base view
-    code_dictionary_raw.sql         pass 1: gather codes from 11 sources
-    code_dictionary_classify.sql    pass 2: classify them
-    v_claims_tx_with_caretype.sql   adds care type, condition, facility
-    powerbi_model_build.sql         all 10 aggregate tables, one file
-  analysis/                         one query per analysis question
-  snowflake_queries.sql             analysis query history, chronological
-  condition_cost_clean.sql          condition costs, DIAGNOSIS1 only
-  condition_cost_with_fallback.sql  condition costs, with DIAGNOSIS2 fallback
-  results/                          output CSVs -- see results/README.md
-powerbi/
-  measures.dax                      every DAX measure in the model
-dashboard/
-  analysis_report.html              the client-facing write-up
-```
-
-### Rebuilding the curated objects
-
-Order matters — `classify` alters the table `raw` creates.
+To rebuild the curated objects, run in order:
 
 ```bash
 snow sql -f sql/ddl/v_claims_tx_clean.sql
@@ -131,78 +161,28 @@ snow sql -f sql/ddl/v_claims_tx_with_caretype.sql
 snow sql -f sql/ddl/powerbi_model_build.sql
 ```
 
-`code_dictionary_raw.sql` scans ~1.3B rows across 11 tables (two columns each)
-and takes a few minutes. The view is free to create. To re-run only the
-classification after editing rules, skip the `ALTER TABLE` at the top of
-`classify` and run from the first `UPDATE` onward.
+## Tools
 
----
+- **Snowflake + SQL** — the correction layer, analysis queries and aggregate
+  tables. Queries were written with Claude Code and run through the Snowflake CLI
+  (`snow sql`) rather than the web UI, which kept each one in a versioned `.sql`
+  file. I validated every output against the anchors above and read the query
+  logic for correctness before any result reached the report.
+- **Power BI + DAX** — a three-page dashboard on the star schema.
+- **HTML + CSS + SVG** — the final client deliverable, self-contained and served
+  through GitHub Pages.
 
-## Standing scope
+## Limitations
 
-All CLAIMS_TX analysis is windowed to **`FROMDATE` 2020-01-01 → 2024-12-31**,
-baked into the view. Two reasons:
+The data is synthetic, and Synthea prices some conditions far above real-world
+benchmarks — a normal pregnancy at roughly 8.6× a comparable real figure, with
+eleven of the twenty highest-cost conditions carrying a similar documented gap.
+Ratios survive this, because scaling a bill and its payment by the same factor
+cancels out; absolute dollar figures do not. The report tests its three headline
+findings against that defect in an appendix rather than assuming they hold.
 
-- Unfiltered, the table spans **1914–2024** (~110 years of simulated history),
-  so cumulative totals are not business figures.
-- Volume steps up **~8x in Nov 2019** (~$200M/month → ~$1.7B/month), so
-  calendar-2019 blends two population regimes and is not comparable to 2020+.
-
-Data ends **2024-11-09**, so 2024 totals run ~15% light. Ratios are fine;
-absolute annual totals are not.
-
-To change the window, edit the two predicates at the bottom of
-`sql/ddl/v_claims_tx_clean.sql` — it is the single place scope is defined.
-
----
-
-## Gotchas
-
-Each of these produces a plausible-looking wrong answer if you query the raw
-share directly. The curated objects neutralise all of them.
-
-| # | Trap | Consequence |
-|---|---|---|
-| 1 | `OUTSTANDING` is a **mid-flow running balance**, not terminal A/R | `SUM()` returns **$45.3B**; true uncollected is **$83K**. Overstates by ~543,000x |
-| 2 | `AMOUNT` is populated on `TRANSFERIN` rows too, not just `CHARGE` | Naive sums double-count $23.4B of transferred balances |
-| 3 | `encounters.PAYER_ID` = who was **billed**, not who **paid** | Misattributes $20.3B of patient payments to insurers. Use `METHOD` on PAYMENT rows: `ECHECK` = insurer, else patient |
-| 4 | `DIAGNOSIS1` mixes code systems | 18.4% of its uses are procedure codes; ~65% is copied encounter metadata. Only 46.7% is a real condition |
-| 5 | `PAYERS` has 120 rows for **10 insurers** (12 city variants each) | `PAYER_ID` keys an insurer-*city* pair. Group by `PAYER_NAME` for the insurer, `PAYER_CITY` for the region |
-| 6 | Claim counts are **not additive** across procedure rows | Sums to 249M against 124M actual claims — exactly 2.0x |
-
-### What this dataset cannot answer
-
-The data models **100% collection** — no denials, write-offs, contractual
-adjustments or A/R aging. 98.7% of claims are paid the same day they are
-charged. Reimbursement-gap, bad-debt and days-in-A/R analyses all return zero
-**by construction**, not because performance is perfect. Report that as a
-finding; do not present the zeros as a result.
-
----
-
-## Headline result
-
-Which conditions cost most, and is that concentrated by payer?
-(`sql/results/condition_cost_with_fallback_2020_2024.csv`)
-
-$72.69B across 33.6M claims and 185 conditions, led by Normal pregnancy
-($28.9B, 39.8%), Allergy to substance ($8.6B) and Gingivitis ($8.5B). Cancer is
-78–88% government-funded; pregnancy and contraception tilt commercial. A dental
-cluster of ~$10.5B is only visible with the DIAGNOSIS2 fallback applied.
-
-Two judgment calls are baked into that number and should be stated wherever it
-is used:
-
-1. **DIAGNOSIS2 fallback** — take `DIAGNOSIS1` when it is a real condition,
-   else fall back to `DIAGNOSIS2`. Recovers 5.9M claims, but attributes a
-   claim's full cost to a nominally *secondary* diagnosis. The conservative
-   DIAGNOSIS1-only cut is `condition_cost_by_payer_2020_2024.csv` ($68.17B).
-2. **`Stress` classified as a social determinant**, not a condition. Reversible
-   with a one-line `UPDATE` to `CODE_DICTIONARY`.
-
-Classification generally is auditable: `CODE_DICTIONARY.CLASSIFIED_BY` records
-whether each code was decided by SNOMED semantic tag, by provenance, or by
-hand, so any row can be traced and overridden.
-
----
-
+The dataset also models 100% collection — no denials, write-offs or A/R aging —
+so reimbursement-gap and bad-debt analyses return zero by construction, not
+because performance is perfect. Data ends 9 November 2024, so 2024 totals run
+roughly 15% light. Member-paid share is a percentage of the bill, not a measure
+of hardship. Full detail is in `DATA_QUALITY_LOG.md`.
