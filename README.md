@@ -67,6 +67,16 @@ clicking the file in GitHub shows its source rather than the rendered page.
 **The client, Calder Health, is invented** — the questions needed someone to
 have asked them. The analysis behind every figure is real and reproducible.
 
+### How the queries were run
+
+Queries were written with Claude Code and run through the Snowflake CLI
+(`snow sql`) rather than the web UI, which let me edit and re-run without
+leaving the terminal and kept each query in a versioned `.sql` file. I manually
+validated every output against fixed anchors ($99,111,300,188 billed, 1,259,375
+patients, 68.6 million claims) to catch AI hallucinations, and read the query
+logic itself for correctness and optimisation before any result reached the
+report.
+
 ---
 
 ## Quick start
