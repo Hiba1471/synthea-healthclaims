@@ -280,7 +280,7 @@ def build():
          '@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) '
          '.fig-places .rest{fill:#3a3936;}}',
          '</style>',
-         '<div class="wrap">', HEADER, ABOUT, DATASECTION, HOWTOREAD, NOTANSWERED,
+         '<div class="wrap">', HEADER, ABOUT, DATASECTION, HOWTOREAD,
          NORTHSTAR, SUMMARY,
          '<h2 class="sec">The findings</h2>']
 
@@ -301,7 +301,6 @@ def build():
 
     o.append(RECOMMENDATIONS)
     o.append(APPENDIX)
-    o.append(FOOTER)
     o.append('</div>')
     return '\n'.join(o) + '\n'
 
@@ -454,7 +453,7 @@ places to look, knowing whether spending is spread across them or pooled in a fe
 review of the network would involve.</p>
 <p>Calder runs two lines of business, and the difference between them is not administrative
 detail. Finding 3 shows it produces one of the largest gaps in what members pay for identical
-diagnoses that this analysis found, which makes it central to the second question rather than
+diagnoses found here, which makes it central to the second question rather than
 background to it. (This report has not measured how that gap compares in size to other drivers of
 member-paid share, such as condition or claim size, so it is described here as large, not as
 largest.)</p>
@@ -473,11 +472,7 @@ affordable for every member, in every place they seek care, judged by what a mem
 rather than by what the plan spends, and held equally across commercial and government lines. That
 is why member-paid share is a headline metric rather than an appendix. One caveat: it is a
 percentage of the bill, not a measure of hardship &mdash; a high share of a small bill and of a
-large one are different things.</p>
-<p>This analysis covered 68.6 million claims across five years in Snowflake, then focused on
-diagnostic patterns and facility-level concentration to answer those three questions. What follows
-is what that showed, together with the queries behind every figure so any of it can be
-checked.</p>'''
+large one are different things.</p>'''
 
 DATASECTION = '''<h2 class="sec">About the data</h2>
 <p>Claims were drawn from a read-only Snowflake share,
@@ -485,9 +480,8 @@ DATASECTION = '''<h2 class="sec">About the data</h2>
 synthetic healthcare records: 887 million claim transactions across 124 million claims and
 1.4 million simulated patients in total.</p>
 <p><strong>Time frame.</strong> All figures cover <strong>1 January 2020 to 31 December 2024</strong>,
-five complete years. The window matters: unfiltered, the source spans simulated history back to
-1914, and cumulative totals taken across it are not meaningful. Within the window the analysis
-covers <strong>68.6 million claims, 1,259,375 patients and $99.11 billion billed</strong>.</p>
+five complete years. Within that window: <strong>68.6 million claims, 1,259,375 patients and
+$99.11 billion billed</strong>.</p>
 <p><strong>Tables used.</strong></p>
 <ul>
 <li><code>SILVER.CLAIMS</code>: diagnosis fields, used to attach spend to a condition.</li>
@@ -497,88 +491,30 @@ to.</li>
 <li><code>SILVER.PATIENTS</code>: dates of birth, used only for the age check behind the
 preventive-care question.</li>
 </ul>
-<p><strong>Curated objects.</strong> Every query reads through these, not the raw share:</p>
-<ul>
-<li><code>V_CLAIMS_TX_CLEAN</code>: claim transactions with the money columns corrected,
-payer collapsed to type, administrative rows flagged, and the date window applied.</li>
-<li><code>CODE_DICTIONARY</code>: 1,453 rows mapping every clinical code to one canonical
-name and category, resolving all nine code fields.</li>
-</ul>
 <p><strong>Data dictionary.</strong> Full table and column references, together with the known
 traps in the source data, are documented in
-<a href="../DATA_ANALYSIS_CONTEXT.md">DATA_ANALYSIS_CONTEXT.md</a> &sect;25&ndash;26. Every figure
-in this report traces to a saved query in <code>sql/analysis/</code> and a result file in
-<code>sql/results/</code>.</p>'''
+<a href="../DATA_ANALYSIS_CONTEXT.md">DATA_ANALYSIS_CONTEXT.md</a>.</p>'''
 
 HOWTOREAD = '''<h2 class="sec">Things to be aware of before proceeding</h2>
 <div class="callout">
 <p><strong>The patterns are internally consistent within this synthetic dataset, but real claims
 validation is required before using them for operational, pricing, or benefit decisions.</strong>
 Nothing below is safe to treat as a forecast or a budgeting input on its own.</p>
-<p><strong>What is internally consistent.</strong> Rankings, shares, ratios and concentration hold
-together and were each tested more than one way inside this dataset: the concentration result
-was measured across four separate groupings, the member-paid-share pattern was re-checked inside
-each line of business on its own, and the facility spread was retested with every procedure
-repriced to a common rate. That is evidence the patterns are not an artefact of one calculation.
-It is not evidence they match the real world, which this dataset cannot supply on its own.</p>
-<p><strong>A known pricing defect, tested at two widths.</strong> This data prices a normal
-pregnancy at roughly 8.6&times; a comparable real-world figure (Peterson-KFF Health System Tracker,
-2022: ~$18,865 for a full pregnancy episode, against $161,988 here). That is not the only condition
-priced this way. Checked one at a time against a named benchmark, eleven of the twenty highest-cost
-conditions carry a similar, well-grounded defect, from 3.8&times; (stroke) to roughly 90&times;
-(allergy immunotherapy, at the procedure level). Three bounded &ldquo;what if&rdquo; tests were
-run, none of which rescales anything in the underlying data:</p>
-<p><strong>Test 1: correct pregnancy alone</strong> (<code>q1_pregnancy_sensitivity.sql</code>).
-Pregnancy&rsquo;s rank drops from 1st to 5th and its share of diagnosed spend from 39.8% to 7.1%.
-Patient-level concentration (Finding 4) moves the opposite way from what a reader might expect:
-repriced, the top 1% of members carry MORE of total spend, 15.4% against 11.8% as billed.</p>
-<p><strong>Test 2: correct all eleven together</strong>
-(<code>q1_multi_condition_sensitivity.sql</code>). Five more conditions with a similarly large gap
-(cardiac imaging findings, small cell lung cancer, child ADHD, ischemic heart disease, dependent
-drug abuse) were deliberately left uncorrected: each carries many claims spread across the
-five-year window with no fixed visit cadence to anchor a correction on, unlike dialysis&rsquo;s
-known three-times-weekly schedule, so no defensible single factor exists for them. Even with only
-eleven of twenty corrected, the ranking reshuffles far more than test 1 alone suggested. Pregnancy
-falls to 2nd (14.7%). Chronic kidney disease, never touched because it was already checked and
-found NOT inflated, rises to 1st (19.2%) purely because everything around it got smaller. The
-top-5 share of diagnosed spend falls from 74.1% as billed to 47.2%; the top-20 share falls from
-90.8% to 78.3%, a much larger movement than test 1&rsquo;s 90.8%-to-85.8%. And patient-level
-concentration REVERSES test 1&rsquo;s result: correcting all eleven brings the top 1% back down to
-12.5%, close to the as-billed 11.8%, not the 15.4% test 1 found. <strong>The direction of that
-specific effect is itself sensitive to how many conditions are corrected, and should not be read
-as settled in either direction.</strong> An earlier version of this disclosure treated
-test 1&rsquo;s result as evidence Finding 4 was conservative; that does not hold once more of the
-known defects are corrected together, and is not asserted below.</p>
-<p><strong>Test 3: what the correction does to the other two headline numbers</strong>
-(<code>q1_robustness_three_findings.sql</code>). The member-paid share of 20.4% does NOT hold:
-corrected, it rises to <strong>23.3%</strong>. That reads backwards at first, because the dollars
-members pay fall at the same time, from $20.3B to $11.4B. Both are true and the reason is mix, not
-members paying more. The eleven corrected conditions carry $54.9B at a 17.7% member share, while
-everything untouched carries $44.2B at 23.8%; shrinking the low-share group by around ninety per
-cent leaves the blend dominated by the high-share remainder, landing just under that
-remainder&rsquo;s own figure. The commercial-against-government gap behaves in the opposite way and
-is <strong>exactly unchanged</strong>, to the decimal, for every condition tested: pregnancy stays
-at 25.2 times, gingivitis at 17.1, allergy at 9.4. Scaling a bill and what was paid on it by the
-same factor cancels in a ratio, so that finding is immune to this entire class of defect rather
-than merely surviving it.</p>
-<p><strong>What actually survives these tests, and what does not.</strong> That roughly twenty
-conditions account for most (not all) diagnosed spend holds under both, though "most" ranges from
-78% to 91% depending on which correction is applied. Which single condition leads, and by how
-much, does not survive either test, and does not survive consistently in the same direction:
-pregnancy, allergy and NSCLC all lose their as-billed rank; CKD-4 gains one it never had.
-Patient-level concentration survives as a qualitative fact (spend is concentrated in a minority of
-patients either way) but its exact magnitude moves in different directions depending on the test,
-so no specific percentage for it should be treated as final. Each finding below states which of
-these categories it falls into. No number in this report has been rescaled to correct for any of
-this outside these three clearly labeled tests; none of Synthea&rsquo;s other procedure prices have
-been checked against a real-world benchmark at all, and the five conditions above were left
-uncorrected because no defensible factor exists for them, not because they are known to be
-fine.</p>
-<p><strong>Outside the scope of this data entirely.</strong> Negotiated rates, denials, bad debt and
-collections. Every claim here is paid in full and no provider is charged differently from any
-other, so those are properties of the simulation rather than findings about Calder. Answering
-them, and any business conclusion about whether a given facility&rsquo;s prices are fair,
-negotiable, or otherwise actionable, would need real contract and remittance data.</p>
+<p><strong>What holds up.</strong> Rankings, shares, ratios and concentration were each tested more
+than one way: concentration across four separate groupings, member-paid share re-checked inside each
+line of business on its own, and facility spread retested with every procedure repriced to a common
+rate.</p>
+<p><strong>A known pricing defect.</strong> Synthea prices some conditions far above real-world
+benchmarks &mdash; a normal pregnancy at roughly 8.6&times; a comparable real figure
+(Peterson-KFF, 2022), and eleven of the twenty highest-cost conditions carry a similar documented
+gap. Three bounded &ldquo;what if&rdquo; tests were run against those eleven; none rescales anything
+in the underlying data.</p>
+<p><strong>What survives correction:</strong> that a minority of conditions carries most of diagnosed
+spend, and the commercial-against-government gap, which is unchanged to the decimal because scaling a
+bill and what was paid on it by the same factor cancels in a ratio. <strong>What does not:</strong>
+which single condition leads and by how much, and the exact patient-level concentration figure, which
+moves in both directions depending on the test. Each finding below says which category it falls into,
+and the appendix shows every test side by side.</p>
 </div>
 <div class="decisionbox">
 <p class="dbhd">Decision-use boundary</p>
@@ -595,6 +531,10 @@ production data</li>
 <li>Actuarial pricing or reserving</li>
 <li>Benefit-design changes made on these figures alone</li>
 <li>Real-world cost forecasts without separate validation against actual claims</li>
+<li>Judging whether a facility is efficient, or whether members skip preventive care &mdash; neither
+is observable in this data</li>
+<li>Anything about denials, collections or bad debt: every claim here is paid in full</li>
+<li>Benchmarking this membership&rsquo;s health against the real market</li>
 </ul></div>
 </div>
 </div>'''
@@ -608,9 +548,7 @@ is care recorded without one.
 <tr><th>Member-paid share</th><td class="val">20.4%</td>
 <td class="note">$20.3B paid out of pocket: $16,084 average member-paid spending per enrolled
 member over five years (median $7,026: the average sits well above the typical member's
-figure, pulled up by a right-skewed tail). This is the number the mission lives or dies on.
-Corrected for known pricing defects it rises to 23.3%, while the dollars members pay fall to
-$11.4B, which is a change in the mix rather than in what members pay (Finding 2).
+figure, pulled up by a right-skewed tail).
 <a href="../sql/analysis/q2_who_pays.sql">q2_who_pays.sql</a>,
 <a href="../sql/analysis/q2_member_paid_percentiles.sql">q2_member_paid_percentiles.sql</a></td></tr>
 <tr><th>Spend concentration</th><td class="val">86 sites</td>
@@ -621,37 +559,25 @@ through by hand.
 
 SUMMARY = '''<h2 class="sec">Executive summary</h2>
 <ul class="summary">
-<li><strong>Diagnosed spend concentrates in about twenty conditions, not hundreds.</strong> They
-carry 91% of the $72.7B that can be attributed to a diagnosis. Which single condition leads, and by
-how much, is sensitive to a known pricing defect: as billed, pregnancy is 39.8% of that total, but
-correcting the eleven conditions with a documented pricing gap drops it to 2nd place and 14.7%,
-and puts chronic kidney disease first at 19.2% without it ever being corrected
-(<code>q1_multi_condition_sensitivity.sql</code>). The twenty-conditions concentration is the
-finding to carry forward; the identity and size of the single largest one is not.</li>
-<li><strong>Members pay a larger share of the bill for cheaper care.</strong> Member-paid share runs
-from 8.3% to 38.9% of the bill by type of care and is highest for the least expensive kinds, a
-pattern that holds under price correction (the median stays at 20.6% and the top at 38.9%; only
-the bottom of the range moves, to 7.4%). That is a statement about percentage share, not about
-dollars paid: the categories with the highest share are not the ones with the highest typical
-dollar amount paid, which is a separate result (Finding 2).</li>
-<li><strong>Member-paid share differs sharply by plan type, even within the same condition.</strong>
-On all ten of the conditions where members carry the most, commercial members pay a larger
-share than government members, by between 12.9 and 78.1 percentage points. Obesity and
-prediabetes show the widest gap, at 86.8% against 8.7% and 85.0% against 8.5% within the same
-condition, not necessarily matched on setting, severity or the specific services billed. This is
-the one finding here that price correction leaves exactly unchanged, because scaling a bill and
-what was paid on it by the same factor cancels in a ratio.</li>
-<li><strong>Member spending is less concentrated than facility spending in this synthetic
-population.</strong> 86 of 3,918 facilities carry half the money; reaching the same half through
-members takes 134,198 people. Real claims populations concentrate member spending more heavily at
-the very top (roughly 20&ndash;25% in the top 1%, against 11.8% here), so this comparison may
-understate how concentrated member spending would look against real claims data.</li>
-<li><strong>Within this simulated pricing structure, facility cost differences are driven mainly by
-case mix, not by modelled price variation.</strong> Repricing every procedure to a common rate
-barely moves the spread between the cheapest and priciest facility. This dataset does not model
-realistic, provider-specific negotiated rates, so it cannot support a conclusion about whether any
-facility's real prices are negotiable or fair; assessing that would need real negotiated-rate
-data.</li>
+<li><strong>Twenty conditions carry 91% of the money that can be tied to a diagnosis.</strong> The
+cost review does not need to look at hundreds of conditions. But which one sits at the top is not yet
+settled: pregnancy looks largest in this data, and with realistic prices kidney disease takes first
+place instead. Treat the short list as reliable and the order within it as provisional.</li>
+<li><strong>Members pay the biggest percentage on the cheapest care.</strong> The member share runs
+from 8% to 39% of a bill depending on the type of care, and it is highest where the bills are
+smallest. That is a statement about percentages, not dollars: the categories where members pay the
+largest share are not the ones where they pay the most money.</li>
+<li><strong>Commercial members pay far more than government members for the same condition.</strong>
+On all ten of the conditions where members carry the most, the commercial member pays a larger share,
+and on obesity and prediabetes the gap is roughly 87% against 9%. This is the single most reliable
+result in the report and the one Calder can act on without any further data.</li>
+<li><strong>Half of all spending runs through 86 of 3,918 facilities.</strong> Reaching the same half
+through members would mean reaching 134,198 people. A network review is a finishable piece of work;
+a member-by-member one is not.</li>
+<li><strong>The expensive facilities are expensive because of who they treat, not what they
+charge.</strong> Charging every facility the same rates barely changes the gap between the cheapest
+and the most expensive. There is no pricing lever here to pull, and this dataset holds no real
+negotiated rates to look for one in.</li>
 </ul>'''
 
 NOTANSWERED = '''<h3 class="subsec">What this analysis could not answer</h3>
@@ -673,138 +599,82 @@ with real claims data.</li>
 </ul>'''
 
 RECOMMENDATIONS = '''<h2 class="sec">Recommendations</h2>
-<p>Six priorities, each tied directly to the evidence above. They are ordered by what has to
-happen first, not by size of prize: recommendation 1 is a gate on several of the others, and
-where that is true it is said explicitly. Consistent with the decision-use boundary set out
-earlier, these are investigation and validation priorities against real claims data, not benefit
-or pricing changes to make on these figures alone.</p>
-
-<div class="recgate"><strong>Read 1 first.</strong> Eleven of the twenty highest-cost conditions
-carry a documented pricing gap, and correcting them reorders Finding 1 and moves Finding 2&rsquo;s
-dollar figures substantially. Recommendations 2 and 4 depend on numbers that recommendation 1 is
-designed to settle. Recommendations 3, 5 and 6 do not, and can proceed in parallel.</div>
 
 <div class="rec-block">
-<h4>1. Reprice the eleven flagged conditions against real claims before any 2026 budgeting</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Pull real per-episode costs
-for maternity and allergy immunotherapy from actual claims and contract data over the same
-2020&ndash;2024 window, then re-run <code>q1_multi_condition_sensitivity.sql</code> substituting
-those real factors for the benchmark-derived ones already in it. The query is written to take a
-factor per condition, so this is a substitution rather than a rebuild.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> As billed, pregnancy is 39.8%
-of diagnosed spend and leads by more than three times (<strong><em>Figure 1</em></strong>).
-Corrected, it falls to 2nd at 14.7% and chronic kidney disease takes 1st at 19.2% without ever
-being corrected itself. That is not a refinement of the priority list, it is a different list.
-Allergy immunotherapy leaves the top twenty altogether once corrected, and eight conditions that
-appear nowhere in <strong><em>Figure 2</em></strong> enter it.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> This is the one item that
-unblocks others rather than standing alone. Until it is done, any 2026 budget line built on the
-as-billed condition ranking is built on a number known to be roughly 8.6&times; wrong for the
-single largest contributor, and the maternity out-of-pocket figure behind recommendation 4 is
-unsettled in the same way.</p>
+<h4>1. Get real prices for the flagged conditions before any of these numbers go into the 2026
+budget</h4>
+<p class="rec-body"><span class="rec-label">What to do:</span> Pull real per-episode costs for
+maternity and allergy treatment from actual claims over the same 2020&ndash;2024 window, and pull the
+real member out-of-pocket distribution for maternity at the same time, median and 90th percentile.
+Re-run <code>q1_multi_condition_sensitivity.sql</code> with the real figures in place of the
+benchmark-derived ones; the query already takes a factor per condition, so this is a substitution,
+not a rebuild. Compare the maternity out-of-pocket figures against the annual cap on the commercial
+plans.</p>
+<p class="rec-body"><span class="rec-label">Why:</span> In this data pregnancy looks like the biggest
+cost by a wide margin, at 39.8% of diagnosed spend (<strong><em>Figure 1</em></strong>). With
+realistic prices it drops to second and kidney disease moves to first, which is a different priority
+list rather than a small correction. The same defect distorts what maternity appears to cost a
+member: a $10,765 median here falls to $1,308 once corrected, so the category that looks like the
+biggest dollar exposure may not be.</p>
+<p class="rec-body"><span class="rec-label">What it gets you:</span> A 2026 budget built on the right
+conditions, and a benefit review aimed at the right category. Members pay the biggest percentage on
+the cheapest care (<strong><em>Figures 3 and 4</em></strong>), so a review organised around
+percentages would protect people from a $179 bill and leave a $10,000 one alone. This is the check
+that prevents that. Recommendation 2 waits on it; 3 and 4 do not.</p>
 </div>
 
 <div class="rec-block">
-<h4>2. Start clinical review with chronic kidney disease, not with the largest as-billed line</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Convene clinical review of the
-CKD stage 4 and end-stage renal cohort, 37,037 members at 258.5 claims each, and frame the
-question as whether the dialysis pathway sits at the right site of care rather than whether the
-spend is too high.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> CKD rises to first place under
-correction precisely because it was checked and found not inflated
-(<strong><em>Figure 2</em></strong>), so it is the top-of-list condition least likely to be an
-artefact. Its cost is volume, not price: 258.5 claims per member is a patient on dialysis three
-times a week, which is care working as intended. That makes it a capacity and network question
-with a real answer, unlike the conditions whose position depends on recommendation 1.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> This is deliberately narrower
-than a review of the whole top twenty. A 37,037-member cohort is small enough for actual case
-review; gingivitis, at 800,475 members and 6.9 claims each, is expensive for the opposite reason
-and would need a population-level intervention rather than clinical review. Starting where the
-number is trustworthy and the cohort is reviewable avoids spending the first review cycle on a
-condition recommendation 1 may reorder.</p>
+<h4>2. Start the clinical review with kidney disease</h4>
+<p class="rec-body"><span class="rec-label">What to do:</span> Review the 37,037 members with stage 4
+or end-stage kidney disease, and ask whether dialysis is happening in the right setting rather than
+whether it costs too much.</p>
+<p class="rec-body"><span class="rec-label">Why:</span> Kidney disease is expensive because of how
+often people need care, about three visits a week, not because of inflated prices
+(<strong><em>Figure 2</em></strong>). It is the one top condition whose number was checked and found
+sound, and 37,037 members is small enough to review case by case. Gingivitis, at 800,475 members, is
+expensive for the opposite reason and needs a population-level approach instead.</p>
+<p class="rec-body"><span class="rec-label">What it gets you:</span> A concrete site-of-care question
+with an answer at the end of it &mdash; whether dialysis should sit in a hospital outpatient
+department or a freestanding centre &mdash; which is one of the few levers that moves cost without
+touching what members receive.</p>
 </div>
 
 <div class="rec-block">
-<h4>3. Reopen commercial cost-sharing for the two metabolic conditions with the widest gap</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Model what an obesity or
-prediabetes claim costs a commercial member against a government member under the current
-deductible-and-coinsurance design, and test a capped-coinsurance or copay carve-out variant for
-those two conditions in the 2026 benefit modelling.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> Commercial members carry 86.8%
-of an obesity bill against 8.7% for government members, and 85.0% against 8.5% for prediabetes
-(<strong><em>Figure 5</em></strong>). Those two separate furthest from the other eight, which sit
-between 13 and 48 points, and the gap holds in all five years measured. It is also the one
-finding in this report that price correction leaves exactly unchanged, to the decimal, because
-scaling a bill and what was paid on it by the same factor cancels in a ratio.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> Of the six, this is the
-recommendation to pursue with the most confidence, and the reason is structural rather than a
-matter of degree: it is immune to the defect that reshapes recommendations 1, 2 and 4 rather than
-merely surviving it. It can therefore run in parallel with the repricing work instead of waiting
-behind it. What this analysis has not established is how much of member-paid share plan type
-explains against condition, care type or claim size, so the modelling should treat the gap as
-real and large, not as proof that plan design is the dominant driver.</p>
+<h4>3. Reopen commercial cost-sharing for obesity and prediabetes</h4>
+<p class="rec-body"><span class="rec-label">What to do:</span> Compare what these two conditions cost
+a commercial member against a government member, and test a capped coinsurance or a flat copay for
+them in the 2026 benefit modelling.</p>
+<p class="rec-body"><span class="rec-label">Why:</span> Commercial members pay 86.8% of an obesity
+bill; government members pay 8.7%. Prediabetes is almost identical, at 85.0% against 8.5%
+(<strong><em>Figure 5</em></strong>). Those two sit well clear of the other eight, and the gap holds
+in all five years. It is also untouched by the pricing problem, so this one can move while the
+repricing work happens.</p>
+<p class="rec-body"><span class="rec-label">What it gets you:</span> This is the clearest
+affordability gap in the report, and it sits inside plan design rather than in provider prices, so
+Calder can act on it alone. Closing it moves the mission metric &mdash; what a member actually pays
+&mdash; on two conditions where cost is a known reason people stop treatment.</p>
 </div>
 
 <div class="rec-block">
-<h4>4. Check maternity&rsquo;s real out-of-pocket exposure before the share ranking drives design</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Pull the actual member
-out-of-pocket distribution for maternity from real claims, median and 90th percentile, and
-compare it against the annual out-of-pocket maximum currently set on the commercial plans.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> Member-paid share is highest on
-the cheapest care (<strong><em>Figures 3 and 4</em></strong>), so a benefit review organised
-around the share ranking would start with blood disorders at 38.9% and diabetes at 36.6%. Both
-have among the lowest typical dollar exposure measured, $179 and $233. Maternity ranks only 10th
-by share at 17.0% and carries the highest, $10,765 median and $64,681 at the 90th percentile. The
-share ranking and the dollar ranking point at different categories.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> It is also the clearest case
-for doing recommendation 1 first, and the honest reason to check rather than act: corrected for
-the pricing defect, maternity&rsquo;s median falls to $1,308 and it loses the top dollar-exposure
-position entirely. So the finding that share and dollars diverge holds, but the specific category
-at the top of the dollar ranking does not survive correction, and this check is what settles
-which one belongs there.</p>
-</div>
-
-<div class="rec-block">
-<h4>5. Build the facility review around the 86-site list, and do not build the member equivalent</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Name the 86 facilities from
-<code>q3_top_entities.sql</code> and split them into the three groups
-<strong><em>Figure 8</em></strong> separates &mdash; the 12 dialysis-heavy sites, the 22 hospices
-and nursing homes, and the rest &mdash; before any network conversation begins, since the three
-groups are expensive for unrelated reasons.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> 86 of 3,918 facilities carry
-half of all spending, against 134,198 of 1,259,375 members for the same half
-(<strong><em>Figures 6 and 7</em></strong>). Corrected for group size that is 2.2% against 10.7%,
-and the facility curve bows sharply along its whole length while the member curve stays close to
-even. 86 is a list a team can finish; 134,198 is not.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> The second half of this
-recommendation matters as much as the first. Member-level concentration moved in both directions
-under testing, 11.8% as billed, 15.4% correcting pregnancy alone, 12.5% correcting all eleven, so
-it is not settled enough to size a high-cost-member program against. Published real-world figures
-put the top 1% at roughly 20&ndash;25% against 11.8% here, which means real claims may support
-member-level targeting that this synthetic population cannot &mdash; another reason to run that
-question against real data rather than to conclude it is unavailable.</p>
-</div>
-
-<div class="rec-block">
-<h4>6. Treat facility cost differences as case mix and site of care, not as a pricing lever</h4>
-<p class="rec-body"><span class="rec-label">Getting started:</span> Investigate the pregnancy
-site-of-delivery split &mdash; 95.5% of women give birth on site at the cheapest facilities
-against 6.8% at the most expensive &mdash; to establish whether antenatal-clinic against
-delivery-unit routing is a network design choice worth making deliberately. Do not open price
-negotiations on the strength of this analysis.</p>
-<p class="rec-body"><span class="rec-label">Why it matters:</span> Repricing every procedure to
-its all-facility average moves the spread between cheapest and priciest facility only from
-15.8&times; to 15.2&times; (<strong><em>Figure 8</em></strong>), so within this dataset&rsquo;s
-own simulated prices the thirty-three-fold range in cost per member is what facilities treat, not
-what they charge. The 7.8% figure quoted for this test is a median absolute deviation with no
-consistent direction: 298 of 730 facilities, 41%, price below the case-mix benchmark rather than
-above it.</p>
-<p class="rec-body"><span class="rec-label">How this helps:</span> This is the finding most likely
-to be misread as a negotiation opportunity, and the misreading is expensive in wasted effort. It
-redirects the same attention somewhere it can pay: the dialysis group for capacity planning
-against a fixed three-times-weekly schedule, which is where recommendation 2 also lands, and the
-site-of-delivery split for routing. Assessing whether any real facility&rsquo;s prices are
-negotiable would need real negotiated-rate data, which this dataset does not contain at all.</p>
+<h4>4. Work through the 86 facilities as a case-mix question, not a pricing one</h4>
+<p class="rec-body"><span class="rec-label">What to do:</span> Name the 86 facilities from
+<code>q3_top_entities.sql</code> and sort them into three groups before any network conversation
+&mdash; the 12 dialysis-heavy sites, the 22 hospices and nursing homes, and the rest
+(<strong><em>Figure 8</em></strong>). Within that review, look at where pregnancies are delivered:
+95.5% of women give birth on site at the cheapest facilities against 6.8% at the most expensive. Do
+not open price negotiations on the strength of these figures, and do not build the member equivalent
+of this list.</p>
+<p class="rec-body"><span class="rec-label">Why:</span> 86 of 3,918 facilities carry half of all
+spending; reaching the same half through members takes 134,198 people
+(<strong><em>Figures 6 and 7</em></strong>). Repricing every procedure to the same rate barely
+changes the gap between the cheapest and most expensive facility, from 15.8&times; to 15.2&times;, so
+the difference is what facilities treat, not what they charge &mdash; and real negotiated rates are
+not in this dataset at all. Member-level concentration also moved in both directions under testing,
+so it is not solid enough to size a program against.</p>
+<p class="rec-body"><span class="rec-label">What it gets you:</span> A network review that can be
+finished inside one planning cycle, aimed at the sites where the money is, and kept off a negotiation
+that has nothing behind it. The same effort goes to two questions Calder actually controls: dialysis
+capacity and where deliveries are routed.</p>
 </div>'''
 
 APPENDIX = '''<h2 class="sec">Appendix: sensitivity to the known pricing defect</h2>
@@ -851,8 +721,7 @@ finding about members.</p>
 </tbody></table>
 <p class="appnote">Exactly unchanged, to the decimal, on every condition tested. Scaling a bill and
 what was paid on it by the same factor cancels in a ratio, so this finding is immune to the entire
-class of defect the other two are sensitive to, rather than merely robust to it.</p>
-'''
+class of defect the other two are sensitive to, rather than merely robust to it.</p>'''
 
 FOOTER = '''<footer>Calder Health is an illustrative client. The analysis is real and reproducible;
 every figure traces to a saved query in <code>sql/analysis/</code> and a result file in
@@ -941,7 +810,8 @@ def sources_block(i):
             .format(n=len(SOURCES[i]), items=items))
 
 
-FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
+FINDINGS = [{'title': 'Twenty conditions carry 91% of diagnosed spend, so the cost review has a short '
+            'list',
   'figures': [(1,
                'donut',
                'Pregnancy alone is two fifths of all diagnosed spending',
@@ -956,56 +826,49 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'top bar is pregnancy, marked only because it is the outlier; every bar is '
                'measured the same way. Correcting known pricing defects reorders this list '
                'substantially, as the paragraph below sets out.')],
-  'para': 'Both charts rank conditions by total billed, one as shares of the whole and one as '
-          'a ranked bar for each. As billed, the distribution is severely top-heavy: normal '
-          'pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, '
-          'more than three times the second-placed condition. That specific figure carries a '
-          'known caveat, tested rather than assumed (see &ldquo;Things to be aware of&rdquo; '
-          'above): correcting pregnancy alone against a real-world benchmark drops it to 5th '
-          'place and 7.1% of diagnosed spend (<code>q1_pregnancy_sensitivity.sql</code>).'
-          ' Ten more of the top twenty carry a similarly documented pricing gap, and correcting '
-          'all eleven together moves the ranking much further '
-          '(<code>q1_multi_condition_sensitivity.sql</code>): pregnancy falls to 2nd place '
-          '(14.7%), and chronic kidney disease, never touched because it was already checked '
-          'and found not inflated, rises to 1st (19.2%) purely because the conditions around '
-          'it shrank. Allergy immunotherapy, whose own price gap is proportionally larger than '
-          'pregnancy&rsquo;s ($11,122 a shot against a real-world $50&ndash;200), drops out of '
-          'the top twenty entirely once corrected rather than moving up into it. What holds '
-          'under both tests is the shape, not the identity of the leader, and even the shape '
-          'moves more than a single-condition test suggests: all twenty conditions together '
-          'are 90.8% of diagnosed spend as billed, 85.8% correcting pregnancy alone, and 78.3% '
-          'correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The '
-          'gap between the diagnosed-spend and all-spend figures is the roughly quarter of '
-          'spending that carries no diagnosis and sits outside these charts entirely.',
-  'extra': scenario_chart(),
-  'examined': ['Total billed per condition, ranked, against total billed per member: '
-               'the two rankings disagree sharply and the disagreement is the point.',
-               'Whether pregnancy at 39.8% is credible, and whether the ranking survives '
-               'correcting it. The number of visits per pregnancy is plausible (11.1, against '
-               'a historical ACOG standard of 12&ndash;14 in-person visits for a normal, '
-               'low-risk pregnancy); the price per visit is not, and repricing it changes the '
-               'ranking materially (<code>q1_pregnancy_sensitivity.sql</code>).',
-               'Whether the top twenty are extreme on one driver or several. They are '
-               'moderately extreme on all three at once ( members reached, visits each, '
-               'cost per visit), and the multiplication does the rest.',
-               'Whether facilities differ in what they charge for the same condition. For '
-               'eight of the ten largest, barely at all.',
-               'Whether correcting more than pregnancy changes the ranking further. It does, '
-               'substantially: eleven of the top twenty conditions carry a similarly '
-               'documented pricing gap, and correcting all eleven together drops the top-20 '
-               'share to 78.3% and puts chronic kidney disease, not pregnancy, in first place '
+  'para': 'Both charts rank conditions by total billed, one as shares of the whole and one as a '
+         'ranked bar for each. As billed, the distribution is severely top-heavy: normal '
+         'pregnancy takes $28.9B on its own, 39.8% of the $72.7B that carries a diagnosis, more '
+         'than three times the second-placed condition. That specific figure carries a known '
+         'caveat, tested rather than assumed (see &ldquo;Things to be aware of&rdquo; above): '
+         'correcting pregnancy alone against a real-world benchmark drops it to 5th place and '
+         '7.1% of diagnosed spend (<code>q1_pregnancy_sensitivity.sql</code>). Ten more of the '
+         'top twenty carry a similarly documented pricing gap, and correcting all eleven '
+         'together moves the ranking much further '
+         '(<code>q1_multi_condition_sensitivity.sql</code>): pregnancy falls to 2nd place '
+         '(14.7%), and chronic kidney disease, never touched because it was already checked and '
+         'found not inflated, rises to 1st (19.2%) purely because the conditions around it '
+         'shrank. Allergy immunotherapy, whose own price gap is proportionally larger than '
+         'pregnancy&rsquo;s ($11,122 a shot against a real-world $50&ndash;200), drops out of '
+         'the top twenty entirely once corrected rather than moving up into it. What holds '
+         'under both tests is the shape, not the identity of the leader, and even the shape '
+         'moves more than a single-condition test suggests: all twenty conditions together are '
+         '90.8% of diagnosed spend as billed, 85.8% correcting pregnancy alone, and 78.3% '
+         'correcting all eleven, against 66.6% of the $99.1B billed overall as billed. The gap '
+         'between the diagnosed-spend and all-spend figures is the roughly quarter of spending '
+         'that carries no diagnosis and sits outside these charts entirely.',
+  'examined': ['Total billed per condition, ranked, against total billed per member.',
+               'Whether pregnancy at 39.8% is credible. Visits per pregnancy are plausible '
+               '(11.1); the price per visit is not.',
+               'Whether the top twenty are extreme on one driver or several. All three at once: '
+               'members reached, visits each, cost per visit.',
+               'Whether facilities charge differently for the same condition. For eight of the '
+               'ten largest, barely.',
+               'Whether correcting all eleven flagged conditions reorders the list. It does: '
+               'top-20 share falls to 78.3% and kidney disease takes first place '
                '(<code>q1_multi_condition_sensitivity.sql</code>).'],
-  'sowhat': 'Five conditions are the first places to investigate, but they reach the top '
-            'through very different combinations of prevalence and care intensity, and high '
-            'spend does not automatically mean reducible or avoidable spend. Gingivitis '
-            'reaches 800,475 members at 6.9 claims each: it is expensive because of how many '
-            'people it touches. Chronic kidney disease and lung cancer are the opposite: '
-            '37,037 and 2,384 members respectively, but 258.5 and 255.8 claims each, which for '
-            'kidney disease is a patient on dialysis three times a week, care working as '
-            'intended rather than a problem to reduce. This analysis does not show which, if '
-            'any, of the twenty represents avoidable spend rather than necessary and already '
-            'appropriate care; that would need clinical review this dataset cannot supply.'},
- {'title': 'Member-paid share is highest on the cheapest care, but the highest DOLLAR exposure sits elsewhere',
+  'sowhat': 'Five conditions are the first places to investigate, but they reach the top through '
+           'very different combinations of prevalence and care intensity, and high spend does '
+           'not automatically mean reducible or avoidable spend. Gingivitis reaches 800,475 '
+           'members at 6.9 claims each: it is expensive because of how many people it touches. '
+           'Chronic kidney disease and lung cancer are the opposite: 37,037 and 2,384 members '
+           'respectively, but 258.5 and 255.8 claims each, which for kidney disease is a '
+           'patient on dialysis three times a week, care working as intended rather than a '
+           'problem to reduce. The data does not show which, if any, of the twenty represents '
+           'avoidable spend rather than necessary and already appropriate care; that would need '
+           'clinical review this dataset cannot supply.'},
+ {'title': 'Members pay the biggest percentage on small bills and the biggest dollars '
+            'somewhere else',
   'figures': [(3,
                'whobears',
                'The smaller the bill, the more of it members pay',
@@ -1026,25 +889,24 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                '$2,432 once its price is corrected, so read its place on the horizontal '
                'axis with that in mind.')],
   'para': 'Both charts measure member-paid SHARE: the proportion of a bill met by the member '
-          'rather than the plan, not a dollar amount and not a measure of financial hardship '
-          'on its own. The bars rank the fifteen types of care by that share; the scatter '
-          'plots the same share against cost per person, sized by how many people it reaches. '
-          'Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood '
-          'disorders leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% '
-          'on $1,675, while cancer sits at 8.3% on $104,622. That slope holds across all fifteen '
-          'points without exception, and it survives price correction: the rank correlation '
-          'between share and cost per person stays at about &minus;0.6 either way (the second '
-          'decimal depends on how one tied pair is ranked, so it is not quoted), the median '
-          'share stays at 20.6% and the top at 38.9%, with only the bottom of the range '
-          'shifting to 7.4%. One illustration does NOT survive it, and is left out above for '
-          'that reason: '
-          'allergy and immune care reads as 10.0% on $175,111 a person as billed, a textbook '
-          'expensive-care-low-share case, but its price carries the largest documented gap in '
-          'this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is '
-          'cheap care at a middling share and illustrates nothing. Cancer is used instead '
-          'because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual '
-          'dollar amount an affected member pays are a separate question, answered in the table '
-          'below rather than by either chart above.',
+         'rather than the plan, not a dollar amount and not a measure of financial hardship on '
+         'its own. The bars rank the fifteen types of care by that share; the scatter plots the '
+         'same share against cost per person, sized by how many people it reaches. Share runs '
+         'from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood disorders '
+         'leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% on $1,675, '
+         'while cancer sits at 8.3% on $104,622. That slope holds across all fifteen points '
+         'without exception, and it survives price correction: the rank correlation between '
+         'share and cost per person stays at about &minus;0.6 either way (the second decimal '
+         'depends on how one tied pair is ranked, so it is not quoted), the median share stays '
+         'at 20.6% and the top at 38.9%, with only the bottom of the range shifting to 7.4%. '
+         'One illustration does NOT survive it, and is left out above for that reason: allergy '
+         'and immune care reads as 10.0% on $175,111 a person as billed, a textbook '
+         'expensive-care-low-share case, but its price carries the largest documented gap in '
+         'this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is '
+         'cheap care at a middling share and illustrates nothing. Cancer is used instead '
+         'because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual '
+         'dollar amount an affected member pays are a separate question, answered in the table '
+         'below rather than by either chart above.',
   'extra': '<div class="minitable"><p class="mtcap">What an affected member actually paid, '
            'by type of care (five-year total; <code>q2_oop_percentiles_by_care_type.sql</code>)'
            '</p><table><thead><tr><th>Type of care</th><th>Share rank</th>'
@@ -1058,36 +920,27 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
            'Maternity, 10th by share, has by far the highest, both typically (median) and '
            'at the high end (P90). Share and dollar exposure are different findings and should '
            'not be described with the same word.</p></div>',
-  'examined': ['Member share by type of care, with total bill and number of people alongside '
-               ': share alone says nothing about size.',
-               'Whether the pattern survives inside one line of business, or was an artefact '
-               'of mixing them. It strengthens: the relationship is clearer within commercial '
-               'and within government than across both together.',
-               'The two care types that appeared to break the pattern. Neither does: '
-               'one is skewed by a handful of very large claims, the other is 90.2% '
-               'government-funded.',
-               'What an affected member actually paid in dollars, not just the share, for each '
-               'type of care: the result is the table above, and it does not track the share '
-               'ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).',
-               'Why the mechanism differs by line of business, which is Finding 3.',
-               'Whether the 20.4% headline survives correcting known pricing defects. It does '
-               'not: corrected, it rises to 23.3%, while the dollars members pay fall from '
-               '$20.3B to $11.4B. Both at once, because the eleven corrected conditions carry '
-               '$54.9B at a 17.7% member share against $44.2B at 23.8% for everything '
-               'untouched, so shrinking the low-share group reweights the blend upward. The '
-               'share is a mix effect, not members paying more '
+  'examined': ['Member share by type of care, with total bill and number of people alongside.',
+               'Whether the pattern holds inside one line of business. It strengthens.',
+               'The two care types that looked like exceptions. Neither is: one is skewed by a '
+               'few very large claims, the other is 90.2% government-funded.',
+               'What an affected member actually paid in dollars, which does not track the '
+               'share ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).',
+               'Whether the 20.4% headline survives price correction. It rises to 23.3% while '
+               'the dollars fall to $11.4B &mdash; a mix effect, not members paying more '
                '(<code>q1_robustness_three_findings.sql</code>).'],
-  'sowhat': 'Member-paid share is highest on the cheapest, most routine care, and reach sets '
-            'a ceiling on how many members a change to any one category could affect: dental, '
-            'the widest-reaching high-share category, could reach up to 938,009 members, '
-            'against 67,419 for blood disorders. But share is not dollar exposure. The category '
-            'with the highest real financial exposure at the tail is maternity, whose share '
-            'ranks only 10th, so a plan built around the share ranking alone would look past '
-            'the largest dollar amounts members are actually paying. This analysis does not '
-            'measure hardship directly (income, savings, or ability to pay are not in this '
-            'dataset), so &ldquo;highest dollar exposure&rdquo; here means the largest amount '
-            'paid, not the largest burden felt.'},
- {'title': 'Member-paid share differs sharply by plan type, even within the same condition',
+  'sowhat': 'Member-paid share is highest on the cheapest, most routine care, and reach sets a '
+           'ceiling on how many members a change to any one category could affect: dental, the '
+           'widest-reaching high-share category, could reach up to 938,009 members, against '
+           '67,419 for blood disorders. But share is not dollar exposure. The category with the '
+           'highest real financial exposure at the tail is maternity, whose share ranks only '
+           '10th, so a plan built around the share ranking alone would look past the largest '
+           'dollar amounts members are actually paying. Hardship is not measured directly here '
+           '(income, savings, or ability to pay are not in this dataset), so &ldquo;highest '
+           'dollar exposure&rdquo; here means the largest amount paid, not the largest burden '
+           'felt.'},
+ {'title': 'A commercial member can pay ten times what a government member pays for the same '
+            'condition',
   'figures': [(5,
                'insurance',
                'The same condition, but member-paid share moves sharply with the plan',
@@ -1096,44 +949,35 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'government member and <strong>the line between them is the gap</strong>. Dots '
                'are the median of the five annual figures, not the five years pooled.')],
   'para': 'Each row is one condition, with a dot for the typical commercial member and another '
-          'for the typical government member; the line between them is the difference in '
-          'member-paid share for a bill within the same condition code (not independently '
-          'matched on setting, severity, utilisation or the specific services billed). No row '
-          'closes. Commercial members carry more on all ten, by between 12.9 and 78.1 '
-          'percentage points. Two metabolic conditions separate from the rest: obesity at '
-          '86.8% against 8.7%, prediabetes at 85.0% against 8.5%, while the other eight sit '
-          'between 13 and 48 points. The two populations barely overlap: commercial shares run '
-          '61.5% to 86.8%, government shares 8.5% to 58.4%, so the lowest commercial figure '
-          'still exceeds all but the highest government one. These are typical-year figures, '
-          'and the year-to-year movement is small: prediabetes stays between 83.8% and 86.1% '
-          'for commercial members across all five years.',
-  'examined': ['The ten conditions with the highest member-paid share, split three ways, using '
-               'the typical year rather than five years pooled so the range is visible.',
-               'Whether the gap is stable or a single bad year. It holds in all five.',
-               'The mechanism behind it, measured rather than assumed: a flat '
-               '$0&ndash;50 per claim on one side, a deductible and annual cap on the other.',
-               'Where a blended figure would mislead. Commercial members span 6.7% to 74.4% by '
-               'care type, government members 0.6% to 8.1%; the blend describes neither.',
-               'Whether plan type is the largest driver of member-paid share compared with '
-               'condition, care type or claim size. Not tested here: this finding shows the '
-               'gap is real and consistent within a condition, not that plan type outweighs '
-               'other factors in general.',
-               'Whether the gap survives correcting the pricing defects that reshaped Finding '
-               '1. It is exactly unchanged, to the decimal, on every condition tested: '
-               'pregnancy stays at 25.2 times, gingivitis at 17.1, allergy at 9.4. Scaling a '
-               'bill and what was paid on it by the same factor cancels in a ratio, so this '
-               'finding is immune to that entire class of defect rather than merely surviving '
-               'it, and is the most robust of the five on that measure '
+         'for the typical government member; the line between them is the difference in '
+         'member-paid share for a bill within the same condition code (not independently '
+         'matched on setting, severity, utilisation or the specific services billed). No row '
+         'closes. Commercial members carry more on all ten, by between 12.9 and 78.1 percentage '
+         'points. Two metabolic conditions separate from the rest: obesity at 86.8% against '
+         '8.7%, prediabetes at 85.0% against 8.5%, while the other eight sit between 13 and 48 '
+         'points. The two populations barely overlap: commercial shares run 61.5% to 86.8%, '
+         'government shares 8.5% to 58.4%, so the lowest commercial figure still exceeds all '
+         'but the highest government one. These are typical-year figures, and the year-to-year '
+         'movement is small: prediabetes stays between 83.8% and 86.1% for commercial members '
+         'across all five years.',
+  'examined': ['The ten conditions with the highest member-paid share, split by line of '
+               'business, using the typical year rather than five years pooled.',
+               'Whether the gap is stable or one bad year. It holds in all five.',
+               'The mechanism, measured rather than assumed: a flat $0&ndash;50 per claim on '
+               'one side, a deductible and annual cap on the other.',
+               'Where a blended figure would mislead. Commercial spans 6.7% to 74.4% by care '
+               'type, government 0.6% to 8.1%.',
+               'Whether plan type outweighs condition, care type or claim size. Not tested.',
+               'Whether price correction changes the gap. It is unchanged to the decimal '
                '(<code>q1_robustness_three_findings.sql</code>).'],
-  'sowhat': 'The gap is persistent and closely aligned with the two benefit designs, making '
-            'plan design an important factor to examine. It is measured, not assumed: a flat '
-            'copay on the government side against a deductible and coinsurance on the '
-            'commercial side, and it holds across all five years and all ten conditions. This '
-            'analysis has not decomposed how much of member-paid share is explained by plan '
-            'type against condition, care type, or claim size, so it does not show that plan '
-            'type is the dominant driver overall, only that the gap is real, large and stable '
-            'for these ten conditions.'},
- {'title': 'Spending concentrates in places, not in people',
+  'sowhat': 'The gap is persistent and closely aligned with the two benefit designs, making plan '
+           'design an important factor to examine. It is measured, not assumed: a flat copay on '
+           'the government side against a deductible and coinsurance on the commercial side, '
+           'and it holds across all five years and all ten conditions. How much of member-paid '
+           'share is explained by plan type against condition, care type, or claim size has not '
+           'been decomposed, so this does not show that plan type is the dominant driver '
+           'overall, only that the gap is real, large and stable for these ten conditions.'},
+ {'title': 'Half of all spending runs through 86 facilities, a list one team can finish',
   'figures': [(6,
                'places',
                '86 facilities carry what it takes 134,198 members to reach',
@@ -1149,43 +993,30 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'spending would look like</strong>. The further a curve bows above it, '
                'the more concentrated that group is.')],
   'para': 'Both charts show how much of a group is needed to reach half of all spending. The '
-          'bars give the threshold: 86 of 3,918 facilities, against 134,198 of 1,259,375 '
-          'members. They are drawn as a share of each group rather than as counts, because '
-          'there are 321 times more members than facilities: 2.2% against 10.7%. The '
-          'curves show the same relationship continuously, with the dashed diagonal marking '
-          'perfectly even spending, and the separation widens along their whole length: the '
-          'priciest 1% of facilities account for 32.5% of spending against 11.8% for the '
-          'priciest 1% of members, and by the 10% mark the figures are 86.2% and 48.2%. The '
-          'facility curve bows sharply throughout; the member curve stays close to even.',
-  'extra': concentration_chart(),
-  'examined': ['Concentration measured four ways ( by member, by facility, by condition, '
-               'by type of care) to check the answer was not an artefact of one '
-               'grouping.',
-               'Whether comparing 86 against 134,198 is fair. It is not on its own: there are '
-               '321 times more members than facilities, so the fair comparison is 2.2% against '
-               '10.7%.',
-               'How the member concentration compares with real claims data. This is a '
-               'limitation, not a reassurance: this population is flatter than published '
-               'real-world figures (the top 1% carry 11.8% here; AHRQ MEPS statistical briefs '
-               'put the U.S. top 1% at roughly 20&ndash;25% of total expenditure in most '
-               'years). If real claims concentrate spending more heavily at the top than this '
-               'synthetic population does, the true member-level concentration could be '
-               'tighter than reported here, meaning a smaller, more identifiable group might '
-               'carry a larger share of spend in reality than this analysis shows.',
-               'Whether the 11.8% figure survives correcting known pricing defects. It moves in '
-               'BOTH directions depending on the test, not consistently in one: correcting '
-               'pregnancy alone raises it to 15.4%; correcting all eleven confidently-inflated '
-               'conditions brings it back down to 12.5%, close to the as-billed figure '
-               '(<code>q1_pregnancy_sensitivity.sql</code>, '
-               '<code>q1_multi_condition_sensitivity.sql</code>). The exact percentage should '
-               'not be treated as settled; that spend concentrates in a minority of patients at '
-               'all is the more durable part of this finding.',
-               'Whether the facility concentration is few enough to work through, which is Finding 5.'],
+         'bars give the threshold: 86 of 3,918 facilities, against 134,198 of 1,259,375 '
+         'members. They are drawn as a share of each group rather than as counts, because there '
+         'are 321 times more members than facilities: 2.2% against 10.7%. The curves show the '
+         'same relationship continuously, with the dashed diagonal marking perfectly even '
+         'spending, and the separation widens along their whole length: the priciest 1% of '
+         'facilities account for 32.5% of spending against 11.8% for the priciest 1% of '
+         'members, and by the 10% mark the figures are 86.2% and 48.2%. The facility curve bows '
+         'sharply throughout; the member curve stays close to even.',
+  'examined': ['Concentration measured four ways &mdash; by member, facility, condition and '
+               'care type &mdash; to check it was not an artefact of one grouping.',
+               'Whether 86 against 134,198 is a fair comparison. Corrected for group size it is '
+               '2.2% against 10.7%.',
+               'How this compares with real claims. This population is flatter: the top 1% '
+               'carry 11.8% here against roughly 20&ndash;25% in AHRQ MEPS, so real member '
+               'concentration could be tighter than shown.',
+               'Whether the 11.8% survives price correction. It moves in both directions (15.4% '
+               'correcting pregnancy alone, 12.5% correcting all eleven), so the exact figure '
+               'is not settled; that spend concentrates in a minority of patients is the '
+               'durable part.'],
   'sowhat': 'Attention aimed at facilities can be exhaustive, because 86 is a list a team can '
-            'finish. Attention aimed at members cannot: reaching the same half of spending '
-            'means reaching 134,198 people, so member-level work has to be selective on some '
-            'basis this analysis does not supply.'},
- {'title': 'Within this simulated pricing structure, facility differences are driven mainly by case mix',
+           'finish. Attention aimed at members cannot: reaching the same half of spending means '
+           'reaching 134,198 people, so member-level work has to be selective on some basis '
+           'this data does not supply.'},
+ {'title': 'The expensive facilities are not overcharging; they treat different patients',
   'figures': [(8,
                'hospitals',
                'The dearest facilities charge ordinary prices: their patients come '
@@ -1194,44 +1025,41 @@ FINDINGS = [{'title': 'Diagnosed spend concentrates in about twenty conditions',
                'return. Colour marks the two groups that separate out, identified by facility '
                'name; the axis is a log scale, so each step right is a tenfold increase.')],
   'para': 'The chart places every facility by what an average visit costs against how often '
-          'members return, on a log scale. Three groups separate rather than forming one '
-          'continuous spread: 12 facilities high on the vertical axis whose members return '
-          'around fifty times across the five years, 22 extending far to the right at high '
-          'cost per visit, and the '
-          'remaining 697 massed at the lower left. Cost per member across them ranges from '
-          '$4,401 to $144,422, a thirty-three-fold difference. Within this dataset&rsquo;s own '
-          'simulated prices, that range tracks case mix rather than price: repricing every '
-          'procedure to its all-facility average moves the spread only from 15.8&times; to '
-          '15.2&times;. The 7.8% figure often quoted for this test is computed per facility as '
-          '|actual cost per visit &minus; cost per visit with prices equalised| &divide; '
-          'actual, and 7.8% is the MEDIAN OF THAT ABSOLUTE VALUE across facilities, not a '
-          'one-directional markup: 41% of facilities actually price BELOW the all-facility '
-          'benchmark for the procedures they perform, not above it, so there is no consistent '
-          'direction to a &ldquo;price effect&rdquo; here even before asking whether these '
-          'simulated prices resemble real negotiated rates at all. The top group is dialysis, '
-          'with chronic kidney disease at 53.1% of visits; the group on the right is hospices, '
-          'where stays run 22 days and are billed as single visits.',
+         'members return, on a log scale. Three groups separate rather than forming one '
+         'continuous spread: 12 facilities high on the vertical axis whose members return '
+         'around fifty times across the five years, 22 extending far to the right at high cost '
+         'per visit, and the remaining 697 massed at the lower left. Cost per member across '
+         'them ranges from $4,401 to $144,422, a thirty-three-fold difference. Within this '
+         'dataset&rsquo;s own simulated prices, that range tracks case mix rather than price: '
+         'repricing every procedure to its all-facility average moves the spread only from '
+         '15.8&times; to 15.2&times;. The 7.8% figure often quoted for this test is computed '
+         'per facility as |actual cost per visit &minus; cost per visit with prices equalised| '
+         '&divide; actual, and 7.8% is the MEDIAN OF THAT ABSOLUTE VALUE across facilities, not '
+         'a one-directional markup: 41% of facilities actually price BELOW the all-facility '
+         'benchmark for the procedures they perform, not above it, so there is no consistent '
+         'direction to a &ldquo;price effect&rdquo; here even before asking whether these '
+         'simulated prices resemble real negotiated rates at all. The top group is dialysis, '
+         'with chronic kidney disease at 53.1% of visits; the group on the right is hospices, '
+         'where stays run 22 days and are billed as single visits.',
   'examined': ['Whether the spread is price or case mix, by repricing every procedure to its '
-               'all-facility average and remeasuring, within this dataset&rsquo;s own simulated '
-               'prices. It is case mix.',
-               'Whether facilities differ in how much they do for the same condition. For the '
-               'typical condition, no, and the one big exception is pregnancy.',
+               'all-facility average. It is case mix.',
+               'Whether facilities do more for the same condition. For the typical condition '
+               'no; pregnancy is the exception.',
                'What separates cheap from expensive pregnancy sites. At the cheapest, 95.5% of '
-               'women give birth on site; at the most expensive, 6.8%. Delivery units against '
-               'antenatal clinics.',
-               'The two groups that stand out on the chart, both identified by facility name '
-               'rather than by anything in the data itself.',
+               'women give birth on site; at the most expensive, 6.8%.',
+               'The two outlier groups on the chart, identified by facility name rather than by '
+               'anything in the data.',
                'Whether the 7.8% price-share figure has a consistent direction. It does not: '
-               '298 of 730 facilities (41%) price below the case-mix benchmark, not above it '
+               '298 of 730 facilities (41%) price below the case-mix benchmark '
                '(<code>q3_price_vs_casemix.sql</code>).'],
   'sowhat': 'Within the simulated pricing structure in this dataset, facility spending '
-            'differences are driven mainly by case mix rather than modelled price variation. '
-            'That is a fact about this dataset&rsquo;s own internal pricing, not a business '
-            'conclusion about real providers: this dataset does not model realistic, '
-            'provider-specific negotiated rates (see &ldquo;Things to be aware of&rdquo; '
-            'above), so it cannot show whether any real facility&rsquo;s prices are fair, '
-            'high, or negotiable. Assessing that would need real negotiated-rate data, which '
-            'is outside what this analysis can supply.'}]
+           'differences are driven mainly by case mix rather than modelled price variation. '
+           'That is a fact about this dataset&rsquo;s own internal pricing, not a business '
+           'conclusion about real providers: this dataset does not model realistic, '
+           'provider-specific negotiated rates (see &ldquo;Things to be aware of&rdquo; above), '
+           'so it cannot show whether any real facility&rsquo;s prices are fair, high, or '
+           'negotiable. Assessing that would need real negotiated-rate data, which this dataset '
+           'does not contain.'}]
 
 if __name__ == '__main__':
     open(OUT, 'w').write(build())
