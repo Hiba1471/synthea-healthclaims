@@ -15,3 +15,9 @@
 # Python
 __pycache__/
 *.pyc
+
+# Kept locally, not published: only the report itself ships
+.claude/
+tools/
+dashboard/*
+!dashboard/analysis_report.html
