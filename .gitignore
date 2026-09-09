@@ -21,3 +21,6 @@ __pycache__/
 tools/
 dashboard/*
 !dashboard/analysis_report.html
+
+# Working notes, not project documentation
+DATA_ANALYSIS_CONTEXT.md

@@ -94,7 +94,9 @@ across procedure rows.
 
 Every defect, how it was found, what it cost and how it was resolved is recorded
 in [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) — including a section on bugs in
-my own analysis, kept for the same reason.
+my own analysis, kept for the same reason. Every field derived on top of the
+cleaned data, and the reasoning behind it, is in
+[`METHODOLOGY.md`](METHODOLOGY.md).
 
 ## Methodology
 
@@ -148,7 +150,8 @@ Full findings, charts and recommendations are in the report.
 | `sql/analysis/` | 47 standalone analysis queries, one per question. |
 | `sql/results/` | Query output as CSV, linked from the report. |
 | `powerbi/` | DAX measures, the data model diagram, and dashboard documentation. |
-| `DATA_ANALYSIS_CONTEXT.md` | Full table and column reference for the source share. |
+| `METHODOLOGY.md` | Cleaning decisions and every engineered field, with the reasoning. |
+| `DATA_DICTIONARY.md` | Table and column reference for the share and the curated layer. |
 | `DATA_QUALITY_LOG.md` | Every data defect found, with evidence. |
 
 To rebuild the curated objects, run in order:
