@@ -168,8 +168,8 @@ snow sql -f sql/ddl/powerbi_model_build.sql
   (`snow sql`) rather than the web UI, which kept each one in a versioned `.sql`
   file. I validated every output against the anchors above and read the query
   logic for correctness before any result reached the report.
-- **Power BI + DAX** — a three-page dashboard on the star schema.
-- **HTML + CSS + SVG** — the final client deliverable, self-contained and served
+- **Power BI + DAX** — a three-page dashboard, modeled with the star schema.
+- **HTML + CSS** — the final client deliverable, Claude helped with designing the HTML report which is self-contained and served
   through GitHub Pages.
 
 ## Limitations
