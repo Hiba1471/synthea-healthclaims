@@ -210,14 +210,3 @@ hand, so any row can be traced and overridden.
 
 ---
 
-## Credentials
-
-`.env` holds Snowflake credentials plus Gemini / EIA API keys and a Slack
-webhook, **in plaintext**. It is listed in `.gitignore`, which was added in the
-first commit, and `git log --all -- .env` returns nothing — it has never been
-committed. Re-check that before pushing this repository anywhere.
-
-The keys are still plaintext on disk, so consider rotating them: a webhook URL
-and an API key are usable by anyone who obtains the file.
-
-The Snowflake CLI connection used here is `conn` (`snow connection list`).
