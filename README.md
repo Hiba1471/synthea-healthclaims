@@ -20,11 +20,10 @@ data: 887M claim transactions, 124M claims, 1.4M patients).
 | Correction layer | Snowflake SQL views + a code dictionary table, in `SYNTHEA_HEALTHCLAIMS.PUBLIC` | `sql/ddl/v_claims_tx_clean.sql`, `code_dictionary_*.sql` |
 | Care-type layer | View adding care type, primary condition, facility and member attributes | `sql/ddl/v_claims_tx_with_caretype.sql` |
 | Aggregates | 10 pre-aggregated tables sized for import — facts, dimensions, concentration curves | `sql/ddl/powerbi_model_build.sql` |
-| Analysis | ~50 standalone analysis queries, one per question | `sql/analysis/` |
+| Analysis | 47 standalone analysis queries, one per question | `sql/analysis/` |
 | BI | Power BI Desktop — Import mode, star schema, 3 pages | — |
 | Measures | DAX | `powerbi/measures.dax` |
-| Charts & report | Python 3.12 (pandas, matplotlib) generating hand-authored HTML/CSS/SVG | `dashboard/generators/` |
-| Guardrail | Python script checking the care-type ladder stays identical in all 3 copies | `tools/check_care_type_ladder.py` |
+| Report | Self-contained HTML with inline SVG charts, built by a Python generator | `dashboard/analysis_report.html` |
 
 Data flows one way: **share → curated views → aggregate tables → Power BI import → DAX → visuals.** No transformation happens in Power BI; anything that could be pushed into SQL was.
 
@@ -118,9 +117,6 @@ powerbi/
   measures.dax                      every DAX measure in the model
 dashboard/
   analysis_report.html              the client-facing write-up
-  generators/                       Python scripts that build the HTML charts
-tools/
-  check_care_type_ladder.py         guards the 3 copies of the care-type ladder
 ```
 
 ### Rebuilding the curated objects
