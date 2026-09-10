@@ -1,26 +1,13 @@
 -- =====================================================================
 -- SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY  (pass 2 of 2 -- classification)
 --
--- Adds the flags that let DIAGNOSIS1 be ranked as clinical conditions
--- without visit types, paperwork or employment status in the results.
---
--- Columns added:
---   CODE_CATEGORY  Condition / Procedure / Encounter type / Medication or
---                  vaccine / Device or supply / Substance / Social
---                  determinant / Administrative / Other
---   IS_CLINICAL    broad: excludes social, administrative, devices, venues
---   IS_CONDITION   narrow: a diagnosable condition. THIS is the flag for
---                  "rank conditions by cost".
---   CLASSIFIED_BY  semantic_tag / provenance / manual_override -- every row
---                  records how it was decided, so the logic is auditable.
---
--- Both flags exist because "clinical" and "condition" are different
--- questions. A knee replacement is clinical but is not a condition; ranking
--- conditions by cost needs IS_CONDITION.
---
--- Run AFTER sql/ddl/code_dictionary_raw.sql. Non-destructive: adds columns
--- to the existing 999-row table, so a mistake here never costs the pass-1
--- scan of ~356M rows.
+-- Adds CODE_CATEGORY, IS_CLINICAL, IS_CONDITION and CLASSIFIED_BY, so
+-- "rank conditions by cost" can filter to IS_CONDITION rather than
+-- including visit types and paperwork. See METHODOLOGY.md for what each
+-- column means and why both flags exist. Run after code_dictionary_raw.sql;
+-- non-destructive, so a mistake here never costs the pass-1 scan.
+-- =====================================================================
+
 -- =====================================================================
 
 ALTER TABLE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY

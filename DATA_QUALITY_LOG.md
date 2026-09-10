@@ -150,7 +150,7 @@ evidence.
 ### 2.3 Data ends 2024-11-09
 
 2024 totals run ~10–15% light; a raw plot shows a collapse that is a data
-boundary. **Resolution:** `03_trends.sql` emits an `Is Partial` flag on
+boundary. **Resolution:** `q0_spend_trends_by_quarter.sql` emits an `Is Partial` flag on
 Q4 2024 so charts can dash or drop it, and indexes series to Q1 2020 = 100.
 
 ### 2.4 `PAYERS` has 120 rows for 10 insurers

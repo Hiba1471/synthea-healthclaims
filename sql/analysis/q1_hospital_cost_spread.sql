@@ -1,28 +1,16 @@
 -- =====================================================================
 -- Q1: how much does the price of the same condition differ between
---     hospitals?
+-- hospitals? Two-stage aggregation -- cost per claim per hospital x
+-- condition first, then spread across those hospital values, not across
+-- raw claims (which would measure within-hospital variation instead).
 --
--- Two-stage aggregation, and the order matters:
---   stage 1  work out cost per claim for EACH hospital x condition
---   stage 2  measure the spread ACROSS those hospital values
--- Pooling all claims and taking percentiles directly would measure how much
--- individual claims vary inside hospitals -- a different question.
---
--- Two spread measures are reported because they disagree, and the
--- disagreement is the finding:
---   dearest / cheapest   the full range. One unusual hospital sets it.
---   variation score      the gap between the cheapest and dearest QUARTER of
---                        hospitals, as a share of the typical price. Ignores
---                        both tails.
--- End-stage renal disease reads 163x on the first and 0.17 on the second:
--- ordinary hospitals bill almost identically and one or two outliers create
--- the range. Ranking by the full range highlights exactly the conditions
--- whose variation is illusory.
---
--- Floor of 30 claims per hospital-condition pair: without it a hospital with
--- two claims sets the cheapest or dearest value and the spread is noise.
---
--- Results: sql/results/q1_hospital_cost_spread_2020_2024.csv
+-- Two spread measures disagree, and the disagreement is the finding:
+-- dearest/cheapest (the full range, set by one outlier hospital) vs. a
+-- variation score (cheapest-to-dearest QUARTER of hospitals, ignoring
+-- both tails). End-stage renal disease reads 163x on the first and 0.17
+-- on the second -- ordinary hospitals bill almost identically and one
+-- outlier sets the range. Floor of 30 claims per hospital-condition pair
+-- so a two-claim hospital cannot set the extreme.
 -- =====================================================================
 
 WITH claim_money AS (

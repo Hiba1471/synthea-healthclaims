@@ -1,27 +1,15 @@
 -- =====================================================================
--- Q3: Lorenz curve coordinates -- the 100 points per grain that draw the
---     concentration curves in dashboard/concentration.html.
+-- Q3: Lorenz curve coordinates -- 100 points per grain, drawing the
+-- concentration curves in dashboard/concentration.html (q3_concentration.sql
+-- reports the same computation at 6 milestones instead of 100 steps).
+-- Written 2026-08-29 to replace a query that had gone missing; see the
+-- verification note at the bottom.
 --
--- Same computation as q3_concentration.sql, which reports six milestones off
--- the curve (top 1%, 5%, 10%, 20%, the point reaching half, the point reaching
--- 80%). This keeps all 100 steps instead, for plotting.
---
--- Each row reads: rank this grain most-expensive-first, walk down the list to
--- the Nth percentile, and this much of the grain's spend has been covered.
--- Conditions row 1 is Normal pregnancy alone at 39.81%.
---
--- WRITTEN 2026-08-29 TO REPLACE A MISSING QUERY. The result file predates the
--- rule that every CSV keeps its query, so its numbers could not be checked or
--- rebuilt. This reproduces them; see the verification note at the bottom.
---
--- THE THREE CURVES DO NOT SHARE A DENOMINATOR, and the chart must keep saying
--- so. Patients and organisations are shares of all $99.11B of non-admin spend;
--- conditions are a share of only the $72.69B carrying a diagnosis, because a
--- claim with no condition on it cannot be ranked under one. Care types are
--- deliberately absent: the top care type is 99.7% one condition, so that curve
--- would trace the conditions curve.
---
--- Results: sql/results/q3_lorenz_points_2020_2024.csv
+-- The three curves do NOT share a denominator: patients and
+-- organisations are shares of all $99.11B, conditions are a share of
+-- only the $72.69B carrying a diagnosis. Care types are deliberately
+-- absent -- the top care type is 99.7% one condition, so its curve
+-- would just trace the conditions curve.
 -- =====================================================================
 
 WITH base AS (

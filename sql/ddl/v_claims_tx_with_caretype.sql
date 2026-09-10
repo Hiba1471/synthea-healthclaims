@@ -1,40 +1,14 @@
 -- =====================================================================
 -- SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_WITH_CARETYPE
 --
--- Transaction-line grain, enriched with care type, facility and patient
--- state, for the Power BI report. Sits on top of V_CLAIMS_TX_CLEAN, which
--- already applies the standing 2020-2024 window and the money-column fixes.
+-- Adds care type, primary condition, facility and patient state to
+-- V_CLAIMS_TX_CLEAN, for the Power BI report. Condition attribution is
+-- claim-grain (via CODE_DICTIONARY) and the care-type ladder must stay
+-- identical to q2_patient_cost_by_care_type.sql -- see
+-- tools/check_care_type_ladder.py and METHODOLOGY.md.
 --
--- SCOPE MUST MATCH THE ANALYSIS. The predicate below is the same one every
--- query in sql/analysis/ uses:
---
---     WHERE NOT IS_ADMIN_NOISE_CODE AND PROCEDURECODE IS NOT NULL
---
--- Do NOT add "AND BILLED_AMOUNT > 0". BILLED_AMOUNT is
--- IFF(TYPE = 'CHARGE', AMOUNT, 0), so that predicate keeps CHARGE rows and
--- drops every PAYMENT row -- and PAID_BY_PATIENT / PAID_BY_PAYER are non-zero
--- ONLY on PAYMENT rows. The result is a report where billed is correct and
--- every paid column is exactly zero. That is what this view returned before
--- 2026-09-03, and it is the reason this comment exists.
---
--- A transaction line is a CHARGE or a PAYMENT, never both. Any measure over
--- this view must therefore aggregate across lines -- SUM(BILLED_AMOUNT) and
--- SUM(PAID_BY_PATIENT) are both correct over a group of rows, but no single
--- row carries both. Do not expect them to be non-zero on the same line.
---
--- CONDITION ATTRIBUTION is claim-level, via CLAIMS.DIAGNOSIS1 / DIAGNOSIS2
--- resolved through CODE_DICTIONARY, exactly as q2_patient_cost_by_care_type.sql
--- does it. An earlier version joined CONDITIONS on PATIENT_ID plus a
--- same-year date range and took MAX(DESCRIPTION), which returns whichever of
--- the patient's conditions sorts last alphabetically that year rather than the
--- condition the claim is actually for. It also scanned CONDITIONS against every
--- transaction line, which is far more expensive than joining at claim grain.
---
--- The CASE ladder is the full ladder from q2_patient_cost_by_care_type.sql,
--- not an abbreviation of it. Order matters: dental is tested first so
--- "infection of tooth" groups as dental rather than as an infection. If that
--- query's ladder changes, change this one with it, or the Power BI care-type
--- splits stop matching the report and the dashboard.
+-- Do not add "AND BILLED_AMOUNT > 0" to the scope filter: it silently
+-- zeroes every paid column. See METHODOLOGY.md.
 -- =====================================================================
 
 CREATE OR REPLACE VIEW SYNTHEA_HEALTHCLAIMS.PUBLIC.V_CLAIMS_TX_WITH_CARETYPE AS
@@ -61,11 +35,7 @@ classified AS (
                 THEN 'Maternity'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(malignant|carcinoma|neoplasm|polyp of colon).*'
                 THEN 'Cancer & tumours'
-            -- "cholecystitis" contains the substring "cystitis", so the Kidney &
-            -- urinary branch below would otherwise claim a gallbladder infection.
-            -- Tested first and routed where it belongs. A word boundary would be
-            -- the tidier fix, but \\b support varies by regex engine and this
-            -- ladder has to behave identically in Snowflake and in Python.
+            -- tested before "cystitis" below, or gallbladder infection misfiles as kidney
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*cholecystitis.*'
                 THEN 'Infections (other)'
             WHEN LOWER(d.DESCRIPTION) REGEXP '.*(kidney|renal|cystitis|pyelonephritis|urinary|bladder).*'
@@ -103,8 +73,7 @@ SELECT
     tx.PATIENT_ID,
     tx.ENCOUNTER_ID,
 
-    -- ---- money (see the header: CHARGE rows and PAYMENT rows are
-    --      different rows, so these are never both non-zero at once) ---
+    -- ---- money: CHARGE and PAYMENT are separate rows, never both non-zero ---
     tx.BILLED_AMOUNT,
     tx.PAID_AMOUNT,
     tx.PAID_BY_PAYER,
@@ -130,11 +99,7 @@ SELECT
 
     -- ---- geography ---------------------------------------------------
     pat.STATE                             AS PATIENT_STATE,
-    -- FACILITY_ID is the grouping key for anything counting facilities.
-    -- q3_concentration.sql groups by ENCOUNTERS.ORGANIZATION_ID, so a
-    -- concentration measure must group by this, NOT by FACILITY_NAME: names
-    -- are not guaranteed unique across sites, and an unmatched org would
-    -- collapse into a single blank bucket that distorts the ranking.
+    -- group by FACILITY_ID, not FACILITY_NAME -- names are not unique across sites
     enc.ORGANIZATION_ID                   AS FACILITY_ID,
     org.NAME                              AS FACILITY_NAME,
     org.CITY                              AS FACILITY_CITY,

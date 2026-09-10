@@ -1,49 +1,16 @@
 -- =====================================================================
--- ROBUSTNESS TEST of three findings against condition-level price
--- adjustment factors supplied in a brief, run 2026-09-01.
+-- Retests the three headline findings against condition-level pricing
+-- factors supplied in a brief (Synthea prices some procedures at flat,
+-- inflated amounts -- see DATA_QUALITY_LOG.md). Billed, paid and
+-- patient-paid are all scaled by the same per-condition factor, so a
+-- payer-split PERCENTAGE is unchanged and only its DOLLARS move.
 --
--- FACTORS ARE MULTIPLIERS, not divisors. Five came from the brief
--- (pregnancy 0.116, gingivitis 0.067, NSCLC 0.091, dental caries 0.059,
--- polyp 0.050); six more from this repo's own audit, which the brief did
--- not state (allergy 0.011, gingival disease 0.133, laceration 0.189,
--- bronchitis 0.108, stroke 0.261, UTI 0.042). Kidney disease, breast
--- cancer and COVID stay at 1.0 as the brief specified, matching this
--- repo's finding that all three are NOT inflated.
---
--- ONE FACTOR CONFLICTS AND THE BRIEF'S VALUE WAS USED. Gingivitis: the
--- brief says 0.067, this repo's audit produced 0.080 (a 16% difference).
--- Both sit inside the $500-1,200 scaling-and-root-planing benchmark --
--- the brief implies a ~$715 midpoint, the repo used $850. Neither is
--- wrong; the brief's value is used here because the brief owns the audit.
---
--- METHOD: billed, paid and patient-paid are all multiplied by the same
--- per-condition factor, so a single condition's payer-split PERCENTAGE is
--- unchanged and only its DOLLARS move. Rationale in
--- q2_care_type_breakdown_repriced.sql -- the documented defect is that
--- Synthea prices procedures at flat arbitrary amounts, not that its
--- copay/coinsurance mechanism is broken.
---
--- RESULTS:
---   F1 pregnancy share of diagnosed spend  39.81% -> 14.76%
---                                          $28.93B -> $3.36B
---   F2 member share of all billed          20.44% -> 23.25%  (share UP,
---                                          dollars DOWN $20.26B -> $11.43B)
---   F3 commercial:government ratio         UNCHANGED for every condition
---
--- WHY F2's SHARE RISES WHILE ITS DOLLARS FALL, verified separately: the 11
--- adjusted conditions carry $54.89B at a 17.73% member share; everything
--- else carries $44.22B at 23.80%. Shrinking the low-member-share bucket by
--- ~90% leaves the mix dominated by the high-member-share one, so the
--- blended figure rises to 23.25%, just under the 23.80% of the untouched
--- remainder. This is reweighting, not members paying more.
---
--- WHY F3 IS EXACTLY UNCHANGED: scaling billed and paid by the same factor
--- inside one condition cancels in the ratio. Confirmed empirically, not
--- just algebraically -- pregnancy 25.2x -> 25.2x, gingivitis 17.1x ->
--- 17.1x, allergy 9.4x -> 9.4x. Finding 3 is immune to this whole class of
--- pricing defect, which makes it the most robust of the three.
---
--- Results: sql/results/q1_robustness_three_findings_2020_2024.csv
+-- Result: F1 (pregnancy's share of diagnosed spend) drops sharply
+-- (39.81% -> 14.76%); F2 (member share of all billed) rises slightly
+-- because correction shrinks the low-share bucket, reweighting the
+-- blend upward, not because members pay more; F3 (commercial:government
+-- ratio) is EXACTLY unchanged, because scaling billed and paid together
+-- cancels in a ratio. See sql/results/q1_robustness_three_findings_2020_2024.csv.
 -- =====================================================================
 WITH claim_money AS (
     SELECT CLAIM_ID,
@@ -104,31 +71,13 @@ SELECT 'F2 member share of ALL billed',
 FROM adj;
 
 -- =====================================================================
--- FOLLOW-UP: does Finding 2's inverse slope (member-paid share against
+-- Follow-up: does Finding 2's inverse slope (member-paid share against
 -- cost per person, across the 15 care types) survive price correction?
---
--- Yes. Spearman stays at about -0.6 either way.
---
--- DO NOT QUOTE A SECOND DECIMAL. The corrected data contains one tied
--- pair (Respiratory & ENT and Injury & trauma both land on 25.0%), and
--- the coefficient moves with the tie convention: Snowflake RANK() gives
--- -0.571, a naive sort-index in Python gives -0.586, and a proper
--- tie-averaged Spearman would give a third value. The as-billed figure is
--- -0.600 under both. Only "about -0.6, essentially unchanged" is robust to
--- the choice, and that is all the report claims.
---
--- The illustration that does NOT survive, and why it was pulled from the
--- report's Finding 2 paragraph: allergy & immune reads 10.0% share on
--- $175,111 per person as billed, a textbook expensive-care-low-share
--- case. It carries the largest documented pricing gap in this dataset
--- (~89x), and corrected it becomes 15.0% on $2,432 -- cheap care at a
--- middling share, illustrating the opposite of the point it was used for.
--- Cancer holds its shape (8.3% on $104,622 -> 7.4% on $41,007) and is
--- used instead.
+-- Yes, Spearman stays at about -0.6 either way -- but do not quote a
+-- second decimal: one tied pair moves the coefficient with the tie
+-- convention (RANK() gives -0.571, a naive sort gives -0.586). Ranks
+-- first, then CORR on the ranks, since Snowflake's CORR is Pearson.
 -- =====================================================================
--- Spearman rank correlation between member-paid share and cost per person,
--- across the 15 care types, computed twice: as billed and price-corrected.
--- Ranks first, then CORR on the ranks (Snowflake's CORR is Pearson).
 WITH claim_raw AS (
     SELECT CLAIM_ID, MIN(PATIENT_ID) AS patient_id,
            SUM(BILLED_AMOUNT) AS billed, SUM(PAID_AMOUNT) AS paid,

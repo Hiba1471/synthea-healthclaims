@@ -1,17 +1,9 @@
 -- =====================================================================
--- Q2 EXTENSION: the median member-paid total, beside the mean of $16,084.
---
--- WHY THIS EXISTS. q2_who_pays.sql reports patient-paid-per-patient of
--- $16,084 as an AVERAGE (total patient-paid / patient count). Per section 6
--- of DATA_ANALYSIS_CONTEXT.md, an average on a right-skewed distribution
--- overstates the typical case -- this project's own rule, applied everywhere
--- else (cost per claim, cost per patient by condition), had not yet been
--- applied to this specific headline figure. This computes the median and P75
--- /P90 of five-year member-paid total ACROSS ALL 1,259,375 MEMBERS (including
--- the ones with $0 in patient-paid spend, since "$16,084 per member" as
--- worded implies every member, not just those with a claim).
---
--- Results: sql/results/q2_member_paid_percentiles_2020_2024.csv
+-- Q2 extension: the median member-paid total, beside the mean of
+-- $16,084. An average on a right-skewed distribution overstates the
+-- typical case; computes median and P75/P90 across ALL 1,259,375
+-- members, including $0 ones, since "$16,084 per member" as worded
+-- implies every member, not just those with a claim.
 -- =====================================================================
 
 WITH claim_money AS (

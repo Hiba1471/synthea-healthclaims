@@ -1,22 +1,9 @@
 -- =====================================================================
--- Q1: WHY do a few conditions dominate spend?
---
--- Spend is the product of three things:
---
---     spend  =  patients  x  claims per patient  x  cost per claim
---
--- A condition can reach the top by being extreme on any one of them, and the
--- top 20 get there by being moderately extreme on all three at once. Each
--- driver is expressed as a multiple of the MEDIAN condition, so they are
--- comparable, and the dominant one is named.
---
--- This replaces a spreadsheet-style derivation that previously ran outside
--- SQL, so the result is reproducible from the database alone.
---
--- Column names are written for a non-specialist reader (see section 21 of
--- DATA_ANALYSIS_CONTEXT.md).
---
--- Results: sql/results/q1_spend_decomposition_2020_2024.csv
+-- Q1: why do a few conditions dominate spend? Decomposes spend into
+-- patients x claims per patient x cost per claim, each expressed as a
+-- multiple of the MEDIAN condition so the three are comparable and the
+-- dominant driver is named. The top 20 conditions get there by being
+-- moderately extreme on all three at once, not extreme on any one.
 -- =====================================================================
 
 WITH claim_money AS (

@@ -1,20 +1,11 @@
 -- =====================================================================
--- Q2: for each TYPE OF CARE, how far apart are the insurance types?
---
--- Same question as q2_top10_share_by_payer_type.sql, moved up from single
--- conditions to the 15 care types, and computed differently: the share is
--- calculated SEPARATELY FOR EACH YEAR and then the MEDIAN of the five is
--- taken, so one odd year cannot dominate a pooled ratio.
---
--- Lowest and highest year are emitted alongside so the spread is visible. If
--- they sit close to the median the gap is standing benefit design, not drift.
---
--- NOTE: the care-type CASE below is copied verbatim from
--- q2_patient_cost_by_care_type.sql, which is the canonical definition.
--- Edit the grouping THERE first, then copy it here -- the two must agree or
--- this query and the money ranking will disagree about what "dental" means.
---
--- Results: sql/results/q2_care_type_share_by_payer_type_2020_2024.csv
+-- Q2: for each TYPE OF CARE, how far apart are the insurance types? Same
+-- question as q2_top10_share_by_payer_type.sql moved up to the 15 care
+-- types, computed per year then MEDIANed across the five so one odd
+-- year cannot dominate; lowest/highest year emitted alongside to show
+-- the spread. Care-type ladder copied verbatim from
+-- q2_patient_cost_by_care_type.sql -- edit there first, or this query
+-- disagrees with the money ranking about what "dental" means.
 -- =====================================================================
 
 WITH claim_money AS (

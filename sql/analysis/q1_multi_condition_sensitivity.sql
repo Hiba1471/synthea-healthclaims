@@ -1,31 +1,14 @@
 -- =====================================================================
--- SENSITIVITY TEST, EXTENDED: does the condition ranking and patient
--- concentration survive correcting ALL confidently-documented pricing
--- defects, not just pregnancy's?
+-- Sensitivity test, extended: does the condition ranking survive
+-- correcting ALL confidently-documented pricing defects, not just
+-- pregnancy's (q1_pregnancy_sensitivity.sql)? Divides BILLED_AMOUNT by a
+-- benchmark-derived factor for 11 conditions with a defensible external
+-- benchmark and a clean annual cadence to anchor it on; this is a
+-- bounded "what if" stress test, not a corrected dataset -- it touches
+-- no view or table. Five conditions with multi-year, uncadenced care
+-- patterns and four checked and found NOT inflated are left untouched.
 --
--- Same bounded "what if" method as q1_pregnancy_sensitivity.sql, extended to
--- eleven conditions instead of one. This is NOT a corrected dataset and does
--- not touch any view or table: every condition below has its BILLED_AMOUNT
--- divided by a single factor for claims attributed to it, leaving visit
--- count, timing and every other condition untouched, and the results are
--- read as a stress test of the report's rankings, not as new ground truth.
---
--- WHICH ELEVEN, AND WHY ONLY THESE. Of the twenty highest-cost conditions
--- checked against a real-world benchmark (DATA_ANALYSIS_CONTEXT.md, "All ten
--- of the highest-cost conditions, benchmarked one at a time" and its top-20
--- extension), eleven have a single, well-grounded external benchmark and a
--- claims-per-patient pattern consistent with one or a small, countable number
--- of episodes -- a clean correction factor can be defended for each. Five
--- more (cardiac imaging findings, small cell lung cancer, child ADHD,
--- ischemic heart disease, dependent drug abuse) have claims-per-patient
--- patterns implying multi-year aggregated care with no clean annual cadence
--- to anchor an annualization on, the way dialysis's fixed three-times-weekly
--- schedule did -- correcting those would require an assumption this project
--- cannot defend, so they are left untouched here. Four (CKD-4, ESRD, breast
--- cancer, COVID-19) were checked and found NOT inflated (two are actually
--- under the real-world benchmark), so they are also left untouched.
---
--- Divisor for each (this data's figure / midpoint of the named benchmark):
+-- Divisor for each (this data's figure / benchmark midpoint):
 --   Normal pregnancy              72892002   / 8.587   (KFF 2022)
 --   Allergy to substance          419199007  / 88.976  ($11,122/shot vs $50-200)
 --   Gingivitis                    66383009   / 12.542  (scaling & root planing)
@@ -37,8 +20,6 @@
 --   Acute bronchitis              10509002   / 9.252   (doctor visit)
 --   Stroke                        230690007  / 3.836   (first-year cost)
 --   Acute infective cystitis      307426000  / 23.590  (uncomplicated UTI)
---
--- Results: sql/results/q1_multi_condition_sensitivity_2020_2024.csv
 -- =====================================================================
 
 WITH claim_money AS (

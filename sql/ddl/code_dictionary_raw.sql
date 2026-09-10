@@ -1,38 +1,15 @@
 -- =====================================================================
 -- SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY  (pass 1 of 2 -- raw build)
 --
--- One row per clinical code seen anywhere in the share, with a single
--- canonical description. Solves:
---   #4  DIAGNOSIS1 / PROCEDURECODE mix code systems, so ~30% of diagnosis
---       spend will not join to CONDITIONS.CODE alone.
---   #19 the same code appears with several spellings
---       ("Encounter for Problem" / "for problem" / "for problem (procedure)").
+-- Unions 11 source tables into one row per clinical code, since DIAGNOSIS1
+-- and PROCEDURECODE mix code systems and the same code carries several
+-- spellings across tables. Built as a TABLE so pass 2 (code_dictionary_
+-- classify.sql) can hand-correct classifications without a re-scan.
 --
--- Built as a TABLE, not a view: it is small, it saves re-scanning ~356M rows
--- on every lookup, and it can be hand-corrected where the derived
--- classification is wrong.
---
--- SOURCE COVERAGE NOTE (revised):
---   The first build excluded OBSERVATIONS (LOINC), IMAGING_STUDIES (DICOM)
---   and MEDICATIONS.CODE (RxNorm) on the grounds that those code spaces
---   "can never appear in a diagnosis field". That held for DIAGNOSIS1-8,
---   which resolve 100%. But it was over-generalised: CLAIMS_TX.PROCEDURECODE
---   draws on them too, leaving 402 codes and $5.72B unresolved.
---   MEDICATIONS.CODE (444 numeric RxNorm codes) and
---   IMAGING_STUDIES.BODYSITE_CODE (14) are now included.
---
--- Still excluded, and correctly so -- these are TEXT columns, while every
--- code field we resolve (DIAGNOSIS1-8, PROCEDURECODE) is NUMBER, so they
--- could never match even if unioned:
---   OBSERVATIONS.CODE            LOINC, e.g. '8302-2'  (TEXT)
---   IMAGING_STUDIES.MODALITY_CODE, SOP_CODE  DICOM     (TEXT)
--- IMAGING_STUDIES.PROCEDURE_CODE is numeric but has no paired description
--- column, so there is nothing to look up.
---
--- SEMANTIC_TAG is the trailing parenthesised qualifier SNOMED puts on its
--- fully specified names -- (disorder), (procedure), (finding), (situation),
--- (environment), (substance). It is a real classification carried by the
--- data, which is what pass 2 uses instead of keyword guesswork.
+-- SEMANTIC_TAG is SNOMED's trailing qualifier, e.g. (disorder), (procedure),
+-- (finding) -- pass 2 uses this instead of keyword guesswork.
+-- =====================================================================
+
 -- =====================================================================
 
 CREATE OR REPLACE TABLE SYNTHEA_HEALTHCLAIMS.PUBLIC.CODE_DICTIONARY AS
@@ -76,7 +53,7 @@ WITH raw AS (
     SELECT REASONCODE, REASONDESCRIPTION, 'MEDICATIONS.REASON'
       FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.MEDICATIONS
      WHERE REASONCODE IS NOT NULL
-    -- added to close the PROCEDURECODE gap (402 codes / $5.72B)
+    -- MEDICATIONS.CODE closes the PROCEDURECODE-only coverage gap
     UNION ALL
     SELECT CODE, DESCRIPTION, 'MEDICATIONS'
       FROM SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER.MEDICATIONS

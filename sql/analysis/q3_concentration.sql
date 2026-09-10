@@ -1,29 +1,17 @@
 -- =====================================================================
--- Q3: HOW CONCENTRATED IS SPEND?
+-- Q3: how concentrated is spend? North star: top N% of PATIENTS vs. X%
+-- of spend; same Pareto for CONDITIONS, ORGANISATIONS and CARE TYPES, to
+-- see whether spend is driven by a few sick patients, expensive
+-- conditions, high-volume providers, or kinds of care.
 --
--- North star: the top N% of PATIENTS account for X% of spend.
--- Secondary:  the same Pareto for CONDITIONS, ORGANISATIONS and CARE TYPES.
---             Is spend driven by a few very sick patients, a few expensive
---             conditions, a few high-volume providers, or a few kinds of care?
---
--- READ THE DENOMINATORS BEFORE COMPARING ROWS. Patients and organisations
--- cover all $99.11B of non-admin spend. Conditions and care types cover only
--- the $72.69B whose claims carry a real diagnosis, because a claim with no
--- condition attached cannot be assigned to either. "Total spend" is emitted
--- per row so the difference is visible rather than assumed away.
---
--- Also read the ENTITY COUNT next to every percentage. "% needed to reach
--- half" is not comparable across grains with wildly different counts -- with
--- only 15 care types any single one is a large slice by construction, which is
--- the same objection that got payers rejected below. The COUNT of entities is
--- the honest comparison, not the percentage.
---
--- Payers were considered as a fourth grain and rejected: with only 10
--- entities that is market share, not concentration.
---
--- Method: aggregate to entity level ONCE per grain, then window over that
--- small result -- never re-scan the fact table per bucket.
--- Results: sql/results/q3_concentration_2020_2024.csv
+-- Read the denominators before comparing rows: patients and
+-- organisations cover all $99.11B, but conditions and care types cover
+-- only the $72.69B with a real diagnosis attached. Also read entity
+-- count alongside every percentage -- with only 15 care types, any one
+-- is a large slice by construction (the same reason payers, with only
+-- 10 entities, were rejected as a grain). Aggregate to entity level once
+-- per grain, then window over that small result -- never re-scan the
+-- fact table per bucket.
 -- =====================================================================
 
 WITH base AS (

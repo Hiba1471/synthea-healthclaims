@@ -1,27 +1,13 @@
 -- =====================================================================
--- Q2: which types of care sit above the point where commercial patients
---     stop paying?
---
--- Commercial patients pay roughly half of a small claim and very little of a
--- large one. The reason is NOT a per-claim rule that switches off at some
--- threshold. It is that on larger claims a growing FRACTION of patients have
--- already exhausted their annual out-of-pocket maximum and so pay nothing at
--- all, which drags the aggregate share down. Measured in $500 bands, the
--- share of commercial claims where the patient pays exactly zero climbs from
--- ~15% around $3,500 to ~67% around $8,000, and the aggregate patient share
--- falls from ~54% to ~16% across the same range. It is a taper, not a cliff.
---
--- $5,000 is used below as a reporting split because it is roughly where the
--- zero-paying group becomes the majority. It is a convenient line, not a rule
--- in the data -- nothing changes discontinuously there.
---
--- Government patients are excluded: they pay a flat $0-50 regardless of claim
--- size, so the cap question does not arise for them.
---
--- Taxonomy CASE copied verbatim from q2_patient_cost_by_care_type.sql, which
--- stays canonical. Edit there first, then copy here.
---
--- Results: sql/results/q2_commercial_cap_by_care_type_2020_2024.csv
+-- Q2: which types of care sit above where commercial patients stop
+-- paying? Not a per-claim rule -- on larger claims a growing FRACTION of
+-- patients have already hit their annual out-of-pocket maximum and pay
+-- nothing, so the aggregate share tapers rather than cutting off (zero-
+-- pay share climbs ~15% to ~67% across $3,500-$8,000 in $500 bands).
+-- $5,000 is used below as a reporting split, not a rule in the data.
+-- Government excluded (flat $0-50 copay regardless of claim size, so the
+-- cap question does not apply). Care-type ladder copied from
+-- q2_patient_cost_by_care_type.sql -- edit there first.
 -- =====================================================================
 
 WITH claim_money AS (

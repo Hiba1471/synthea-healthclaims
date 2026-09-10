@@ -29,7 +29,7 @@
 -- Taxonomy CASE copied verbatim from q2_patient_cost_by_care_type.sql, which
 -- stays canonical. Edit there first, then copy here.
 --
--- Results: sql/results/q2_cap_reversal_diagnosis_2020_2024.csv
+-- Results: sql/results/q2_cap_reversal_by_care_type_2020_2024.csv
 -- =====================================================================
 
 WITH claim_money AS (

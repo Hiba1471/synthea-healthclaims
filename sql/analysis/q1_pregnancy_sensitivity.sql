@@ -1,22 +1,12 @@
 -- =====================================================================
--- SENSITIVITY TEST: does the condition ranking survive repricing pregnancy
--- to its real-world cost?
---
--- q1_condition_procedures.sql established pregnancy bills 8.6x the KFF 2022
--- figure ($161,988 here vs ~$18,865 real, large-employer claims, 2018-2020).
--- The report says the ranking and shares are "unaffected" by that gap. This
--- query is the test of that claim, not an assertion of it: every pregnancy
--- claim's BILLED_AMOUNT is divided by 8.6 (leaving visit count, timing and
--- every other condition untouched), and the condition ranking, the top-5 and
--- top-20 shares of diagnosed spend, and patient-level concentration are all
--- recomputed on the repriced total.
---
--- This is a same-shape repricing, not a real substitute for a true clinical-
--- claims dataset: it assumes each of the 11.1 prenatal claims scales down by
--- the same factor, which is a simplification, not a validated per-procedure
--- price correction.
---
--- Results: sql/results/q1_pregnancy_sensitivity_2020_2024.csv
+-- Sensitivity test: does the condition ranking survive repricing
+-- pregnancy to its real-world cost (8.6x cheaper, per KFF 2022 --
+-- q1_condition_procedures.sql)? Divides every pregnancy claim's
+-- BILLED_AMOUNT by 8.6, leaving visit count and every other condition
+-- untouched, then recomputes the ranking, top-5/top-20 shares and
+-- patient-level concentration. A same-shape repricing, not a validated
+-- per-procedure correction -- it assumes all prenatal claims scale down
+-- by the same factor.
 -- =====================================================================
 
 WITH claim_money AS (

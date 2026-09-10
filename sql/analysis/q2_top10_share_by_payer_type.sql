@@ -1,19 +1,11 @@
 -- =====================================================================
--- Q2: for the ten conditions where patients carry the biggest share of the
---     bill, how does that share differ by kind of insurance?
---
--- Same ten conditions as q2_top10_by_share_of_bill.sql, but pivoted so the
--- three kinds of insurance sit side by side. This is where the interaction
--- shows: the overall share for a condition is a blend, and commercial and
--- government patients experience the same illness very differently.
---
--- Uninsured patients are shown for completeness but always pay 100% by
--- definition, so the meaningful comparison is commercial vs government.
---
--- Floor of 5,000 people affected, so a condition with a handful of patients
--- cannot top a ranking computed from almost nothing.
---
--- Results: sql/results/q2_top10_share_by_payer_type_2020_2024.csv
+-- Q2: for the ten conditions where patients carry the biggest share of
+-- the bill, how does that share differ by insurance type? Pivots
+-- q2_top10_by_share_of_bill.sql's ten conditions so commercial,
+-- government and uninsured sit side by side -- this is where the
+-- interaction shows, since the overall share is a blend and the two
+-- insured types experience the same illness very differently. Floor of
+-- 5,000 people affected, so a handful of patients cannot top the ranking.
 -- =====================================================================
 WITH claim_money AS (
     SELECT CLAIM_ID, MIN(PATIENT_ID) AS patient_id, MIN(PAYER_TYPE) AS payer_type,

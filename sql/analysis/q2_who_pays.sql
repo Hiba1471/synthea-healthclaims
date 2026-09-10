@@ -1,18 +1,10 @@
 -- =====================================================================
--- Q2: WHO ACTUALLY PAYS?
---
--- North star: patients bear X% of total spend; insurers the rest.
--- Secondary:  the same split cut four ways -- by payer, by payer type,
---             by encounter class, by year.
---
--- The split is possible because METHOD on PAYMENT rows reveals the payment
--- channel: ECHECK is the insurer's electronic channel, while CASH / CHECK /
--- CC / COPAY are the patient paying directly. encounters.PAYER_ID only tells
--- you who was BILLED -- it does not tell you who actually paid. The view
--- pre-computes this as PAID_BY_PAYER / PAID_BY_PATIENT.
---
--- Long format (cut, segment) so the dashboard can filter one result set.
--- Results: sql/results/q2_who_pays_2020_2024.csv
+-- Q2: who actually pays? North star: patients bear X% of total spend,
+-- insurers the rest, cut four ways (payer, payer type, encounter class,
+-- year). The split relies on METHOD, not PAYER_ID -- ECHECK is the
+-- insurer's channel, CASH/CHECK/CC/COPAY is the patient paying directly
+-- (PAYER_ID only says who was billed). Long format (cut, segment) so the
+-- dashboard can filter one result set.
 -- =====================================================================
 
 WITH base AS (

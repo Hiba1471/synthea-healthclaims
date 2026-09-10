@@ -1,28 +1,14 @@
 -- =====================================================================
--- Q2 FOLLOW-UP: why do two care types break the cheap-care/high-share rule?
---
--- The rule: patients carry a bigger share of cheaper care, because cheap care
--- stays under the annual out-of-pocket maximum (q2_commercial_cap_by_care_type).
--- Two of the 15 care types run against it:
---
---   Infections (other)      $24,713 per person, patients carry 28.0% -- dear but high
---   Brain & nervous system   $8,939 per person, patients carry  8.5% -- cheap but low
---
--- Two candidate explanations, tested together here:
---
---   PAYER MIX. The 28.0% and 8.5% are blended across insurance types, and
---   government patients pay almost nothing. A care type weighted towards
---   government patients will read low regardless of its prices. This query
---   emits each care type's spend split by payer type, so the mix is visible
---   rather than hidden inside the blend.
---
---   CLAIM SIZE. Cost PER PERSON is not what the cap acts on -- the cap acts on
---   claim size, and per-person cost is claim size x how often someone comes.
---   A care type can look cheap per person because visits are frequent while
---   every individual claim is large. Median and mean claim are emitted next to
---   cost per person so the two can be told apart.
---
--- Results: sql/results/q2_pattern_breakers_2020_2024.csv
+-- Q2 follow-up: two care types break the cheap-care/high-share rule
+-- (patients carry more of cheaper care, since it stays under the annual
+-- out-of-pocket max) -- Infections at $24,713/person but 28.0% patient
+-- share, Brain & nervous at $8,939/person but only 8.5%. Two candidate
+-- explanations, tested together: PAYER MIX (a care type weighted toward
+-- near-zero-paying government patients reads low regardless of price --
+-- emits spend split by payer type) and CLAIM SIZE (the cap acts on
+-- per-claim size, not per-person cost, so frequent small claims can look
+-- cheap per person while each claim is large -- emits median and mean
+-- claim alongside cost per person).
 -- =====================================================================
 
 WITH claim_money AS (

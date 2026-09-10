@@ -1,36 +1,16 @@
 -- =====================================================================
--- Q1: what is actually being billed under a condition?
+-- Q1: what is actually billed on claims attributed to a condition? A
+-- claim carries the diagnosis; procedures are line items on it, so this
+-- is procedure-level detail behind the pricing-defect finding.
 --
--- Written to test whether the headline conditions are realistically priced.
--- They are not, and this query is how that was found.
---
--- HOW THE LINKAGE WORKS: a procedure is not "owned" by a condition. The
--- CLAIM carries the diagnosis; the procedures are line items hanging off
--- that claim. So this shows what was billed ON CLAIMS ATTRIBUTED TO each
--- condition. The same procedure (a blood count, say) appears under many
--- conditions.
---
--- WHAT IT REVEALS: Synthea prices ENCOUNTERS realistically and PROCEDURES at
--- a flat few thousand dollars regardless of complexity.
---
---   prenatal visit                        $119   correct
---   childbirth                            $488   the delivery itself
---   caesarean section                   $7,943   major surgery, about right
---   evaluation of uterine fundal height $4,968   a tape measure
---   auscultation of the fetal heart     $4,967   a doppler on the abdomen
---   subcutaneous immunotherapy         $11,122   an allergy shot (real: $50-200)
---
--- The fundal-height check bills 40x the visit containing it. 23 routine
--- prenatal labs all sit at a flat $1,890-1,901 against a real $10-30 each.
--- So conditions whose pathway repeats many discrete procedure codes are
--- inflated hardest; conditions billed mainly through encounters are roughly
--- right. Rankings and ratios hold; absolute totals do not.
---
--- Covers the two largest conditions. To examine another, add its code to
--- the target list.
---
--- Results: sql/results/q1_pregnancy_procedures_2020_2024.csv
---          sql/results/q1_allergy_procedures_2020_2024.csv
+-- Result: Synthea prices ENCOUNTERS realistically but PROCEDURES at a
+-- flat few thousand dollars regardless of complexity -- a fundal-height
+-- check (a tape measure) bills $4,968, an allergy shot bills $11,122
+-- against a real $50-200. Conditions whose pathway repeats many discrete
+-- procedure codes are inflated hardest; conditions billed mainly through
+-- encounters are roughly right. Rankings and ratios hold; totals do not.
+-- Covers the two largest conditions -- add a code to the target list to
+-- examine another.
 -- =====================================================================
 
 WITH target AS (

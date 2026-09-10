@@ -6,7 +6,7 @@
 --
 -- Long format so both lists live in one result set:
 --   Entity Type = 'Hospital' | 'Condition'
--- Results: sql/results/q3_top_entities_2020_2024.csv
+-- Results: sql/results/q3_top_hospitals_and_conditions_2020_2024.csv
 -- =====================================================================
 
 WITH base AS (

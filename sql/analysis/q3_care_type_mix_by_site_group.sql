@@ -1,48 +1,21 @@
 -- =====================================================================
--- Q3 FOLLOW-UP: what are patients actually seen for, by kind of site?
+-- Q3 follow-up: the 12 VA-named sites see patients 24-54 times against a
+-- median of 4.5. Is that good access (continuous chronic management) or
+-- unresolved problems (the same complaint recurring)? The discriminator
+-- is not visit count but what visits are FOR: good access spreads across
+-- several chronic conditions, unresolved care concentrates on one acute
+-- complaint per patient. Reports care-type mix, distinct conditions per
+-- patient and repeat visits per condition, for VA sites vs. everywhere
+-- else, then the same test for hospice/nursing sites (the opposite
+-- puzzle: 1.0-2.7 visits, where one "visit" may be a multi-week stay).
 --
--- The 12 VA-named sites bill ordinary prices but see each patient 24-54 times
--- against a median of 4.5. Two readings fit that equally well from the outside:
+-- CANNOT SETTLE: Synthea generates encounters from fixed condition
+-- schedules, not care quality or treatment failure, so this shows which
+-- story the data is consistent with and can rule one out -- it cannot
+-- establish that real veterans' care is good or bad.
 --
---   GOOD ACCESS. Patients are enrolled in continuous management of chronic
---   conditions and come in on a schedule. Many visits is the system working.
---
---   UNRESOLVED PROBLEMS. Patients keep coming back for the same complaint
---   because it is not being fixed. Many visits is the system failing.
---
--- The discriminator is NOT the number of visits, which is identical under both.
--- It is what the visits are FOR:
---
---   Under good access, a patient's visits spread across several conditions and
---   lean chronic -- diabetes, heart, mental health -- because someone managing
---   your whole health touches many things on a schedule.
---
---   Under unresolved care, visits concentrate on ONE condition per patient and
---   lean acute -- infections, injury, pain -- the same complaint recurring.
---
--- So this query reports, for VA sites against everywhere else:
---   1. the care-type mix, to see whether it leans chronic or acute, and
---   2. distinct conditions per patient and repeat visits per condition, which
---      is the actual test.
---
--- WHAT THIS CANNOT SETTLE. Synthea generates encounters from condition modules
--- on fixed schedules; it does not model care quality, treatment failure or
--- patient dissatisfaction. A "return visit" here is the generator following its
--- own script, not a person whose problem went unfixed. So this can show which
--- STORY the data is consistent with, and it can rule one out, but it cannot
--- establish that real veterans' care is good or bad. Do not let the answer
--- travel further than that.
---
--- The same question runs for HOSPICE & NURSING sites, the other group singled
--- out in dashboard/two_ways_expensive.html. There the puzzle is the opposite --
--- 1.0-2.7 visits per patient, not fifty -- and the reading to test is that one
--- visit is a whole multi-week stay rather than an appointment.
---
--- Both groups are matched on NAME; nothing in the data marks a facility as a VA
--- site or a hospice. Same patterns as
--- dashboard/generators/q3_two_ways_expensive.py; keep them in step.
---
--- Results: sql/results/q3_site_group_conditions_2020_2024.csv
+-- Both groups are matched on NAME only; keep in step with
+-- dashboard/generators/q3_two_ways_expensive.py.
 -- =====================================================================
 
 WITH base AS (

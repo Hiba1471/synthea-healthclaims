@@ -1,26 +1,16 @@
 -- =====================================================================
--- Q2: which TYPES OF CARE do patients pay the most for?
+-- Q2: which TYPES OF CARE do patients pay the most for? Groups 183
+-- individual conditions into 15 clinical care types -- a more useful
+-- unit than a single condition, since "dental" is one budget and one
+-- benefit design even though it is eleven separate conditions in the
+-- data. Grouping is a keyword classification written out in full so it
+-- can be read and corrected; order matters (dental tested first so
+-- "infection of tooth" groups as dental, not infection). Unmatched
+-- conditions fall to "Other" rather than being hidden.
 --
--- Groups the 183 individual conditions into clinical care types, which is a
--- more useful unit than a single condition: "dental" is one budget, one
--- benefit design and one policy lever, even though it appears in the data as
--- eleven separate conditions.
---
--- The grouping is a keyword classification over the condition name,
--- deliberately written out in full so it can be read and corrected. Order
--- matters -- dental is tested first so "infection of tooth" and "fracture of
--- mandible" group as dental rather than as infection or injury.
---
--- Dental was split into preventive and restorative and then merged back, at
--- the user's direction, because a single dental line is the unit the benefit
--- is actually designed in. The split is recorded in DATA_ANALYSIS_CONTEXT.md
--- section 27 with its figures; to reproduce it, replace the dental branch
--- below with a '(gingiv|palatinus)' branch tested ahead of the rest.
---
--- Anything unmatched falls to "Other", which is reported rather than hidden
--- so the coverage of the taxonomy is visible.
---
--- Results: sql/results/q2_patient_cost_by_care_type_2020_2024.csv
+-- THIS IS THE CANONICAL CARE-TYPE LADDER -- every other file's copy of
+-- it must match exactly, checked by tools/check_care_type_ladder.py.
+-- Edit here first, then propagate.
 -- =====================================================================
 
 WITH claim_money AS (

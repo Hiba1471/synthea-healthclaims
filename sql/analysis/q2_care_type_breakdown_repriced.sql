@@ -14,7 +14,7 @@
 -- cancer & tumours falls from 8.3% to 7.4%; kidney & urinary falls from
 -- 14.2% to 13.0%; dental from 27.9% to 25.8%. That is the annual
 -- out-of-pocket cap doing exactly what q2_commercial_cap_by_care_type.sql
--- and q2_cap_reversal_diagnosis.sql already documented: a large bill blows
+-- and q2_cap_reversal_by_care_type.sql already documented: a large bill blows
 -- past the cap so the member's SHARE of it is small, while a smaller bill
 -- stays under the cap and the member carries proportionally more of it.
 -- Correcting inflated prices downward pushes several categories back under

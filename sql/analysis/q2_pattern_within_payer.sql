@@ -1,63 +1,20 @@
 -- =====================================================================
--- Q2 FOLLOW-UP: does the cheap-care/high-share pattern survive inside a
---               single payer type?
+-- Q2 follow-up: does the cheap-care/high-share pattern (Spearman -0.60
+-- across all 15 care types) survive within a single payer type, or is it
+-- partly payer mix (government patients pay near-zero, and low-share
+-- care types skew government-heavy)? Splits commercial from government;
+-- uninsured excluded since they pay 100% by definition.
 --
--- Across all 15 care types, patient share tracks cost per person at Spearman
--- -0.60. But it tracks the SHARE OF SPEND ON GOVERNMENT PATIENTS almost as
--- strongly, at -0.57 -- and government patients pay a flat $0-50 whatever the
--- bill. So the headline relationship may be two effects wearing one number:
---
---   (a) genuine cost-sharing -- cheap care stays under the annual
---       out-of-pocket maximum, so patients keep paying for it, and
---   (b) payer mix -- care types weighted towards government patients read
---       low-share regardless of what they cost.
---
--- Splitting by payer type separates them. WITHIN one payer type the mix is
--- constant by construction, so any surviving cost/share relationship is (a).
--- If the relationship collapses inside each payer type, the headline was
--- mostly (b) and the cost story is weaker than the report currently claims.
---
--- Government is emitted alongside commercial as a control. Its share should be
--- near zero and near flat at every cost level -- if it is not, the flat-copay
--- reading of government cost-sharing is itself wrong.
---
--- Uninsured are excluded: they pay 100% by definition, so there is no share to
--- vary and no cap to reach. THIS MATTERS WHEN COMPARING BACK TO THE BLENDED
--- FIGURES. The blend is government + commercial + uninsured, so it is dragged
--- down by government and up by uninsured. For Maternity, Allergy & immune and
--- Kidney & urinary the blended share comes out ABOVE the commercial share
--- (17.0 vs 15.1, 10.0 vs 6.7, 14.2 vs 14.3) purely because uninsured patients
--- are 7-9% of spend in those groups and pay everything. Nothing about
--- commercial cost-sharing changed; the blend simply contains a different mix.
---
--- WHAT THIS RETURNED
---
--- The pattern survives and sharpens. Share tracks cost per person at -0.72
--- among commercial patients and -0.88 among government, against -0.60 blended.
--- Payer mix was damping the relationship, not manufacturing it, because
--- averaging two populations with very different payment levels adds noise.
---
--- The clearest single result is Brain & nervous system, which was the apparent
--- counter-example to the whole cheap-care/high-share rule: cheap at $8,939 per
--- person yet only 8.5% patient share. Split by payer it reads 40.2% commercial.
--- It is not an exception at all -- it is 90.2% government-funded spend, and
--- those near-zero payments were swamping everyone else's. Most care types
--- roughly double: Diabetes 36.6 -> 74.4, Dental 27.9 -> 52.9, Heart 14.7 -> 29.7.
---
--- The government column is included as a control and behaves as predicted: a
--- flat $0-50 copay against a growing bill, so share falls from 8.1% to 0.6%
--- across the cost range and never exceeds 8.1%. That -0.88 is arithmetic
--- rather than behaviour, and should not be quoted as evidence of anything
--- beyond the copay being flat.
---
--- The practical consequence is that the blended per-care-type share is nobody's
--- experience. Commercial patients span 6.7% to 74.4%, government 0.6% to 8.1%.
--- Quoting diabetes care's blended 36.6% describes no actual patient.
---
--- Taxonomy CASE copied verbatim from q2_patient_cost_by_care_type.sql, which
--- stays canonical. Edit there first, then copy here.
---
--- Results: sql/results/q2_pattern_within_payer_2020_2024.csv
+-- Result: the pattern sharpens, it does not collapse -- -0.72 within
+-- commercial, -0.88 within government, both stronger than the -0.60
+-- blend. Payer mix was damping the relationship, not manufacturing it.
+-- Brain & nervous system, an apparent counter-example blended (cheap at
+-- 8.5% share), is 90.2% government-funded and reads 40.2% commercial
+-- once split -- not an exception, just a mix effect. The government
+-- -0.88 is arithmetic (a flat copay against a growing bill), not
+-- evidence of behaviour, and should not be cited as such. The care-type
+-- ladder is copied from q2_patient_cost_by_care_type.sql -- edit there
+-- first (see tools/check_care_type_ladder.py).
 -- =====================================================================
 
 WITH claim_money AS (

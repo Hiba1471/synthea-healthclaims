@@ -1,33 +1,16 @@
 -- =====================================================================
--- Q3: which care sites are expensive PER PATIENT, and why?
+-- Q3: which sites are expensive PER PATIENT, and why? Ranking by TOTAL
+-- spend tracks simulated city size (9 of the top 10 sit in Cleveland);
+-- per-patient cost normalises that away, and decomposing it into billed
+-- per encounter x encounters per patient shows the expensive sites are
+-- expensive through FREQUENCY, not price. 1,000-patient volume floor;
+-- 731 of 3,918 sites clear it.
 --
--- Ranking hospitals by TOTAL spend is a trap: it tracks simulated city size,
--- and 9 of the top 10 sit in Cleveland, the most heavily populated simulated
--- city. That is a property of the generator, not a clinical fact.
---
--- Cost PER PATIENT normalises population away and survives the artifact. It
--- also decomposes, which is the point of this query:
---
---     billed per patient  =  billed per encounter  x  encounters per patient
---
--- Emitting both factors separately is what shows that the expensive sites are
--- expensive through FREQUENCY, not price -- the top of the list bills BELOW
--- average per visit and sees the same patients dozens of times.
---
--- Volume floor of 1,000 patients per site. Without it the ranking fills with
--- sites of a handful of patients whose per-patient figure is noise. 731 of
--- 3,918 sites clear it.
---
--- Both rank columns are kept so the gap between them is visible: a site can
--- be 162nd by total spend and 1st by cost per patient.
---
--- GRAIN: sites are grouped by NAME, not by ORGANIZATION_ID. Several ids share
--- a name, and pooling them matters -- 13 sites clear the 1,000-patient floor
--- only once their ids are combined, and grouping by id instead yields 830 rows
--- with 113 duplicated names. Verified against the committed result: 731 rows,
--- 6,579 cells, zero differences.
---
--- Results: sql/results/q3_hospital_cost_intensity_2020_2024.csv
+-- GRAIN EXCEPTION: grouped by NAME, not ORGANIZATION_ID, unlike the rest
+-- of this project. Several ids share a name, and 13 sites only clear the
+-- volume floor once those ids are pooled; grouping by id instead yields
+-- 830 rows with 113 duplicated names. Verified against the committed
+-- result: 731 rows, zero differences.
 -- =====================================================================
 
 WITH base AS (

@@ -1,22 +1,12 @@
 -- =====================================================================
--- Q2 EXTENSION: for each type of care, what does the AFFECTED MEMBER actually
--- pay out of pocket -- median, P75, P90 -- not just the share of the bill?
---
--- WHY THIS EXISTS. q2_patient_cost_by_care_type.sql reports the PERCENTAGE of
--- each care type's bill that members pay, and DATA_ANALYSIS_CONTEXT.md is
--- explicit that a high percentage on a small bill is not the same problem as
--- a high percentage on a large one. This query adds the dollar side: for a
--- member who actually has a claim in that care type, what did they pay,
--- typically (median) and at the high end (P75, P90)? A high SHARE with a low
--- MEDIAN DOLLAR AMOUNT is a nuisance; a high share with a high median dollar
--- amount is a real financial exposure. The two are not interchangeable, and
--- the report should not use "share" language ("burden", "falls hardest") to
--- describe a pattern that is only shown here in percentage terms.
---
--- care_type classification is copied verbatim from
--- q2_patient_cost_by_care_type.sql so the two files' categories match exactly.
---
--- Results: sql/results/q2_oop_percentiles_by_care_type_2020_2024.csv
+-- Q2 extension: for each care type, what does an AFFECTED member
+-- actually pay out of pocket -- median, P75, P90 -- not just the share
+-- of the bill? q2_patient_cost_by_care_type.sql reports the PERCENTAGE
+-- members pay, but a high percentage on a small bill (a nuisance) is not
+-- the same as a high percentage on a large bill (real exposure); this
+-- adds the dollar side so the two are not conflated. Care-type ladder
+-- copied verbatim from q2_patient_cost_by_care_type.sql, so categories
+-- match exactly.
 -- =====================================================================
 
 WITH claim_money AS (

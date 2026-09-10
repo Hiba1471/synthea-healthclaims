@@ -1,29 +1,15 @@
 -- =====================================================================
--- Q3 FOLLOW-UP: which specific conditions bring patients into each kind of site?
+-- Q3 follow-up: q3_care_type_mix_by_site_group.sql shows VA-named sites
+-- lean 64.9% Kidney & urinary with 6.31 repeat visits per condition
+-- against 3.42 elsewhere -- too coarse to say why, since that care type
+-- mixes dialysis with bladder infections. Drops to the specific
+-- condition to rule in or out a third possibility: that the visit count
+-- is neither good access nor unresolved care, but simply dialysis being
+-- three sessions a week for life. Hospice/nursing sites run the same
+-- test for their mirror puzzle (1.0-2.7 visits at up to $16,030 each).
 --
--- q3_site_group_conditions.sql shows 64.9% of visits at veterans' sites are
--- "Kidney & urinary" against 32.0% everywhere else, and that patients there
--- return 6.31 times per condition against 3.42. Care type is too coarse to say
--- why: that group mixes dialysis with bladder infections (see
--- q2_cap_reversal_diagnosis.sql). This drops to the condition itself.
---
--- The question being settled is whether many visits per patient means good
--- continuous care or problems that never resolve. A third possibility has to
--- be ruled in or out first: that the visit count is neither, and is simply the
--- treatment MODALITY. Dialysis is three sessions a week for life. If the VA
--- sites are dominated by end-stage renal disease, their visit count says
--- nothing about care quality at all -- it says what treatment those patients
--- are on.
---
--- Hospice & nursing sites are included as the third group. Their puzzle is the
--- mirror image: 1.0-2.7 visits per patient at up to $16,030 a "visit". Care type
--- cannot distinguish a genuinely costly admission from a long stay counted once,
--- so the condition and the billed-per-visit column are read together.
---
--- Both groups matched on NAME; nothing in the data marks a facility as either.
--- Same patterns as q3_site_group_conditions.sql and q3_two_ways_expensive.py.
---
--- Results: sql/results/q3_site_group_top_conditions_2020_2024.csv
+-- Both groups matched on NAME; nothing in the data marks a facility as
+-- either.
 -- =====================================================================
 
 WITH base AS (

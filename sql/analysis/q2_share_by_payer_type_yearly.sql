@@ -1,28 +1,13 @@
 -- =====================================================================
--- Q2: for the conditions where patients carry the most, how far apart are
---     the insurance types -- and is the gap stable year to year?
---
--- The existing insurance-gap analysis (q2_top10_share_by_payer_type.sql)
--- pools all five years into one number per condition x payer type. This one
--- computes the share SEPARATELY FOR EACH YEAR and then takes the MEDIAN
--- across the five, which is robust to a single odd year rather than letting
--- one year's volume dominate a pooled ratio.
---
--- Lowest year and highest year are emitted alongside the median so the
--- spread is visible: if they sit close to the median, the gap is a standing
--- feature of benefit design, not drift.
---
--- The care-type version of this question is
--- q2_care_type_share_by_payer_type.sql, where the same median-vs-pooled
--- comparison exposes a COVID-driven break in Respiratory & ENT.
---
--- "Everyone" is the blend across all insurance types, carried so a chart can
--- show the figure nobody actually experiences next to the ones people do.
---
--- Population floor of 5,000 people per condition, matching the existing
--- analysis, so a handful of patients cannot top the ranking.
---
--- Results: sql/results/q2_share_by_payer_type_yearly_2020_2024.csv
+-- Q2: for the conditions where patients carry the most, is the
+-- commercial/government gap stable year to year, or is it drift? Unlike
+-- q2_top10_share_by_payer_type.sql, which pools all five years, this
+-- computes each year separately and takes the MEDIAN, so one odd year
+-- cannot dominate the ratio; lowest and highest year are emitted
+-- alongside so the spread is visible. "Everyone" is the blended figure
+-- nobody actually experiences, kept for comparison. Population floor of
+-- 5,000 people per condition, matching q2_top10_share_by_payer_type.sql.
+-- The care-type version is q2_care_type_share_by_payer_type.sql.
 -- =====================================================================
 
 WITH claim_money AS (

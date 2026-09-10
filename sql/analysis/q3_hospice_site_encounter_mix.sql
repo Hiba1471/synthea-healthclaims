@@ -1,42 +1,19 @@
 -- =====================================================================
--- Q3 FOLLOW-UP: what actually happens at the hospice-named sites?
+-- Q3 follow-up, self-correction: dashboard/two_ways_expensive.html reads
+-- 22 hospice-named sites' $2K-$16K per-visit figures as one long stay
+-- counted as one visit. q3_top_conditions_by_site_group.sql then showed
+-- their top conditions are pregnancy and injuries -- not end-of-life
+-- care -- so this checks what actually happens there.
 --
--- WHY THIS EXISTS. dashboard/two_ways_expensive.html marks 22 sites as
--- "hospices -- one whole stay = one visit", explaining their $2,000-$16,030
--- per-visit figures as a whole multi-week stay counted once. That note was
--- built on delayed_claims_tail_2020_2024.csv, which groups by ENCOUNTERCLASS
--- across every organisation. The chart's cluster is defined by organisation
--- NAME. Those are not the same population, and the note assumed they were.
+-- Result: both readings are partly right. Visits are mostly ordinary
+-- same-day ER trips at $2,774 (63.9% of visits, 39.3% of money) -- that
+-- is where the pregnancies and fractures are. But hospice + skilled
+-- nursing encounters (20.3% of visits, 57.9% of money, ~20 days each)
+-- genuinely are long stays, and the per-day rate ($566) still matches
+-- the cheap-per-day reading from delayed_claims_tail. The long-stay
+-- story holds for the MONEY, not for the visit COUNT.
 --
--- q3_site_group_top_conditions.sql exposed the gap: the top conditions at these
--- sites are Normal pregnancy, drug overdose, lacerations, sprains and
--- fractures. That is not end-of-life care, and it should not have been possible
--- under the story the chart was telling.
---
--- WHAT THIS RETURNS. The sites are genuinely hospices and nursing homes -- the
--- names are real, and checked one by one. But their encounters are mixed:
---
---   hospice class    18.1% of visits, 22.3 days each, 50.7% of the money
---   emergency        63.9% of visits,  0.1 days each, 39.3% of the money
---   home             13.1% of visits,  0.0 days,       2.1%
---   snf               2.2% of visits, 19.7 days,       7.2%
---   wellness          2.6% of visits,  0.0 days,       0.7%
---
--- So the long-stay reading holds for the MONEY -- hospice and skilled nursing
--- together are 57.9% of billing at $12,617 and $14,570 a visit across ~20 days
--- -- and that is what lifts the per-visit average. It does NOT hold for the
--- visit COUNT: most visits to these sites are ordinary same-day emergency
--- trips at $2,774, which is an unremarkable price. The pregnancies and
--- fractures are those emergency encounters, not hospice care.
---
--- The per-day rate survives intact: $414,581,221 over 32,859 hospice encounters
--- averaging 22.3 days is about $566 a day, matching the $523-579 quoted from
--- delayed_claims_tail and still among the cheapest care per day in the data.
---
--- Sites matched on NAME; nothing in the data marks a facility as a hospice.
--- Same pattern as q3_site_group_conditions.sql and q3_two_ways_expensive.py.
---
--- Results: sql/results/q3_hospice_site_encounter_mix_2020_2024.csv
+-- Sites matched on NAME; nothing in the data marks a facility as hospice.
 -- =====================================================================
 
 WITH sited AS (

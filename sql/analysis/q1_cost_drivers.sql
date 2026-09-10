@@ -1,31 +1,15 @@
 -- =====================================================================
--- Q1: WHERE DOES THE MONEY GO?
+-- Q1: where does the money go? North star: top N conditions' share of
+-- condition-attributable spend and of all spend, plus cost per patient
+-- (what it costs to treat one person, not one claim). Attribution falls
+-- back to DIAGNOSIS2 when DIAGNOSIS1 is not a real condition.
 --
--- North star: top N conditions as a share of condition-attributable spend
---             ($72,685,492,693) and of all spend ($99,111,300,187).
--- Secondary:  cost PER PATIENT by condition -- what it costs to treat one
---             person, not one claim.
---
--- Attribution: CLAIMS.DIAGNOSIS1 when it is a real condition, else
--- DIAGNOSIS2 (the fallback -- DIAGNOSIS1 is ~65% encounter metadata here).
---
--- TWO COLUMNS ADDED AFTER REVIEW, both to stop a specific misreading:
---
---   Median Cost per Patient -- per-patient spend is heavily right-skewed,
---     so the MEAN overstates the typical case. COVID-19 reads $40,749 mean
---     vs $26,649 median. Per section 6 of DATA_ANALYSIS_CONTEXT.md, prefer
---     the median on skewed distributions. Both are reported so the gap is
---     visible.
---
---   Pct Inpatient -- flags conditions whose patient population is
---     SEVERITY-FILTERED. COVID-19 is 99.9% inpatient: only 23,027 of
---     1,259,375 patients (1.8%) carry the diagnosis at all, because Synthea
---     attaches it to hospitalised cases. So "COVID costs $26,649 per
---     patient" is the cost of a COVID HOSPITALISATION, not of COVID. Any
---     condition with a high inpatient share has the same problem and is not
---     comparable to a broad-population condition like gingivitis.
---
--- Results: sql/results/q1_cost_drivers_2020_2024.csv
+-- Median Cost per Patient is included alongside the mean because
+-- per-patient spend is heavily right-skewed (COVID-19: $40,749 mean vs.
+-- $26,649 median). Pct Inpatient flags conditions whose population is
+-- severity-filtered -- COVID-19 is 99.9% inpatient, so its per-patient
+-- cost is really the cost of a COVID hospitalisation, not of COVID, and
+-- is not comparable to a broad-population condition like gingivitis.
 -- =====================================================================
 
 WITH claim_money AS (
