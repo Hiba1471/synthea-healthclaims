@@ -5,9 +5,9 @@ built on top of it.
 
 Companion documents:
 
-- [`METHODOLOGY.md`](METHODOLOGY.md) — cleaning decisions and every engineered
+- [`METHODOLOGY.md`](METHODOLOGY.md), cleaning decisions and every engineered
   field, with the reasoning.
-- [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) — every defect found in the
+- [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md), every defect found in the
   source, with evidence and resolution.
 
 ---
@@ -16,14 +16,14 @@ Companion documents:
 
 ### Source
 
-**`SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER`** — a Snowflake
+**`SYNTHETIC_HEALTHCARE_DATA_CLINICAL_AND_CLAIMS.SILVER`**: a Snowflake
 share of Synthea-generated synthetic healthcare data. 18 tables, ~2.3B rows.
 
 The share is **read-only**. It cannot be altered, so all corrections live in a
 curated layer rather than being fixed at source, so the source data is never
 modified.
 
-### Curated layer — query these, not the raw tables
+### Curated layer: query these, not the raw tables
 
 **`SYNTHEA_HEALTHCLAIMS.PUBLIC`**
 
@@ -46,7 +46,7 @@ DDL: `sql/ddl/`. Run order: `v_claims_tx_clean.sql` →
 - Data ends **2024-11-09**, so 2024 totals run ~10–15% light. Label
   partial periods; never plot raw Q4 2024 as a decline.
 
-### Reference totals — every analysis must reconcile to one of these
+### Reference totals: every analysis must reconcile to one of these
 
 | Figure | Value |
 |---|---|
@@ -82,10 +82,10 @@ A new number that does not tie to one of these is a bug until proven otherwise.
 | `SUPPLIES` | 25,169,946 | one **supply** | `CODE`, `DESCRIPTION` |
 | `CARE_PLANS` | 3,961,944 | one **care plan** | `CODE`, `DESCRIPTION`, `REASONCODE` |
 
-**Not used:** `OBSERVATIONS` (763M rows, LOINC codes stored as TEXT — cannot
+**Not used:** `OBSERVATIONS` (763M rows, LOINC codes stored as TEXT: cannot
 join to the numeric code fields), `IMAGING_STUDIES` (DICOM), `PAYER_TRANSITIONS`.
 
-### `V_CLAIMS_TX_CLEAN` — column reference
+### `V_CLAIMS_TX_CLEAN`: column reference
 
 Grain unchanged: **one row per `CLAIMS_TX` line item**, filtered to 2020–2024.
 
@@ -97,29 +97,29 @@ Grain unchanged: **one row per `CLAIMS_TX` line item**, filtered to 2020–2024.
 | `TRANSFERTYPE` | whose responsibility: `1` primary payer, `2` secondary, `p` patient |
 | `METHOD` | payment channel: `ECHECK` = insurer; `CASH`/`CHECK`/`CC`/`COPAY` = patient |
 | `PROCEDURECODE`, `IS_ADMIN_NOISE_CODE` | flag is TRUE for code 185347001 |
-| **`BILLED_AMOUNT`** | **derived** — `AMOUNT` on CHARGE rows only, 0 elsewhere |
+| **`BILLED_AMOUNT`** | **derived**, `AMOUNT` on CHARGE rows only, 0 elsewhere |
 | `PAID_AMOUNT` | `PAYMENTS`, already 0 off PAYMENT rows |
-| **`PAID_BY_PAYER`** | **derived** — PAYMENT rows where `METHOD = 'ECHECK'` |
-| **`PAID_BY_PATIENT`** | **derived** — PAYMENT rows where `METHOD <> 'ECHECK'` |
+| **`PAID_BY_PAYER`** | **derived**, PAYMENT rows where `METHOD = 'ECHECK'` |
+| **`PAID_BY_PATIENT`** | **derived**, PAYMENT rows where `METHOD <> 'ECHECK'` |
 | `TRANSFER_AMOUNT` | `TRANSFERS` |
-| `OUTSTANDING_RUNNING_BALANCE` | **renamed deliberately** — see [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) §1.1 |
+| `OUTSTANDING_RUNNING_BALANCE` | **renamed deliberately**, see [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) §1.1 |
 | `PAYER_ID`, `PAYER_NAME`, `PAYER_CITY`, `PAYER_TYPE` | `PAYER_NAME` = the insurer; `PAYER_ID` keys insurer × city |
 | `ENCOUNTERCLASS` | care setting |
 
-The three **derived** columns are marked as such — they do not
+The three **derived** columns are marked as such: they do not
 exist in the source.
 
-### `CODE_DICTIONARY` — column reference
+### `CODE_DICTIONARY`: column reference
 
 | Column | Notes |
 |---|---|
 | `CODE`, `DESCRIPTION` | canonical name; `MODE()` resolves casing variants |
 | `SEMANTIC_TAG` | SNOMED qualifier (`disorder`, `procedure`, `finding`…). Present on 71.6% of codes |
-| `SOURCE_TABLES` | provenance — which tables the code appears in |
+| `SOURCE_TABLES` | provenance, which tables the code appears in |
 | `CODE_CATEGORY` | Condition / Procedure / Encounter type / Medication or vaccine / Device or supply / Substance / Social determinant / Administrative / Mortality event / Imaging |
 | **`IS_CONDITION`** | the flag for ranking conditions by cost |
-| `IS_CLINICAL` | broader — excludes admin, social, devices, venues |
+| `IS_CLINICAL` | broader, excludes admin, social, devices, venues |
 | `CLASSIFIED_BY` | `semantic_tag` (690) / `provenance` (284) / `manual_override` (25) |
 
 `CLASSIFIED_BY` exists so any classification is traceable and correctable with
-a one-line `UPDATE` — so classification is never taken on trust.
+a one-line `UPDATE`, so classification is never taken on trust.

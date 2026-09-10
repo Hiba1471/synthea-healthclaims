@@ -6,9 +6,9 @@ each layer reads only from the one below it.
 
 Companion documents:
 
-- [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md) — every defect found in the source,
+- [`DATA_QUALITY_LOG.md`](DATA_QUALITY_LOG.md): every defect found in the source,
   with evidence and resolution.
-- [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md) — table and column reference for
+- [`DATA_DICTIONARY.md`](DATA_DICTIONARY.md): table and column reference for
   the share and the curated layer.
 
 ---
@@ -27,12 +27,40 @@ measuring the wrong thing.
 
 | Step | What it does | Why |
 |---|---|---|
-| Rebuild money columns | Derive billed and paid from transaction type and payment method | `AMOUNT` is populated on transfer rows too, and `PAYER_ID` records who was billed rather than who paid |
+| Rebuild money columns | Derive billed and paid from transaction type and payment method | `AMOUNT` sits on transfer rows as well as charges, double-counting $23.4B, and `PAYER_ID` records who was billed rather than who paid |
 | Rename, don't drop | `OUTSTANDING` → `OUTSTANDING_RUNNING_BALANCE` | Dropping it sends the next person to the raw table unwarned; the new name makes `SUM()` visibly wrong |
 | Collapse payers | 120 payer rows → 3 plan types | `PAYER_ID` keys an insurer-*city* pair, not an insurer |
 | Apply the window | `FROMDATE` 2020-01-01 to 2024-12-31 | Unfiltered the data runs back to 1914, and volume steps up ~8× in Nov 2019 |
 | Flag admin noise | `IS_ADMIN_NOISE_CODE` on procedure code 185347001 | A single non-clinical code carries $713.7M; flagged rather than deleted so its size stays measurable |
 | Resolve codes | Union eleven source tables into one dictionary | Code fields mix SNOMED, RxNorm and DICOM, so ~30% of diagnosis spend will not join on one table alone |
+| Count claims distinctly | `COUNT(DISTINCT CLAIM_ID)`, never `COUNT(*)` | A claim carries one row per procedure, so counting rows returns exactly twice the true claim count |
+
+### Three worked examples
+
+**Uncollected revenue that wasn't.** `SUM(OUTSTANDING)` came to $45.3 billion,
+which would be a catastrophic unpaid balance. Measured a second way (billed
+minus paid on each claim) it came to roughly zero. Two answers five orders of
+magnitude apart meant one of them was measuring something else. `OUTSTANDING` is
+stamped on every row as money moves through charge, transfer and payment, so
+summing it counts the same balance again at every stage. True uncollected revenue
+is $83,363, the balance on each claim's chronologically last transaction.
+
+**Payments credited to the wrong party.** `PAYER_ID` looked like it identified
+who paid. Tracing one claim through its transfer chain showed responsibility
+shifting to the patient, who then paid directly, while the claim still carried
+the insurer's id. The field records who was *billed*. The real signal is `METHOD`
+on payment rows: `ECHECK` is the insurer, everything else is the member paying
+out of pocket. Without that distinction $20.3 billion of member payments are
+credited to insurers, and the question of what members pay cannot be asked at all.
+
+**A diagnosis field that mostly isn't.** A first pass at "top conditions by cost"
+returned *Full-time employment* and *Medication review due* in its top twelve.
+Testing `DIAGNOSIS1` against the encounter record explained it: about two thirds
+of its values are copied encounter metadata, and only 46.7% are a real condition.
+The convention is inverted: `DIAGNOSIS2` onward get progressively cleaner. The
+resolution was a code dictionary flagging which codes are genuine conditions, then
+taking `DIAGNOSIS1` when it qualifies and falling back to `DIAGNOSIS2` when it
+does not, recovering 5.9 million claims.
 
 Rows are never dropped for being unusual. Exclusions are expressed as flags, so
 any analysis can put them back and see what changed.
@@ -44,7 +72,7 @@ Full detail, including how each defect was found and what it cost, is in
 
 ## Engineered fields
 
-### Layer 1 — `V_CLAIMS_TX_CLEAN`
+### Layer 1: `V_CLAIMS_TX_CLEAN`
 
 Source: [`sql/ddl/v_claims_tx_clean.sql`](sql/ddl/v_claims_tx_clean.sql)
 
@@ -61,16 +89,16 @@ Source: [`sql/ddl/v_claims_tx_clean.sql`](sql/ddl/v_claims_tx_clean.sql)
 
 **Money rows are not interchangeable.** `BILLED_AMOUNT` is non-zero only on
 charge rows; the paid columns only on payment rows. No row carries both. A
-filter that looks harmless — `BILLED_AMOUNT > 0` — silently drops every payment
+filter that looks harmless, `BILLED_AMOUNT > 0`, silently drops every payment
 row and returns $0.00 for member cost. This is the single easiest mistake to
 make against this view.
 
-### Layer 2 — `CODE_DICTIONARY`
+### Layer 2: `CODE_DICTIONARY`
 
 Source: [`code_dictionary_raw.sql`](sql/ddl/code_dictionary_raw.sql),
 [`code_dictionary_classify.sql`](sql/ddl/code_dictionary_classify.sql)
 
-One row per clinical code seen anywhere in the share — 1,453 of them — built as
+One row per clinical code seen anywhere in the share, 1,453 of them, built as
 a table rather than a view because it is small, it saves rescanning ~356M rows
 per lookup, and it can be hand-corrected where a derived classification is wrong.
 
@@ -82,7 +110,7 @@ per lookup, and it can be hand-corrected where a derived classification is wrong
 | `IS_CLINICAL` | Wider: condition, procedure or similar | For questions about clinical versus administrative activity |
 | `CLASSIFIED_BY` | `semantic_tag` / `provenance` / `manual_override` | Records **how** each row was decided, so any classification can be traced and overridden rather than taken on trust |
 
-### Layer 3 — `V_CLAIMS_TX_WITH_CARETYPE`
+### Layer 3: `V_CLAIMS_TX_WITH_CARETYPE`
 
 Source: [`sql/ddl/v_claims_tx_with_caretype.sql`](sql/ddl/v_claims_tx_with_caretype.sql)
 
@@ -91,7 +119,7 @@ Source: [`sql/ddl/v_claims_tx_with_caretype.sql`](sql/ddl/v_claims_tx_with_caret
 | `PRIMARY_CONDITION` | `DIAGNOSIS1` when it is a real condition, else `DIAGNOSIS2` | Only 46.7% of `DIAGNOSIS1` values are a condition; the fallback recovers 5.9M claims |
 | `CARE_TYPE` | One of fifteen groups from an ordered rule ladder, defaulting to `No diagnosis on claim` | Conditions are too granular to act on; the default keeps undiagnosed spend visible rather than silently dropping a quarter of the money |
 | `FACILITY_ID` | `ENCOUNTERS.ORGANIZATION_ID` | Facility *names* are not unique, and unmatched rows collapse into one blank bucket that ranks near the top |
-| `PATIENT_STATE` | `PATIENTS.STATE` | Where the member lives — not the same as `FACILITY_STATE`, where care was delivered |
+| `PATIENT_STATE` | `PATIENTS.STATE` | Where the member lives, not the same as `FACILITY_STATE`, where care was delivered |
 | `SERVICE_MONTH`, `SERVICE_QUARTER` | Derived from `FROMDATE` | Trend grains below year |
 
 **On the care-type ladder.** Rules are tested in order and the first match wins,
@@ -102,7 +130,7 @@ gallbladder patients as kidney disease. The ladder is duplicated across fifteen
 files, so a checker compares every copy and fails if any branch, keyword or
 position differs.
 
-### Layer 4 — aggregate tables
+### Layer 4: aggregate tables
 
 Source: [`sql/ddl/powerbi_model_build.sql`](sql/ddl/powerbi_model_build.sql)
 
@@ -124,9 +152,9 @@ Each of these could reasonably have gone the other way. They are listed so a
 reader can disagree with a specific decision rather than the whole result.
 
 - **The `DIAGNOSIS2` fallback** attributes a claim's full cost to a nominally
-  *secondary* diagnosis. Both cuts are kept on disk — position-1-only
+  *secondary* diagnosis. Both cuts are kept on disk, position-1-only
   (`condition_cost_clean.sql`, $68.17B) and with fallback
-  (`condition_cost_with_fallback.sql`, $72.69B) — because it is a trade-off, not
+  (`condition_cost_with_fallback.sql`, $72.69B), because it is a trade-off, not
   a strict improvement.
 - **`Stress` is classified as a social determinant, not a condition.** Reversible
   with a one-line update to `CODE_DICTIONARY`.
@@ -159,7 +187,7 @@ Every figure reconciles to a fixed anchor before it reaches the report:
 A query that does not tie out is wrong until shown otherwise. Several queries
 carry their own acceptance check that prints `PASS` or `CHECK`, so a bad run
 announces itself rather than looking plausible, and findings were tested more
-than one way before being written up — concentration across four separate
+than one way before being written up: concentration across four separate
 groupings, member-paid share re-checked inside each line of business, and the
 three headline findings retested against the documented pricing defect.
 
@@ -171,12 +199,12 @@ Bugs found in the analysis itself are recorded alongside the source defects in
 ## Limitations
 
 The data is synthetic. Synthea prices some conditions far above real-world
-benchmarks — a normal pregnancy at roughly 8.6× a comparable real figure, with
+benchmarks, a normal pregnancy at roughly 8.6× a comparable real figure, with
 eleven of the twenty highest-cost conditions carrying a similar gap. Ratios
 survive this because scaling a bill and its payment by the same factor cancels
 out; absolute dollar figures do not.
 
-Collection is modelled at 100% — no denials, write-offs or A/R aging — so
+Collection is modelled at 100%, with no denials, write-offs or A/R aging, so
 reimbursement-gap and bad-debt analyses return zero by construction rather than
 because performance is perfect. Data ends 9 November 2024, so 2024 totals run
 roughly 15% light; ratios are fine, annual totals are not comparable.

@@ -375,7 +375,7 @@ figure below that can be split by line of business has been.</p>
 affordable for every member, in every place they seek care, judged by what a member actually pays
 rather than by what the plan spends, and held equally across commercial and government lines. That
 is why member-paid share is a headline metric rather than an appendix. One caveat: it is a
-percentage of the bill, not a measure of hardship &mdash; a high share of a small bill and of a
+percentage of the bill, not a measure of hardship: a high share of a small bill and of a
 large one are different things.</p>
 <h2 class="sec">About the data</h2>
 <p>Claims were drawn from a read-only Snowflake share,
@@ -408,7 +408,7 @@ than one way: concentration across four separate groupings, member-paid share re
 line of business on its own, and facility spread retested with every procedure repriced to a common
 rate.</p>
 <p><strong>A known pricing defect.</strong> Synthea prices some conditions far above real-world
-benchmarks &mdash; a normal pregnancy at roughly 8.6&times; a comparable real figure
+benchmarks: a normal pregnancy at roughly 8.6&times; a comparable real figure
 (Peterson-KFF, 2022), and eleven of the twenty highest-cost conditions carry a similar documented
 gap. Three bounded &ldquo;what if&rdquo; tests were run against those eleven; none rescales anything
 in the underlying data.</p>
@@ -434,7 +434,7 @@ production data</li>
 <li>Actuarial pricing or reserving</li>
 <li>Benefit-design changes made on these figures alone</li>
 <li>Real-world cost forecasts without separate validation against actual claims</li>
-<li>Judging whether a facility is efficient, or whether members skip preventive care &mdash; neither
+<li>Judging whether a facility is efficient, or whether members skip preventive care, neither
 is observable in this data</li>
 <li>Anything about denials, collections or bad debt: every claim here is paid in full</li>
 <li>Benchmarking this membership&rsquo;s health against the real market</li>
@@ -778,7 +778,7 @@ patients pay 28.0% of it
 <div class="prose"><p>Both charts measure member-paid SHARE: the proportion of a bill met by the member rather than the plan, not a dollar amount and not a measure of financial hardship on its own. The bars rank the fifteen types of care by that share; the scatter plots the same share against cost per person, sized by how many people it reaches. Share runs from 8.3% to 38.9%, median 20.6%, and it moves inversely with cost: blood disorders leads at 38.9% on $1,802 average cost a person, diabetes follows at 36.6% on $1,675, while cancer sits at 8.3% on $104,622. That slope holds across all fifteen points without exception, and it survives price correction: the rank correlation between share and cost per person stays at about &minus;0.6 either way (the second decimal depends on how one tied pair is ranked, so it is not quoted), the median share stays at 20.6% and the top at 38.9%, with only the bottom of the range shifting to 7.4%. One illustration does NOT survive it, and is left out above for that reason: allergy and immune care reads as 10.0% on $175,111 a person as billed, a textbook expensive-care-low-share case, but its price carries the largest documented gap in this dataset (roughly 89 times), and corrected it becomes 15.0% on $2,432, which is cheap care at a middling share and illustrates nothing. Cancer is used instead because it holds its shape, at 7.4% on $41,007 corrected. But share and the actual dollar amount an affected member pays are a separate question, answered in the table below rather than by either chart above.</p></div>
 <div class="minitable"><p class="mtcap">What an affected member actually paid, by type of care (five-year total; <code>q2_oop_percentiles_by_care_type.sql</code>)</p><table><thead><tr><th>Type of care</th><th>Share rank</th><th>Median $ paid</th><th>P90 $ paid</th></tr></thead><tbody><tr><td>Maternity</td><td>10th by share (17.0%)</td><td>$10,765</td><td>$64,681</td></tr><tr><td>Dental &amp; oral</td><td>4th by share (27.9%)</td><td>$1,358</td><td>$9,497</td></tr><tr><td>Diabetes &amp; metabolic</td><td>2nd by share (36.6%)</td><td>$233</td><td>$1,502</td></tr><tr><td>Blood disorders</td><td>1st by share (38.9%)</td><td>$179</td><td>$2,049</td></tr></tbody></table><p class="mtnote">The two categories with the highest SHARE (blood disorders, diabetes) have the lowest typical dollar exposure of the four shown. Maternity, 10th by share, has by far the highest, both typically (median) and at the high end (P90). Share and dollar exposure are different findings and should not be described with the same word.</p></div>
 <div class="sowhat"><p class="swhd">So what</p><p>Member-paid share is highest on the cheapest, most routine care, and reach sets a ceiling on how many members a change to any one category could affect: dental, the widest-reaching high-share category, could reach up to 938,009 members, against 67,419 for blood disorders. But share is not dollar exposure. The category with the highest real financial exposure at the tail is maternity, whose share ranks only 10th, so a plan built around the share ranking alone would look past the largest dollar amounts members are actually paying. Hardship is not measured directly here (income, savings, or ability to pay are not in this dataset), so &ldquo;highest dollar exposure&rdquo; here means the largest amount paid, not the largest burden felt.</p></div>
-<div class="examined"><p class="exhd">What was examined</p><ul><li>Member share by type of care, with total bill and number of people alongside.</li><li>Whether the pattern holds inside one line of business. It strengthens.</li><li>The two care types that looked like exceptions. Neither is: one is skewed by a few very large claims, the other is 90.2% government-funded.</li><li>What an affected member actually paid in dollars, which does not track the share ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).</li><li>Whether the 20.4% headline survives price correction. It rises to 23.3% while the dollars fall to $11.4B &mdash; a mix effect, not members paying more (<code>q1_robustness_three_findings.sql</code>).</li></ul></div>
+<div class="examined"><p class="exhd">What was examined</p><ul><li>Member share by type of care, with total bill and number of people alongside.</li><li>Whether the pattern holds inside one line of business. It strengthens.</li><li>The two care types that looked like exceptions. Neither is: one is skewed by a few very large claims, the other is 90.2% government-funded.</li><li>What an affected member actually paid in dollars, which does not track the share ranking (<code>q2_oop_percentiles_by_care_type.sql</code>).</li><li>Whether the 20.4% headline survives price correction. It rises to 23.3% while the dollars fall to $11.4B, a mix effect, not members paying more (<code>q1_robustness_three_findings.sql</code>).</li></ul></div>
 <details class="sources"><summary>Sources for this finding , 6 queries</summary><ul><li><a href="../sql/analysis/q2_who_pays.sql"><code>q2_who_pays.sql</code></a> <a class="csv" href="../sql/results/q2_who_pays_2020_2024.csv">results</a> : the 20.4% member share, $20.3B, $16,084 each, and the 41.6% against 8.6% split by kind of visit</li><li><a href="../sql/analysis/q2_patient_cost_by_care_type.sql"><code>q2_patient_cost_by_care_type.sql</code></a> <a class="csv" href="../sql/results/q2_patient_cost_by_care_type_2020_2024.csv">results</a> : member share by type of care, including blood disorders at 38.9% and dental at 27.9% of $11.83B</li><li><a href="../sql/analysis/q2_pattern_within_payer.sql"><code>q2_pattern_within_payer.sql</code></a> <a class="csv" href="../sql/results/q2_pattern_within_payer_2020_2024.csv">results</a> : that the pattern strengthens rather than dissolves inside a single line of business</li><li><a href="../sql/analysis/q2_pattern_breakers.sql"><code>q2_pattern_breakers.sql</code></a> <a class="csv" href="../sql/results/q2_pattern_breakers_2020_2024.csv">results</a> : the two care types that appear to break the rule, and why neither does</li><li><a href="../sql/analysis/q2_oop_percentiles_by_care_type.sql"><code>q2_oop_percentiles_by_care_type.sql</code></a> <a class="csv" href="../sql/results/q2_oop_percentiles_by_care_type_2020_2024.csv">results</a> : the dollar side: median/P75/P90 out-of-pocket per affected member by type of care, which reorders the finding sharply</li><li><a href="../sql/analysis/q1_robustness_three_findings.sql"><code>q1_robustness_three_findings.sql</code></a> <a class="csv" href="../sql/results/q1_robustness_three_findings_2020_2024.csv">results</a> : that the 20.4% headline does NOT survive price correction: it rises to 23.3% while the dollars members pay fall to $11.4B, a mix effect</li></ul></details>
 </section>
 <section class="finding"><h3><span class="fno">Finding 3</span>A commercial member can pay ten times what a government member pays for the same condition</h3>
@@ -914,7 +914,7 @@ patients pay 28.0% of it
 <figcaption><span class="fignum">Figure 7.</span> The same finding drawn as curves: working down each ranked list, how fast spending accumulates. <strong>The dashed diagonal is what perfectly even spending would look like</strong>. The further a curve bows above it, the more concentrated that group is.</figcaption></figure>
 <div class="prose"><p>Both charts show how much of a group is needed to reach half of all spending. The bars give the threshold: 86 of 3,918 facilities, against 134,198 of 1,259,375 members. They are drawn as a share of each group rather than as counts, because there are 321 times more members than facilities: 2.2% against 10.7%. The curves show the same relationship continuously, with the dashed diagonal marking perfectly even spending, and the separation widens along their whole length: the priciest 1% of facilities account for 32.5% of spending against 11.8% for the priciest 1% of members, and by the 10% mark the figures are 86.2% and 48.2%. The facility curve bows sharply throughout; the member curve stays close to even.</p></div>
 <div class="sowhat"><p class="swhd">So what</p><p>Attention aimed at facilities can be exhaustive, because 86 is a list a team can finish. Attention aimed at members cannot: reaching the same half of spending means reaching 134,198 people, so member-level work has to be selective on some basis this data does not supply.</p></div>
-<div class="examined"><p class="exhd">What was examined</p><ul><li>Concentration measured four ways &mdash; by member, facility, condition and care type &mdash; to check it was not an artefact of one grouping.</li><li>Whether 86 against 134,198 is a fair comparison. Corrected for group size it is 2.2% against 10.7%.</li><li>How this compares with real claims. This population is flatter: the top 1% carry 11.8% here against roughly 20&ndash;25% in AHRQ MEPS, so real member concentration could be tighter than shown.</li><li>Whether the 11.8% survives price correction. It moves in both directions (15.4% correcting pregnancy alone, 12.5% correcting all eleven), so the exact figure is not settled; that spend concentrates in a minority of patients is the durable part.</li></ul></div>
+<div class="examined"><p class="exhd">What was examined</p><ul><li>Concentration measured four ways, by member, facility, condition and care type, to check it was not an artefact of one grouping.</li><li>Whether 86 against 134,198 is a fair comparison. Corrected for group size it is 2.2% against 10.7%.</li><li>How this compares with real claims. This population is flatter: the top 1% carry 11.8% here against roughly 20&ndash;25% in AHRQ MEPS, so real member concentration could be tighter than shown.</li><li>Whether the 11.8% survives price correction. It moves in both directions (15.4% correcting pregnancy alone, 12.5% correcting all eleven), so the exact figure is not settled; that spend concentrates in a minority of patients is the durable part.</li></ul></div>
 <details class="sources"><summary>Sources for this finding , 3 queries</summary><ul><li><a href="../sql/analysis/q3_concentration.sql"><code>q3_concentration.sql</code></a> <a class="csv" href="../sql/results/q3_concentration_2020_2024.csv">results</a> : the 86 facilities and 134,198 members, and the 2.2% against 10.7% comparison</li><li><a href="../sql/analysis/q3_lorenz_points.sql"><code>q3_lorenz_points.sql</code></a> <a class="csv" href="../sql/results/q3_lorenz_points_2020_2024.csv">results</a> : the curve coordinates behind Figure 7</li><li><a href="../sql/analysis/q3_top_entities.sql"><code>q3_top_entities.sql</code></a> <a class="csv" href="../sql/results/q3_top_entities_2020_2024.csv">results</a> : which specific facilities and conditions make up the concentrated half</li></ul></details>
 </section>
 <section class="finding"><h3><span class="fno">Finding 5</span>The expensive facilities are not overcharging; they treat different patients</h3>
@@ -3184,8 +3184,8 @@ often people need care, about three visits a week, not because of inflated price
 sound, and 37,037 members is small enough to review case by case. Gingivitis, at 800,475 members, is
 expensive for the opposite reason and needs a population-level approach instead.</p>
 <p class="rec-body"><span class="rec-label">What it gets you:</span> A concrete site-of-care question
-with an answer at the end of it &mdash; whether dialysis should sit in a hospital outpatient
-department or a freestanding centre &mdash; which is one of the few levers that moves cost without
+with an answer at the end of it, whether dialysis should sit in a hospital outpatient
+department or a freestanding centre, which is one of the few levers that moves cost without
 touching what members receive.</p>
 </div>
 
@@ -3201,15 +3201,13 @@ in all five years. It is also untouched by the pricing problem, so this one can 
 repricing work happens.</p>
 <p class="rec-body"><span class="rec-label">What it gets you:</span> This is the clearest
 affordability gap in the report, and it sits inside plan design rather than in provider prices, so
-Calder can act on it alone. Closing it moves the mission metric &mdash; what a member actually pays
-&mdash; on two conditions where cost is a known reason people stop treatment.</p>
+Calder can act on it alone. Closing it moves the mission metric, what a member actually pays, on two conditions where cost is a known reason people stop treatment.</p>
 </div>
 
 <div class="rec-block">
 <h4>4. Work through the 86 facilities as a case-mix question, not a pricing one</h4>
 <p class="rec-body"><span class="rec-label">What to do:</span> Name the 86 facilities from
-<code>q3_top_entities.sql</code> and sort them into three groups before any network conversation
-&mdash; the 12 dialysis-heavy sites, the 22 hospices and nursing homes, and the rest
+<code>q3_top_entities.sql</code> and sort them into three groups before any network conversation, the 12 dialysis-heavy sites, the 22 hospices and nursing homes, and the rest
 (<strong><em>Figure 8</em></strong>). Within that review, look at where pregnancies are delivered:
 95.5% of women give birth on site at the cheapest facilities against 6.8% at the most expensive. Do
 not open price negotiations on the strength of these figures, and do not build the member equivalent
@@ -3218,7 +3216,7 @@ of this list.</p>
 spending; reaching the same half through members takes 134,198 people
 (<strong><em>Figures 6 and 7</em></strong>). Repricing every procedure to the same rate barely
 changes the gap between the cheapest and most expensive facility, from 15.8&times; to 15.2&times;, so
-the difference is what facilities treat, not what they charge &mdash; and real negotiated rates are
+the difference is what facilities treat, not what they charge, and real negotiated rates are
 not in this dataset at all. Member-level concentration also moved in both directions under testing,
 so it is not solid enough to size a program against.</p>
 <p class="rec-body"><span class="rec-label">What it gets you:</span> A network review that can be

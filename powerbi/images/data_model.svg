@@ -8,7 +8,7 @@
   <rect width="1040" height="900" fill="#ffffff"/>
 
   <!-- ================= ZONE A : connected star ================= -->
-  <text x="28" y="38" font-size="17" font-weight="700" fill="#1f4a40">Connected — star schema</text>
+  <text x="28" y="38" font-size="17" font-weight="700" fill="#1f4a40">Connected: star schema</text>
   <text x="28" y="58" font-size="13" fill="#5b6b66">Every relationship is one-to-many, filtering in a single direction: dimension into the fact table.</text>
 
   <!-- DIM_YEAR -->
@@ -98,7 +98,7 @@
   <line x1="28" y1="652" x2="1012" y2="652" stroke="#dde5e3" stroke-width="1"/>
 
   <!-- ================= ZONE B : disconnected ================= -->
-  <text x="28" y="686" font-size="17" font-weight="700" fill="#4b5563">Disconnected — no relationships</text>
+  <text x="28" y="686" font-size="17" font-weight="700" fill="#4b5563">Disconnected: no relationships</text>
   <text x="28" y="706" font-size="13" fill="#6b7280">Read straight by their own visuals. They cover the whole 2020–2024 window and do not respond to the slicers.</text>
 
   <g>

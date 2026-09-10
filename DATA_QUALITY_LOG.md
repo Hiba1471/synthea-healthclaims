@@ -7,8 +7,8 @@ cost to miss it, and how it was resolved.
 
 The source is a **read-only Snowflake share**, so nothing could be fixed at
 source. Every resolution is a correction layer in
-`SYNTHEA_HEALTHCLAIMS.PUBLIC` — a view (`V_CLAIMS_TX_CLEAN`) and a table
-(`CODE_DICTIONARY`) — defined in [`sql/ddl/`](sql/ddl/).
+`SYNTHEA_HEALTHCLAIMS.PUBLIC`, a view (`V_CLAIMS_TX_CLEAN`) and a table
+(`CODE_DICTIONARY`), defined in [`sql/ddl/`](sql/ddl/).
 
 Issues are ordered by how much damage they do if missed, not by when they were
 found. The last section covers **bugs in my own analysis**, which were roughly
@@ -16,7 +16,7 @@ as numerous as the ones in the data.
 
 ---
 
-## Tier 1 — silent wrong answers
+## Tier 1: silent wrong answers
 
 These return plausible, confident, wrong numbers. No error, no null, no
 warning. They are the reason a curated layer exists at all.
@@ -25,7 +25,7 @@ warning. They are the reason a curated layer exists at all.
 
 | | |
 |---|---|
-| **Symptom** | `SUM(OUTSTANDING)` returns **$45,314,446,541** — reads as a catastrophic unpaid balance |
+| **Symptom** | `SUM(OUTSTANDING)` returns **$45,314,446,541**: reads as a catastrophic unpaid balance |
 | **Reality** | Genuinely uncollected revenue is **$83,363.50** |
 | **Error factor** | ~543,000× |
 | **How found** | Cross-checking the A/R figure against per-claim billed-minus-paid, which came to ~$0. The two answers disagreed by five orders of magnitude. |
@@ -36,7 +36,7 @@ non-zero value at each intermediate step even though it settles to zero.
 Summing all rows counts the same balance repeatedly at every stage of its life.
 
 **Resolution.** Exposed in the view as `OUTSTANDING_RUNNING_BALANCE`. The
-column was deliberately *renamed rather than dropped* — hiding it would push
+column was deliberately *renamed rather than dropped*: hiding it would push
 anyone who needs terminal A/R back to the raw table with no warning attached,
 whereas a name that says "running balance" makes `SUM()` self-evidently wrong
 at the point of writing it.
@@ -63,7 +63,7 @@ charge and again each time it is transferred.
 Summing it cannot double-count.
 
 **Note.** The original project brief asserted "`AMOUNT` only exists on CHARGE
-rows." That was wrong — restricting to CHARGE is correct, but for a different
+rows." That was wrong: restricting to CHARGE is correct, but for a different
 reason than stated.
 
 ### 1.3 `PAYER_ID` records who was *billed*, not who *paid*
@@ -73,7 +73,7 @@ reason than stated.
 | **Symptom** | Attributes **$20.3B** of patient out-of-pocket payments to insurers |
 | **How found** | Tracing a single claim through the transfer chain: responsibility shifted to the patient, who then paid directly |
 
-**Resolution.** `METHOD` on PAYMENT rows identifies the payment channel —
+**Resolution.** `METHOD` on PAYMENT rows identifies the payment channel:
 `ECHECK` is the insurer's ($129.5B), while `CASH` / `CHECK` / `CC` / `COPAY`
 are the patient paying directly ($31.4B). Pre-computed in the view as
 `PAID_BY_PAYER` and `PAID_BY_PATIENT`.
@@ -93,7 +93,7 @@ Testing against the encounter record explained why: on a 1% sample, **50.6%**
 of `DIAGNOSIS1` values are copied from `ENCOUNTERS.REASONCODE` and **13.9%**
 from `ENCOUNTERS.CODE`. About two-thirds is encounter metadata, not an illness.
 
-The convention is also **inverted** — `DIAGNOSIS2`–`8` contain zero procedure
+The convention is also **inverted**: `DIAGNOSIS2`–`8` contain zero procedure
 codes and get progressively cleaner (59.8% → 98% conditions). The primary
 position is the dirtiest one.
 
@@ -105,8 +105,8 @@ position is the dirtiest one.
    otherwise `DIAGNOSIS2`. Recovers **5,939,894 claims** whose only real
    diagnosis sits in position 2; coverage 46.7% → 55.4%.
 
-Both cuts are kept on disk — `condition_cost_clean.sql` (position 1 only,
-conservative) and `condition_cost_with_fallback.sql` — because the fallback
+Both cuts are kept on disk, `condition_cost_clean.sql` (position 1 only,
+conservative) and `condition_cost_with_fallback.sql`, because the fallback
 attributes a claim's full cost to a nominally *secondary* diagnosis, which is
 a real trade-off rather than a strict improvement.
 
@@ -123,7 +123,7 @@ procedures, 7.1% drug codes billed as lines, 0.9% encounter types.
 
 ---
 
-## Tier 2 — wrong scope or grain
+## Tier 2: wrong scope or grain
 
 Not silently wrong, but wrong if you assume the obvious.
 
@@ -158,7 +158,7 @@ Q4 2024 so charts can dash or drop it, and indexes series to Q1 2020 = 100.
 `PAYER_ID` keys an insurer–*city* pair (10 insurers × 12 simulated cities).
 Grouping by it fragments Medicare into twelve pieces.
 
-**This is a grain trap, not corrupt data** — each row carries genuine per-city
+**This is a grain trap, not corrupt data**: each row carries genuine per-city
 figures (Cleveland Medicare 128,452 customers vs Salt Lake City 5,404). An
 earlier draft of this log wrongly listed it as a defect.
 
@@ -170,13 +170,13 @@ noticed.
 ### 2.5 Claim counts are not additive across procedure rows
 
 Summing a "number of claims" column across procedure rows gives 249.0M against
-124.1M actual claims — exactly **2.0×**, because the average claim carries two
+124.1M actual claims: exactly **2.0×**, because the average claim carries two
 procedures and is counted under each. **Resolution:** documented in
 `sql/results/README.md`; correct within a row, never summed across rows.
 
 ---
 
-## Tier 3 — dead and constant columns
+## Tier 3: dead and constant columns
 
 Visible on inspection, so low risk, but they waste analysis time.
 
@@ -187,37 +187,37 @@ Visible on inspection, so low risk, but they waste analysis time.
 | `CLAIMS_TX` | MODIFIER1, MODIFIER2, LINENOTE | 100% null |
 | `CLAIMS_TX` | ADJUSTMENTS (always 0), UNITS (always 1), FEESCHEDULEID (always 1), DIAGNOSISREF1–4 (each a fixed constant) | zero variance |
 | `PROVIDERS` | SPECIALITY (1 distinct value), PROCEDURES (always 0) | zero variance |
-| `PROVIDERS` | ZIP | corrupt — stored as NUMBER, max 981,172,207 |
-| `PATIENTS` | PASSPORT | distinct count (1.12M) exceeds non-null rows — uniqueness assumption unsafe |
-| `CLAIMS_TX` | — | 4 stray rows with blank `TRANSFERTYPE`, $647 total |
+| `PROVIDERS` | ZIP | corrupt, stored as NUMBER, max 981,172,207 |
+| `PATIENTS` | PASSPORT | distinct count (1.12M) exceeds non-null rows, uniqueness assumption unsafe |
+| `CLAIMS_TX` |: | 4 stray rows with blank `TRANSFERTYPE`, $647 total |
 
 **Resolution.** The 12 fully-null and 7 constant `CLAIMS_TX`/`CLAIMS` columns
 are simply not projected by the view. Found by a full-column profile pass
-(`sql/results/profile_*.csv`) — null rate, distinct count, min/max/avg per
+(`sql/results/profile_*.csv`): null rate, distinct count, min/max/avg per
 column, 1% sample on the four largest tables.
 
 ---
 
-## Tier 4 — structural limits of synthetic data
+## Tier 4: structural limits of synthetic data
 
 Not defects. Properties of how Synthea generates data that **invalidate whole
 categories of analysis**. Naming them is more useful than working around them.
 
-### 4.1 Collection is 100% — no denials, write-offs or bad debt
+### 4.1 Collection is 100%: no denials, write-offs or bad debt
 
 Total charges ($160.86B all-time) equal total payments. `ADJUSTMENTS` is 0 on
 every one of 887M rows. **Any reimbursement-gap or bad-debt analysis returns
 zero by construction.** Verified across 9,054 procedure × payer combinations:
 net gap **−$1,392**, with 13 non-zero rows whose maximum is $408 of rounding.
 
-### 4.2 Payment is same-day — no A/R aging
+### 4.2 Payment is same-day: no A/R aging
 
 **98.66%** of claims are paid the day they are charged; median 0 days, p99 1
 day. Days-in-A/R is not modelled.
 
 The 1.3% tail is not payment lag either: elapsed time tracks *encounter
 duration* almost exactly (ratio 0.88–1.07 across every class) and concentrates
-in skilled nursing (99.5% of its claims) and hospice (94.1%) — inherently
+in skilled nursing (99.5% of its claims) and hospice (94.1%): inherently
 multi-week stays. The claim stays open while charges accumulate; each charge is
 still settled immediately.
 
@@ -236,7 +236,7 @@ Rankings hold; absolute magnitudes do not.
 
 ### 4.5 Hospital spend rankings track simulated city size
 
-9 of the top 10 hospitals by total spend are in Cleveland — the most heavily
+9 of the top 10 hospitals by total spend are in Cleveland, the most heavily
 populated simulated city, not a clinical fact. **Resolution:** report hospital
 **cost per patient** instead, which normalises away population size and
 survives the artifact ($4,401–$144,422 across 731 sites with ≥1,000 patients).
@@ -260,12 +260,12 @@ data issues, which is the honest ratio on work of this size.
 | # | Bug | How caught | Fix |
 |---|---|---|---|
 | 1 | `.REASON` checked before concrete tables, so `Total knee replacement` classified as a **Condition** | Spot-checking 10 sample classifications | Reordered precedence: a table naming the thing beats a `.REASON` citation |
-| 2 | `LIKE '%PROCEDURES%'` also matches inside `'PROCEDURES.REASON'` | Same check — the ordering was unreliable in both directions | Exact token match: `', ' \|\| SOURCE_TABLES \|\| ', ' LIKE '%, PROCEDURES, %'` |
-| 3 | `MEDICATIONS.REASON` mapped to "Medication or vaccine" — backwards | Caught while writing the plan, before execution | `.REASON` columns hold the *diagnosis*, not the drug |
-| 4 | `ALLERGIES` omitted from the provenance chain — 6 drug allergens fell to `Other`, `Soy bean` became a Condition | Auditing all 284 provenance-classified rows | Added an `ALLERGIES` branch ahead of the `.REASON` fallback |
+| 2 | `LIKE '%PROCEDURES%'` also matches inside `'PROCEDURES.REASON'` | Same check; the ordering was unreliable in both directions | Exact token match: `', ' \|\| SOURCE_TABLES \|\| ', ' LIKE '%, PROCEDURES, %'` |
+| 3 | `MEDICATIONS.REASON` mapped to "Medication or vaccine", backwards | Caught while writing the plan, before execution | `.REASON` columns hold the *diagnosis*, not the drug |
+| 4 | `ALLERGIES` omitted from the provenance chain, 6 drug allergens fell to `Other`, `Soy bean` became a Condition | Auditing all 284 provenance-classified rows | Added an `ALLERGIES` branch ahead of the `.REASON` fallback |
 | 5 | Semantic tag `event` mapped to Condition, making `Death in hospital` a treatable condition | Same audit | Remapped; 5 completed-death codes moved to a `Mortality event` category |
-| 6 | Unknown semantic tags dead-ended at `Other`. The tag regex also produced a false positive — `Hib (PRP-OMP)` yielded tag `prp-omp` | Three rows left in `Other` after a fix that should have emptied it | Only *recognised* tags use the tag branch; everything else falls through to provenance |
-| 7 | Dictionary missed 402 `PROCEDURECODE` codes worth **$5.72B** | Checking coverage of every code field, not just the diagnosis ones | Added `MEDICATIONS.CODE` (RxNorm) and imaging body sites — resolution 94.3% → 100% |
+| 6 | Unknown semantic tags dead-ended at `Other`. The tag regex also produced a false positive, `Hib (PRP-OMP)` yielded tag `prp-omp` | Three rows left in `Other` after a fix that should have emptied it | Only *recognised* tags use the tag branch; everything else falls through to provenance |
+| 7 | Dictionary missed 402 `PROCEDURECODE` codes worth **$5.72B** | Checking coverage of every code field, not just the diagnosis ones | Added `MEDICATIONS.CODE` (RxNorm) and imaging body sites: resolution 94.3% → 100% |
 | 8 | Used **$160.86B** as total spend | It is the all-time figure; the analysis window total is $99.83B | Corrected before it reached any output |
 | 9 | Presented before/after rankings as a side-by-side table, implying a row-to-row mapping that did not exist | The user read across a row and asked how lung carcinoma became COVID-19 | Re-presented as two separate lists plus an explicit "what was removed" table |
 
@@ -284,10 +284,10 @@ assumed:
 | Check | Result |
 |---|---|
 | Payer burden reproduced through the view vs the hand-written query | Matched on all 10 rows **to the cent** ($99,111,300,187.66) |
-| Condition results after the 999 → 1,453 code dictionary rebuild | **Byte-identical** across all 1,721 rows — 0 cells differed |
+| Condition results after the 999 → 1,453 code dictionary rebuild | **Byte-identical** across all 1,721 rows, 0 cells differed |
 | Every code field resolves against the dictionary | **100%** on `DIAGNOSIS1`–`8` and `PROCEDURECODE` |
 | Concentration curves monotonic and terminating at 100% | Pass, all three grains |
-| Percentiles show median < mean at every grain (right skew) | Pass — ratios 2.6× to 5.3× |
+| Percentiles show median < mean at every grain (right skew) | Pass, ratios 2.6× to 5.3× |
 | Spend totals reconcile across every independent analysis | $99,111,300,187 |
 
 ---
@@ -303,6 +303,6 @@ assumed:
 | Bugs in my own analysis | 9 | Fixed and logged |
 
 The largest single risk in this dataset is **not** a missing value or a bad
-join. It is `SUM(OUTSTANDING)` returning $45.3 billion — a number that looks
+join. It is `SUM(OUTSTANDING)` returning $45.3 billion, a number that looks
 like a finding, would survive a code review, and is wrong by a factor of
 543,000.
